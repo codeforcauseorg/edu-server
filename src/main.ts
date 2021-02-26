@@ -4,6 +4,9 @@ import { ExpressAdapter } from '@nestjs/platform-express';
 import * as express from 'express';
 import * as functions from 'firebase-functions';
 import { UserGenModule } from './usergen/usergen.module';
+import * as admin from 'firebase-admin'
+
+admin.initializeApp();
 
 async function createFunction(expressInstance) {
   const app = await NestFactory.create(
@@ -29,10 +32,16 @@ export const api = functions
     expressServer(request, response);
   });
 
-export const createUser = functions.auth.user().onCreate((user) => {
-  let userApp = createUserApp();
-  userApp.then(app => {
-    console.log("User created");
-    console.log(app);
-  });
+const usersCollection = admin.firestore().collection("users");
+export const saveUser = functions.auth.user().onCreate(user => {
+  const userRef = usersCollection.doc(user.uid);
+  const data = {
+    name: user.displayName,
+    email: user.email,
+    emailVerified: user.emailVerified,
+    photoURL: user.photoURL,
+    applications: {},
+  };
+  userRef.set(data);
+  return data;
 });
