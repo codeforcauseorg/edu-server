@@ -1,10 +1,11 @@
 {
-  "name": "project",
+  "name": "edu-client",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "Code for Cause",
+  "email": "team@codeforcause.org",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "serve": "npm run build && firebase serve --only functions",
