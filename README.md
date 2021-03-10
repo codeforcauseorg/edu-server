@@ -59,6 +59,16 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+## Setup firebase admin SDK for development
+
+- To use the Firebase Admin SDK in the project, create a new firebase project using [firebase console](https://console.firebase.google.com/).
+- After creating a project, go to [project settings](https://console.firebase.google.com/project/_/settings/general/).
+- In project settings of your newly created project there will be tab called as "Service Accounts". 
+- Click on it, then it will ask to create a service account, click to create a new service account.
+- After creating a service account, click on generate new private key it will automatically download a json file.
+- Copy the json file from your downloads folder and paste it into the project src/config folder and rename it to "service.json"
+
+Your firebase setup is successfully completed!
 
 ## Support
 
