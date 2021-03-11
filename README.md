@@ -60,6 +60,15 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Setting up Firebase
+- Go to the Firebase website(https://firebase.google.com/) and sign up for an account
+- after creating and logging in into account, create a new project by clicking CREATE NEW BUTTON and then give your project a name.
+- Now, navigate to the DATABASE tab, there is a URL that looks something like this your-project-id.firebase.io, This is your Firebase URL.
+- Now click on Service account tab, then click Create New Service Account.
+- Now click on generate New Private key, It will download a json file automatically.
+- Now copy that Json file and paste it into your project src/config folder.
+- You have now succesfully setup your Firebase account, Happy Coding.
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
