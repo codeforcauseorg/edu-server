@@ -45,11 +45,17 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+
+# fix linting
+$ npm run lint:fix
 ```
 
 ## Test
 
 ```bash
+# lint tests
+$ npm run lint
+
 # unit tests
 $ npm run test
 
