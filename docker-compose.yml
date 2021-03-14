@@ -1,0 +1,13 @@
+version: "3"
+services:
+    edu-server-app:
+        container_name: edu-server-app
+        image: edu-server-app
+        restart: always
+        command: npm start
+        build: .
+        ports:
+          - "5000:5000"
+        volumes:
+          - ./:/usr/src/app/
+          - /usr/src/app/node_modules
