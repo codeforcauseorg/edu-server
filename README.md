@@ -12,7 +12,7 @@
 
 ## Description
 
-Education platform is a product which will unable 100% education and will help in upskilling developing countries and rural areas.
+Education platform is a product which will enable 100% education and will help in upskilling developing countries and rural areas.
 Edu server is a backend application written using Nestjs, it provides api endpoints which are used by [Edu Client](https://github.com/codeforcauseorg/edu-client) mobile application.
 
 ### Table of Contents
