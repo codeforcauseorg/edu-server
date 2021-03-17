@@ -109,12 +109,18 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+
+# fix linting
+$ npm run lint:fix
 ```
 
 <a id="run-test"></a>
 ### Running Tests
 
 ```bash
+# lint tests
+$ npm run lint
+
 # unit tests
 $ npm run test
 

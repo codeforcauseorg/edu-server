@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import * as express from 'express';
 import * as functions from 'firebase-functions';
-import * as admin from 'firebase-admin'
+import * as admin from 'firebase-admin';
 
 admin.initializeApp();
 
@@ -16,7 +16,6 @@ async function createFunction(expressInstance) {
   await app.init();
 }
 
-
 const expressServer = express();
 createFunction(expressServer);
 
@@ -26,8 +25,8 @@ export const api = functions
     expressServer(request, response);
   });
 
-const usersCollection = admin.firestore().collection("users");
-export const saveUser = functions.auth.user().onCreate(user => {
+const usersCollection = admin.firestore().collection('users');
+export const saveUser = functions.auth.user().onCreate((user) => {
   const userRef = usersCollection.doc(user.uid);
   const data = {
     name: user.displayName,
