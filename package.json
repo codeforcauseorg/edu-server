@@ -29,6 +29,7 @@
     "@nestjs/core": "^7.0.0",
     "@nestjs/passport": "^7.1.5",
     "@nestjs/platform-express": "^7.0.0",
+    "@nestjs/swagger": "^4.7.16",
     "@tfarras/nestjs-firebase-admin": "^1.0.1",
     "@tfarras/nestjs-firebase-auth": "^1.0.0",
     "express": "^4.17.1",
@@ -39,7 +40,8 @@
     "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.5.4"
+    "rxjs": "^6.5.4",
+    "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.0.0",
