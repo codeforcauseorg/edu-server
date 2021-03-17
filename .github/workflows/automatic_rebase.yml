@@ -14,7 +14,7 @@ name: Automatic Rebase
 jobs:
   rebase:
     name: Rebase PR
-    if: github.event.issue.pull_request != '' && github.event.comment.body == 'GitHub, rebase'
+    if: github.event.issue.pull_request != '' && github.event.comment.body == 'rebase'
     runs-on: ubuntu-latest
     steps:
       - uses: khan/pull-request-comment-trigger@master
