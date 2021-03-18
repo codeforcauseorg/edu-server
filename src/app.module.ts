@@ -5,14 +5,16 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { FirebaseModule } from './firebase/firebase.module';
 import * as path from 'path';
- 
+
 @Module({
   imports: [
-    ConfigModule.load(path.resolve(__dirname, 'config', '**', '!(*.d).{ts,js}')),
+    ConfigModule.load(
+      path.resolve(__dirname, 'config', '**', '!(*.d).{ts,js}'),
+    ),
     FirebaseModule,
     AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
