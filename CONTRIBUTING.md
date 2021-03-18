@@ -24,8 +24,6 @@ Follow these steps:hammer: for contributing:
 
 :heavy_plus_sign: Before submitting a PR, check your code well and explain your work properly in the PR description.
 
-
-
 # :bookmark: Code advice
 
 Kindly maintain a clean code with proper comments.
