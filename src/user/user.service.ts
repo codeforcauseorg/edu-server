@@ -40,5 +40,5 @@ export class UserService {
   async deleteUser(UserID): Promise<any> {
     const deletedUser = await this.UserModel.findByIdAndRemove(UserID);
     return deletedUser;
-  }  
+  }
 }
