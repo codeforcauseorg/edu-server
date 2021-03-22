@@ -14,7 +14,7 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDTO } from './dto/create-user.dto';
 
-@Controller('User')
+@Controller('user')
 export class UserController {
   constructor(private UserService: UserService) {}
 
@@ -29,14 +29,14 @@ export class UserController {
   }
 
   // Retrieve Users list
-  @Get('Users')
+  @Get('users')
   async getAllUser(@Res() res) {
     const Users = await this.UserService.getAllUser();
     return res.status(HttpStatus.OK).json(Users);
   }
 
   // Fetch a particular User using ID
-  @Get('User/:UserID')
+  @Get('user/:UserID')
   async getUser(@Res() res, @Param('UserID') UserID) {
     const User = await this.UserService.getUser(UserID);
     if (!User) throw new NotFoundException('User does not exist!');
