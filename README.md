@@ -24,6 +24,7 @@ Edu server is a backend application written using Nestjs, it provides api endpoi
   - [Setup remote](#setup-remote)  
   - [Run app](#run-app)  
   - [Run test](#run-test) 
+- [API Documentation](#api-docs) 
 - [Contributing](#contributing)   
 - [Discord](#discord)   
 - [Potential Maintainers](#maintainers) 
@@ -124,6 +125,11 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
+<a id="api-docs"></a>
+## 📖 API Documentation
+
+API documentation of the server endpoints are available on `/api/docs` endpoint, which are build using Swagger-UI.
 
 <a id="contributing"></a>
 ## Contributing
