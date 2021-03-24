@@ -132,7 +132,7 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 <a id="setup-database"></a>
-### 5. 📡 Setup database
+### 6. 📡 Setup database
 Install mongodb and nestjs/mongoose. MongoDB would be the Database for the project
 
 
