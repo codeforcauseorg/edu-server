@@ -5,7 +5,9 @@ import {
   FIREBASE_ADMIN_INJECT,
 } from '@tfarras/nestjs-firebase-admin';
 import { AppService } from './app.service';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller()
 export class AppController {
   constructor(
