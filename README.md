@@ -131,6 +131,10 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+<a id="setup-database"></a>
+### 5. 📡 Setup database
+Install mongodb and nestjs/mongoose. MongoDB would be the Database for the project
+
 
 <a id="api-docs"></a>
 ## 📖 API Documentation
