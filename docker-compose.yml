@@ -3,25 +3,10 @@ services:
   edu-server-app:
     container_name: edu-server-app
     image: edu-server-app
-    depends_on:
-      - db
     restart: always
     build: .
     ports:
       - '5080:5000'
-    environment:
-      - DB_URL=mongodb://db_mongo
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
-
-  db:
-    image: mongo
-    container_name: mongo_db
-    volumes:
-      - mongodata:/data/db
-    ports:
-      - '27017:27017'
-
-volumes:
-  mongodata:
