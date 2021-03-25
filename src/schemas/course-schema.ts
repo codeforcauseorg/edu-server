@@ -24,7 +24,7 @@ export class Course {
   Duration: number;
 
   @Prop()
-  Active: Boolean;
+  Active: boolean;
 
   @Prop()
   Coupons: number;
