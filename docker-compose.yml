@@ -1,13 +1,27 @@
-version: "3"
+version: '3.9'
 services:
-    edu-server-app:
-        container_name: edu-server-app
-        image: edu-server-app
-        restart: always
-        command: npm start
-        build: .
-        ports:
-          - "5000:5000"
-        volumes:
-          - ./:/usr/src/app/
-          - /usr/src/app/node_modules
+  edu-server-app:
+    container_name: edu-server-app
+    image: edu-server-app
+    depends_on:
+      - db
+    restart: always
+    build: .
+    ports:
+      - '5080:5000'
+    environment:
+      - DB_URL=mongodb://db_mongo
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+
+  db:
+    image: mongo
+    container_name: mongo_db
+    volumes:
+      - mongodata:/data/db
+    ports:
+      - '27017:27017'
+
+volumes:
+  mongodata:
