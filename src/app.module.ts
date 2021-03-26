@@ -7,6 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { FirebaseModule } from './firebase/firebase.module';
 import { UserModule } from './user/user.module';
 import * as path from 'path';
+import { CourseModule } from './modules/course/course.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import * as path from 'path';
     AuthModule,
     MongooseModule.forRoot('mongodb://localhost/nest'),
     UserModule,
+    CourseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
