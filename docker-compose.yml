@@ -1,13 +1,32 @@
-version: "3"
+version: '3.9'
 services:
-    edu-server-app:
-        container_name: edu-server-app
-        image: edu-server-app
-        restart: always
-        command: npm start
-        build: .
-        ports:
-          - "5000:5000"
-        volumes:
-          - ./:/usr/src/app/
-          - /usr/src/app/node_modules
+  edu-server-app:
+    container_name: edu-server-app
+    image: edu-server-app
+    restart: always
+    build: .
+    ports:
+      - '5000:5000'
+    links:
+      - mongo
+    volumes:
+      - ./:/usr/src/app/
+      - /usr/src/app/node_modules
+    networks:
+      - webnet
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    restart: always
+    container_name: edu_server_db
+    ports:
+      - '27017:27017'
+    networks:
+      - webnet
+    volumes:
+      - data_mongo:/data/db
+networks:
+  webnet:
+volumes:
+  data_mongo:
