@@ -6,7 +6,27 @@ services:
     restart: always
     build: .
     ports:
-      - '5080:5000'
+      - '5000:5000'
+    links:
+      - mongo
     volumes:
-      - .:/usr/src/app
+      - ./:/usr/src/app/
       - /usr/src/app/node_modules
+    networks:
+      - webnet
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    restart: always
+    container_name: edu_server_db
+    ports:
+      - '27017:27017'
+    networks:
+      - webnet
+    volumes:
+      - data_mongo:/data/db
+networks:
+  webnet:
+volumes:
+  data_mongo:
