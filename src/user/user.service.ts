@@ -16,9 +16,9 @@ export class UserService {
 
   // Get a single User
   async getUser(UserID): Promise<User> {
-    const User = await this.UserModel.findById(UserID).exec();
-    if (User) {
-      return User;
+    const user = await this.UserModel.findById(UserID).exec();
+    if (user) {
+      return user;
     }
     throw new HttpException(
       {
