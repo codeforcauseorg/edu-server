@@ -7,6 +7,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { FirebaseModule } from './firebase/firebase.module';
 import { UserModule } from './user/user.module';
 import * as path from 'path';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 @Module({
   imports: [
@@ -15,7 +18,7 @@ import * as path from 'path';
     ),
     FirebaseModule,
     AuthModule,
-    MongooseModule.forRoot('mongodb://localhost/nest'),
+    MongooseModule.forRoot(process.env.MONGOURL),
     UserModule,
   ],
   controllers: [AppController],
