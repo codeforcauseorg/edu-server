@@ -11,8 +11,8 @@ import {
   Delete,
   Param,
 } from '@nestjs/common';
-import { UserService } from './user.service';
-import { CreateUserDTO } from './dto/create-user.dto';
+import { UserService } from './user.service'; //eslint-disable-line 
+import { CreateUserDTO } from './dto/create-user.dto'; //eslint-disable-line 
 import { ApiCreatedResponse, ApiProperty } from '@nestjs/swagger';
 class UserResponseBody {
   @ApiProperty({ required: true, example: '605e3fd9acc33583fb389aec' })
