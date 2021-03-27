@@ -13,6 +13,29 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDTO } from './dto/create-user.dto';
+import { ApiCreatedResponse, ApiProperty } from '@nestjs/swagger';
+class UserResponseBody {
+  @ApiProperty({ required: true, example: '605e3fd9acc33583fb389aec' })
+  _id: string;
+
+  @ApiProperty({ required: true, example: 'Noob' })
+  first_name: string;
+
+  @ApiProperty({ required: true, example: 'Coder' })
+  last_name: string;
+
+  @ApiProperty({ required: true, example: 'noobcoder@gmai.com' })
+  email: string;
+
+  @ApiProperty({ required: true, example: '+919999999999' })
+  phone: string;
+
+  @ApiProperty({ required: true, example: 'A-88, Mayur Vihar, Delhi' })
+  address: string;
+
+  @ApiProperty({ required: true, example: 'I am Noob Coder' })
+  description: string;
+}
 
 @Controller('user')
 export class UserController {
@@ -29,6 +52,7 @@ export class UserController {
   }
 
   // Retrieve Users list
+  @ApiCreatedResponse({ type: [UserResponseBody] })
   @Get('users')
   async getAllUser(@Res() res) {
     const Users = await this.UserService.getAllUser();
@@ -36,10 +60,10 @@ export class UserController {
   }
 
   // Fetch a particular User using ID
-  @Get('user/:UserID')
-  async getUser(@Res() res, @Param('UserID') UserID) {
+  @ApiCreatedResponse({ type: UserResponseBody })
+  @Get('/:UserID')
+  async getUser(@Res() res, @Param('UserID') UserID: string) {
     const User = await this.UserService.getUser(UserID);
-    if (!User) throw new NotFoundException('User does not exist!');
     return res.status(HttpStatus.OK).json(User);
   }
 
