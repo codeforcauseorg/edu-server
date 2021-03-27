@@ -146,6 +146,26 @@ The above Url contains the detailed steps to install it locally
 
 Instead of installing MongoDB , you can also setup a mongourl for yourself and work on the project .
 
+<a id="setup-Docker"></a>
+### 7. 📡 Setup Docker
+
+Docker is a set of platform as a service products that use OS-level virtualization to deliver software in packages called containers
+
+1).Install Docker (a devops tool) in your system 
+https://docs.docker.com/engine/install/
+
+
+2).Setup the env variables and all and check if docker desktop is working correctly or not
+
+3).Add a mongourl to your .env file by setting a mongocluster connection through mongoDB Atlas
+
+4).Run the command   docker-compose up   
+Thsi will build the image and container for the project and you can see it running on your console
+Now you can use this to run the server for development purposes as well
+
+
+
+Instead of installing MongoDB , you can also setup a mongourl for yourself and work on the project .
 
 <a id="api-docs"></a>
 ## 📖 API Documentation
