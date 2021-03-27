@@ -165,8 +165,6 @@ Now you can use this to run the server for development purposes as well
 
 
 
-Instead of installing MongoDB , you can also setup a mongourl for yourself and work on the project .
-
 <a id="api-docs"></a>
 ## 📖 API Documentation
 
