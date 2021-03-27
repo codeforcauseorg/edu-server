@@ -42,7 +42,7 @@ class UserResponseBody {
 
 @Controller('user')
 export class UserController {
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {}
 
   // add a User
   @Post()
@@ -67,7 +67,6 @@ export class UserController {
   @ApiCreatedResponse({ type: UserResponseBody })
   @Get('/:userId')
   async getUser(@Res() res, @Param('userId') userId: string) {
-
     const user = await this.userService.getUser(userId);
     return res.status(HttpStatus.OK).json(user);
   }
@@ -78,8 +77,7 @@ export class UserController {
     @Query('uid') uid,
     @Body() createUserDTO: CreateUserDTO,
   ) {
-
-    console.log('userId', uid)
+    console.log('userId', uid);
     const user = await this.userService.updateUser(uid, createUserDTO);
 
     if (!user) throw new NotFoundException('User does not exist!');

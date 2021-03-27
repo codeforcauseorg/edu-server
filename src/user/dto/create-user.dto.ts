@@ -1,4 +1,4 @@
-import {IsNotEmpty} from 'class-validator'
+import { IsNotEmpty } from 'class-validator';
 
 export class CreateUserDTO {
   @IsNotEmpty()
@@ -13,7 +13,7 @@ export class CreateUserDTO {
   readonly phone: string;
 
   readonly address: string;
-  
+
   readonly description: string;
 
   @IsNotEmpty()
