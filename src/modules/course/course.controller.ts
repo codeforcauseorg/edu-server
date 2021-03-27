@@ -18,14 +18,14 @@ export class CourseController {
   constructor(private courseService: CourseService) {}
 
   // get all courses
-  @Get('/courses')
+  @Get('/all')
   async getAllCourses(@Res() res) {
     const courses = this.courseService.getAllCourses();
     return res.status(HttpStatus.OK).json(courses);
   }
 
   // get selected course
-  @Get('/course/:CourseID')
+  @Get('/:CourseID')
   async getSelectedCourse(@Res() res, @Param('CourseID') CourseID) {
     const course = await this.courseService.getSelectedCourse(CourseID);
     if (!course) {
