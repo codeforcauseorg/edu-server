@@ -133,7 +133,18 @@ $ npm run test:cov
 ```
 <a id="setup-database"></a>
 ### 6. 📡 Setup database
+
 Install mongodb and nestjs/mongoose. MongoDB would be the Database for the project
+MongoDB is a source-available cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with optional schemas.
+
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/ 
+The above Url contains the detailed steps to install it locally
+
+1)Download the installer.
+2)Run the Installer and continue with the steps
+3)Intsall mongodb compass also
+
+Instead of installing MongoDB , you can also setup a mongourl for yourself and work on the project .
 
 
 <a id="api-docs"></a>
