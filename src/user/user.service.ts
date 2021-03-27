@@ -10,16 +10,18 @@ export class UserService {
 
   // fetch all Users
   async getAllUser(): Promise<User[]> {
-    const Users = await this.UserModel.find().exec();
-    return Users;
+    const users = await this.UserModel.find().exec();
+    return users;
   }
 
   // Get a single User
-  async getUser(UserID): Promise<User> {
-    const user = await this.UserModel.findById(UserID).exec();
+  async getUser(userId): Promise<User> {
+    const user = await this.UserModel.findById(userId).exec();
+
     if (user) {
       return user;
     }
+
     throw new HttpException(
       {
         status: HttpStatus.NOT_FOUND,
