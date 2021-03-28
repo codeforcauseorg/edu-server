@@ -16,6 +16,9 @@ export class CreateUserDTO {
 
   readonly description: string;
 
+  readonly score: number;
+  readonly isAdmin: boolean;
+
   @IsNotEmpty()
   readonly created_at: Date;
 }
