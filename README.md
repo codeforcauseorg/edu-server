@@ -131,6 +131,39 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+<a id="setup-database"></a>
+### 6. 📡 Setup database
+
+Install mongodb and nestjs/mongoose. MongoDB would be the Database for the project
+MongoDB is a source-available cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with optional schemas.
+
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/ 
+The above Url contains the detailed steps to install it locally
+
+1)Download the installer.
+2)Run the Installer and continue with the steps
+3)Intsall mongodb compass also
+
+Instead of installing MongoDB , you can also setup a mongourl for yourself and work on the project .
+
+<a id="setup-Docker"></a>
+### 7. 📡 Setup Docker
+
+Docker is a set of platform as a service products that use OS-level virtualization to deliver software in packages called containers
+
+1).Install Docker (a devops tool) in your system 
+https://docs.docker.com/engine/install/
+
+
+2).Setup the env variables and all and check if docker desktop is working correctly or not
+
+3).Add a mongourl to your .env file by setting a mongocluster connection through mongoDB Atlas
+
+4).Run the command   docker-compose up   
+Thsi will build the image and container for the project and you can see it running on your console
+Now you can use this to run the server for development purposes as well
+
+
 
 <a id="api-docs"></a>
 ## 📖 API Documentation
