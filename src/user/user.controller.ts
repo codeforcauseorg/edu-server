@@ -10,18 +10,45 @@ import {
   NotFoundException,
   Delete,
   Param,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
-import { UserService } from './user.service';
-import { CreateUserDTO } from './dto/create-user.dto';
+import { UserService } from './user.service'; //eslint-disable-line 
+import { CreateUserDTO } from './dto/create-user.dto'; //eslint-disable-line 
+import { ApiCreatedResponse, ApiProperty } from '@nestjs/swagger';
+
+class UserResponseBody {
+  @ApiProperty({ required: true, example: '605e3fd9acc33583fb389aec' })
+  _id: string;
+
+  @ApiProperty({ required: true, example: 'Noob' })
+  first_name: string;
+
+  @ApiProperty({ required: true, example: 'Coder' })
+  last_name: string;
+
+  @ApiProperty({ required: true, example: 'noobcoder@gmai.com' })
+  email: string;
+
+  @ApiProperty({ required: true, example: '+919999999999' })
+  phone: string;
+
+  @ApiProperty({ required: true, example: 'A-88, Mayur Vihar, Delhi' })
+  address: string;
+
+  @ApiProperty({ required: true, example: 'I am Noob Coder' })
+  description: string;
+}
 
 @Controller('user')
 export class UserController {
-  constructor(private UserService: UserService) {}
+  constructor(private userService: UserService) {}
 
   // add a User
-  @Post('/create')
+  @Post()
+  @UsePipes(ValidationPipe)
   async addUser(@Res() res, @Body() CreateUserDTO: CreateUserDTO) {
-    const User = await this.UserService.addUser(CreateUserDTO);
+    const User = await this.userService.addUser(CreateUserDTO);
     return res.status(HttpStatus.OK).json({
       message: 'User has been created successfully',
       User,
@@ -29,42 +56,46 @@ export class UserController {
   }
 
   // Retrieve Users list
-  @Get('users')
+  @ApiCreatedResponse({ type: [UserResponseBody] })
+  @Get()
   async getAllUser(@Res() res) {
-    const Users = await this.UserService.getAllUser();
+    const Users = await this.userService.getAllUser();
     return res.status(HttpStatus.OK).json(Users);
   }
 
   // Fetch a particular User using ID
-  @Get('user/:UserID')
-  async getUser(@Res() res, @Param('UserID') UserID) {
-    const User = await this.UserService.getUser(UserID);
-    if (!User) throw new NotFoundException('User does not exist!');
-    return res.status(HttpStatus.OK).json(User);
+  @ApiCreatedResponse({ type: UserResponseBody })
+  @Get('/:userId')
+  async getUser(@Res() res, @Param('userId') userId: string) {
+    const user = await this.userService.getUser(userId);
+    return res.status(HttpStatus.OK).json(user);
   }
 
   @Put('/update')
   async updateUser(
     @Res() res,
-    @Query('UserID') UserID,
-    @Body() CreateUserDTO: CreateUserDTO,
+    @Query('uid') uid,
+    @Body() createUserDTO: CreateUserDTO,
   ) {
-    const User = await this.UserService.updateUser(UserID, CreateUserDTO);
-    if (!User) throw new NotFoundException('User does not exist!');
+    console.log('userId', uid);
+    const user = await this.userService.updateUser(uid, createUserDTO);
+
+    if (!user) throw new NotFoundException('User does not exist!');
+
     return res.status(HttpStatus.OK).json({
-      message: 'User has been successfully updated',
-      User,
+      message: 'user has been successfully updated',
+      user: user,
     });
   }
 
   // Delete a User
   @Delete('/delete')
-  async deleteUser(@Res() res, @Query('UserID') UserID) {
-    const User = await this.UserService.deleteUser(UserID);
-    if (!User) throw new NotFoundException('User does not exist');
+  async deleteUser(@Res() res, @Query('uid') uid) {
+    const user = await this.userService.deleteUser(uid);
+    if (!user) throw new NotFoundException('User does not exist');
     return res.status(HttpStatus.OK).json({
-      message: 'User has been deleted',
-      User,
+      message: 'user has been deleted',
+      user: user,
     });
   }
 }

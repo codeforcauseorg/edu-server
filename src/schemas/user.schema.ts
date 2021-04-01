@@ -23,6 +23,12 @@ export class User {
   @Prop()
   description: string;
 
+  @Prop({ default: 0 })
+  score: number;
+
+  @Prop({ default: false })
+  isAdmin: boolean;
+
   @Prop()
   created_at: Date;
 }
