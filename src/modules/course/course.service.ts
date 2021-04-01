@@ -12,13 +12,13 @@ export class CourseService {
 
   // fetch all courses
   async getAllCourses(): Promise<Course[]> {
-    const Courses = this.CourseModel.find().exec();
+    const Courses = await this.CourseModel.find().exec();
     return Courses;
   }
 
   // fetch selected course
   async getSelectedCourse(CourseID: string): Promise<Course> {
-    const Course = this.CourseModel.findById(CourseID).exec();
+    const Course = await this.CourseModel.findById(CourseID).exec();
     return Course;
   }
 

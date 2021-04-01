@@ -10,6 +10,7 @@ import {
   Query,
   Res,
 } from '@nestjs/common';
+import { Response } from 'express';
 import { CourseService } from './course.service';
 import { CourseDTO } from './create-course.dto';
 
@@ -19,14 +20,14 @@ export class CourseController {
 
   // get all courses
   @Get('/all')
-  async getAllCourses(@Res() res) {
-    const courses = this.courseService.getAllCourses();
+  async getAllCourses(@Res() res: Response) {
+    const courses = await this.courseService.getAllCourses();
     return res.status(HttpStatus.OK).json(courses);
   }
 
   // get selected course
   @Get('/:CourseID')
-  async getSelectedCourse(@Res() res, @Param('CourseID') CourseID) {
+  async getSelectedCourse(@Res() res: Response, @Param('CourseID') CourseID) {
     const course = await this.courseService.getSelectedCourse(CourseID);
     if (!course) {
       throw new NotFoundException('Selected course not found');
@@ -36,7 +37,7 @@ export class CourseController {
 
   // add a Course
   @Post('/create')
-  async addCourse(@Res() res, @Body() courseDTO: CourseDTO) {
+  async addCourse(@Res() res: Response, @Body() courseDTO: CourseDTO) {
     const course = await this.courseService.addCourse(courseDTO);
     return res.status(HttpStatus.OK).json({
       message: 'Course has been added successfully',
@@ -47,7 +48,7 @@ export class CourseController {
   // update a course
   @Put('/edit')
   async editCourse(
-    @Res() res,
+    @Res() res: Response,
     @Query('CourseID') CourseID,
     @Body() courseDTO: CourseDTO,
   ) {
