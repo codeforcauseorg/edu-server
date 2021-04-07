@@ -65,9 +65,9 @@ export class ChatController {
 
   // Fetch a particular Chat using ID
   @ApiCreatedResponse({ type: ChatResponseBody })
-  @Get('/:ChatId')
-  async getChat(@Res() res, @Param('ChatId') ChatId: string) {
-    const Chat = await this.ChatService.getChat(ChatId);
+  @Get('/:chatId')
+  async getChat(@Res() res, @Param('chatId') chatId: string) {
+    const Chat = await this.ChatService.getChat(chatId);
     return res.status(HttpStatus.OK).json(Chat);
   }
 
