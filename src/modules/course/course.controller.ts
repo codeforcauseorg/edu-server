@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 import { CourseService } from './course.service';
-import { CourseDTO } from './create-course.dto';
+import { CourseDTO } from './dto/create-course.dto';
 
 @Controller('course')
 export class CourseController {

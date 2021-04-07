@@ -23,7 +23,7 @@ export class Course {
   @Prop()
   duration: string;
 
-  @Prop()
+  @Prop({ default: false })
   active: boolean;
 
   @Prop()
