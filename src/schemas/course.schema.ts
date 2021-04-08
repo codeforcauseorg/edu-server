@@ -34,6 +34,9 @@ export class Course {
 
   @Prop()
   video_num: number;
+
+  @Prop()
+  assignments: string[]; //links to questions pdf
 }
 
 export const CourseSchema = SchemaFactory.createForClass(Course);
