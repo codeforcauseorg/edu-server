@@ -193,7 +193,14 @@ Connect with us on [Discord](https://discord.gg/dydQp2Q).
 [Kunal Kushwaha](https://github.com/kunal-kushwaha)\
 [Abhishek Kumar](https://github.com/Abhishek-kumar09)
 
-  
+## ✨ Contributors 
+
+This project exists thanks to all the people who contribute.
+
+<a href="https://github.com/codeforcauseorg/edu-server/graphs/contributors"> 
+     <img src="https://contrib.rocks/image?repo=codeforcauseorg/edu-server" />
+</a>
+
 <a id="license"></a>
 ## 📜 Licence
 This software is open source, licensed under the [MIT License](LICENSE).
