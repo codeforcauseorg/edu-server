@@ -26,9 +26,9 @@ export class CourseController {
   }
 
   // get selected course
-  @Get('/:CourseID')
-  async getSelectedCourse(@Res() res: Response, @Param('CourseID') CourseID) {
-    const course = await this.courseService.getSelectedCourse(CourseID);
+  @Get('/:courseID')
+  async getSelectedCourse(@Res() res: Response, @Param('courseID') courseID) {
+    const course = await this.courseService.getSelectedCourse(courseID);
     if (!course) {
       throw new NotFoundException('Selected course not found');
     }
