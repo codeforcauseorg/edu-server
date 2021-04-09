@@ -38,7 +38,10 @@ export class UserService {
   }
 
   // Edit User details
-  async updateUser(UserID, CreateUserDTO: CreateUserDTO): Promise<User> {
+  async updateUser(
+    UserID,
+    CreateUserDTO: CreateUserDTO,
+  ): Promise<User | undefined> {
     const updatedUser = await this.UserModel.findByIdAndUpdate(
       UserID,
       CreateUserDTO,

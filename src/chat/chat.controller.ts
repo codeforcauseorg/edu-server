@@ -6,7 +6,6 @@ import {
   Post,
   Body,
   Put,
-  Query,
   NotFoundException,
   Delete,
   Param,
@@ -71,10 +70,10 @@ export class ChatController {
     return res.status(HttpStatus.OK).json(Chat);
   }
 
-  @Put('/update')
+  @Put('/:uid')
   async updateChat(
     @Res() res,
-    @Query('uid') uid,
+    @Param('uid') uid: string,
     @Body() createChatDTO: CreateChatDTO,
   ) {
     console.log('ChatId', uid);
@@ -89,8 +88,8 @@ export class ChatController {
   }
 
   // Delete a Chat
-  @Delete('/delete')
-  async deleteChat(@Res() res, @Query('uid') uid) {
+  @Delete('/:uid')
+  async deleteChat(@Res() res, @Param('uid') uid: string) {
     const Chat = await this.ChatService.deleteChat(uid);
     if (!Chat) throw new NotFoundException('Chat does not exist');
     return res.status(HttpStatus.OK).json({
