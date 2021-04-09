@@ -6,7 +6,6 @@ import {
   Post,
   Body,
   Put,
-  Query,
   NotFoundException,
   Delete,
   Param,
@@ -67,10 +66,10 @@ export class AssignmentController {
     return res.status(HttpStatus.OK).json(Assignment);
   }
 
-  @Put('/update')
+  @Put('/:uid')
   async updateAssignment(
     @Res() res,
-    @Query('uid') uid,
+    @Param('uid') uid: string,
     @Body() createAssignmentDTO: CreateAssignmentDTO,
   ) {
     console.log('AssignmentId', uid);
@@ -88,8 +87,8 @@ export class AssignmentController {
   }
 
   // Delete a Assignment
-  @Delete('/delete')
-  async deleteAssignment(@Res() res, @Query('uid') uid) {
+  @Delete('/:uid')
+  async deleteAssignment(@Res() res, @Param('uid') uid: string) {
     const Assignment = await this.AssignmentService.deleteAssignment(uid);
     if (!Assignment) throw new NotFoundException('Assignment does not exist');
     return res.status(HttpStatus.OK).json({
