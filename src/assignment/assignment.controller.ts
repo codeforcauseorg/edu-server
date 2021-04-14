@@ -39,7 +39,7 @@ export class AssignmentController {
   @Post()
   @UsePipes(ValidationPipe)
   async addAssignment(
-    @Res() res,
+    @Res({ passthrough: true }) res,
     @Body() CreateAssignmentDTO: CreateAssignmentDTO,
   ) {
     const Assignment = await this.AssignmentService.addAssignment(
@@ -54,7 +54,7 @@ export class AssignmentController {
   // Retrieve Assignments list
   @ApiCreatedResponse({ type: [AssignmentResponseBody] })
   @Get()
-  async getAllAssignment(@Res() res) {
+  async getAllAssignment(@Res({ passthrough: true }) res) {
     const Assignments = await this.AssignmentService.getAllAssignment();
     return res.status(HttpStatus.OK).json(Assignments);
   }
@@ -62,14 +62,14 @@ export class AssignmentController {
   // Fetch a particular Assignment using ID
   @ApiCreatedResponse({ type: AssignmentResponseBody })
   @Get('/:AssignmentId')
-  async getAssignment(@Res() res, @Param('AssignmentId') AssignmentId: string) {
+  async getAssignment(@Res({ passthrough: true }) res, @Param('AssignmentId') AssignmentId: string) {
     const Assignment = await this.AssignmentService.getAssignment(AssignmentId);
     return res.status(HttpStatus.OK).json(Assignment);
   }
 
   @Put('/update')
   async updateAssignment(
-    @Res() res,
+    @Res({ passthrough: true }) res,
     @Query('uid') uid,
     @Body() createAssignmentDTO: CreateAssignmentDTO,
   ) {
@@ -89,7 +89,7 @@ export class AssignmentController {
 
   // Delete a Assignment
   @Delete('/delete')
-  async deleteAssignment(@Res() res, @Query('uid') uid) {
+  async deleteAssignment(@Res({ passthrough: true }) res, @Query('uid') uid) {
     const Assignment = await this.AssignmentService.deleteAssignment(uid);
     if (!Assignment) throw new NotFoundException('Assignment does not exist');
     return res.status(HttpStatus.OK).json({
