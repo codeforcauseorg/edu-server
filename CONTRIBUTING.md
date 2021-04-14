@@ -16,7 +16,7 @@ Follow these steps:hammer: for contributing:
 
 :tada: Merge the changes in your branch.
 
->git merge upstream/(your_branch_name)
+>git merge upstream/main
 
 :alien: Push your changes to your branch.
 
