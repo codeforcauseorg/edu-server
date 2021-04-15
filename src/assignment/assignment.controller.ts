@@ -62,7 +62,10 @@ export class AssignmentController {
   // Fetch a particular Assignment using ID
   @ApiCreatedResponse({ type: AssignmentResponseBody })
   @Get('/:AssignmentId')
-  async getAssignment(@Res({ passthrough: true }) res, @Param('AssignmentId') AssignmentId: string) {
+  async getAssignment(
+    @Res({ passthrough: true }) res,
+    @Param('AssignmentId') AssignmentId: string,
+  ) {
     const Assignment = await this.AssignmentService.getAssignment(AssignmentId);
     return res.status(HttpStatus.OK).json(Assignment);
   }
