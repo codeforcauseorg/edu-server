@@ -9,7 +9,7 @@ export class AssignmentService {
   constructor(
     @InjectModel('Assignment')
     private readonly AssignmentModel: Model<Assignment>,
-  ) { }
+  ) {}
 
   // fetch all Assignments
   async getAllAssignment(): Promise<Assignment[]> {
@@ -35,7 +35,9 @@ export class AssignmentService {
   }
 
   // post a single Assignment
-  async addAssignment(CreateAssignmentDTO: CreateAssignmentDTO,): Promise<Assignment> {
+  async addAssignment(
+    CreateAssignmentDTO: CreateAssignmentDTO,
+  ): Promise<Assignment> {
     const newAssignment = await new this.AssignmentModel(CreateAssignmentDTO);
     return newAssignment.save();
   }

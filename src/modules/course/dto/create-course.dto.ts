@@ -1,6 +1,5 @@
 import { IsDateString, IsNotEmpty } from 'class-validator';
 
-
 export class CourseDTO {
   @IsNotEmpty()
   readonly id: string;

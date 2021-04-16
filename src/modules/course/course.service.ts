@@ -17,24 +17,28 @@ export class CourseService {
   }
 
   // fetch selected course
-  async getSelectedCourse(CourseID: string): Promise<Course> {
+  async findCourseById(CourseID: string): Promise<Course> {
     const Course = await this.CourseModel.findById(CourseID).exec();
     return Course;
   }
 
   // add course
   async addCourse(courseDTO: CourseDTO): Promise<Course> {
-    const newCourse = new this.CourseModel(courseDTO);    
+    const newCourse = new this.CourseModel(courseDTO);
     return newCourse.save();
   }
 
   // edit course
   async editCourse(CourseId: string, courseDTO: CourseDTO): Promise<Course> {
-    const updatedCourse = await this.CourseModel.findByIdAndUpdate(
-      CourseId,
-      courseDTO,
-      { new: true },
-    );
-    return updatedCourse;
+    let updatedCourse = null;
+    try {
+      updatedCourse = await this.CourseModel.findByIdAndUpdate(
+        CourseId,
+        courseDTO,
+        { new: true },
+      );
+    } finally {
+      return updatedCourse;
+    }
   }
 }

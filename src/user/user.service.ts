@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './interfaces/user.interface';
@@ -15,20 +15,15 @@ export class UserService {
   }
 
   // Get a single User
-  async getUser(userId): Promise<User> {
-    const user = await this.UserModel.findById(userId).exec();
-
-    if (user) {
-      return user;
+  async findUserById(userId): Promise<User> {
+    let user;
+    try {
+      user = await this.UserModel.findById(userId).exec();
+    } catch (e) {
+      throw new NotFoundException('User Not Found!');
     }
 
-    throw new HttpException(
-      {
-        status: HttpStatus.NOT_FOUND,
-        error: 'User Not Found',
-      },
-      HttpStatus.NOT_FOUND,
-    );
+    return user;
   }
 
   // post a single User
@@ -39,17 +34,25 @@ export class UserService {
 
   // Edit User details
   async updateUser(UserID, CreateUserDTO: CreateUserDTO): Promise<User> {
-    const updatedUser = await this.UserModel.findByIdAndUpdate(
-      UserID,
-      CreateUserDTO,
-      { new: true },
-    );
-    return updatedUser;
+    let updatedUser;
+    try {
+      updatedUser = await this.UserModel.findByIdAndUpdate(
+        UserID,
+        CreateUserDTO,
+        { new: true },
+      );
+    } finally {
+      return updatedUser;
+    }
   }
 
   // Delete a User
   async deleteUser(UserID): Promise<any> {
-    const deletedUser = await this.UserModel.findByIdAndRemove(UserID);
-    return deletedUser;
+    let deletedUser;
+    try {
+      deletedUser = await this.UserModel.findByIdAndRemove(UserID);
+    } finally {
+      return deletedUser;
+    }
   }
 }
