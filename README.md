@@ -7,7 +7,7 @@
 <a href="LICENSE"><img src="https://img.shields.io/github/license/codeforcauseorg/edu-server" alt="License" /></a>
 <a href="https://discord.gg/dydQp2Q">
   <img src="https://img.shields.io/discord/717102560909197493" alt="chat"/></a>
-<a href="https://twitter.com/codeforcausein?lang=en"><img src="https://img.shields.io/twitter/follow/codeforcausein.svg?style=social"></a>
+<a href="https://twitter.com/codeforcausein?lang=en"><img src="https://img.shields.io/twitter/follow/codeforcausein.svg?style=social"></a>     
 </p>
 
 ## Description
@@ -40,6 +40,8 @@ Edu server is a backend application written using Nestjs, it provides api endpoi
 
 <a id="setup-run"></a>
 ## 🔨 Setup and Run
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/21bb218956f8c4bbd471#?env%5Bedu-server%5D=W3sia2V5IjoidXJsIiwidmFsdWUiOiJsb2NhbGhvc3Q6NTAwMCIsImVuYWJsZWQiOnRydWV9XQ==)
 
 <a id="setup-repo"></a>
 ### Setup local repo
