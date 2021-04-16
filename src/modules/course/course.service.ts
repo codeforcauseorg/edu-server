@@ -24,7 +24,7 @@ export class CourseService {
 
   // add course
   async addCourse(courseDTO: CourseDTO): Promise<Course> {
-    const newCourse = new this.CourseModel(courseDTO);
+    const newCourse = new this.CourseModel(courseDTO);    
     return newCourse.save();
   }
 
