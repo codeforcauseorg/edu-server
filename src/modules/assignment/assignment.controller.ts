@@ -66,15 +66,15 @@ export class AssignmentController {
     return res.status(HttpStatus.OK).json(Assignment);
   }
 
-  @Put('/:uid')
+  @Put('/:AssignmentId')
   async updateAssignment(
     @Res() res,
-    @Param('uid') uid: string,
+    @Param('AssignmentId') AssignmentId: string,
     @Body() createAssignmentDTO: CreateAssignmentDTO,
   ) {
-    console.log('AssignmentId', uid);
+    console.log('AssignmentId', AssignmentId);
     const Assignment = await this.AssignmentService.updateAssignment(
-      uid,
+      AssignmentId,
       createAssignmentDTO,
     );
 
@@ -87,9 +87,14 @@ export class AssignmentController {
   }
 
   // Delete a Assignment
-  @Delete('/:uid')
-  async deleteAssignment(@Res() res, @Param('uid') uid: string) {
-    const Assignment = await this.AssignmentService.deleteAssignment(uid);
+  @Delete('/:AssignmentId')
+  async deleteAssignment(
+    @Res() res,
+    @Param('AssignmentId') AssignmentId: string,
+  ) {
+    const Assignment = await this.AssignmentService.deleteAssignment(
+      AssignmentId,
+    );
     if (!Assignment) throw new NotFoundException('Assignment does not exist');
     return res.status(HttpStatus.OK).json({
       message: 'Assignment has been deleted',
