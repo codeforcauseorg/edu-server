@@ -60,19 +60,19 @@ export class AssignmentController {
 
   // Fetch a particular Assignment using ID
   @ApiCreatedResponse({ type: AssignmentResponseBody })
-  @Get('/:AssignmentId')
-  async getAssignment(@Res() res, @Param('AssignmentId') AssignmentId: string) {
+  @Get('/:assignmentId')
+  async getAssignment(@Res() res, @Param('assignmentId') AssignmentId: string) {
     const Assignment = await this.AssignmentService.getAssignment(AssignmentId);
     return res.status(HttpStatus.OK).json(Assignment);
   }
 
-  @Put('/:AssignmentId')
+  @Put('/:assignmentId')
   async updateAssignment(
     @Res() res,
-    @Param('AssignmentId') AssignmentId: string,
+    @Param('assignmentId') AssignmentId: string,
     @Body() createAssignmentDTO: CreateAssignmentDTO,
   ) {
-    console.log('AssignmentId', AssignmentId);
+    console.log('assignmentId', AssignmentId);
     const Assignment = await this.AssignmentService.updateAssignment(
       AssignmentId,
       createAssignmentDTO,
@@ -80,25 +80,19 @@ export class AssignmentController {
 
     if (!Assignment) throw new NotFoundException('Assignment does not exist!');
 
-    return res.status(HttpStatus.OK).json({
-      message: 'Assignment has been successfully updated',
-      Assignment: Assignment,
-    });
+    return res.status(HttpStatus.OK).json(Assignment);
   }
 
   // Delete a Assignment
-  @Delete('/:AssignmentId')
+  @Delete('/:assignmentId')
   async deleteAssignment(
     @Res() res,
-    @Param('AssignmentId') AssignmentId: string,
+    @Param('assignmentId') AssignmentId: string,
   ) {
     const Assignment = await this.AssignmentService.deleteAssignment(
       AssignmentId,
     );
     if (!Assignment) throw new NotFoundException('Assignment does not exist');
-    return res.status(HttpStatus.OK).json({
-      message: 'Assignment has been deleted',
-      Assignment: Assignment,
-    });
+    return res.status(HttpStatus.OK).json(Assignment);
   }
 }
