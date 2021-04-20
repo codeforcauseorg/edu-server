@@ -36,26 +36,26 @@ export class AssignmentController {
   @Post()
   @UsePipes(ValidationPipe)
   async addAssignment(@Body() CreateAssignmentDTO: CreateAssignmentDTO) {
-    const Assignment = await this.AssignmentService.addAssignment(
+    const assignment = await this.AssignmentService.addAssignment(
       CreateAssignmentDTO,
     );
-    return Assignment;
+    return assignment;
   }
 
   // Retrieve Assignments list
   @ApiCreatedResponse({ type: [AssignmentResponseBody] })
   @Get()
   async getAllAssignment() {
-    const Assignments = await this.AssignmentService.getAllAssignment();
-    return Assignments;
+    const assignments = await this.AssignmentService.getAllAssignment();
+    return assignments;
   }
 
   // Fetch a particular Assignment using ID
   @ApiCreatedResponse({ type: AssignmentResponseBody })
   @Get('/:assignmentId')
   async getAssignment(@Param('assignmentId') AssignmentId: string) {
-    const Assignment = await this.AssignmentService.getAssignment(AssignmentId);
-    return Assignment;
+    const assignment = await this.AssignmentService.getAssignment(AssignmentId);
+    return assignment;
   }
 
   @Put('/:assignmentId')
@@ -64,23 +64,23 @@ export class AssignmentController {
     @Body() createAssignmentDTO: CreateAssignmentDTO,
   ) {
     console.log('assignmentId', AssignmentId);
-    const Assignment = await this.AssignmentService.updateAssignment(
+    const assignment = await this.AssignmentService.updateAssignment(
       AssignmentId,
       createAssignmentDTO,
     );
 
-    if (!Assignment) throw new NotFoundException('Assignment does not exist!');
+    if (!assignment) throw new NotFoundException('Assignment does not exist!');
 
-    return Assignment;
+    return assignment;
   }
 
   // Delete a Assignment
   @Delete('/:assignmentId')
   async deleteAssignment(@Param('assignmentId') AssignmentId: string) {
-    const Assignment = await this.AssignmentService.deleteAssignment(
+    const assignment = await this.AssignmentService.deleteAssignment(
       AssignmentId,
     );
-    if (!Assignment) throw new NotFoundException('Assignment does not exist');
-    return Assignment;
+    if (!assignment) throw new NotFoundException('Assignment does not exist');
+    return assignment;
   }
 }
