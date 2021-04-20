@@ -1,8 +1,6 @@
 import {
   Controller,
   Get,
-  Res,
-  HttpStatus,
   Post,
   Body,
   Put,
@@ -37,38 +35,31 @@ export class AssignmentController {
   // add a Assignment
   @Post()
   @UsePipes(ValidationPipe)
-  async addAssignment(
-    @Res() res,
-    @Body() CreateAssignmentDTO: CreateAssignmentDTO,
-  ) {
+  async addAssignment(@Body() CreateAssignmentDTO: CreateAssignmentDTO) {
     const Assignment = await this.AssignmentService.addAssignment(
       CreateAssignmentDTO,
     );
-    return res.status(HttpStatus.OK).json({
-      message: 'Assignment has been created successfully',
-      Assignment,
-    });
+    return Assignment;
   }
 
   // Retrieve Assignments list
   @ApiCreatedResponse({ type: [AssignmentResponseBody] })
   @Get()
-  async getAllAssignment(@Res() res) {
+  async getAllAssignment() {
     const Assignments = await this.AssignmentService.getAllAssignment();
-    return res.status(HttpStatus.OK).json(Assignments);
+    return Assignments;
   }
 
   // Fetch a particular Assignment using ID
   @ApiCreatedResponse({ type: AssignmentResponseBody })
   @Get('/:assignmentId')
-  async getAssignment(@Res() res, @Param('assignmentId') AssignmentId: string) {
+  async getAssignment(@Param('assignmentId') AssignmentId: string) {
     const Assignment = await this.AssignmentService.getAssignment(AssignmentId);
-    return res.status(HttpStatus.OK).json(Assignment);
+    return Assignment;
   }
 
   @Put('/:assignmentId')
   async updateAssignment(
-    @Res() res,
     @Param('assignmentId') AssignmentId: string,
     @Body() createAssignmentDTO: CreateAssignmentDTO,
   ) {
@@ -80,19 +71,16 @@ export class AssignmentController {
 
     if (!Assignment) throw new NotFoundException('Assignment does not exist!');
 
-    return res.status(HttpStatus.OK).json(Assignment);
+    return Assignment;
   }
 
   // Delete a Assignment
   @Delete('/:assignmentId')
-  async deleteAssignment(
-    @Res() res,
-    @Param('assignmentId') AssignmentId: string,
-  ) {
+  async deleteAssignment(@Param('assignmentId') AssignmentId: string) {
     const Assignment = await this.AssignmentService.deleteAssignment(
       AssignmentId,
     );
     if (!Assignment) throw new NotFoundException('Assignment does not exist');
-    return res.status(HttpStatus.OK).json(Assignment);
+    return Assignment;
   }
 }
