@@ -18,6 +18,12 @@ export class User {
   phone: number;
 
   @Prop()
+  photoUrl: string;
+
+  @Prop()
+  coverPhotoUrl: string;
+
+  @Prop()
   address: string;
 
   @Prop()
