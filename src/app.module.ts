@@ -10,6 +10,7 @@ import { AssignmentModule } from './modules/assignment/assignment.module';
 import { ChatModule } from './modules/chat/chat.module';
 import * as path from 'path';
 import { CourseModule } from './modules/course/course.module';
+import { DoubtModule } from './modules/doubt/doubt.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { CourseModule } from './modules/course/course.module';
     UserModule,
     CourseModule,
     ChatModule,
+    DoubtModule,
   ],
   controllers: [AppController],
   providers: [AppService],
