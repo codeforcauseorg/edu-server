@@ -58,43 +58,43 @@ export class ChatController {
   @ApiCreatedResponse({ type: [ChatResponseBody] })
   @Get()
   async getAllChat(@Res() res) {
-    const Chats = await this.ChatService.getAllChat();
-    return res.status(HttpStatus.OK).json(Chats);
+    const chats = await this.ChatService.getAllChat();
+    return res.status(HttpStatus.OK).json(chats);
   }
 
   // Fetch a particular Chat using ID
   @ApiCreatedResponse({ type: ChatResponseBody })
   @Get('/:chatId')
   async getChat(@Res() res, @Param('chatId') chatId: string) {
-    const Chat = await this.ChatService.getChat(chatId);
-    return res.status(HttpStatus.OK).json(Chat);
+    const chat = await this.ChatService.getChat(chatId);
+    return res.status(HttpStatus.OK).json(chat);
   }
 
-  @Put('/:uid')
+  @Put('/:chatId')
   async updateChat(
     @Res() res,
-    @Param('uid') uid: string,
+    @Param('chatId') chatId: string,
     @Body() createChatDTO: CreateChatDTO,
   ) {
-    console.log('ChatId', uid);
-    const Chat = await this.ChatService.updateChat(uid, createChatDTO);
+    console.log('ChatId', chatId);
+    const chat = await this.ChatService.updateChat(chatId, createChatDTO);
 
-    if (!Chat) throw new NotFoundException('Chat does not exist!');
+    if (!chat) throw new NotFoundException('Chat does not exist!');
 
     return res.status(HttpStatus.OK).json({
       message: 'Chat has been successfully updated',
-      Chat: Chat,
+      Chat: chat,
     });
   }
 
   // Delete a Chat
-  @Delete('/:uid')
-  async deleteChat(@Res() res, @Param('uid') uid: string) {
-    const Chat = await this.ChatService.deleteChat(uid);
-    if (!Chat) throw new NotFoundException('Chat does not exist');
+  @Delete('/:chatId')
+  async deleteChat(@Res() res, @Param('chatId') chatId: string) {
+    const chat = await this.ChatService.deleteChat(chatId);
+    if (!chat) throw new NotFoundException('Chat does not exist');
     return res.status(HttpStatus.OK).json({
       message: 'Chat has been deleted',
-      Chat: Chat,
+      Chat: chat,
     });
   }
 }
