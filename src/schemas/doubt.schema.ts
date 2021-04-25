@@ -1,19 +1,19 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
-import { User } from './user.schema'
+import { User } from './user.schema';
 
 export type DoubtDocument = Doubt & mongoose.Document;
 
 @Schema()
 export class Doubt {
   @Prop()
-  tags: Object[]
+  tags: [];
 
-  @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}]})
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
   asked_by: User;
 
   @Prop()
-  answers: Object[];
+  answers: [];
 
   @Prop()
   is_resolved: boolean;
