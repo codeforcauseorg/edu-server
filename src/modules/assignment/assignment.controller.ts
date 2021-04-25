@@ -13,6 +13,7 @@ import {
 import { AssignmentService } from './assignment.service'; //eslint-disable-line 
 import { CreateAssignmentDTO } from './dto/create-assignment.dto'; //eslint-disable-line 
 import { ApiCreatedResponse, ApiProperty } from '@nestjs/swagger';
+import { UpdateAssignmentDTO } from './dto/update-assignment.dto';
 
 class AssignmentResponseBody {
   @ApiProperty({ required: true, example: '605e3fd9acc33583fb389aec' })
@@ -61,12 +62,12 @@ export class AssignmentController {
   @Put('/:assignmentId')
   async updateAssignment(
     @Param('assignmentId') assignmentId: string,
-    @Body() createAssignmentDTO: CreateAssignmentDTO,
+    @Body() updateAssignmentDTO: UpdateAssignmentDTO,
   ) {
     console.log('assignmentId', assignmentId);
     const assignment = await this.AssignmentService.updateAssignment(
       assignmentId,
-      createAssignmentDTO,
+      updateAssignmentDTO,
     );
 
     if (!assignment) throw new NotFoundException('Assignment does not exist!');
