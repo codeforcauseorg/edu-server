@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Course } from './course.interface';
-import { CourseDTO } from './create-course.dto';
+import { Course } from './interfaces/course.interface';
+import { CourseDTO } from './dto/create-course.dto';
 
 @Injectable()
 export class CourseService {
@@ -17,7 +17,7 @@ export class CourseService {
   }
 
   // fetch selected course
-  async getSelectedCourse(CourseID: string): Promise<Course> {
+  async findCourseById(CourseID: string): Promise<Course> {
     const Course = await this.CourseModel.findById(CourseID).exec();
     return Course;
   }
@@ -30,11 +30,15 @@ export class CourseService {
 
   // edit course
   async editCourse(CourseId: string, courseDTO: CourseDTO): Promise<Course> {
-    const updatedCourse = await this.CourseModel.findByIdAndUpdate(
-      CourseId,
-      courseDTO,
-      { new: true },
-    );
-    return updatedCourse;
+    let updatedCourse = null;
+    try {
+      updatedCourse = await this.CourseModel.findByIdAndUpdate(
+        CourseId,
+        courseDTO,
+        { new: true },
+      );
+    } finally {
+      return updatedCourse;
+    }
   }
 }
