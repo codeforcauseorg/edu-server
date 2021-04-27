@@ -1,8 +1,6 @@
 import {
   Controller,
   Get,
-  Res,
-  HttpStatus,
   Post,
   Body,
   Put,
@@ -18,25 +16,16 @@ import { ApiCreatedResponse, ApiProperty } from '@nestjs/swagger';
 
 class ChatResponseBody {
   @ApiProperty({ required: true, example: '605e3fd9acc33583fb389aec' })
-  _id: string;
+  id: string;
 
   @ApiProperty({ required: true, example: 'Noob' })
-  first_name: string;
+  sender: string;
 
   @ApiProperty({ required: true, example: 'Coder' })
-  last_name: string;
+  original_sender: string;
 
   @ApiProperty({ required: true, example: 'noobcoder@gmai.com' })
-  email: string;
-
-  @ApiProperty({ required: true, example: '+919999999999' })
-  phone: string;
-
-  @ApiProperty({ required: true, example: 'A-88, Mayur Vihar, Delhi' })
-  address: string;
-
-  @ApiProperty({ required: true, example: 'I am Noob Coder' })
-  description: string;
+  chats: string;
 }
 
 @Controller('Chat')
@@ -46,55 +35,45 @@ export class ChatController {
   // add a Chat
   @Post()
   @UsePipes(ValidationPipe)
-  async addChat(@Res() res, @Body() CreateChatDTO: CreateChatDTO) {
-    const Chat = await this.ChatService.addChat(CreateChatDTO);
-    return res.status(HttpStatus.OK).json({
-      message: 'Chat has been created successfully',
-      Chat,
-    });
+  async addChat(@Body() CreateChatDTO: CreateChatDTO) {
+    const chat = await this.ChatService.addChat(CreateChatDTO);
+    return chat;
   }
 
   // Retrieve Chats list
   @ApiCreatedResponse({ type: [ChatResponseBody] })
   @Get()
-  async getAllChat(@Res() res) {
+  async getAllChat() {
     const chats = await this.ChatService.getAllChat();
-    return res.status(HttpStatus.OK).json(chats);
+    return chats;
   }
 
   // Fetch a particular Chat using ID
   @ApiCreatedResponse({ type: ChatResponseBody })
   @Get('/:chatId')
-  async getChat(@Res() res, @Param('chatId') chatId: string) {
+  async getChat(@Param('chatId') chatId: string) {
     const chat = await this.ChatService.getChat(chatId);
-    return res.status(HttpStatus.OK).json(chat);
+    return chat;
   }
 
   @Put('/:chatId')
   async updateChat(
-    @Res() res,
     @Param('chatId') chatId: string,
     @Body() createChatDTO: CreateChatDTO,
   ) {
-    console.log('ChatId', chatId);
+    console.log('chatId', chatId);
     const chat = await this.ChatService.updateChat(chatId, createChatDTO);
 
     if (!chat) throw new NotFoundException('Chat does not exist!');
 
-    return res.status(HttpStatus.OK).json({
-      message: 'Chat has been successfully updated',
-      Chat: chat,
-    });
+    return chat;
   }
 
   // Delete a Chat
   @Delete('/:chatId')
-  async deleteChat(@Res() res, @Param('chatId') chatId: string) {
+  async deleteChat(@Param('chatId') chatId: string) {
     const chat = await this.ChatService.deleteChat(chatId);
     if (!chat) throw new NotFoundException('Chat does not exist');
-    return res.status(HttpStatus.OK).json({
-      message: 'Chat has been deleted',
-      Chat: chat,
-    });
+    return chat;
   }
 }
