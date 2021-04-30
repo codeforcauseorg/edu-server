@@ -54,7 +54,7 @@ export class UserService {
         { new: true },
       );
     } catch (e) {
-      throw new BadRequestException(e)
+      throw new BadRequestException(e);
     } finally {
       return updatedUser;
     }
@@ -97,5 +97,4 @@ export class UserService {
 
     return user;
   }
-
 }
