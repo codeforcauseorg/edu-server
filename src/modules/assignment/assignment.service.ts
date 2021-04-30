@@ -3,6 +3,7 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Assignment } from './interfaces/assignment.interface';
 import { CreateAssignmentDTO } from './dto/create-assignment.dto';
+import { UpdateAssignmentDTO } from './dto/update-assignment.dto';
 
 @Injectable()
 export class AssignmentService {
@@ -45,11 +46,11 @@ export class AssignmentService {
   // Edit Assignment details
   async updateAssignment(
     AssignmentID,
-    CreateAssignmentDTO: CreateAssignmentDTO,
+    updateAssignmentDTO: UpdateAssignmentDTO,
   ): Promise<Assignment> {
     const updatedAssignment = await this.AssignmentModel.findByIdAndUpdate(
       AssignmentID,
-      CreateAssignmentDTO,
+      updateAssignmentDTO,
       { new: true },
     );
     return updatedAssignment;

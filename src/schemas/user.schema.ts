@@ -18,6 +18,12 @@ export class User {
   phone: number;
 
   @Prop()
+  photoUrl: string;
+
+  @Prop()
+  coverPhotoUrl: string;
+
+  @Prop()
   address: string;
 
   @Prop()
@@ -31,6 +37,9 @@ export class User {
 
   @Prop()
   created_at: Date;
+
+  @Prop({ default: [] })
+  enrolled_courses: string[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

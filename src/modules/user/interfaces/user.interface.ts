@@ -10,4 +10,7 @@ export interface User extends Document {
   readonly score: number;
   readonly isAdmin: boolean;
   readonly created_at: Date;
+  readonly photourl: string;
+  readonly coverPhotoUrl: string;
+  enrolled_courses: string[];
 }

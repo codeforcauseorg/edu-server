@@ -77,7 +77,6 @@ export class ChatController {
     @Query('uid') uid,
     @Body() createChatDTO: CreateChatDTO,
   ) {
-    console.log('ChatId', uid);
     const Chat = await this.ChatService.updateChat(uid, createChatDTO);
 
     if (!Chat) throw new NotFoundException('Chat does not exist!');

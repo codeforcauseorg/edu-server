@@ -9,6 +9,8 @@ import {
   Put,
   Query,
   Res,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { CourseService } from './course.service';
@@ -28,7 +30,7 @@ export class CourseController {
   // get selected course
   @Get('/:courseID')
   async getSelectedCourse(@Res() res: Response, @Param('courseID') courseID) {
-    const course = await this.courseService.getSelectedCourse(courseID);
+    const course = await this.courseService.findCourseById(courseID);
     if (!course) {
       throw new NotFoundException('Selected course not found');
     }
@@ -37,28 +39,21 @@ export class CourseController {
 
   // add a Course
   @Post('/create')
-  async addCourse(@Res() res: Response, @Body() courseDTO: CourseDTO) {
+  @UsePipes(ValidationPipe)
+  async addCourse(@Body() courseDTO: CourseDTO) {
     const course = await this.courseService.addCourse(courseDTO);
-    return res.status(HttpStatus.OK).json({
-      message: 'Course has been added successfully',
-      course,
-    });
+    return course;
   }
 
   // update a course
   @Put('/edit')
-  async editCourse(
-    @Res() res: Response,
-    @Query('CourseID') CourseID,
-    @Body() courseDTO: CourseDTO,
-  ) {
-    const Course = await this.courseService.editCourse(CourseID, courseDTO);
-    if (!Course) {
-      throw new NotFoundException('Course does not exist');
+  async editCourse(@Query('id') cId: string, @Body() courseDTO: CourseDTO) {
+    const course = await this.courseService.editCourse(cId, courseDTO);
+
+    if (!course) {
+      throw new NotFoundException('Course Not Found');
     }
-    return res.status(HttpStatus.OK).json({
-      message: 'Course has been successfully edited',
-      Course,
-    });
+
+    return course;
   }
 }

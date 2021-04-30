@@ -1,24 +1,13 @@
-import { IsNotEmpty } from 'class-validator';
-
-export class CreateUserDTO {
-  @IsNotEmpty()
+export class UpdateUserDTO {
   readonly first_name: string;
-
   readonly last_name: string;
-
-  @IsNotEmpty()
   readonly email: string;
-
-  @IsNotEmpty()
   readonly phone: string;
-
+  readonly photourl: string;
+  readonly coverPhotoUrl: string;
   readonly address: string;
-
   readonly description: string;
-
   readonly score: number;
   readonly isAdmin: boolean;
-
-  @IsNotEmpty()
-  readonly created_at: Date;
+  enrolled_courses: string[];
 }
