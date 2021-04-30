@@ -37,6 +37,9 @@ export class User {
 
   @Prop()
   created_at: Date;
+
+  @Prop({ default: [] })
+  enrolled_courses: string[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
