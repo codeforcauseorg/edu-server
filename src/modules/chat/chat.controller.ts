@@ -1,42 +1,42 @@
 import {
+  Body,
   Controller,
+  Delete,
   Get,
   Post,
-  Body,
   Put,
   NotFoundException,
-  Delete,
   Param,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { ApiCreatedResponse, ApiProperty } from '@nestjs/swagger';
 import { ChatService } from './chat.service'; //eslint-disable-line 
 import { CreateChatDTO } from './dto/create-chat.dto'; //eslint-disable-line 
-import { ApiCreatedResponse, ApiProperty } from '@nestjs/swagger';
 
 class ChatResponseBody {
   @ApiProperty({ required: true, example: '605e3fd9acc33583fb389aec' })
   id: string;
 
-  @ApiProperty({ required: true, example: 'Noob' })
+  @ApiProperty({ required: true, example: 'John' })
   sender: string;
 
-  @ApiProperty({ required: true, example: 'Coder' })
+  @ApiProperty({ required: true, example: 'Johny' })
   original_sender: string;
 
-  @ApiProperty({ required: true, example: 'noobcoder@gmai.com' })
+  @ApiProperty({ required: true, example: 'How are you!' })
   chats: string;
 }
 
-@Controller('Chat')
+@Controller('chat')
 export class ChatController {
-  constructor(private ChatService: ChatService) {}
+  constructor(private chatService: ChatService) {}
 
   // add a Chat
   @Post()
   @UsePipes(ValidationPipe)
   async addChat(@Body() CreateChatDTO: CreateChatDTO) {
-    const chat = await this.ChatService.addChat(CreateChatDTO);
+    const chat = await this.chatService.addChat(CreateChatDTO);
     return chat;
   }
 
@@ -44,7 +44,7 @@ export class ChatController {
   @ApiCreatedResponse({ type: [ChatResponseBody] })
   @Get()
   async getAllChat() {
-    const chats = await this.ChatService.getAllChat();
+    const chats = await this.chatService.getAllChat();
     return chats;
   }
 
@@ -52,7 +52,7 @@ export class ChatController {
   @ApiCreatedResponse({ type: ChatResponseBody })
   @Get('/:chatId')
   async getChat(@Param('chatId') chatId: string) {
-    const chat = await this.ChatService.getChat(chatId);
+    const chat = await this.chatService.getChat(chatId);
     return chat;
   }
 
@@ -62,7 +62,7 @@ export class ChatController {
     @Body() createChatDTO: CreateChatDTO,
   ) {
     console.log('chatId', chatId);
-    const chat = await this.ChatService.updateChat(chatId, createChatDTO);
+    const chat = await this.chatService.updateChat(chatId, createChatDTO);
 
     if (!chat) throw new NotFoundException('Chat does not exist!');
 
@@ -72,7 +72,7 @@ export class ChatController {
   // Delete a Chat
   @Delete('/:chatId')
   async deleteChat(@Param('chatId') chatId: string) {
-    const chat = await this.ChatService.deleteChat(chatId);
+    const chat = await this.chatService.deleteChat(chatId);
     if (!chat) throw new NotFoundException('Chat does not exist');
     return chat;
   }

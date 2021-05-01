@@ -29,7 +29,7 @@ class AssignmentResponseBody {
   submit_by: string;
 }
 
-@Controller('Assignment')
+@Controller('assignment')
 export class AssignmentController {
   constructor(private AssignmentService: AssignmentService) {}
 
@@ -64,7 +64,6 @@ export class AssignmentController {
     @Param('assignmentId') assignmentId: string,
     @Body() updateAssignmentDTO: UpdateAssignmentDTO,
   ) {
-    console.log('assignmentId', assignmentId);
     const assignment = await this.AssignmentService.updateAssignment(
       assignmentId,
       updateAssignmentDTO,
