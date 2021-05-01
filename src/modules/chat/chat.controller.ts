@@ -25,7 +25,7 @@ class ChatResponseBody {
   original_sender: string;
 
   @ApiProperty({ required: true, example: 'How are you!' })
-  chats: string;
+  message: string;
 }
 
 @Controller('chat')
@@ -36,24 +36,21 @@ export class ChatController {
   @Post()
   @UsePipes(ValidationPipe)
   async addChat(@Body() CreateChatDTO: CreateChatDTO) {
-    const chat = await this.chatService.addChat(CreateChatDTO);
-    return chat;
+    return await this.chatService.addChat(CreateChatDTO);
   }
 
   // Retrieve Chats list
   @ApiCreatedResponse({ type: [ChatResponseBody] })
   @Get()
   async getAllChat() {
-    const chats = await this.chatService.getAllChat();
-    return chats;
+    return await this.chatService.getAllChat();
   }
 
   // Fetch a particular Chat using ID
   @ApiCreatedResponse({ type: ChatResponseBody })
   @Get('/:chatId')
   async getChat(@Param('chatId') chatId: string) {
-    const chat = await this.chatService.getChat(chatId);
-    return chat;
+    return await this.chatService.getChat(chatId);
   }
 
   @Put('/:chatId')
