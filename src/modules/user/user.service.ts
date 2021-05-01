@@ -1,25 +1,34 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './interfaces/user.interface';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
+import { UpdateCourseDTO } from './dto/update-course.dto';
+import { Course } from '../course/interfaces/course.interface';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel('User') private readonly UserModel: Model<User>) {}
+  constructor(
+    @InjectModel('User') private readonly userModel: Model<User>,
+    @InjectModel('Course') private readonly courseModel: Model<Course>,
+  ) {}
 
   // fetch all Users
   async getAllUser(): Promise<User[]> {
-    const users = await this.UserModel.find().exec();
+    const users = await this.userModel.find().exec();
     return users;
   }
 
   // Get a single User
   async findUserById(userId): Promise<User> {
-    let user;
+    let user: User;
     try {
-      user = await this.UserModel.findById(userId).exec();
+      user = await this.userModel.findById(userId).exec();
     } catch (e) {
       throw new NotFoundException('User Not Found!');
     }
@@ -29,7 +38,7 @@ export class UserService {
 
   // post a single User
   async addUser(CreateUserDTO: CreateUserDTO): Promise<User> {
-    const newUser = await new this.UserModel(CreateUserDTO);
+    const newUser = await new this.userModel(CreateUserDTO);
     return newUser.save();
   }
 
@@ -40,13 +49,13 @@ export class UserService {
   ): Promise<User> {
     let updatedUser;
     try {
-      updatedUser = await this.UserModel.findByIdAndUpdate(
+      updatedUser = await this.userModel.findByIdAndUpdate(
         UserID,
         UpdateUserDTO,
-        { new: true },
+        { new: true, useFindAndModify: false },
       );
     } catch (e) {
-      return e;
+      throw new BadRequestException(e);
     } finally {
       return updatedUser;
     }
@@ -56,9 +65,40 @@ export class UserService {
   async deleteUser(UserID: string): Promise<any> {
     let deletedUser;
     try {
-      deletedUser = await this.UserModel.findByIdAndRemove(UserID);
+      deletedUser = await this.userModel.findByIdAndRemove(UserID);
     } finally {
       return deletedUser;
     }
+  }
+
+  // course
+  async getEnrolledCourses(studentId: string) {
+    const user = await this.findUserById(studentId);
+    return user.enrolled_courses;
+  }
+
+  async addEnrolledCourse(studentId: string, cId: string) {
+    let user: User;
+
+    try {
+      const enrolledCourse = await this.courseModel.findById(cId).exec(); // check is the courseId is valid
+      user = await this.findUserById(studentId);
+      const course = new Set(user.enrolled_courses);
+      course.add(cId);
+
+      if (enrolledCourse) {
+        const update: UpdateCourseDTO = { enrolled_courses: [...course] };
+        user = await this.userModel.findByIdAndUpdate(studentId, update, {
+          new: true,
+          useFindAndModify: false,
+        });
+      } else {
+        throw new NotFoundException('course not found');
+      }
+    } catch (e) {
+      throw new BadRequestException(e);
+    }
+
+    return user;
   }
 }

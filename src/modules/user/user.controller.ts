@@ -57,9 +57,22 @@ export class UserController {
     return await this.userService.getAllUser();
   }
 
+  @Get('/enrolled')
+  async getEnrolledCourses(@Query('id') id: string) {
+    return await this.userService.getEnrolledCourses(id);
+  }
+
+  @Put('/enrolled')
+  async addEnrolledCourses(
+    @Query('uid') uid: string,
+    @Query('cid') cid: string,
+  ) {
+    return await this.userService.addEnrolledCourse(uid, cid);
+  }
+
   // Fetch a particular User using ID
   @ApiCreatedResponse({ type: UserResponseBody })
-  @Get('/:userId')
+  @Get('get/:userId')
   async getUser(@Param('userId') userId: string) {
     return this.userService.findUserById(userId);
   }

@@ -1,8 +1,13 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { Model } from 'mongoose';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Chat } from './interfaces/chat.interface';
+import { Model } from 'mongoose';
 import { CreateChatDTO } from './dto/create-chat.dto';
+import { Chat } from './interfaces/chat.interface';
 
 @Injectable()
 export class ChatService {
@@ -15,36 +20,48 @@ export class ChatService {
   }
 
   // Get a single Chat
-  async getChat(ChatId): Promise<Chat> {
-    const Chat = await this.ChatModel.findById(ChatId).exec();
-
-    if (Chat) {
-      return Chat;
+  async getChat(ChatId: string): Promise<Chat> {
+    try {
+      const chat = await this.ChatModel.findById(ChatId).exec();
+      if (chat) {
+        return chat;
+      }
+    } catch (e) {
+      throw new BadRequestException(e);
     }
 
-    throw new HttpException(
-      {
-        status: HttpStatus.NOT_FOUND,
-        error: 'Chat Not Found',
-      },
-      HttpStatus.NOT_FOUND,
-    );
+    throw new NotFoundException('chat not found');
   }
 
   // post a single Chat
   async addChat(CreateChatDTO: CreateChatDTO): Promise<Chat> {
-    const newChat = await new this.ChatModel(CreateChatDTO);
-    return newChat.save();
+    try {
+      return await new this.ChatModel(CreateChatDTO).save();
+    } catch (e) {
+      throw new Error(e);
+    }
   }
 
   // Edit Chat details
-  async updateChat(ChatID, CreateChatDTO: CreateChatDTO): Promise<Chat> {
-    const updatedChat = await this.ChatModel.findByIdAndUpdate(
-      ChatID,
-      CreateChatDTO,
-      { new: true },
-    );
-    return updatedChat;
+  async updateChat(
+    chatId: string,
+    CreateChatDTO: CreateChatDTO,
+  ): Promise<Chat> {
+    try {
+      const chat = await this.ChatModel.findByIdAndUpdate(
+        chatId,
+        CreateChatDTO,
+        { new: true },
+      );
+
+      if (chat) {
+        return chat;
+      }
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+
+    throw new NotFoundException('chat Not Found');
   }
 
   // Delete a Chat
