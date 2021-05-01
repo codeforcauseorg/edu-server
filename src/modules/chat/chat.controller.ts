@@ -26,7 +26,7 @@ class ChatResponseBody {
 }
 
 @ApiTags('Chat')
-@Controller('Chat')
+@Controller('chat')
 export class ChatController {
   constructor(private chatService: ChatService) {}
 

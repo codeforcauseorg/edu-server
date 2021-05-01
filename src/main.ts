@@ -12,7 +12,6 @@ async function bootstrap() {
   SwaggerModule.setup('api/docs', app, document, customOptions);
 
   app.enableCors();
-  app.useGlobalPipes(new ValidationPipe());
   await app.listen(5000);
   console.log('App is listening on port: 5000');
 }

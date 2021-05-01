@@ -13,4 +13,6 @@ export interface User extends Document {
   readonly photourl: string;
   readonly coverPhotoUrl: string;
   enrolled_courses: string[];
+  readonly referral_code: string;
+  readonly referrals: string[];
 }

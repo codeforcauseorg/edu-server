@@ -33,7 +33,7 @@ class AssignmentResponseBody {
 }
 
 @ApiTags('Assignment')
-@Controller('Assignment')
+@Controller('assignment')
 export class AssignmentController {
   constructor(private AssignmentService: AssignmentService) {}
 
