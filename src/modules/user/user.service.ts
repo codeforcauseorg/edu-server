@@ -8,6 +8,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from './interfaces/user.interface';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
+import { UpdateCourseDTO } from './dto/update-course.dto';
 import { Course } from '../course/interfaces/course.interface';
 
 @Injectable()
@@ -51,7 +52,7 @@ export class UserService {
       updatedUser = await this.userModel.findByIdAndUpdate(
         UserID,
         UpdateUserDTO,
-        { new: true },
+        { new: true, useFindAndModify: false },
       );
     } catch (e) {
       throw new BadRequestException(e);
@@ -82,12 +83,15 @@ export class UserService {
     try {
       const enrolledCourse = await this.courseModel.findById(cId).exec(); // check is the courseId is valid
       user = await this.findUserById(studentId);
-      const course = await this.getEnrolledCourses(studentId);
-      course.push(cId);
+      const course = new Set(user.enrolled_courses);
+      course.add(cId);
 
       if (enrolledCourse) {
-        const update: UpdateUserDTO = { ...user, enrolled_courses: course };
-        await this.updateUser(studentId, update);
+        const update: UpdateCourseDTO = { enrolled_courses: [...course] };
+        user = await this.userModel.findByIdAndUpdate(studentId, update, {
+          new: true,
+          useFindAndModify: false,
+        });
       } else {
         throw new NotFoundException('course not found');
       }
