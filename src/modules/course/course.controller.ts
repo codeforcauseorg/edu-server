@@ -12,10 +12,12 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { CourseService } from './course.service';
 import { CourseDTO } from './dto/create-course.dto';
 
+@ApiTags('Course')
 @Controller('course')
 export class CourseController {
   constructor(private courseService: CourseService) {}

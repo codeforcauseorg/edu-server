@@ -11,7 +11,8 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiProperty } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiProperty, ApiTags } from '@nestjs/swagger';
+import { IsEmail, IsMobilePhone, Length } from 'class-validator';
 import { CreateUserDTO } from './dto/create-user.dto'; //eslint-disable-line 
 import { UpdateUserDTO } from './dto/update-user.dto'; //eslint-disable-line 
 import { UserService } from './user.service'; //eslint-disable-line 
@@ -21,24 +22,29 @@ class UserResponseBody {
   _id: string;
 
   @ApiProperty({ required: true, example: 'Noob' })
+  @Length(3, 20)
   first_name: string;
 
   @ApiProperty({ required: true, example: 'Coder' })
+  @Length(3, 20)
   last_name: string;
 
   @ApiProperty({ required: true, example: 'noobcoder@gmai.com' })
+  @IsEmail()
   email: string;
 
   @ApiProperty({ required: true, example: '+919999999999' })
+  @IsMobilePhone('en-IN', { strictMode: true })
   phone: string;
 
   @ApiProperty({ required: true, example: 'A-88, Mayur Vihar, Delhi' })
+  @Length(10, 40)
   address: string;
 
   @ApiProperty({ required: true, example: 'I am Noob Coder' })
   description: string;
 }
-
+@ApiTags('User')
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}

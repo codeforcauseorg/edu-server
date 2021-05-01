@@ -15,31 +15,21 @@ import {
 } from '@nestjs/common';
 import { ChatService } from './chat.service'; //eslint-disable-line 
 import { CreateChatDTO } from './dto/create-chat.dto'; //eslint-disable-line 
-import { ApiCreatedResponse, ApiProperty } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiProperty, ApiTags } from '@nestjs/swagger';
+import { IsEmail, IsMobilePhone, Length } from 'class-validator';
 
 class ChatResponseBody {
   @ApiProperty({ required: true, example: '605e3fd9acc33583fb389aec' })
-  _id: string;
-
-  @ApiProperty({ required: true, example: 'Noob' })
-  first_name: string;
-
-  @ApiProperty({ required: true, example: 'Coder' })
-  last_name: string;
-
-  @ApiProperty({ required: true, example: 'noobcoder@gmai.com' })
-  email: string;
-
-  @ApiProperty({ required: true, example: '+919999999999' })
-  phone: string;
-
-  @ApiProperty({ required: true, example: 'A-88, Mayur Vihar, Delhi' })
-  address: string;
-
-  @ApiProperty({ required: true, example: 'I am Noob Coder' })
-  description: string;
+  id: string;
+  @ApiProperty({ required: true, example: 'noob' })
+  sender: string;
+  @ApiProperty({ required: true, example: 'noob2' })
+  original_sender: string;
+  @ApiProperty({ required: true, example: 'Heyy' })
+  chats: string;
 }
 
+@ApiTags('Chat')
 @Controller('Chat')
 export class ChatController {
   constructor(private ChatService: ChatService) {}

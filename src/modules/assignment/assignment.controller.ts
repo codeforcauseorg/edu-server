@@ -12,23 +12,27 @@ import {
 } from '@nestjs/common';
 import { AssignmentService } from './assignment.service'; //eslint-disable-line 
 import { CreateAssignmentDTO } from './dto/create-assignment.dto'; //eslint-disable-line 
-import { ApiCreatedResponse, ApiProperty } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiProperty, ApiTags } from '@nestjs/swagger';
 import { UpdateAssignmentDTO } from './dto/update-assignment.dto';
+import { IsEmail, Length } from 'class-validator';
 
 class AssignmentResponseBody {
   @ApiProperty({ required: true, example: '605e3fd9acc33583fb389aec' })
   id: string;
 
   @ApiProperty({ required: true, example: 'Noob' })
+  @Length(3, 20)
   name: string;
 
-  @ApiProperty({ required: true, example: 'Coder' })
+  @ApiProperty({ required: true, example: 'www.google.com' })
   link: string;
 
   @ApiProperty({ required: true, example: 'noobcoder@gmai.com' })
+  @IsEmail()
   submit_by: string;
 }
 
+@ApiTags('Assignment')
 @Controller('Assignment')
 export class AssignmentController {
   constructor(private AssignmentService: AssignmentService) {}
@@ -74,7 +78,7 @@ export class AssignmentController {
     return assignment;
   }
 
-  // Delete a Assignment
+  // Delete an Assignment
   @Delete('/:assignmentId')
   async deleteAssignment(@Param('assignmentId') assignmentId: string) {
     const assignment = await this.AssignmentService.deleteAssignment(
