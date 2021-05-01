@@ -92,7 +92,6 @@ export class UserService {
           new: true,
           useFindAndModify: false,
         });
-
       } else {
         throw new NotFoundException('course not found');
       }

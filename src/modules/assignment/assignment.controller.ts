@@ -29,7 +29,7 @@ class AssignmentResponseBody {
   submit_by: string;
 }
 
-@Controller('Assignment')
+@Controller('assignment')
 export class AssignmentController {
   constructor(private AssignmentService: AssignmentService) {}
 
