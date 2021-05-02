@@ -1,13 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CourseController } from './course.controller';
 import { CourseService } from './course.service';
 
-describe('testing CourseService', () => {
+describe('CourseService', () => {
   let service: CourseService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [CourseController],
       providers: [CourseService],
     }).compile();
 
