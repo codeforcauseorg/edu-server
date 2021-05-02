@@ -3,11 +3,10 @@ import {
   Controller,
   Delete,
   Get,
-  Param,
   Post,
   Put,
-  Query,
-  Res,
+  NotFoundException,
+  Param,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -36,7 +35,7 @@ export class ChatController {
   // add a Chat
   @Post()
   @UsePipes(ValidationPipe)
-  async addChat(@Res() res, @Body() CreateChatDTO: CreateChatDTO) {
+  async addChat(@Body() CreateChatDTO: CreateChatDTO) {
     return await this.chatService.addChat(CreateChatDTO);
   }
 
@@ -54,14 +53,24 @@ export class ChatController {
     return await this.chatService.getChat(chatId);
   }
 
-  @Put('/update')
-  async updateChat(@Query('uid') uid, @Body() createChatDTO: CreateChatDTO) {
-    return await this.chatService.updateChat(uid, createChatDTO);
+  @Put('/:chatId')
+  async updateChat(
+    @Param('chatId') chatId: string,
+    @Body() createChatDTO: CreateChatDTO,
+  ) {
+    console.log('chatId', chatId);
+    const chat = await this.chatService.updateChat(chatId, createChatDTO);
+
+    if (!chat) throw new NotFoundException('Chat does not exist!');
+
+    return chat;
   }
 
   // Delete a Chat
-  @Delete('/delete')
-  async deleteChat(@Query('uid') uid) {
-    return await this.chatService.deleteChat(uid);
+  @Delete('/:chatId')
+  async deleteChat(@Param('chatId') chatId: string) {
+    const chat = await this.chatService.deleteChat(chatId);
+    if (!chat) throw new NotFoundException('Chat does not exist');
+    return chat;
   }
 }
