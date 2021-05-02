@@ -26,7 +26,7 @@ class ChatResponseBody {
   original_sender: string;
 
   @ApiProperty({ required: true, example: 'How are you!' })
-  chats: string;
+  message: string;
 }
 
 @Controller('chat')
