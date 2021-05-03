@@ -58,7 +58,6 @@ export class ChatController {
     @Param('chatId') chatId: string,
     @Body() createChatDTO: CreateChatDTO,
   ) {
-    console.log('chatId', chatId);
     const chat = await this.chatService.updateChat(chatId, createChatDTO);
 
     if (!chat) throw new NotFoundException('Chat does not exist!');
