@@ -13,4 +13,5 @@ export interface User extends Document {
   readonly photourl: string;
   readonly coverPhotoUrl: string;
   enrolled_courses: string[];
+  wishlist: string[];
 }

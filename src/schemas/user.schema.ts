@@ -40,6 +40,9 @@ export class User {
 
   @Prop({ default: [] })
   enrolled_courses: string[];
+
+  @Prop({ default: [] })
+  wishlist: string[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -101,4 +101,34 @@ export class UserService {
 
     return user;
   }
+
+  async getWishList(studentId: string) {
+    const user = await this.findUserById(studentId);
+    return user.wishlist;
+  }
+
+  async addWishlist(studentId: string, cId: string) {
+    let user: User;
+
+    try {
+      const wishlist = await this.courseModel.findById(cId).exec(); // check is the courseId is valid
+      user = await this.findUserById(studentId);
+      const course = new Set(user.wishlist);
+      course.add(cId);
+
+      if (wishlist) {
+        const update: UpdateCourseDTO = { wishlist: [...course] };
+        user = await this.userModel.findByIdAndUpdate(studentId, update, {
+          new: true,
+          useFindAndModify: false,
+        });
+      } else {
+        throw new NotFoundException('course not found');
+      }
+    } catch (e) {
+      throw new BadRequestException(e);
+    }
+
+    return user;
+  }
 }

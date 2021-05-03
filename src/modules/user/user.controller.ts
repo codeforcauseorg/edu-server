@@ -70,6 +70,16 @@ export class UserController {
     return await this.userService.addEnrolledCourse(uid, cid);
   }
 
+  @Get('/wishlist')
+  async getWishlist(@Query('id') id: string) {
+    return await this.userService.getWishList(id);
+  }
+
+  @Put('/wishlist')
+  async addWishlist(@Query('uid') uid: string, @Query('cid') cid: string) {
+    return await this.userService.addWishlist(uid, cid);
+  }
+
   // Fetch a particular User using ID
   @ApiCreatedResponse({ type: UserResponseBody })
   @Get('get/:userId')
