@@ -15,6 +15,7 @@ import { ApiCreatedResponse, ApiProperty, ApiTags } from '@nestjs/swagger';
 import { IsEmail, IsMobilePhone, Length } from 'class-validator';
 import { CreateUserDTO } from './dto/create-user.dto'; //eslint-disable-line 
 import { UpdateUserDTO } from './dto/update-user.dto'; //eslint-disable-line 
+import { CourseType } from './interfaces/course-status.enum';
 import { UserService } from './user.service'; //eslint-disable-line 
 
 class UserResponseBody {
@@ -69,11 +70,26 @@ export class UserController {
   }
 
   @Put('/enrolled')
-  async addEnrolledCourses(
-    @Query('uid') uid: string,
-    @Query('cid') cid: string,
-  ) {
-    return await this.userService.addEnrolledCourse(uid, cid);
+  async addEnrolledCourses(@Query('id') studentId: string, @Body() cid: any) {
+    return await this.userService.addCourse(
+      studentId,
+      cid.courseId,
+      CourseType.ENROLLED,
+    );
+  }
+
+  @Get('/wishlist')
+  async getWishlist(@Query('id') id: string) {
+    return await this.userService.getWishList(id);
+  }
+
+  @Put('/wishlist')
+  async addWishlist(@Query('id') studentId: string, @Body() cid: any) {
+    return await this.userService.addCourse(
+      studentId,
+      cid.courseId,
+      CourseType.WISHLIST,
+    );
   }
 
   // Fetch a particular User using ID

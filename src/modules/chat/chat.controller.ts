@@ -3,11 +3,10 @@ import {
   Controller,
   Delete,
   Get,
-  Param,
   Post,
   Put,
-  Query,
-  Res,
+  NotFoundException,
+  Param,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -17,12 +16,14 @@ import { ApiCreatedResponse, ApiProperty, ApiTags } from '@nestjs/swagger';
 class ChatResponseBody {
   @ApiProperty({ required: true, example: '605e3fd9acc33583fb389aec' })
   id: string;
-  @ApiProperty({ required: true, example: 'noob' })
+
+  @ApiProperty({ required: true, example: 'John' })
   sender: string;
   @ApiProperty({ required: true, example: 'noob2' })
   original_sender: string;
-  @ApiProperty({ required: true, example: 'Heyy' })
-  chats: string;
+
+  @ApiProperty({ required: true, example: 'How are you!' })
+  message: string;
 }
 
 @ApiTags('Chat')
@@ -33,7 +34,7 @@ export class ChatController {
   // add a Chat
   @Post()
   @UsePipes(ValidationPipe)
-  async addChat(@Res() res, @Body() CreateChatDTO: CreateChatDTO) {
+  async addChat(@Body() CreateChatDTO: CreateChatDTO) {
     return await this.chatService.addChat(CreateChatDTO);
   }
 
@@ -51,14 +52,23 @@ export class ChatController {
     return await this.chatService.getChat(chatId);
   }
 
-  @Put('/update')
-  async updateChat(@Query('uid') uid, @Body() createChatDTO: CreateChatDTO) {
-    return await this.chatService.updateChat(uid, createChatDTO);
+  @Put('/:chatId')
+  async updateChat(
+    @Param('chatId') chatId: string,
+    @Body() createChatDTO: CreateChatDTO,
+  ) {
+    const chat = await this.chatService.updateChat(chatId, createChatDTO);
+
+    if (!chat) throw new NotFoundException('Chat does not exist!');
+
+    return chat;
   }
 
   // Delete a Chat
-  @Delete('/delete')
-  async deleteChat(@Query('uid') uid) {
-    return await this.chatService.deleteChat(uid);
+  @Delete('/:chatId')
+  async deleteChat(@Param('chatId') chatId: string) {
+    const chat = await this.chatService.deleteChat(chatId);
+    if (!chat) throw new NotFoundException('Chat does not exist');
+    return chat;
   }
 }

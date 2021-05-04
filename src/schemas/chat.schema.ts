@@ -12,7 +12,7 @@ export class Chat {
   original_sender: string;
 
   @Prop({ required: true })
-  chats: string;
+  message: string;
 }
 
 export const ChatSchema = SchemaFactory.createForClass(Chat);

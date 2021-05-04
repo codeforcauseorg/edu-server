@@ -10,6 +10,7 @@ import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
 import { UpdateCourseDTO } from './dto/update-course.dto';
 import { Course } from '../course/interfaces/course.interface';
+import { CourseType } from './interfaces/course-status.enum';
 
 @Injectable()
 export class UserService {
@@ -77,28 +78,29 @@ export class UserService {
     return user.enrolled_courses;
   }
 
-  async addEnrolledCourse(studentId: string, cId: string) {
-    let user: User;
-
+  async addCourse(studentId: string, cId: string, courseType: CourseType) {
     try {
       const enrolledCourse = await this.courseModel.findById(cId).exec(); // check is the courseId is valid
-      user = await this.findUserById(studentId);
+      const user = await this.findUserById(studentId);
       const course = new Set(user.enrolled_courses);
       course.add(cId);
 
-      if (enrolledCourse) {
-        const update: UpdateCourseDTO = { enrolled_courses: [...course] };
-        user = await this.userModel.findByIdAndUpdate(studentId, update, {
+      if (enrolledCourse && user) {
+        const update: UpdateCourseDTO = { [courseType]: [...course] };
+        return await this.userModel.findByIdAndUpdate(studentId, update, {
           new: true,
           useFindAndModify: false,
         });
-      } else {
-        throw new NotFoundException('course not found');
       }
     } catch (e) {
-      throw new BadRequestException(e);
+      throw new NotFoundException('course or user not found');
     }
 
-    return user;
+    throw new NotFoundException('course or user not found');
+  }
+
+  async getWishList(studentId: string) {
+    const user = await this.findUserById(studentId);
+    return user.wishlist;
   }
 }

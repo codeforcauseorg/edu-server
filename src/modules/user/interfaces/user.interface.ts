@@ -15,4 +15,5 @@ export interface User extends Document {
   enrolled_courses: string[];
   readonly referral_code: string;
   readonly referrals: string[];
+  wishlist: string[];
 }
