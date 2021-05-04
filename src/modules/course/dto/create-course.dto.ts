@@ -1,4 +1,4 @@
-import { IsDateString, IsNotEmpty } from 'class-validator';
+import { IsArray, IsDateString, IsNotEmpty, IsUrl } from 'class-validator';
 
 export class CourseDTO {
   @IsNotEmpty()
@@ -27,4 +27,12 @@ export class CourseDTO {
   readonly coupons: number;
 
   readonly video_num: number;
+
+  @IsNotEmpty()
+  @IsUrl()
+  readonly sharable_link: string;
+
+  @IsNotEmpty()
+  @IsArray()
+  mentor: [];
 }
