@@ -9,5 +9,4 @@ export class UpdateUserDTO {
   readonly description: string;
   readonly score: number;
   readonly isAdmin: boolean;
-  enrolled_courses: string[];
 }

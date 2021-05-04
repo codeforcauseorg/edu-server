@@ -23,10 +23,7 @@ export class CreateUserDTO {
   @IsNotEmpty()
   readonly created_at: Date;
 
-  readonly enrolled_courses: string[];
-
   readonly referral_code: string;
 
   readonly referrals: string[]; //Will contain userIDs of users referred by this user
-  readonly wishlist: string[];
 }

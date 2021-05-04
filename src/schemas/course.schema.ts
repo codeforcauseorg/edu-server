@@ -33,10 +33,19 @@ export class Course {
   student_num: number;
 
   @Prop()
+  mentor: [];
+
+  @Prop()
   video_num: number;
 
   @Prop()
   assignments: string[]; //links to questions pdf
+
+  @Prop({ default: 0 })
+  no_of_enrollments: number;
+
+  @Prop()
+  sharable_link: string;
 }
 
 export const CourseSchema = SchemaFactory.createForClass(Course);
