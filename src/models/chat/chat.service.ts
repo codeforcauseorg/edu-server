@@ -7,7 +7,7 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateChatDTO } from './dto/create-chat.dto';
-import { Chat } from './interfaces/chat.interface';
+import { ChatDocument as Chat } from '../../schemas/chat.schema';
 
 @Injectable()
 export class ChatService {

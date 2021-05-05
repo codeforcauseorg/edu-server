@@ -14,7 +14,7 @@ import {
 import { ApiCreatedResponse, ApiProperty } from '@nestjs/swagger';
 import { CreateUserDTO } from './dto/create-user.dto'; //eslint-disable-line 
 import { UpdateUserDTO } from './dto/update-user.dto'; //eslint-disable-line 
-import { CourseType } from './interfaces/course-status.enum';
+import { CourseType } from './course-status.enum';
 import { UserService } from './user.service'; //eslint-disable-line 
 
 class UserResponseBody {

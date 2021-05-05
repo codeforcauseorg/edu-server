@@ -6,7 +6,7 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateDoubtDto } from './dto/create-doubt.dto';
-import { Doubt } from './interfaces/doubt.interface';
+import { DoubtDocument as Doubt } from '../../schemas/doubt.schema';
 
 @Injectable()
 export class DoubtService {

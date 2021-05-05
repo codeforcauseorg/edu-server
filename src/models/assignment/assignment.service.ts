@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { Assignment } from './interfaces/assignment.interface';
+import { AssignmentDocument as Assignment } from '../../schemas/assignment.schema';
 import { CreateAssignmentDTO } from './dto/create-assignment.dto';
 import { UpdateAssignmentDTO } from './dto/update-assignment.dto';
 

@@ -10,7 +10,7 @@ import {
 import { ApiCreatedResponse } from '@nestjs/swagger';
 import { DoubtService } from './doubt.service';
 import { CreateDoubtDto } from './dto/create-doubt.dto';
-import { Doubt } from './interfaces/doubt.interface';
+import { DoubtDocument as Doubt } from '../../schemas/doubt.schema';
 
 @Controller('doubt')
 export class DoubtController {

@@ -5,12 +5,12 @@ import {
 } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from './interfaces/user.interface';
+import { UserDocument as User } from '../../schemas/user.schema';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
 import { UpdateCourseDTO } from './dto/update-course.dto';
-import { Course } from '../course/interfaces/course.interface';
-import { CourseType } from './interfaces/course-status.enum';
+import { CourseDocument as Course } from '../../schemas/course.schema';
+import { CourseType } from './course-status.enum';
 
 @Injectable()
 export class UserService {
