@@ -49,6 +49,10 @@ Let's setup the backend server on your local machine.
 
 ### 0. Prerequisites
 * Install [Node.js](http://nodejs.org)
+* Install Nest cli globally
+     ```
+     npm i @nestjs/cli -g     
+     ```
 
 ### 1. Fork repo
 Fork this repo to your GitHub account  
@@ -170,13 +174,13 @@ Now you can use this to run the server for development purposes as well
 <a id="api-docs"></a>
 ## 📖 API Documentation
 
-API documentation of the server endpoints are available on `/api/docs` endpoint, which are build using Swagger-UI.
+API documentation of the server endpoints are available on `/api` endpoint, which are build using Swagger-UI.
 
 - Viewing Swagger docs locally :
-     - Start the server using command `npm run start` after running it successfully, go to `http://localhost:5000/api/docs/`.
+     - Start the server using command `nest start` or `npx nest start`, To generate a full documented DTOs running nest cli is important [see here](https://docs.nestjs.com/openapi/cli-plugin), once the server start running, go to `http://localhost:5000/api`.
 
 - Viewing Swagger docs if the server is deployed/hosted :
-     - Get the deployed URL, go to `http://<INSERT_DEPLOYED_URL>/api/docs/`.
+     - Get the deployed URL, go to `http://<INSERT_DEPLOYED_URL>/api`.
 
 <a id="contributing"></a>
 ## Contributing

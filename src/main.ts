@@ -8,7 +8,7 @@ async function bootstrap() {
 
   // setup swagger-ui
   const document = SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('api/docs', app, document, customOptions);
+  SwaggerModule.setup('api', app, document, customOptions);
 
   app.enableCors();
   await app.listen(5000);

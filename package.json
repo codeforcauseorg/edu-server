@@ -27,11 +27,11 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@nestjs/common": "^7.0.0",
-    "@nestjs/core": "^7.0.0",
+    "@nestjs/common": "^7.6.15",
+    "@nestjs/core": "^7.6.15",
     "@nestjs/mongoose": "^7.2.4",
     "@nestjs/passport": "^7.1.5",
-    "@nestjs/platform-express": "^7.0.0",
+    "@nestjs/platform-express": "^7.6.15",
     "@nestjs/swagger": "^4.7.16",
     "@tfarras/nestjs-firebase-admin": "^1.0.1",
     "@tfarras/nestjs-firebase-auth": "^1.0.0",
