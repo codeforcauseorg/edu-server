@@ -27,14 +27,16 @@ export class UserService {
 
   // Get a single User
   async findUserById(userId): Promise<User> {
-    let user: User;
     try {
-      user = await this.userModel.findById(userId).exec();
+      const user = await this.userModel.findById(userId).exec();
+
+      if (user) {
+        return user;
+      }
     } catch (e) {
       throw new NotFoundException('User Not Found!');
     }
-
-    return user;
+    throw new NotFoundException('User Not Found!');
   }
 
   // post a single User

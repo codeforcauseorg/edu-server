@@ -7,13 +7,13 @@ export type DoubtDocument = Doubt & mongoose.Document;
 @Schema()
 export class Doubt {
   @Prop()
-  tags: [];
+  tags: string[];
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   asked_by: User;
 
   @Prop()
-  answers: [];
+  answers: string[];
 
   @Prop()
   is_resolved: boolean;

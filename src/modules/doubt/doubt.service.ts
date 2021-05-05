@@ -1,11 +1,11 @@
 import {
-  HttpException,
-  HttpStatus,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { CreateDoubtDto } from './dto/create-doubt.dto';
 import { Doubt } from './interfaces/doubt.interface';
 
 @Injectable()
@@ -20,20 +20,23 @@ export class DoubtService {
 
   async findDoubtById(id: string): Promise<Doubt> {
     try {
-      return await this.DoubtModel.findById(id).exec();
+      const doubt = await this.DoubtModel.findById(id).exec();
+
+      if (doubt) {
+        return doubt;
+      }
     } catch (e) {
       throw new NotFoundException('doubt not found!');
     }
+
+    throw new NotFoundException('doubt not found!');
   }
 
-  async addNewDoubt(newDoubt) {
+  async addNewDoubt(newDoubt: CreateDoubtDto) {
     try {
       return await new this.DoubtModel(newDoubt).save();
     } catch (e) {
-      throw new HttpException(
-        { status: HttpStatus.BAD_REQUEST },
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new InternalServerErrorException();
     }
   }
 }
