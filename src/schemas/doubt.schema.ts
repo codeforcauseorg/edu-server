@@ -9,7 +9,7 @@ export class Doubt {
   @Prop()
   tags: [];
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   asked_by: User;
 
   @Prop()
