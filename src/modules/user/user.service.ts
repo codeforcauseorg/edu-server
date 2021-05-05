@@ -17,7 +17,7 @@ export class UserService {
   constructor(
     @InjectModel('User') private readonly userModel: Model<User>,
     @InjectModel('Course') private readonly courseModel: Model<Course>,
-  ) { }
+  ) {}
 
   // fetch all Users
   async getAllUser(): Promise<User[]> {

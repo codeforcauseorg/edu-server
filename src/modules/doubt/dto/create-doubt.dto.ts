@@ -1,13 +1,13 @@
-import { IsBoolean, IsMongoId, IsOptional } from "class-validator";
-import { User } from "../../../schemas/user.schema";
+import { IsBoolean, IsMongoId, IsOptional } from 'class-validator';
+import { User } from '../../../schemas/user.schema';
 
 export class CreateDoubtDto {
-  readonly tags: [];
+  readonly tags: string[];
 
   @IsMongoId()
   readonly asked_by: User;
 
-  readonly answers: [];
+  readonly answers: string[];
 
   @IsBoolean()
   @IsOptional()
