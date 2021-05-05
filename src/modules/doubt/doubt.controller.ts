@@ -11,6 +11,7 @@ import { ApiCreatedResponse } from '@nestjs/swagger';
 import { DoubtService } from './doubt.service';
 import { CreateDoubtDto } from './dto/create-doubt.dto';
 import { Doubt } from './interfaces/doubt.interface';
+
 @Controller('doubt')
 export class DoubtController {
   constructor(private doubtService: DoubtService) {}
