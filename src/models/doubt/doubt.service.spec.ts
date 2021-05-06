@@ -1,22 +1,20 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
-import { CourseService } from './course.service';
+import { DoubtService } from './doubt.service';
 
-describe('CourseService', () => {
-  let service: CourseService;
-
+describe('DoubtService', () => {
+  let service: DoubtService;
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        CourseService,
+        DoubtService,
         {
-          provide: getModelToken('Course'),
+          provide: getModelToken('Doubt'),
           useValue: {},
         },
       ],
     }).compile();
-
-    service = module.get<CourseService>(CourseService);
+    service = module.get<DoubtService>(DoubtService);
   });
 
   it('should be defined', () => {
