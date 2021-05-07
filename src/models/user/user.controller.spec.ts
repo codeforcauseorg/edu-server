@@ -67,9 +67,11 @@ describe('UserController', () => {
       await expect(
         service.findUserById('6079f573062890a5e2cad207'),
       ).resolves.toEqual([mockuser]);
+    });
 
+    it('new user should be created', async () => {
+      jest.spyOn(service, 'getAllUser');
       const newUser: CreateUserDTO = mockuser;
-
       // to check that same user as expected results is created
       await expect(service.addUser(newUser)).resolves.toEqual([mockuser]);
     });
