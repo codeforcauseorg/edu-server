@@ -1,4 +1,4 @@
-name: CI
+name: Node Workflows
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -18,3 +18,14 @@ jobs:
       uses: actions/setup-node@v1
     - name: install and then run linter
       run: npm install eslint && npm run lint
+      
+  unit-test: 
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+    - name: install
+      run: npm ci
+    - name: run-test
+      run: npm run test
