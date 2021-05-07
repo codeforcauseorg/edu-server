@@ -52,7 +52,6 @@ describe('UserController', () => {
 
   describe('User', () => {
     it('should be fetched', async () => {
-      jest.spyOn(service, 'getAllUser');
       await expect(controller.getAllUser()).resolves.toEqual([mockuser]);
     });
 
@@ -64,9 +63,14 @@ describe('UserController', () => {
         service.findUserById('6079f573062890a5e2cad207'),
       ).resolves.not.toEqual(null);
 
+      // to check that same user as expected results is fetched
+      await expect(
+        service.findUserById('6079f573062890a5e2cad207'),
+      ).resolves.toEqual([mockuser]);
+
       const newUser: CreateUserDTO = mockuser;
 
-      // to check that same user as expected results is fetched
+      // to check that same user as expected results is created
       await expect(service.addUser(newUser)).resolves.toEqual([mockuser]);
     });
   });
