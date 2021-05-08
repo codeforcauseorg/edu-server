@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { UpdateUserDTO } from './dto/update-user.dto';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 
@@ -15,15 +16,26 @@ const mockuser = {
   phone: '9909999099',
   __v: 0,
   photoUrl: 'https://google.com/john',
-  enrolledCourses: [],
 };
 
 describe('UserController', () => {
   let controller: UserController;
-  // let service: UserService;
+  let service: UserService;
 
   const mockUservalue = {
     getAllUser: jest.fn().mockResolvedValue([mockuser]),
+    findUserById: jest
+      .fn()
+      .mockImplementation((_id: string) => ({ ...mockuser, _id })),
+    updateUser: jest.fn().mockImplementation((uid, body) => ({
+      ...mockuser,
+      _id: uid,
+      ...body,
+    })),
+    // deleteUser: jest.fn().mockResolvedValue([mockuser]),
+    // getEnrolledCourses: jest.fn().mockResolvedValue([mockuser]),
+    // addCourse: jest.fn().mockResolvedValue([mockuser]),
+    // getWishList: jest.fn().mockResolvedValue([mockuser]),
   };
 
   beforeEach(async () => {
@@ -38,7 +50,7 @@ describe('UserController', () => {
     }).compile();
 
     controller = module.get<UserController>(UserController);
-    // service = module.get<UserService>(UserService);
+    service = module.get<UserService>(UserService);
   });
 
   it('should be defined', () => {
@@ -48,6 +60,51 @@ describe('UserController', () => {
   describe('User', () => {
     it('should be created', async () => {
       await expect(controller.getAllUser()).resolves.toEqual([mockuser]);
+    });
+
+    it('should be found be ID', async () => {
+      const _id = '6079f573062890a5e2cad208';
+      await expect(controller.getUser(_id)).resolves.toEqual({
+        ...mockuser,
+        _id,
+      });
+      expect(service.findUserById).toHaveBeenCalledWith(_id);
+    });
+
+    it('should be found be with another ID', async () => {
+      const _id = '6079f573062890a5e2cad2q8';
+      await expect(controller.getUser(_id)).resolves.toEqual({
+        ...mockuser,
+        _id,
+      });
+      expect(service.findUserById).toHaveBeenCalledWith(_id);
+    });
+
+    it('should be updated', async () => {
+      const _id = '6079f573062890a5e2cad2q8';
+      const dto: UpdateUserDTO = {
+        first_name: 'New Name',
+        last_name: 'New',
+        email: '',
+        phone: '',
+        photourl: '',
+        address: '',
+        description: '',
+        score: 1,
+        isAdmin: false,
+        coverPhotoUrl: '',
+        photoUrl: '',
+      };
+      await expect(
+        controller.updateUser('6079f573062890a5e2cad2q8', dto),
+      ).resolves.toEqual({
+        _id,
+        ...dto,
+        wishlist: [],
+        enrolled_courses: [],
+        created_at: '2021-03-27T14:05:28.000Z',
+        __v: 0,
+      });
     });
   });
 });

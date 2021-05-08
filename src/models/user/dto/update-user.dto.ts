@@ -9,4 +9,5 @@ export class UpdateUserDTO {
   readonly description: string;
   readonly score: number;
   readonly isAdmin: boolean;
+  readonly photoUrl: string;
 }

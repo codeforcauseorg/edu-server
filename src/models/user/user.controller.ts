@@ -90,7 +90,7 @@ export class UserController {
   @ApiCreatedResponse({ type: UserResponseBody })
   @Get('get/:userId')
   async getUser(@Param('userId') userId: string) {
-    return this.userService.findUserById(userId);
+    return await this.userService.findUserById(userId);
   }
 
   @Put('/update')
