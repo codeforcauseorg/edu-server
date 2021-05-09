@@ -9,8 +9,6 @@ import {
   Put,
   Query,
   Res,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { CourseService } from './course.service';
@@ -39,7 +37,6 @@ export class CourseController {
 
   // add a Course
   @Post('/create')
-  @UsePipes(ValidationPipe)
   async addCourse(@Body() courseDTO: CourseDTO) {
     const course = await this.courseService.addCourse(courseDTO);
     return course;

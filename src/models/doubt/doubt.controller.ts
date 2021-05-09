@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Post,
-  UsePipes,
-  ValidationPipe,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiCreatedResponse } from '@nestjs/swagger';
 import { DoubtService } from './doubt.service';
 import { CreateDoubtDto } from './dto/create-doubt.dto';
@@ -30,7 +22,6 @@ export class DoubtController {
     type: CreateDoubtDto,
     description: 'Create a new Doubt',
   })
-  @UsePipes(new ValidationPipe())
   @Post('/new')
   async askNewDoubt(@Body() createDoubt: CreateDoubtDto): Promise<Doubt> {
     return await this.doubtService.addNewDoubt(createDoubt);

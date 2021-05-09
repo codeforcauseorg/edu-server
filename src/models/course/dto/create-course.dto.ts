@@ -2,7 +2,7 @@ import { IsArray, IsDateString, IsNotEmpty, IsUrl } from 'class-validator';
 
 export class CourseDTO {
   @IsNotEmpty()
-  readonly id: string;
+  readonly course_id: string;
 
   @IsNotEmpty()
   readonly name: string;

@@ -8,8 +8,6 @@ import {
   Post,
   Put,
   Query,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiProperty } from '@nestjs/swagger';
 import { CreateUserDTO } from './dto/create-user.dto'; //eslint-disable-line 
@@ -46,7 +44,6 @@ export class UserController {
 
   // add a User
   @Post()
-  @UsePipes(ValidationPipe)
   async addUser(@Body() CreateUserDTO: CreateUserDTO) {
     return await this.userService.addUser(CreateUserDTO);
   }
@@ -94,7 +91,6 @@ export class UserController {
   }
 
   @Put('/update')
-  @UsePipes(ValidationPipe)
   async updateUser(@Query('uid') uid, @Body() UpdateUserDTO: UpdateUserDTO) {
     const user = await this.userService.updateUser(uid, UpdateUserDTO);
 

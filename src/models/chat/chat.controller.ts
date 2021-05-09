@@ -7,8 +7,6 @@ import {
   Put,
   NotFoundException,
   Param,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiProperty } from '@nestjs/swagger';
 import { ChatService } from './chat.service'; //eslint-disable-line 
@@ -34,7 +32,6 @@ export class ChatController {
 
   // add a Chat
   @Post()
-  @UsePipes(ValidationPipe)
   async addChat(@Body() CreateChatDTO: CreateChatDTO) {
     return await this.chatService.addChat(CreateChatDTO);
   }

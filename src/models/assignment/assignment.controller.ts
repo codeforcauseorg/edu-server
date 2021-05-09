@@ -7,8 +7,6 @@ import {
   NotFoundException,
   Delete,
   Param,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { AssignmentService } from './assignment.service'; //eslint-disable-line 
 import { CreateAssignmentDTO } from './dto/create-assignment.dto'; //eslint-disable-line 
@@ -35,7 +33,6 @@ export class AssignmentController {
 
   // add a Assignment
   @Post()
-  @UsePipes(ValidationPipe)
   async addAssignment(@Body() CreateAssignmentDTO: CreateAssignmentDTO) {
     const assignment = await this.AssignmentService.addAssignment(
       CreateAssignmentDTO,
