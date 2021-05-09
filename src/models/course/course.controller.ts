@@ -13,7 +13,7 @@ import {
 import { Response } from 'express';
 import { UpdateCourseDTO } from './dto/course-update.dto';
 import { CourseService } from './course.service';
-import { CourseDTO } from './dto/create-course.dto';
+import { CreateCourseDto } from './dto/create-course.dto';
 
 @Controller('course')
 export class CourseController {
@@ -38,7 +38,7 @@ export class CourseController {
 
   // add a Course
   @Post('/create')
-  async addCourse(@Body() courseDTO: CourseDTO) {
+  async addCourse(@Body() courseDTO: CreateCourseDto) {
     const course = await this.courseService.addCourse(courseDTO);
     return course;
   }

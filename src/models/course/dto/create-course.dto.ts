@@ -1,6 +1,6 @@
 import { IsArray, IsDateString, IsNotEmpty, IsUrl } from 'class-validator';
 
-export class CourseDTO {
+export class CreateCourseDto {
   @IsNotEmpty()
   readonly course_id: string;
 

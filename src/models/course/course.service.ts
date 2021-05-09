@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CourseDocument as Course } from '../../schemas/course.schema';
 import { UpdateCourseDTO } from './dto/course-update.dto';
-import { CourseDTO } from './dto/create-course.dto';
+import { CreateCourseDto } from './dto/create-course.dto';
 
 @Injectable()
 export class CourseService {
@@ -24,7 +24,7 @@ export class CourseService {
   }
 
   // add course
-  async addCourse(courseDTO: CourseDTO): Promise<Course> {
+  async addCourse(courseDTO: CreateCourseDto): Promise<Course> {
     const newCourse = new this.CourseModel(courseDTO);
     return newCourse.save();
   }
