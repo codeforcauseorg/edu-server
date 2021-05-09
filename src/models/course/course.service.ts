@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CourseDocument as Course } from '../../schemas/course.schema';
+import { UpdateCourseDTO } from './dto/course-update.dto';
 import { CourseDTO } from './dto/create-course.dto';
 
 @Injectable()
@@ -29,7 +30,10 @@ export class CourseService {
   }
 
   // edit course
-  async editCourse(CourseId: string, courseDTO: CourseDTO): Promise<Course> {
+  async editCourse(
+    CourseId: string,
+    courseDTO: UpdateCourseDTO,
+  ): Promise<Course> {
     let updatedCourse = null;
     try {
       updatedCourse = await this.CourseModel.findByIdAndUpdate(

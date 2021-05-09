@@ -11,6 +11,7 @@ import {
   Res,
 } from '@nestjs/common';
 import { Response } from 'express';
+import { UpdateCourseDTO } from './dto/course-update.dto';
 import { CourseService } from './course.service';
 import { CourseDTO } from './dto/create-course.dto';
 
@@ -44,7 +45,10 @@ export class CourseController {
 
   // update a course
   @Put('/edit')
-  async editCourse(@Query('id') cId: string, @Body() courseDTO: CourseDTO) {
+  async updateCourse(
+    @Query('id') cId: string,
+    @Body() courseDTO: UpdateCourseDTO,
+  ) {
     const course = await this.courseService.editCourse(cId, courseDTO);
 
     if (!course) {
