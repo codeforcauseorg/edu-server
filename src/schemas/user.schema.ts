@@ -1,5 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { Chat } from './chat.schema';
+import { Room } from './room.schema';
+import * as mongoose from 'mongoose';
 
 export type UserDocument = User & Document;
 
@@ -43,6 +46,12 @@ export class User {
 
   @Prop({ default: [] })
   wishlist: string[];
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Room' })
+  joinedRooms: Room | string;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  chats: Chat;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

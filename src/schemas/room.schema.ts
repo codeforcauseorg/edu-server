@@ -13,7 +13,7 @@ export class Room {
   @Prop({ required: true, maxlength: 20, minlength: 5 })
   name: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Chat' })
   chats: Chat;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
