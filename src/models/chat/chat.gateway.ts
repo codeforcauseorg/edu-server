@@ -22,10 +22,10 @@ export class MessagesGateway implements OnGatewayDisconnect {
   async handleDisconnect(client: Socket): Promise<any> {
     const user = await this.usersModel.findOne({ id: client.id });
     if (user) {
-      /* client.server.emit('users-changed', {
-        user: user.first_name,
-        event: 'left',
-      });*/
+      //client.server.emit('users-changed', {
+      //user: user.first_name,
+      // event: 'left',
+      // });
       user.id = null;
       await this.usersModel.findByIdAndUpdate(user._id, user);
     }
@@ -38,10 +38,6 @@ export class MessagesGateway implements OnGatewayDisconnect {
   ) {
     let user = await this.usersModel.findOne({ first_name: data.first_name });
     if (!user) {
-      /* user = await this.usersModel.create({
-        first_name: data.first_name,
-        id: client.id,
-      });*/
       throw new NotFoundException('user not found');
     } else {
       user.id = client.id;
