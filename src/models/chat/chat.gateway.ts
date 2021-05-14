@@ -49,9 +49,12 @@ export class MessagesGateway implements OnGatewayDisconnect {
         new: true,
       });
     }
-    client.join(data.roomId);
+    await client.join(data.roomId);
     //.broadcast.to(data.roomId)
     //.emit('users-changed', { user: user.first_name, event: 'joined' });
+    await client.broadcast
+      .to(data.roomId)
+      .emit('users-changed', { user: user.first_name, event: 'joined' });
   }
 
   @SubscribeMessage('leave-chat-room')
