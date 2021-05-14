@@ -32,6 +32,7 @@
     "@nestjs/mongoose": "^7.2.4",
     "@nestjs/passport": "^7.1.5",
     "@nestjs/platform-express": "^7.6.15",
+    "@nestjs/platform-socket.io": "^7.6.15",
     "@nestjs/swagger": "^4.7.16",
     "@nestjs/websockets": "^7.6.15",
     "@tfarras/nestjs-firebase-admin": "^2.0.1",
