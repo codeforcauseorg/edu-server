@@ -33,12 +33,13 @@
     "@nestjs/passport": "^7.1.5",
     "@nestjs/platform-express": "^7.6.15",
     "@nestjs/swagger": "^4.7.16",
-    "@tfarras/nestjs-firebase-admin": "^1.0.1",
+    "@nestjs/websockets": "^7.6.15",
+    "@tfarras/nestjs-firebase-admin": "^2.0.1",
     "@tfarras/nestjs-firebase-auth": "^1.0.0",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
     "express": "^4.17.1",
-    "firebase-admin": "^8.6.0",
+    "firebase-admin": "^9.8.0",
     "firebase-functions": "^3.3.0",
     "mongoose": "^5.12.1",
     "nestjs-config": "^1.4.7",
@@ -47,6 +48,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.5.4",
+    "socket.io": "^4.1.1",
     "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
