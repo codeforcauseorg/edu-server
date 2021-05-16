@@ -12,9 +12,6 @@ export class Chat {
   sender: string;
 
   @Prop({ required: true })
-  original_sender: string;
-
-  @Prop({ required: true })
   message: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })

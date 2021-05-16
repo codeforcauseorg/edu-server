@@ -6,9 +6,9 @@ import {
 } from '@nestjs/websockets';
 import { Socket } from 'socket.io';
 import { Model } from 'mongoose';
-import { ChatDocument as Chat } from '../../schemas/chat.schema';
-import { UserDocument as User } from '../../schemas/user.schema';
-import { RoomDocument as Room } from '../../schemas/room.schema';
+import { ChatDocument as Chat } from '../schemas/chat.schema';
+import { UserDocument as User } from '../schemas/user.schema';
+import { RoomDocument as Room } from '../schemas/room.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { NotFoundException } from '@nestjs/common';
 
@@ -18,7 +18,7 @@ export class MessagesGateway implements OnGatewayDisconnect {
   server;
   constructor(
     @InjectModel('Chat') private readonly chatModel: Model<Chat>,
-    @InjectModel('Room') private readonly roomsModel: Model<Room>,
+    @InjectModel('Room') private readonly roomModel: Model<Room>,
     @InjectModel('User') private readonly usersModel: Model<User>,
   ) {}
 

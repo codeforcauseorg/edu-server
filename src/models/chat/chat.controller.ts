@@ -14,13 +14,13 @@ import { CreateChatDTO } from './dto/create-chat.dto'; //eslint-disable-line
 
 class ChatResponseBody {
   @ApiProperty({ required: true, example: '605e3fd9acc33583fb389aec' })
-  id: string;
+  room: string;
 
   @ApiProperty({ required: true, example: 'John' })
   sender: string;
 
   @ApiProperty({ required: true, example: 'Johny' })
-  original_sender: string;
+  owner: string;
 
   @ApiProperty({ required: true, example: 'How are you!' })
   message: string;

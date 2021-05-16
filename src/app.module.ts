@@ -12,12 +12,22 @@ import * as path from 'path';
 import { CourseModule } from './models/course/course.module';
 import { DoubtModule } from './models/doubt/doubt.module';
 import { RoomModule } from './models/room/room.module';
+import { ChatGateway } from './chat.gateway';
+import { MessagesGateway } from './gateway/chat.gateway';
+import { ChatSchema } from './schemas/chat.schema';
+import { UserSchema } from './schemas/user.schema';
+import { RoomSchema } from './schemas/room.schema';
 
 @Module({
   imports: [
     ConfigModule.load(
       path.resolve(__dirname, 'config', '**', '!(*.d).{ts,js}'),
     ),
+    MongooseModule.forFeature([
+      { name: 'User', schema: UserSchema },
+      { name: 'Chat', schema: ChatSchema },
+      { name: 'Room', schema: RoomSchema },
+    ]),
     FirebaseModule,
     AuthModule,
     AssignmentModule,
@@ -29,6 +39,6 @@ import { RoomModule } from './models/room/room.module';
     RoomModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ChatGateway, MessagesGateway],
 })
 export class AppModule {}
