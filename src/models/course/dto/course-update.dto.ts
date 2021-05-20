@@ -8,7 +8,7 @@ export class UpdateCourseDTO {
   readonly coupons: number;
   readonly video_num: number;
   readonly duration: string;
-  assignments: string[];
+  readonly assignments: string[];
 
   @IsDateString()
   @IsOptional()
@@ -25,4 +25,7 @@ export class UpdateCourseDTO {
   @IsArray()
   @IsOptional()
   mentor: [];
+
+  @IsOptional()
+  no_of_enrollments: number;
 }

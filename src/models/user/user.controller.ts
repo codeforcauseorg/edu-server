@@ -3,7 +3,6 @@ import {
   Controller,
   Delete,
   Get,
-  NotFoundException,
   Param,
   Post,
   Put,
@@ -36,6 +35,21 @@ class UserResponseBody {
 
   @ApiProperty({ required: true, example: 'I am Noob Coder' })
   description: string;
+
+  @ApiProperty({ required: false, example: 80 })
+  score: number;
+
+  @ApiProperty({ required: true, example: true })
+  isAdmin: boolean;
+
+  @ApiProperty({ required: true, example: 1621487098241 })
+  created_at: Date;
+
+  @ApiProperty({ required: false, example: ['Python', 'Baka'] })
+  enrolled_courses: string[];
+
+  @ApiProperty({ required: false, example: ['DSA', 'Baka'] })
+  wishlist: string[];
 }
 
 @Controller('user')
@@ -56,12 +70,12 @@ export class UserController {
   }
 
   @Get('/enrolled')
-  async getEnrolledCourses(@Query('id') id: string) {
+  async getEnrolledCourses(@Param('id') id: string) {
     return await this.userService.getEnrolledCourses(id);
   }
 
   @Put('/enrolled')
-  async addEnrolledCourses(@Query('id') studentId: string, @Body() cid: any) {
+  async addEnrolledCourses(@Param('id') studentId: string, @Body() cid: any) {
     return await this.userService.addCourse(
       studentId,
       cid.courseId,
@@ -69,12 +83,12 @@ export class UserController {
     );
   }
 
-  @Get('/wishlist')
-  async getWishlist(@Query('id') id: string) {
+  @Get('get/:userId/wishlist')
+  async getWishlist(@Param('userId') id: string) {
     return await this.userService.getWishList(id);
   }
 
-  @Put('/wishlist')
+  @Put('get/:userId/wishlist')
   async addWishlist(@Query('id') studentId: string, @Body() cid: any) {
     return await this.userService.addCourse(
       studentId,
@@ -90,22 +104,17 @@ export class UserController {
     return await this.userService.findUserById(userId);
   }
 
-  @Put('/update')
-  async updateUser(@Query('uid') uid, @Body() UpdateUserDTO: UpdateUserDTO) {
-    const user = await this.userService.updateUser(uid, UpdateUserDTO);
-
-    if (!user) throw new NotFoundException('User does not exist!');
-
-    return user;
+  @Put('/update/:userId')
+  async updateUser(
+    @Param('userId') userId: string,
+    @Body() UpdateUserDTO: UpdateUserDTO,
+  ) {
+    return await this.userService.updateUser(userId, UpdateUserDTO);
   }
 
   // Delete a User
-  @Delete('/delete')
-  async deleteUser(@Query('uid') uid: string) {
-    const user = await this.userService.deleteUser(uid);
-
-    if (!user) throw new NotFoundException('User does not exist');
-
-    return user;
+  @Delete('/delete/:userId')
+  async deleteUser(@Param('userId') userId: string) {
+    return await this.userService.deleteUser(userId);
   }
 }

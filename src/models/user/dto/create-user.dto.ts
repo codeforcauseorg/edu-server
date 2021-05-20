@@ -21,4 +21,8 @@ export class CreateUserDTO {
 
   @IsNotEmpty()
   readonly created_at: Date;
+
+  readonly enrolled_courses: string[];
+
+  readonly wishlist: string[];
 }

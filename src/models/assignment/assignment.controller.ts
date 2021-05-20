@@ -4,7 +4,6 @@ import {
   Post,
   Body,
   Put,
-  NotFoundException,
   Delete,
   Param,
 } from '@nestjs/common';
@@ -34,26 +33,21 @@ export class AssignmentController {
   // add a Assignment
   @Post()
   async addAssignment(@Body() CreateAssignmentDTO: CreateAssignmentDTO) {
-    const assignment = await this.AssignmentService.addAssignment(
-      CreateAssignmentDTO,
-    );
-    return assignment;
+    return await this.AssignmentService.addAssignment(CreateAssignmentDTO);
   }
 
   // Retrieve Assignments list
   @ApiCreatedResponse({ type: [AssignmentResponseBody] })
   @Get()
   async getAllAssignment() {
-    const assignments = await this.AssignmentService.getAllAssignment();
-    return assignments;
+    return await this.AssignmentService.getAllAssignment();
   }
 
   // Fetch a particular Assignment using ID
   @ApiCreatedResponse({ type: AssignmentResponseBody })
   @Get('/:assignmentId')
   async getAssignment(@Param('assignmentId') AssignmentId: string) {
-    const assignment = await this.AssignmentService.getAssignment(AssignmentId);
-    return assignment;
+    return await this.AssignmentService.getAssignment(AssignmentId);
   }
 
   @Put('/:assignmentId')
@@ -61,23 +55,15 @@ export class AssignmentController {
     @Param('assignmentId') assignmentId: string,
     @Body() updateAssignmentDTO: UpdateAssignmentDTO,
   ) {
-    const assignment = await this.AssignmentService.updateAssignment(
+    return await this.AssignmentService.updateAssignment(
       assignmentId,
       updateAssignmentDTO,
     );
-
-    if (!assignment) throw new NotFoundException('Assignment does not exist!');
-
-    return assignment;
   }
 
   // Delete a Assignment
   @Delete('/:assignmentId')
   async deleteAssignment(@Param('assignmentId') assignmentId: string) {
-    const assignment = await this.AssignmentService.deleteAssignment(
-      assignmentId,
-    );
-    if (!assignment) throw new NotFoundException('Assignment does not exist');
-    return assignment;
+    return await this.AssignmentService.deleteAssignment(assignmentId);
   }
 }

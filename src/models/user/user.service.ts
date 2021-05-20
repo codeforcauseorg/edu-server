@@ -8,7 +8,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { UserDocument as User } from '../../schemas/user.schema';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
-import { UpdateCourseDTO } from './dto/update-course.dto';
+import { UpdateCourseDTO } from './dto/update-course.user.dto';
 import { CourseDocument as Course } from '../../schemas/course.schema';
 import { CourseType } from './course-status.enum';
 
@@ -101,8 +101,8 @@ export class UserService {
     throw new NotFoundException('course or user not found');
   }
 
-  async getWishList(studentId: string) {
-    const user = await this.findUserById(studentId);
+  async getWishList(id: string) {
+    const user = await this.findUserById(id);
     return user.wishlist;
   }
 }
