@@ -1,5 +1,5 @@
 import { IsBoolean, IsMongoId, IsOptional } from 'class-validator';
-import { User } from '../../../schemas/user.schema';
+import { User } from '../../user/schema/user.schema';
 
 export class CreateDoubtDto {
   readonly tags: string[];

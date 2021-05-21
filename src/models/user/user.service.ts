@@ -5,11 +5,11 @@ import {
 } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { UserDocument as User } from '../../schemas/user.schema';
+import { UserDocument as User } from './schema/user.schema';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
 import { UpdateCourseDTO } from './dto/update-course.user.dto';
-import { CourseDocument as Course } from '../../schemas/course.schema';
+import { CourseDocument as Course } from '../course/schema/course.schema';
 import { CourseType } from './course-status.enum';
 
 @Injectable()

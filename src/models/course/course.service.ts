@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CourseDocument as Course } from '../../schemas/course.schema';
+import { CourseDocument as Course } from './schema/course.schema';
 import { UpdateCourseDTO } from './dto/course-update.dto';
 import { CreateCourseDto } from './dto/create-course.dto';
 

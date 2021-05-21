@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiCreatedResponse } from '@nestjs/swagger';
 import { DoubtService } from './doubt.service';
 import { CreateDoubtDto } from './dto/create-doubt.dto';
-import { DoubtDocument as Doubt } from '../../schemas/doubt.schema';
+import { DoubtDocument as Doubt } from './schema/doubt.schema';
 
 @Controller('doubt')
 export class DoubtController {
