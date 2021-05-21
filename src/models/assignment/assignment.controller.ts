@@ -28,26 +28,26 @@ class AssignmentResponseBody {
 
 @Controller('assignment')
 export class AssignmentController {
-  constructor(private AssignmentService: AssignmentService) {}
+  constructor(private assignmentService: AssignmentService) {}
 
   // add a Assignment
   @Post()
   async addAssignment(@Body() CreateAssignmentDTO: CreateAssignmentDTO) {
-    return await this.AssignmentService.addAssignment(CreateAssignmentDTO);
+    return await this.assignmentService.addAssignment(CreateAssignmentDTO);
   }
 
   // Retrieve Assignments list
   @ApiCreatedResponse({ type: [AssignmentResponseBody] })
   @Get()
   async getAllAssignment() {
-    return await this.AssignmentService.getAllAssignment();
+    return await this.assignmentService.getAllAssignment();
   }
 
   // Fetch a particular Assignment using ID
   @ApiCreatedResponse({ type: AssignmentResponseBody })
   @Get('/:assignmentId')
   async getAssignment(@Param('assignmentId') AssignmentId: string) {
-    return await this.AssignmentService.getAssignment(AssignmentId);
+    return await this.assignmentService.getAssignment(AssignmentId);
   }
 
   @Put('/:assignmentId')
@@ -55,7 +55,7 @@ export class AssignmentController {
     @Param('assignmentId') assignmentId: string,
     @Body() updateAssignmentDTO: UpdateAssignmentDTO,
   ) {
-    return await this.AssignmentService.updateAssignment(
+    return await this.assignmentService.updateAssignment(
       assignmentId,
       updateAssignmentDTO,
     );
@@ -64,6 +64,6 @@ export class AssignmentController {
   // Delete a Assignment
   @Delete('/:assignmentId')
   async deleteAssignment(@Param('assignmentId') assignmentId: string) {
-    return await this.AssignmentService.deleteAssignment(assignmentId);
+    return await this.assignmentService.deleteAssignment(assignmentId);
   }
 }
