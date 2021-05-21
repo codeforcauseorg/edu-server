@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { DoubtSchema } from '../../schemas/doubt.schema';
+import { DoubtSchema } from './schema/doubt.schema';
 import { DoubtController } from './doubt.controller';
 import { DoubtService } from './doubt.service';
 
