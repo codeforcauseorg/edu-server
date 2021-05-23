@@ -1,16 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpStatus,
-  NotFoundException,
-  Param,
-  Post,
-  Put,
-  Query,
-  Res,
-} from '@nestjs/common';
-import { Response } from 'express';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { UpdateCourseDTO } from './dto/course-update.dto';
 import { CourseService } from './course.service';
 import { CreateCourseDto } from './dto/create-course.dto';
@@ -21,40 +9,28 @@ export class CourseController {
 
   // get all courses
   @Get('/all')
-  async getAllCourses(@Res() res: Response) {
-    const courses = await this.courseService.getAllCourses();
-    return res.status(HttpStatus.OK).json(courses);
+  async getAllCourses() {
+    return await this.courseService.getAllCourses();
   }
 
   // get selected course
   @Get('/:courseID')
-  async getSelectedCourse(@Res() res: Response, @Param('courseID') courseID) {
-    const course = await this.courseService.findCourseById(courseID);
-    if (!course) {
-      throw new NotFoundException('Selected course not found');
-    }
-    return res.status(HttpStatus.OK).json(course);
+  async getSelectedCourse(@Param('courseID') courseID: string) {
+    return await this.courseService.findCourseById(courseID);
   }
 
   // add a Course
   @Post('/create')
   async addCourse(@Body() courseDTO: CreateCourseDto) {
-    const course = await this.courseService.addCourse(courseDTO);
-    return course;
+    return await this.courseService.addCourse(courseDTO);
   }
 
   // update a course
   @Put('/edit')
   async updateCourse(
-    @Query('id') cId: string,
+    @Param('courseID') courseID: string,
     @Body() courseDTO: UpdateCourseDTO,
   ) {
-    const course = await this.courseService.editCourse(cId, courseDTO);
-
-    if (!course) {
-      throw new NotFoundException('Course Not Found');
-    }
-
-    return course;
+    return await this.courseService.editCourse(courseID, courseDTO);
   }
 }

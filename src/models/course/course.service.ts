@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CourseDocument as Course } from './schema/course.schema';
@@ -13,20 +13,27 @@ export class CourseService {
 
   // fetch all courses
   async getAllCourses(): Promise<Course[]> {
-    const Courses = await this.CourseModel.find().exec();
-    return Courses;
+    return await this.CourseModel.find().exec();
   }
 
   // fetch selected course
   async findCourseById(CourseID: string): Promise<Course> {
-    const Course = await this.CourseModel.findById(CourseID).exec();
-    return Course;
+    try {
+      const Course = this.CourseModel.findById(CourseID).exec();
+      if (Course) {
+        return Course;
+      } else {
+        throw new NotFoundException('course not found');
+      }
+    } catch {
+      throw new NotFoundException('course not found');
+    }
   }
 
   // add course
   async addCourse(courseDTO: CreateCourseDto): Promise<Course> {
     const newCourse = new this.CourseModel(courseDTO);
-    return newCourse.save();
+    return await newCourse.save();
   }
 
   // edit course
