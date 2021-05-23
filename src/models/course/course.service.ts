@@ -19,7 +19,7 @@ export class CourseService {
   // fetch selected course
   async findCourseById(CourseID: string): Promise<Course> {
     try {
-      const Course = this.CourseModel.findById(CourseID).exec();
+      const Course = await this.CourseModel.findById(CourseID).exec();
       if (Course) {
         return Course;
       } else {
@@ -51,5 +51,11 @@ export class CourseService {
     } finally {
       return updatedCourse;
     }
+  }
+
+  // Delete a Course
+  async deleteCourse(CourseID): Promise<any> {
+    const deletedCourse = await this.CourseModel.findByIdAndRemove(CourseID);
+    return deletedCourse;
   }
 }
