@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CourseDocument as Course } from './schema/course.schema';
@@ -13,36 +13,49 @@ export class CourseService {
 
   // fetch all courses
   async getAllCourses(): Promise<Course[]> {
-    const Courses = await this.CourseModel.find().exec();
-    return Courses;
+    return await this.CourseModel.find().exec();
   }
 
   // fetch selected course
-  async findCourseById(CourseID: string): Promise<Course> {
-    const Course = await this.CourseModel.findById(CourseID).exec();
-    return Course;
+  async findCourseById(courseId: string): Promise<Course> {
+    try {
+      const Course = await this.CourseModel.findById(courseId).exec();
+      if (Course) {
+        return Course;
+      } else {
+        throw new NotFoundException('course not found');
+      }
+    } catch {
+      throw new NotFoundException('course not found');
+    }
   }
 
   // add course
-  async addCourse(courseDTO: CreateCourseDto): Promise<Course> {
-    const newCourse = new this.CourseModel(courseDTO);
-    return newCourse.save();
+  async addCourse(createCourseDto: CreateCourseDto): Promise<Course> {
+    const newCourse = new this.CourseModel(createCourseDto);
+    return await newCourse.save();
   }
 
   // edit course
   async editCourse(
-    CourseId: string,
-    courseDTO: UpdateCourseDTO,
+    courseId: string,
+    updateCourseDTO: UpdateCourseDTO,
   ): Promise<Course> {
     let updatedCourse = null;
     try {
       updatedCourse = await this.CourseModel.findByIdAndUpdate(
-        CourseId,
-        courseDTO,
+        courseId,
+        updateCourseDTO,
         { new: true },
       );
     } finally {
       return updatedCourse;
     }
+  }
+
+  // Delete a Course
+  async deleteCourse(courseId): Promise<any> {
+    const deletedCourse = await this.CourseModel.findByIdAndRemove(courseId);
+    return deletedCourse;
   }
 }

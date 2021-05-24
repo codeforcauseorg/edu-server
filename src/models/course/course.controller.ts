@@ -2,15 +2,11 @@ import {
   Body,
   Controller,
   Get,
-  HttpStatus,
-  NotFoundException,
   Param,
   Post,
   Put,
-  Query,
-  Res,
+  Delete,
 } from '@nestjs/common';
-import { Response } from 'express';
 import { UpdateCourseDTO } from './dto/course-update.dto';
 import { CourseService } from './course.service';
 import { CreateCourseDto } from './dto/create-course.dto';
@@ -21,40 +17,33 @@ export class CourseController {
 
   // get all courses
   @Get('/all')
-  async getAllCourses(@Res() res: Response) {
-    const courses = await this.courseService.getAllCourses();
-    return res.status(HttpStatus.OK).json(courses);
+  async getAllCourses() {
+    return await this.courseService.getAllCourses();
   }
 
   // get selected course
-  @Get('/:courseID')
-  async getSelectedCourse(@Res() res: Response, @Param('courseID') courseID) {
-    const course = await this.courseService.findCourseById(courseID);
-    if (!course) {
-      throw new NotFoundException('Selected course not found');
-    }
-    return res.status(HttpStatus.OK).json(course);
+  @Get('/:courseId')
+  async getSelectedCourse(@Param('courseId') courseId: string) {
+    return await this.courseService.findCourseById(courseId);
   }
 
   // add a Course
   @Post('/create')
-  async addCourse(@Body() courseDTO: CreateCourseDto) {
-    const course = await this.courseService.addCourse(courseDTO);
-    return course;
+  async addCourse(@Body() createCourseDto: CreateCourseDto) {
+    return await this.courseService.addCourse(createCourseDto);
   }
 
   // update a course
-  @Put('/edit')
+  @Put('/edit/:courseId')
   async updateCourse(
-    @Query('id') cId: string,
-    @Body() courseDTO: UpdateCourseDTO,
+    @Param('courseId') courseId: string,
+    @Body() updateCourseDTO: UpdateCourseDTO,
   ) {
-    const course = await this.courseService.editCourse(cId, courseDTO);
+    return await this.courseService.editCourse(courseId, updateCourseDTO);
+  }
 
-    if (!course) {
-      throw new NotFoundException('Course Not Found');
-    }
-
-    return course;
+  @Delete('delete/:courseId')
+  async deleteCourse(@Param('courseId') courseId: string) {
+    return await this.courseService.deleteCourse(courseId);
   }
 }
