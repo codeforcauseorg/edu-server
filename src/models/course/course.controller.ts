@@ -22,28 +22,28 @@ export class CourseController {
   }
 
   // get selected course
-  @Get('/:courseID')
-  async getSelectedCourse(@Param('courseID') courseID: string) {
-    return await this.courseService.findCourseById(courseID);
+  @Get('/:courseId')
+  async getSelectedCourse(@Param('courseId') courseId: string) {
+    return await this.courseService.findCourseById(courseId);
   }
 
   // add a Course
   @Post('/create')
-  async addCourse(@Body() courseDTO: CreateCourseDto) {
-    return await this.courseService.addCourse(courseDTO);
+  async addCourse(@Body() createCourseDto: CreateCourseDto) {
+    return await this.courseService.addCourse(createCourseDto);
   }
 
   // update a course
-  @Put('/edit/:courseID')
+  @Put('/edit/:courseId')
   async updateCourse(
-    @Param('courseID') courseID: string,
-    @Body() courseDTO: UpdateCourseDTO,
+    @Param('courseId') courseId: string,
+    @Body() updateCourseDTO: UpdateCourseDTO,
   ) {
-    return await this.courseService.editCourse(courseID, courseDTO);
+    return await this.courseService.editCourse(courseId, updateCourseDTO);
   }
 
-  @Delete('delete/:courseID')
-  async deleteCourse(@Param('courseID') courseID: string) {
-    return await this.courseService.deleteCourse(courseID);
+  @Delete('delete/:courseId')
+  async deleteCourse(@Param('courseId') courseId: string) {
+    return await this.courseService.deleteCourse(courseId);
   }
 }

@@ -17,9 +17,9 @@ export class CourseService {
   }
 
   // fetch selected course
-  async findCourseById(CourseID: string): Promise<Course> {
+  async findCourseById(courseId: string): Promise<Course> {
     try {
-      const Course = await this.CourseModel.findById(CourseID).exec();
+      const Course = await this.CourseModel.findById(courseId).exec();
       if (Course) {
         return Course;
       } else {
@@ -31,21 +31,21 @@ export class CourseService {
   }
 
   // add course
-  async addCourse(courseDTO: CreateCourseDto): Promise<Course> {
-    const newCourse = new this.CourseModel(courseDTO);
+  async addCourse(createCourseDto: CreateCourseDto): Promise<Course> {
+    const newCourse = new this.CourseModel(createCourseDto);
     return await newCourse.save();
   }
 
   // edit course
   async editCourse(
-    CourseId: string,
-    courseDTO: UpdateCourseDTO,
+    courseId: string,
+    updateCourseDTO: UpdateCourseDTO,
   ): Promise<Course> {
     let updatedCourse = null;
     try {
       updatedCourse = await this.CourseModel.findByIdAndUpdate(
-        CourseId,
-        courseDTO,
+        courseId,
+        updateCourseDTO,
         { new: true },
       );
     } finally {
@@ -54,8 +54,8 @@ export class CourseService {
   }
 
   // Delete a Course
-  async deleteCourse(CourseID): Promise<any> {
-    const deletedCourse = await this.CourseModel.findByIdAndRemove(CourseID);
+  async deleteCourse(courseId): Promise<any> {
+    const deletedCourse = await this.CourseModel.findByIdAndRemove(courseId);
     return deletedCourse;
   }
 }
