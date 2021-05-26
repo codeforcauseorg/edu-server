@@ -1,7 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import * as mongoose from 'mongoose';
-import { Course } from '../../course/schema/course.schema';
 import { CreateEnrolledDto } from '../dto/create-enrolled.dto';
 import { CreateWishListDto } from '../dto/create-wishlist.dto';
 
