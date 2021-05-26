@@ -2,9 +2,6 @@ import { IsArray, IsDateString, IsNotEmpty, IsUrl } from 'class-validator';
 
 export class CreateWishListDto {
   @IsNotEmpty()
-  readonly _id: string;
-
-  @IsNotEmpty()
   readonly name: string;
 
   @IsNotEmpty()
