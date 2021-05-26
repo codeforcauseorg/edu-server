@@ -12,6 +12,8 @@ import { ApiCreatedResponse, ApiProperty } from '@nestjs/swagger';
 import { CreateUserDTO } from './dto/create-user.dto'; //eslint-disable-line 
 import { UpdateUserDTO } from './dto/update-user.dto'; //eslint-disable-line 
 import { CourseType } from './course-status.enum';
+import { CreateEnrolledDto } from './dto/create-enrolled.dto';
+import { CreateWishListDto } from './dto/create-wishlist.dto';
 import { UserService } from './user.service'; //eslint-disable-line 
 
 class UserResponseBody {
@@ -69,32 +71,31 @@ export class UserController {
     return await this.userService.getAllUser();
   }
 
-  @Get('/enrolled')
-  async getEnrolledCourses(@Param('id') id: string) {
-    return await this.userService.getEnrolledCourses(id);
+  @Get('/:userId/enrolledCourses')
+  async getEnrolledCourses(@Param('userId') userId: string) {
+    return await this.userService.getEnrolledCourses(userId);
   }
 
-  @Put('/enrolled')
-  async addEnrolledCourses(@Param('id') studentId: string, @Body() cid: any) {
-    return await this.userService.addCourse(
-      studentId,
-      cid.courseId,
-      CourseType.ENROLLED,
-    );
+  @Post('/:userId/enrolledCourses')
+  async addEnrolledCourses(
+    @Param('userId') userId: string,
+    // @Param('courseId') courseId: string,
+    @Body() createEnroll: CreateEnrolledDto,
+  ) {
+    return await this.userService.addCourse(userId, createEnroll);
   }
 
-  @Get('get/:userId/wishlist')
-  async getWishlist(@Param('userId') id: string) {
-    return await this.userService.getWishList(id);
+  @Get('/:userId/wishlist')
+  async getWishlist(@Param('userId') userId: string) {
+    return await this.userService.getWishList(userId);
   }
 
-  @Put('get/:userId/wishlist')
-  async addWishlist(@Query('id') studentId: string, @Body() cid: any) {
-    return await this.userService.addCourse(
-      studentId,
-      cid.courseId,
-      CourseType.WISHLIST,
-    );
+  @Post('/:userId/wishlist')
+  async addWishlist(
+    @Param('userId') userId: string,
+    @Body() createWishList: CreateWishListDto,
+  ) {
+    return await this.userService.addCourse(userId, createWishList);
   }
 
   // Fetch a particular User using ID

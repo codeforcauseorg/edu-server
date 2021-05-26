@@ -1,5 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import * as mongoose from 'mongoose';
+import { Course } from '../../course/schema/course.schema';
+import { CreateEnrolledDto } from '../dto/create-enrolled.dto';
 
 export type UserDocument = User & Document;
 
@@ -38,8 +41,16 @@ export class User {
   @Prop()
   created_at: Date;
 
-  @Prop({ default: [] })
-  enrolled_courses: string[];
+  /*// Here we have multiple owners/one to many kind of relationship
+  @Prop({
+    default: [],
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }],
+  })
+  enrolled_courses: Course[];*/
+  @Prop({
+    default: [],
+  })
+  enrolled_courses: CreateEnrolledDto[];
 
   @Prop({ default: [] })
   wishlist: string[];

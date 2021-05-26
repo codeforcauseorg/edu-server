@@ -9,6 +9,7 @@ import { UserDocument as User } from './schema/user.schema';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
 import { UpdateCourseDTO } from './dto/update-course.user.dto';
+import { CreateEnrolledDto } from './dto/create-enrolled.dto';
 import { CourseDocument as Course } from '../course/schema/course.schema';
 import { CourseType } from './course-status.enum';
 
@@ -47,13 +48,13 @@ export class UserService {
 
   // Edit User details
   async updateUser(
-    UserID: string,
+    userID: string,
     UpdateUserDTO: UpdateUserDTO,
   ): Promise<User> {
     let updatedUser;
     try {
       updatedUser = await this.userModel.findByIdAndUpdate(
-        UserID,
+        userID,
         UpdateUserDTO,
         { new: true, useFindAndModify: false },
       );
@@ -65,34 +66,32 @@ export class UserService {
   }
 
   // Delete a User
-  async deleteUser(UserID: string): Promise<any> {
+  async deleteUser(userID: string): Promise<any> {
     let deletedUser;
     try {
-      deletedUser = await this.userModel.findByIdAndRemove(UserID);
+      deletedUser = await this.userModel.findByIdAndRemove(userID);
     } finally {
       return deletedUser;
     }
   }
 
   // course
-  async getEnrolledCourses(studentId: string) {
-    const user = await this.findUserById(studentId);
-    return user.enrolled_courses;
+  async getEnrolledCourses(userId: string) {
+    const UserEnrolled = await this.findUserById(userId);
+    // const enrolled_courses = await this.courseModel.findById(enrolled_courses);
+    return UserEnrolled.enrolled_courses;
   }
 
-  async addCourse(studentId: string, cId: string, courseType: CourseType) {
+  async addCourse(userId: string, createEnroll: CreateEnrolledDto) {
     try {
-      const enrolledCourse = await this.courseModel.findById(cId).exec(); // check is the courseId is valid
-      const user = await this.findUserById(studentId);
-      const course = new Set(user.enrolled_courses);
-      course.add(cId);
+      const UserEnrolled = await this.findUserById(userId);
+      // const Course = await this.courseModel.findById(courseId);
+      // course.add(cId);
 
-      if (enrolledCourse && user) {
-        const update: UpdateCourseDTO = { [courseType]: [...course] };
-        return await this.userModel.findByIdAndUpdate(studentId, update, {
-          new: true,
-          useFindAndModify: false,
-        });
+      if (UserEnrolled) {
+        UserEnrolled.enrolled_courses.push(createEnroll);
+        await UserEnrolled.save();
+        return UserEnrolled;
       }
     } catch (e) {
       throw new NotFoundException('course or user not found');
@@ -101,8 +100,9 @@ export class UserService {
     throw new NotFoundException('course or user not found');
   }
 
-  async getWishList(id: string) {
-    const user = await this.findUserById(id);
-    return user.wishlist;
+  async getWishList(userId: string) {
+    const UserWishList = await this.findUserById(userId);
+    // const enrolled_courses = await this.courseModel.findById(enrolled_courses);
+    return UserWishList.wishlist;
   }
 }
