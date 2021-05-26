@@ -3,6 +3,7 @@ import { Document } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { Course } from '../../course/schema/course.schema';
 import { CreateEnrolledDto } from '../dto/create-enrolled.dto';
+import { CreateWishListDto } from '../dto/create-wishlist.dto';
 
 export type UserDocument = User & Document;
 
@@ -53,7 +54,7 @@ export class User {
   enrolled_courses: CreateEnrolledDto[];
 
   @Prop({ default: [] })
-  wishlist: string[];
+  wishlist: CreateWishListDto[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

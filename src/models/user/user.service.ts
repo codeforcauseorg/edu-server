@@ -12,6 +12,7 @@ import { UpdateCourseDTO } from './dto/update-course.user.dto';
 import { CreateEnrolledDto } from './dto/create-enrolled.dto';
 import { CourseDocument as Course } from '../course/schema/course.schema';
 import { CourseType } from './course-status.enum';
+import { CreateWishListDto } from './dto/create-wishlist.dto';
 
 @Injectable()
 export class UserService {
@@ -94,15 +95,33 @@ export class UserService {
         return UserEnrolled;
       }
     } catch (e) {
-      throw new NotFoundException('course or user not found');
+      throw new NotFoundException('User or Course does not exist');
     }
 
-    throw new NotFoundException('course or user not found');
+    throw new NotFoundException('could not be enrolled');
   }
 
   async getWishList(userId: string) {
     const UserWishList = await this.findUserById(userId);
     // const enrolled_courses = await this.courseModel.findById(enrolled_courses);
     return UserWishList.wishlist;
+  }
+
+  async addWishlist(userId: string, createWishList: CreateWishListDto) {
+    try {
+      const UserWishList = await this.findUserById(userId);
+      // const Course = await this.courseModel.findById(courseId);
+      // course.add(cId);
+
+      if (UserWishList) {
+        UserWishList.wishlist.push(createWishList);
+        await UserWishList.save();
+        return UserWishList;
+      }
+    } catch (e) {
+      throw new NotFoundException('User or Course does not exist');
+    }
+
+    throw new NotFoundException('course could not be wishlisted');
   }
 }

@@ -95,7 +95,7 @@ export class UserController {
     @Param('userId') userId: string,
     @Body() createWishList: CreateWishListDto,
   ) {
-    return await this.userService.addCourse(userId, createWishList);
+    return await this.userService.addWishlist(userId, createWishList);
   }
 
   // Fetch a particular User using ID
