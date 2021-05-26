@@ -6,7 +6,6 @@ import {
   Param,
   Post,
   Put,
-  Query,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiProperty } from '@nestjs/swagger';
 import { CreateUserDTO } from './dto/create-user.dto'; //eslint-disable-line 
@@ -79,7 +78,6 @@ export class UserController {
   @Post('/:userId/enrolledCourses')
   async addEnrolledCourses(
     @Param('userId') userId: string,
-    // @Param('courseId') courseId: string,
     @Body() createEnroll: CreateEnrolledDto,
   ) {
     return await this.userService.addCourse(userId, createEnroll);

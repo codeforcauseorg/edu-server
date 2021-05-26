@@ -79,15 +79,12 @@ export class UserService {
   // course
   async getEnrolledCourses(userId: string) {
     const UserEnrolled = await this.findUserById(userId);
-    // const enrolled_courses = await this.courseModel.findById(enrolled_courses);
     return UserEnrolled.enrolled_courses;
   }
 
   async addCourse(userId: string, createEnroll: CreateEnrolledDto) {
     try {
       const UserEnrolled = await this.findUserById(userId);
-      // const Course = await this.courseModel.findById(courseId);
-      // course.add(cId);
 
       if (UserEnrolled) {
         UserEnrolled.enrolled_courses.push(createEnroll);
@@ -103,15 +100,12 @@ export class UserService {
 
   async getWishList(userId: string) {
     const UserWishList = await this.findUserById(userId);
-    // const enrolled_courses = await this.courseModel.findById(enrolled_courses);
     return UserWishList.wishlist;
   }
 
   async addWishlist(userId: string, createWishList: CreateWishListDto) {
     try {
       const UserWishList = await this.findUserById(userId);
-      // const Course = await this.courseModel.findById(courseId);
-      // course.add(cId);
 
       if (UserWishList) {
         UserWishList.wishlist.push(createWishList);
