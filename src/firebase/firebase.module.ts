@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { FirebaseAdminModule } from '@tfarras/nestjs-firebase-admin';
+import { FirebaseAdminCoreModule } from '@tfarras/nestjs-firebase-admin';
 import { ConfigModule, ConfigService } from 'nestjs-config';
 import * as path from 'path';
 
@@ -8,7 +8,7 @@ import * as path from 'path';
     ConfigModule.load(
       path.resolve(__dirname, 'config', '**', '!(*.d).{ts,js}'),
     ),
-    FirebaseAdminModule.forRootAsync({
+    FirebaseAdminCoreModule.forRootAsync({
       useFactory: (config: ConfigService) => config.get('firebase'),
       inject: [ConfigService],
     }),
