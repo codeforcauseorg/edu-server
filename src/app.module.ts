@@ -5,12 +5,12 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { FirebaseModule } from './firebase/firebase.module';
-import { UserModule } from './models/user/user.module';
-import { AssignmentModule } from './models/assignment/assignment.module';
-import { ChatModule } from './models/chat/chat.module';
+import { UserModule } from './modules/user/user.module';
+import { AssignmentModule } from './modules/assignment/assignment.module';
+import { ChatModule } from './modules/chat/chat.module';
 import * as path from 'path';
-import { CourseModule } from './models/course/course.module';
-import { DoubtModule } from './models/doubt/doubt.module';
+import { CourseModule } from './modules/course/course.module';
+import { DoubtModule } from './modules/doubt/doubt.module';
 
 @Module({
   imports: [
