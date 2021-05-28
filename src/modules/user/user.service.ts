@@ -101,7 +101,7 @@ export class UserService {
     return UserWishList.wishlist;
   }
 
-  async addWishlist(userId: string, cId: mongoose.Types.ObjectId) {
+  async addWishlist(userId: string, cId: mongoose.Schema.Types.ObjectId) {
     try {
       const UserWishList = await this.findUserById(userId);
 

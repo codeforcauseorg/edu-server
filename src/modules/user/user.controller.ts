@@ -90,7 +90,7 @@ export class UserController {
   @Post('/:userId/wishlist')
   async addWishlist(
     @Param('userId') userId: string,
-    @Body() cId: mongoose.Types.ObjectId,
+    @Body() cId: mongoose.Schema.Types.ObjectId,
   ) {
     return await this.userService.addWishlist(userId, cId);
   }

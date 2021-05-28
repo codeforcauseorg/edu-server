@@ -47,10 +47,10 @@ export class User {
   enrolled_courses: Course[];*/
 
   @Prop({ default: [] })
-  enrolled_courses: mongoose.Types.ObjectId[];
+  enrolled_courses: mongoose.Schema.Types.ObjectId[];
 
   @Prop({ default: [] })
-  wishlist: mongoose.Types.ObjectId[];
+  wishlist: mongoose.Schema.Types.ObjectId[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
