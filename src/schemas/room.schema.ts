@@ -1,5 +1,5 @@
-import { Chat } from '../models/chat/schema/chat.schema';
-import { User } from '../models/user/schema/user.schema';
+import { Chat } from '../modules/chat/schema/chat.schema';
+import { User } from '../modules/user/schema/user.schema';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
