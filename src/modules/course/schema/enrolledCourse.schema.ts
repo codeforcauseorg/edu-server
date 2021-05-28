@@ -11,13 +11,16 @@ interface video {
 @Schema()
 export class EnrolledCourse {
   @Prop({ required: true, default: [] })
-  videos_watched: string[];
+  videos_watched: boolean[];
 
   @Prop({ required: true, default: [] })
-  Assignments_done: string[];
+  Assignments_done: boolean[];
 
-  @Prop({ required: true, default: [] })
+  @Prop({ default: [] })
   currentVideo: video[];
+
+  @Prop({ default: [] })
+  doubts: string[];
 }
 
 export const EnrolledCourseSchema = SchemaFactory.createForClass(
