@@ -7,11 +7,12 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import * as mongoose from 'mongoose';
 import { ApiCreatedResponse, ApiProperty } from '@nestjs/swagger';
 import { CreateUserDTO } from './dto/create-user.dto'; //eslint-disable-line 
 import { UpdateUserDTO } from './dto/update-user.dto'; //eslint-disable-line 
 import { CreateEnrolledDto } from './dto/create-enrolled.dto';
-import { CreateWishListDto } from './dto/create-wishlist.dto';
+// import { CreateWishListDto } from './dto/create-wishlist.dto';
 import { UserService } from './user.service'; //eslint-disable-line 
 
 class UserResponseBody {
@@ -90,9 +91,9 @@ export class UserController {
   @Post('/:userId/wishlist')
   async addWishlist(
     @Param('userId') userId: string,
-    @Body() createWishList: CreateWishListDto,
+    @Body() cId: mongoose.Types.ObjectId,
   ) {
-    return await this.userService.addWishlist(userId, createWishList);
+    return await this.userService.addWishlist(userId, cId);
   }
 
   // Fetch a particular User using ID

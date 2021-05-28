@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { CreateEnrolledDto } from '../dto/create-enrolled.dto';
-import { CreateWishListDto } from '../dto/create-wishlist.dto';
+import * as mongoose from 'mongoose';
 
 export type UserDocument = User & Document;
 
@@ -52,7 +52,7 @@ export class User {
   enrolled_courses: CreateEnrolledDto[];
 
   @Prop({ default: [] })
-  wishlist: CreateWishListDto[];
+  wishlist: mongoose.Types.ObjectId[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

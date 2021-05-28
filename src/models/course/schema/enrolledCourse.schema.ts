@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-export type CourseDocument = Course & Document;
+export type EnrolledCourseDocument = EnrolledCourse & Document;
 
 @Schema()
-export class Course {
+export class EnrolledCourse {
   @Prop({ required: true })
   name: string;
 
@@ -45,4 +45,6 @@ export class Course {
   sharable_link: string;
 }
 
-export const CourseSchema = SchemaFactory.createForClass(Course);
+export const EnrolledCourseSchema = SchemaFactory.createForClass(
+  EnrolledCourse,
+);

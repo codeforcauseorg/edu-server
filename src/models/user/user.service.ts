@@ -10,7 +10,8 @@ import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
 import { CreateEnrolledDto } from './dto/create-enrolled.dto';
 import { CourseDocument as Course } from '../course/schema/course.schema';
-import { CreateWishListDto } from './dto/create-wishlist.dto';
+// import { CreateWishListDto } from './dto/create-wishlist.dto';
+import * as mongoose from 'mongoose';
 
 @Injectable()
 export class UserService {
@@ -101,12 +102,12 @@ export class UserService {
     return UserWishList.wishlist;
   }
 
-  async addWishlist(userId: string, createWishList: CreateWishListDto) {
+  async addWishlist(userId: string, cId: mongoose.Types.ObjectId) {
     try {
       const UserWishList = await this.findUserById(userId);
 
       if (UserWishList) {
-        UserWishList.wishlist.push(createWishList);
+        UserWishList.wishlist.push(cId);
         await UserWishList.save();
         return UserWishList;
       }
