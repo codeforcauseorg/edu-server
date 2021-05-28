@@ -11,7 +11,6 @@ import * as mongoose from 'mongoose';
 import { ApiCreatedResponse, ApiProperty } from '@nestjs/swagger';
 import { CreateUserDTO } from './dto/create-user.dto'; //eslint-disable-line 
 import { UpdateUserDTO } from './dto/update-user.dto'; //eslint-disable-line 
-import { CreateEnrolledDto } from './dto/create-enrolled.dto';
 // import { CreateWishListDto } from './dto/create-wishlist.dto';
 import { UserService } from './user.service'; //eslint-disable-line 
 
@@ -75,13 +74,13 @@ export class UserController {
     return await this.userService.getEnrolledCourses(userId);
   }
 
-  @Post('/:userId/enrolledCourses')
+  /*@Post('/:userId/enrolledCourses')
   async addEnrolledCourses(
     @Param('userId') userId: string,
     @Body() createEnroll: CreateEnrolledDto,
   ) {
     return await this.userService.addCourse(userId, createEnroll);
-  }
+  }*/
 
   @Get('/:userId/wishlist')
   async getWishlist(@Param('userId') userId: string) {

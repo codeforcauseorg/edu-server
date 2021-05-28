@@ -8,7 +8,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { UserDocument as User } from './schema/user.schema';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
-import { CreateEnrolledDto } from './dto/create-enrolled.dto';
 import { CourseDocument as Course } from '../course/schema/course.schema';
 // import { CreateWishListDto } from './dto/create-wishlist.dto';
 import * as mongoose from 'mongoose';
@@ -81,7 +80,7 @@ export class UserService {
     return UserEnrolled.enrolled_courses;
   }
 
-  async addCourse(userId: string, createEnroll: CreateEnrolledDto) {
+  /* async addCourse(userId: string, createEnroll: CreateEnrolledDto) {
     try {
       const UserEnrolled = await this.findUserById(userId);
 
@@ -95,7 +94,7 @@ export class UserService {
     }
 
     throw new NotFoundException('could not be enrolled');
-  }
+  } */
 
   async getWishList(userId: string) {
     const UserWishList = await this.findUserById(userId);
