@@ -74,13 +74,13 @@ export class UserController {
     return await this.userService.getEnrolledCourses(userId);
   }
 
-  /*@Post('/:userId/enrolledCourses')
+  @Post('/:userId/enrolledCourses')
   async addEnrolledCourses(
     @Param('userId') userId: string,
-    @Body() createEnroll: CreateEnrolledDto,
+    @Body() cId: mongoose.Schema.Types.ObjectId,
   ) {
-    return await this.userService.addCourse(userId, createEnroll);
-  }*/
+    return await this.userService.addCourse(userId, cId);
+  }
 
   @Get('/:userId/wishlist')
   async getWishlist(@Param('userId') userId: string) {

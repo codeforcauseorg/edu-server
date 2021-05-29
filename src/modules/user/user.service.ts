@@ -80,12 +80,12 @@ export class UserService {
     return UserEnrolled.enrolled_courses;
   }
 
-  /* async addCourse(userId: string, createEnroll: CreateEnrolledDto) {
+  async addCourse(userId: string, cId: mongoose.Schema.Types.ObjectId) {
     try {
       const UserEnrolled = await this.findUserById(userId);
 
       if (UserEnrolled) {
-        UserEnrolled.enrolled_courses.push(createEnroll);
+        UserEnrolled.enrolled_courses.push(cId);
         await UserEnrolled.save();
         return UserEnrolled;
       }
@@ -94,7 +94,7 @@ export class UserService {
     }
 
     throw new NotFoundException('could not be enrolled');
-  } */
+  }
 
   async getWishList(userId: string) {
     const UserWishList = await this.findUserById(userId);
