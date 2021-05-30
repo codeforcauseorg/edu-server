@@ -7,9 +7,6 @@ interface video {
 }
 
 export class CreateEnrolledDTO {
-  @IsNotEmpty()
-  eId: mongoose.Schema.Types.ObjectId;
-
   videos_watched: boolean[];
 
   Assignments_done: boolean[];

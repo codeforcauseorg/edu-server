@@ -11,13 +11,10 @@ interface video {
 
 @Schema()
 export class EnrolledCourse {
-  @Prop({})
-  eId: mongoose.Schema.Types.ObjectId;
-
-  @Prop({ default: [false, false, false, false, false] })
+  @Prop({ default: [].fill(false, 10) })
   videos_watched: boolean[];
 
-  @Prop({ default: [false, false, false, false, false] })
+  @Prop({ default: [].fill(false, 10) })
   Assignments_done: boolean[];
 
   @Prop({ default: [] })
@@ -34,8 +31,20 @@ export const EnrolledCourseSchema = SchemaFactory.createForClass(
   EnrolledCourse,
 );
 
+EnrolledCourseSchema.pre('save', (next) => {
+  next();
+});
+
+EnrolledCourseSchema.methods.toJSON = function () {
+  const enrolledCourseObject = this.toObject();
+
+  delete enrolledCourseObject.__v;
+
+  return enrolledCourseObject;
+};
+
 EnrolledCourseSchema.virtual('students', {
   ref: 'User',
-  localField: 'eId',
+  localField: '_id',
   foreignField: '_id',
 });

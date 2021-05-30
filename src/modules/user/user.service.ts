@@ -86,9 +86,9 @@ export class UserService {
     try {
       const newEnrolled = await new this.enrolledModel(createEnrolledDTO);
       await newEnrolled.save();
-      const UserEnrolled = await this.findUserById(newEnrolled.eId);
+      const UserEnrolled = await this.findUserById(userId);
       if (UserEnrolled) {
-        UserEnrolled.enrolled_courses.push(newEnrolled.eId);
+        UserEnrolled.enrolled_courses.push(newEnrolled._id);
         await UserEnrolled.save();
         return UserEnrolled.enrolled_courses;
       } else {

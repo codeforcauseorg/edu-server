@@ -49,10 +49,8 @@ export const CourseSchema = SchemaFactory.createForClass(Course);
 
 CourseSchema.methods.toJSON = function () {
   const courseObject = this.toObject();
-  courseObject.id = courseObject._id;
 
   delete courseObject.__v;
-  delete courseObject._id;
   delete courseObject['student_num'];
   delete courseObject['updatedAt'];
   delete courseObject['createdAt'];
