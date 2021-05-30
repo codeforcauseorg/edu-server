@@ -4,7 +4,7 @@ import * as mongoose from 'mongoose';
 
 export type UserDocument = User & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class User {
   @Prop()
   first_name: string;
@@ -35,16 +35,6 @@ export class User {
 
   @Prop({ default: false })
   isAdmin: boolean;
-
-  @Prop()
-  created_at: Date;
-
-  /*// Here we have multiple owners/one to many kind of relationship
-  @Prop({
-    default: [],
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }],
-  })
-  enrolled_courses: Course[];*/
 
   @Prop({ default: [] })
   enrolled_courses: mongoose.Schema.Types.ObjectId[];

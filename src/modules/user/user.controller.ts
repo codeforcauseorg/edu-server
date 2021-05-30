@@ -11,8 +11,8 @@ import * as mongoose from 'mongoose';
 import { ApiCreatedResponse, ApiProperty } from '@nestjs/swagger';
 import { CreateUserDTO } from './dto/create-user.dto'; //eslint-disable-line 
 import { UpdateUserDTO } from './dto/update-user.dto'; //eslint-disable-line 
-// import { CreateWishListDto } from './dto/create-wishlist.dto';
 import { UserService } from './user.service'; //eslint-disable-line 
+import { CreateEnrolledDTO } from './dto/create-enrolled.dto';
 
 class UserResponseBody {
   @ApiProperty({ required: true, example: '605e3fd9acc33583fb389aec' })
@@ -77,9 +77,9 @@ export class UserController {
   @Post('/:userId/enrolledCourses')
   async addEnrolledCourses(
     @Param('userId') userId: string,
-    @Body() cId: mongoose.Schema.Types.ObjectId,
+    @Body() createEnrolledDto: CreateEnrolledDTO,
   ) {
-    return await this.userService.addCourse(userId, cId);
+    return await this.userService.addCourse(userId, createEnrolledDto);
   }
 
   @Get('/:userId/wishlist')

@@ -9,14 +9,16 @@ import { UserDocument as User } from './schema/user.schema';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
 import { CourseDocument as Course } from '../course/schema/course.schema';
-// import { CreateWishListDto } from './dto/create-wishlist.dto';
+import { EnrolledCourseDocument as Enrolled } from '../course/schema/enrolledCourse.schema';
 import * as mongoose from 'mongoose';
+import { CreateEnrolledDTO } from './dto/create-enrolled.dto';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel('User') private readonly userModel: Model<User>,
     @InjectModel('Course') private readonly courseModel: Model<Course>,
+    @InjectModel('Enrolled') private readonly enrolledModel: Model<Enrolled>,
   ) {}
 
   // fetch all Users
@@ -80,20 +82,21 @@ export class UserService {
     return UserEnrolled.enrolled_courses;
   }
 
-  async addCourse(userId: string, cId: mongoose.Schema.Types.ObjectId) {
+  async addCourse(userId: string, createEnrolledDTO: CreateEnrolledDTO) {
     try {
-      const UserEnrolled = await this.findUserById(userId);
-
+      const newEnrolled = await new this.enrolledModel(createEnrolledDTO);
+      await newEnrolled.save();
+      const UserEnrolled = await this.findUserById(newEnrolled.eId);
       if (UserEnrolled) {
-        UserEnrolled.enrolled_courses.push(cId);
+        UserEnrolled.enrolled_courses.push(newEnrolled.eId);
         await UserEnrolled.save();
-        return UserEnrolled;
+        return UserEnrolled.enrolled_courses;
+      } else {
+        throw new NotFoundException('User linked');
       }
     } catch (e) {
       throw new NotFoundException('User or Course does not exist');
     }
-
-    throw new NotFoundException('could not be enrolled');
   }
 
   async getWishList(userId: string) {

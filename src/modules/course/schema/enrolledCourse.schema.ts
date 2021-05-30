@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { Course } from '../../course/schema/course.schema';
 import * as mongoose from 'mongoose';
+import { User } from '../../user/schema/user.schema';
 
 export type EnrolledCourseDocument = EnrolledCourse & Document;
 
@@ -12,10 +13,13 @@ interface video {
 
 @Schema()
 export class EnrolledCourse {
-  @Prop({ required: true, default: [] })
+  @Prop({})
+  eId: mongoose.Schema.Types.ObjectId;
+
+  @Prop({ default: [false, false, false, false, false] })
   videos_watched: boolean[];
 
-  @Prop({ required: true, default: [] })
+  @Prop({ default: [false, false, false, false, false] })
   Assignments_done: boolean[];
 
   @Prop({ default: [] })
@@ -24,10 +28,16 @@ export class EnrolledCourse {
   @Prop({ default: [] })
   doubts: string[];
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Course' })
-  Course: Course;
+  @Prop({})
+  Course: mongoose.Schema.Types.ObjectId;
 }
 
 export const EnrolledCourseSchema = SchemaFactory.createForClass(
   EnrolledCourse,
 );
+
+EnrolledCourseSchema.virtual('students', {
+  ref: 'User',
+  localField: 'eId',
+  foreignField: '_id',
+});
