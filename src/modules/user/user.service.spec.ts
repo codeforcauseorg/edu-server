@@ -17,6 +17,10 @@ describe('UserService', () => {
           provide: getModelToken('Course'),
           useValue: {},
         },
+        {
+          provide: getModelToken('Enrolled'),
+          useValue: {},
+        },
       ],
     }).compile();
 
