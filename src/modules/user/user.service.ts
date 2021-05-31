@@ -76,16 +76,19 @@ export class UserService {
     }
   }
 
-  // course
+  // gets all Enrolled courses
   async getEnrolledCourses(userId: string) {
     const UserEnrolled = await this.findUserById(userId);
     return UserEnrolled.enrolled_courses;
   }
 
+  // adds Enrolled Course
   async addCourse(userId: string, createEnrolledDTO: CreateEnrolledDTO) {
     try {
       const newEnrolled = await new this.enrolledModel(createEnrolledDTO);
       await newEnrolled.save();
+      const newR = this.enrolledModel.find({}).populate('students');
+      return newR;
       const UserEnrolled = await this.findUserById(userId);
       if (UserEnrolled) {
         UserEnrolled.enrolled_courses.push(newEnrolled._id);
@@ -99,11 +102,13 @@ export class UserService {
     }
   }
 
+  // gets all wishlisted courses
   async getWishList(userId: string) {
     const UserWishList = await this.findUserById(userId);
     return UserWishList.wishlist;
   }
 
+  // adds wishlisted course
   async addWishlist(userId: string, cId: mongoose.Schema.Types.ObjectId) {
     try {
       const UserWishList = await this.findUserById(userId);

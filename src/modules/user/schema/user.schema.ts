@@ -47,7 +47,6 @@ export const UserSchema = SchemaFactory.createForClass(User);
 
 UserSchema.methods.toJSON = function () {
   const userObject = this.toObject();
-  userObject.id = userObject._id;
 
   delete userObject.__v;
   delete userObject['created_at'];

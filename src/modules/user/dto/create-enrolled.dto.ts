@@ -7,6 +7,9 @@ interface video {
 }
 
 export class CreateEnrolledDTO {
+  @IsNotEmpty()
+  studentId: mongoose.Schema.Types.ObjectId;
+
   videos_watched: boolean[];
 
   Assignments_done: boolean[];
@@ -15,5 +18,6 @@ export class CreateEnrolledDTO {
 
   doubts: string[];
 
+  @IsNotEmpty()
   Course: mongoose.Schema.Types.ObjectId;
 }
