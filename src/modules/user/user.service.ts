@@ -87,8 +87,6 @@ export class UserService {
     try {
       const newEnrolled = await new this.enrolledModel(createEnrolledDTO);
       await newEnrolled.save();
-      const newR = this.enrolledModel.find({}).populate('students');
-      return newR;
       const UserEnrolled = await this.findUserById(userId);
       if (UserEnrolled) {
         UserEnrolled.enrolled_courses.push(newEnrolled._id);
