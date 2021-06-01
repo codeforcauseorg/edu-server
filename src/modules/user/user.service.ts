@@ -12,6 +12,7 @@ import { CourseDocument as Course } from '../course/schema/course.schema';
 import { EnrolledCourseDocument as Enrolled } from '../course/schema/enrolledCourse.schema';
 import * as mongoose from 'mongoose';
 import { CreateEnrolledDTO } from './dto/create-enrolled.dto';
+import { CreateNewFolder } from '@material-ui/icons';
 
 @Injectable()
 export class UserService {
@@ -87,6 +88,11 @@ export class UserService {
     try {
       const newEnrolled = await new this.enrolledModel(createEnrolledDTO);
       await newEnrolled.save();
+
+      // a test line to see the populated sets of data
+      /*const newF = await this.enrolledModel.find({}).populate('students');
+      return newF;*/
+
       const UserEnrolled = await this.findUserById(userId);
       if (UserEnrolled) {
         UserEnrolled.enrolled_courses.push(newEnrolled._id);

@@ -10,7 +10,10 @@ interface video {
   timestamp?: Date;
 }
 
-@Schema()
+@Schema({
+  toJSON: { virtuals: true, getters: true },
+  toObject: { virtuals: true, getters: true },
+})
 export class EnrolledCourse {
   @Prop({})
   studentId: mongoose.Schema.Types.ObjectId;
