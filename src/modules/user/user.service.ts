@@ -12,7 +12,6 @@ import { CourseDocument as Course } from '../course/schema/course.schema';
 import { EnrolledCourseDocument as Enrolled } from '../course/schema/enrolledCourse.schema';
 import * as mongoose from 'mongoose';
 import { CreateEnrolledDTO } from './dto/create-enrolled.dto';
-import { CreateNewFolder } from '@material-ui/icons';
 
 @Injectable()
 export class UserService {
