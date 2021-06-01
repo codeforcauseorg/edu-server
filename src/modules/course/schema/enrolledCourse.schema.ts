@@ -18,16 +18,16 @@ export class EnrolledCourse {
   @Prop({})
   studentId: mongoose.Schema.Types.ObjectId;
 
-  @Prop({ default: [].fill(false, 10) })
+  @Prop({})
   videos_watched: boolean[];
 
-  @Prop({ default: [].fill(false, 10) })
+  @Prop({})
   assignmentsDone: boolean[];
 
-  @Prop({ default: [] })
+  @Prop({})
   currentVideo: video[];
 
-  @Prop({ default: [] })
+  @Prop({})
   doubts: string[];
 
   @Prop({})

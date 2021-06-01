@@ -88,10 +88,6 @@ export class UserService {
       const newEnrolled = await new this.enrolledModel(createEnrolledDTO);
       await newEnrolled.save();
 
-      // a test line to see the populated sets of data
-      /*const newF = await this.enrolledModel.find({}).populate('students');
-      return newF;*/
-
       const UserEnrolled = await this.findUserById(userId);
       if (UserEnrolled) {
         UserEnrolled.enrolled_courses.push(newEnrolled._id);
@@ -100,6 +96,9 @@ export class UserService {
       } else {
         throw new NotFoundException('User linked');
       }
+      // a test line to see the populated sets of data
+      /*const newF = await this.enrolledModel.find({}).populate('students');
+      return newF;*/
     } catch (e) {
       throw new NotFoundException('User or Course does not exist');
     }
