@@ -14,22 +14,22 @@ interface video {
   toObject: { virtuals: true, getters: true },
 })
 export class EnrolledCourse {
-  @Prop({})
+  @Prop({ required: true })
   studentId: mongoose.Schema.Types.ObjectId;
 
-  @Prop({})
+  @Prop()
   videosWatched: boolean[];
 
-  @Prop({})
+  @Prop()
   assignmentsDone: boolean[];
 
-  @Prop({})
+  @Prop()
   currentVideo: video[];
 
-  @Prop({})
+  @Prop()
   doubts: string[];
 
-  @Prop({})
+  @Prop({ required: true })
   courseId: mongoose.Schema.Types.ObjectId;
 }
 

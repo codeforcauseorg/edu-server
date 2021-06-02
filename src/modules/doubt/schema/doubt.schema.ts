@@ -6,7 +6,7 @@ export type DoubtDocument = Doubt & mongoose.Document;
 
 @Schema()
 export class Doubt {
-  @Prop()
+  @Prop({ required: true })
   tags: string[];
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
@@ -15,7 +15,7 @@ export class Doubt {
   @Prop()
   answers: string[];
 
-  @Prop()
+  @Prop({default: false})
   is_resolved: boolean;
 
   @Prop()

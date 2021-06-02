@@ -17,7 +17,7 @@ export class Course {
   @Prop()
   end_date: Date;
 
-  @Prop()
+  @Prop({ required: true })
   duration: string;
 
   @Prop({ default: false })
@@ -29,10 +29,10 @@ export class Course {
   @Prop({ default: 0 })
   student_num: number;
 
-  @Prop()
+  @Prop({ required: true })
   mentor: [];
 
-  @Prop()
+  @Prop({ required: true })
   video_num: number;
 
   @Prop()

@@ -5,13 +5,10 @@ export type AssignmentDocument = Assignment & Document;
 
 @Schema()
 export class Assignment {
-  @Prop()
-  id: string;
-
-  @Prop()
+  @Prop({ required: true })
   name: string;
 
-  @Prop()
+  @Prop({ required: true })
   link: string;
 
   @Prop()
