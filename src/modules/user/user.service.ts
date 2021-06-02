@@ -88,6 +88,14 @@ export class UserService {
   async addCourse(userId: string, createEnrolledDTO: CreateEnrolledDTO) {
     try {
       const newEnrolled = await new this.enrolledModel(createEnrolledDTO);
+      const course = await this.courseModel.findById(createEnrolledDTO.courseId);
+
+      if(course) {
+        newEnrolled['videos_watched'] = new Array(course.video_num).fill(false);
+      } else {
+        throw new NotFoundException("course not found!")
+      }
+      
       await newEnrolled.save();
 
       // a test line to see the populated sets of data

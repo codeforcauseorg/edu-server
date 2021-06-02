@@ -19,5 +19,5 @@ export class CreateEnrolledDTO {
   doubts: string[];
 
   @IsNotEmpty()
-  Course: mongoose.Schema.Types.ObjectId;
+  courseId: mongoose.Schema.Types.ObjectId;
 }
