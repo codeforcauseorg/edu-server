@@ -1,9 +1,12 @@
-import { IsArray, IsDateString, IsNotEmpty, IsUrl } from 'class-validator';
+import {
+  IsArray,
+  IsDateString,
+  IsNotEmpty,
+  IsNumber,
+  IsUrl,
+} from 'class-validator';
 
 export class CreateCourseDto {
-  @IsNotEmpty()
-  readonly course_id: string;
-
   @IsNotEmpty()
   readonly name: string;
 
@@ -26,6 +29,8 @@ export class CreateCourseDto {
 
   readonly coupons: number;
 
+  @IsNotEmpty()
+  @IsNumber()
   readonly video_num: number;
 
   @IsNotEmpty()

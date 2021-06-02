@@ -6,9 +6,6 @@ export type CourseDocument = Course & Document;
 @Schema({ timestamps: true })
 export class Course {
   @Prop({ required: true })
-  course_id: string;
-
-  @Prop({ required: true })
   name: string;
 
   @Prop({ required: true })
@@ -53,13 +50,11 @@ export const CourseSchema = SchemaFactory.createForClass(Course);
 CourseSchema.methods.toJSON = function () {
   const courseObject = this.toObject();
   courseObject.id = courseObject._id;
-
   delete courseObject.__v;
-  delete courseObject._id;
   delete courseObject['student_num'];
   delete courseObject['updatedAt'];
   delete courseObject['createdAt'];
   delete courseObject['no_of_enrollments'];
-
+  delete courseObject._id;
   return courseObject;
 };

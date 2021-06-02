@@ -1,9 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import * as mongoose from 'mongoose';
 
 export type UserDocument = User & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class User {
   @Prop()
   first_name: string;
@@ -35,14 +36,16 @@ export class User {
   @Prop({ default: false })
   isAdmin: boolean;
 
-  @Prop()
-  created_at: Date;
-
   @Prop({ default: [] })
-  enrolled_courses: string[];
-
-  @Prop({ default: [] })
-  wishlist: string[];
+  wishlist: mongoose.Schema.Types.ObjectId[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
+
+UserSchema.methods.toJSON = function () {
+  const userObject = this.toObject();
+
+  delete userObject.__v;
+
+  return userObject;
+};

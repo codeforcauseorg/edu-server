@@ -1,7 +1,6 @@
 import { IsArray, IsDateString, IsOptional, IsUrl } from 'class-validator';
 
 export class UpdateCourseDTO {
-  readonly course_id: string;
   readonly name: string;
   readonly price: number;
   readonly active: boolean;

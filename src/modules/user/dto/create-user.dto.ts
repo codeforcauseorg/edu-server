@@ -19,10 +19,5 @@ export class CreateUserDTO {
   readonly score: number;
   readonly isAdmin: boolean;
 
-  @IsNotEmpty()
-  readonly created_at: Date;
-
-  readonly enrolled_courses: string[];
-
   readonly wishlist: string[];
 }

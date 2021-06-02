@@ -6,13 +6,13 @@ import {
   Param,
   Post,
   Put,
-  Query,
 } from '@nestjs/common';
+import * as mongoose from 'mongoose';
 import { ApiCreatedResponse, ApiProperty } from '@nestjs/swagger';
 import { CreateUserDTO } from './dto/create-user.dto'; //eslint-disable-line 
 import { UpdateUserDTO } from './dto/update-user.dto'; //eslint-disable-line 
-import { CourseType } from './course-status.enum';
 import { UserService } from './user.service'; //eslint-disable-line 
+import { CreateEnrolledDTO } from './dto/create-enrolled.dto';
 
 class UserResponseBody {
   @ApiProperty({ required: true, example: '605e3fd9acc33583fb389aec' })
@@ -42,12 +42,6 @@ class UserResponseBody {
   @ApiProperty({ required: true, example: true })
   isAdmin: boolean;
 
-  @ApiProperty({ required: true, example: 1621487098241 })
-  created_at: Date;
-
-  @ApiProperty({ required: false, example: ['Python', 'Baka'] })
-  enrolled_courses: string[];
-
   @ApiProperty({ required: false, example: ['DSA', 'Baka'] })
   wishlist: string[];
 }
@@ -58,6 +52,7 @@ export class UserController {
 
   // add a User
   @Post()
+  @ApiCreatedResponse({ description: 'User created', type: UserResponseBody })
   async addUser(@Body() CreateUserDTO: CreateUserDTO) {
     return await this.userService.addUser(CreateUserDTO);
   }
@@ -69,32 +64,32 @@ export class UserController {
     return await this.userService.getAllUser();
   }
 
-  @Get('/enrolled')
-  async getEnrolledCourses(@Param('id') id: string) {
-    return await this.userService.getEnrolledCourses(id);
+  @Get('/:userId/enrolledCourses')
+  async getEnrolledCourses(
+    @Param('userId') userId: mongoose.Schema.Types.ObjectId,
+  ) {
+    return await this.userService.getEnrolledCourses(userId);
   }
 
-  @Put('/enrolled')
-  async addEnrolledCourses(@Param('id') studentId: string, @Body() cid: any) {
-    return await this.userService.addCourse(
-      studentId,
-      cid.courseId,
-      CourseType.ENROLLED,
-    );
+  @Post('/:userId/enrolledCourses')
+  async addEnrolledCourses(
+    @Param('userId') userId: string,
+    @Body() createEnrolledDto: CreateEnrolledDTO,
+  ) {
+    return await this.userService.addCourse(userId, createEnrolledDto);
   }
 
-  @Get('get/:userId/wishlist')
-  async getWishlist(@Param('userId') id: string) {
-    return await this.userService.getWishList(id);
+  @Get('/:userId/wishlist')
+  async getWishlist(@Param('userId') userId: string) {
+    return await this.userService.getWishList(userId);
   }
 
-  @Put('get/:userId/wishlist')
-  async addWishlist(@Query('id') studentId: string, @Body() cid: any) {
-    return await this.userService.addCourse(
-      studentId,
-      cid.courseId,
-      CourseType.WISHLIST,
-    );
+  @Post('/:userId/wishlist')
+  async addWishlist(
+    @Param('userId') userId: string,
+    @Body() cId: mongoose.Schema.Types.ObjectId,
+  ) {
+    return await this.userService.addWishlist(userId, cId);
   }
 
   // Fetch a particular User using ID
