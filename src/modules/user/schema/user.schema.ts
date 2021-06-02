@@ -46,7 +46,6 @@ UserSchema.methods.toJSON = function () {
   const userObject = this.toObject();
 
   delete userObject.__v;
-  delete userObject['created_at'];
 
   return userObject;
 };

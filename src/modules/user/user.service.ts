@@ -94,7 +94,7 @@ export class UserService {
       );
 
       if (course) {
-        newEnrolled['videos_watched'] = new Array(course.video_num).fill(false);
+        newEnrolled['videosWatched'] = new Array(course.video_num).fill(false);
         await newEnrolled.save();
         return newEnrolled;
       } else {

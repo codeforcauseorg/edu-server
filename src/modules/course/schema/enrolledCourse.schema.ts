@@ -18,7 +18,7 @@ export class EnrolledCourse {
   studentId: mongoose.Schema.Types.ObjectId;
 
   @Prop({})
-  videos_watched: boolean[];
+  videosWatched: boolean[];
 
   @Prop({})
   assignmentsDone: boolean[];

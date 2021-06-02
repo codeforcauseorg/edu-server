@@ -10,9 +10,9 @@ export class CreateEnrolledDTO {
   @IsNotEmpty()
   studentId: mongoose.Schema.Types.ObjectId;
 
-  videos_watched: boolean[];
+  videosWatched: boolean[];
 
-  Assignments_done: boolean[];
+  assignmentsDone: boolean[];
 
   currentVideo: video[];
 

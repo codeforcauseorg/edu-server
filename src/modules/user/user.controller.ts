@@ -42,12 +42,6 @@ class UserResponseBody {
   @ApiProperty({ required: true, example: true })
   isAdmin: boolean;
 
-  @ApiProperty({ required: true, example: 1621487098241 })
-  created_at: Date;
-
-  @ApiProperty({ required: false, example: ['Python', 'Baka'] })
-  enrolled_courses: string[];
-
   @ApiProperty({ required: false, example: ['DSA', 'Baka'] })
   wishlist: string[];
 }
@@ -58,6 +52,7 @@ export class UserController {
 
   // add a User
   @Post()
+  @ApiCreatedResponse({ description: 'User created', type: UserResponseBody })
   async addUser(@Body() CreateUserDTO: CreateUserDTO) {
     return await this.userService.addUser(CreateUserDTO);
   }
