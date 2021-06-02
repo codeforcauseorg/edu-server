@@ -37,9 +37,6 @@ export class User {
   isAdmin: boolean;
 
   @Prop({ default: [] })
-  enrolled_courses: mongoose.Schema.Types.ObjectId[];
-
-  @Prop({ default: [] })
   wishlist: mongoose.Schema.Types.ObjectId[];
 }
 

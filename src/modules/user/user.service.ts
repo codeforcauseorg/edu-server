@@ -77,9 +77,11 @@ export class UserService {
   }
 
   // gets all Enrolled courses
-  async getEnrolledCourses(userId: string) {
-    const UserEnrolled = await this.findUserById(userId);
-    return UserEnrolled.enrolled_courses;
+  async getEnrolledCourses(userId: mongoose.Schema.Types.ObjectId) {
+    const enrolledCourses = await this.enrolledModel.findOne({
+      studentId: userId,
+    });
+    return enrolledCourses;
   }
 
   // adds Enrolled Course
@@ -88,14 +90,6 @@ export class UserService {
       const newEnrolled = await new this.enrolledModel(createEnrolledDTO);
       await newEnrolled.save();
 
-      const UserEnrolled = await this.findUserById(userId);
-      if (UserEnrolled) {
-        UserEnrolled.enrolled_courses.push(newEnrolled._id);
-        await UserEnrolled.save();
-        return UserEnrolled.enrolled_courses;
-      } else {
-        throw new NotFoundException('User linked');
-      }
       // a test line to see the populated sets of data
       /*const newF = await this.enrolledModel.find({}).populate('students');
       return newF;*/

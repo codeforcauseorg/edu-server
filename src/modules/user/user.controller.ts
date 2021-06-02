@@ -70,7 +70,9 @@ export class UserController {
   }
 
   @Get('/:userId/enrolledCourses')
-  async getEnrolledCourses(@Param('userId') userId: string) {
+  async getEnrolledCourses(
+    @Param('userId') userId: mongoose.Schema.Types.ObjectId,
+  ) {
     return await this.userService.getEnrolledCourses(userId);
   }
 
