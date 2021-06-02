@@ -1,4 +1,10 @@
-import { IsArray, IsDateString, IsNotEmpty, IsNumber, IsUrl } from 'class-validator';
+import {
+  IsArray,
+  IsDateString,
+  IsNotEmpty,
+  IsNumber,
+  IsUrl,
+} from 'class-validator';
 
 export class CreateCourseDto {
   @IsNotEmpty()
