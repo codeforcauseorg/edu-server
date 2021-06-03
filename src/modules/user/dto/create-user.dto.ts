@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
+import * as mongoose from 'mongoose';
 
 export class CreateUserDTO {
   @IsNotEmpty()
@@ -60,8 +61,20 @@ export class CreateUserDTO {
   readonly isAdmin: boolean;
 
   @ApiProperty({
-    type: [String],
+    type: [mongoose.Schema.Types.ObjectId],
     description: 'The list of wishlisted courses',
   })
-  readonly wishlist: string[];
+  readonly wishlist: mongoose.Schema.Types.ObjectId[];
+
+  @ApiProperty({
+    type: String,
+    description: 'The photo url',
+  })
+  photoUrl: string;
+
+  @ApiProperty({
+    type: String,
+    description: 'The cover photo url',
+  })
+  coverPhotoUrl: string;
 }
