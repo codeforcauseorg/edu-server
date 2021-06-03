@@ -15,7 +15,7 @@ export class Doubt {
   @Prop()
   answers: string[];
 
-  @Prop({default: false})
+  @Prop({ default: false })
   is_resolved: boolean;
 
   @Prop()
