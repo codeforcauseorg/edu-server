@@ -78,6 +78,18 @@ export class UserService {
   }
 
   // gets all Enrolled courses
+  async getEnrolledCoursesById(
+    userId: mongoose.Schema.Types.ObjectId,
+    courseId: mongoose.Schema.Types.ObjectId,
+  ) {
+    const enrolledCourses = await this.enrolledModel.findOne({
+      userId: userId,
+      courseId: courseId,
+    });
+    return enrolledCourses;
+  }
+
+  // gets all Enrolled courses
   async getEnrolledCourses(userId: mongoose.Schema.Types.ObjectId) {
     const enrolledCourses = await this.enrolledModel.findOne({
       studentId: userId,

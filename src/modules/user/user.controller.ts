@@ -68,12 +68,14 @@ export class UserController {
     );
   }
 
+  // Get all wishlisted courses
   @Get('/:userId/wishlist')
   @ApiCreatedResponse({ type: [mongoose.Schema.Types.ObjectId] })
   async getWishlist(@Param('userId') userId: mongoose.Schema.Types.ObjectId) {
     return await this.userService.getWishList(userId);
   }
 
+  // Add wishlist courses
   @Post('/:userId/wishlist')
   @ApiCreatedResponse({ type: UserResponseBody })
   async addWishlist(
