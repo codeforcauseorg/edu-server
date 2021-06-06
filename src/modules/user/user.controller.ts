@@ -45,7 +45,7 @@ export class UserController {
 
   // retreiving enrolled course by id of the course and of a user
   @Get('/:userId/enrolledCourses/:courseId')
-  @ApiCreatedResponse({ type: [mongoose.Schema.Types.ObjectId] })
+  @ApiCreatedResponse({ type: CreateEnrolledDTO })
   async getEnrolledCoursesById(
     @Param('userId') userId: mongoose.Schema.Types.ObjectId,
     @Param('courseId') courseId: mongoose.Schema.Types.ObjectId,
