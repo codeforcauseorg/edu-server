@@ -89,4 +89,10 @@ export class UserController {
   async deleteUser(@Param('userId') userId: string) {
     return await this.userService.deleteUser(userId);
   }
+  // Delete a wishlistCourse
+  @Delete('/delete/:userId')
+  @ApiCreatedResponse({ type: UserResponseBody })
+  async deleteUser(@Param('userId') userId: string) {
+    return await this.userService.deleteUser(userId);
+  }
 }
