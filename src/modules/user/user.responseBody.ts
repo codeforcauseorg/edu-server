@@ -4,13 +4,13 @@ export class UserResponseBody {
   @ApiProperty({ required: true, example: '605e3fd9acc33583fb389aec' })
   _id: string;
 
-  @ApiProperty({ required: true, example: 'Noob' })
+  @ApiProperty({ required: true, example: 'John' })
   first_name: string;
 
-  @ApiProperty({ required: true, example: 'Coder' })
+  @ApiProperty({ required: true, example: 'Stark' })
   last_name: string;
 
-  @ApiProperty({ required: true, example: 'noobcoder@gmai.com' })
+  @ApiProperty({ required: true, example: 'John@gmai.com' })
   email: string;
 
   @ApiProperty({ required: true, example: '+919999999999' })
@@ -19,7 +19,7 @@ export class UserResponseBody {
   @ApiProperty({ required: true, example: 'A-88, Mayur Vihar, Delhi' })
   address: string;
 
-  @ApiProperty({ required: true, example: 'I am Noob Coder' })
+  @ApiProperty({ required: true, example: 'I am a great learner' })
   description: string;
 
   @ApiProperty({ required: false, example: 80 })
@@ -28,6 +28,6 @@ export class UserResponseBody {
   @ApiProperty({ required: true, example: true })
   isAdmin: boolean;
 
-  @ApiProperty({ required: false, example: ['DSA', 'Baka'] })
+  @ApiProperty({ required: false, example: ['DSA', 'Python'] })
   wishlist: string[];
 }
