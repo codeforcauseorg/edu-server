@@ -12,6 +12,7 @@ import { CourseDocument as Course } from '../course/schema/course.schema';
 import { EnrolledCourseDocument as Enrolled } from '../course/schema/enrolledCourse.schema';
 import * as mongoose from 'mongoose';
 import { CreateEnrolledDTO } from './dto/create-enrolled.dto';
+import { UpdateEnrolledDTO } from './dto/update-enrolled.dto';
 
 @Injectable()
 export class UserService {
@@ -156,6 +157,30 @@ export class UserService {
       }
     } catch (e) {
       throw new NotFoundException('Failed to deleted');
+    }
+  }
+
+  async updateCourse(
+    userID: mongoose.Schema.Types.ObjectId,
+    updateEnrolledDto: UpdateEnrolledDTO,
+    courseId: mongoose.Schema.Types.ObjectId,
+  ): Promise<any> {
+    let updatedCourse;
+    try {
+      const updatedCourse = await this.enrolledModel.findByIdAndUpdate(
+        {
+          studentId: userID,
+          courseId: courseId,
+        },
+        updateEnrolledDto,
+        { new: true, useFindAndModify: false },
+      );
+      return updatedCourse;
+      console.log(updatedCourse);
+    } catch (e) {
+      throw new BadRequestException(e);
+    } finally {
+      return updatedCourse;
     }
   }
 }

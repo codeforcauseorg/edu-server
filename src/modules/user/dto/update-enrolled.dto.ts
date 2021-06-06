@@ -7,15 +7,7 @@ interface video {
   timestamp?: Date;
 }
 
-export class CreateEnrolledDTO {
-  @IsNotEmpty()
-  @ApiProperty({
-    type: mongoose.Schema.Types.ObjectId,
-    description: 'The id of the student',
-    default: '',
-  })
-  studentId: mongoose.Schema.Types.ObjectId;
-
+export class UpdateEnrolledDTO {
   @ApiProperty({
     type: [Boolean],
     description: 'The description of the student',
@@ -42,12 +34,4 @@ export class CreateEnrolledDTO {
     default: '',
   })
   doubts: string[];
-
-  @IsNotEmpty()
-  @ApiProperty({
-    type: mongoose.Schema.Types.ObjectId,
-    description: 'The id of the course',
-    default: '',
-  })
-  courseId: mongoose.Schema.Types.ObjectId;
 }

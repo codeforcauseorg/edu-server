@@ -14,6 +14,7 @@ import { CreateUserDTO } from './dto/create-user.dto'; //eslint-disable-line
 import { UpdateUserDTO } from './dto/update-user.dto'; //eslint-disable-line 
 import { UserService } from './user.service'; //eslint-disable-line 
 import { CreateEnrolledDTO } from './dto/create-enrolled.dto';
+import { UpdateEnrolledDTO } from './dto/update-enrolled.dto';
 
 @Controller('user')
 export class UserController {
@@ -50,6 +51,21 @@ export class UserController {
     @Body() createEnrolledDto: CreateEnrolledDTO,
   ) {
     return await this.userService.addCourse(userId, createEnrolledDto);
+  }
+
+  // user updating enrolled courses
+  @Put('/:userId/enrolledCourses/:courseId')
+  @ApiCreatedResponse({ type: UpdateEnrolledDTO })
+  async updateEnrolledCourses(
+    @Param('userId') userId: mongoose.Schema.Types.ObjectId,
+    @Param('courseId') courseId: mongoose.Schema.Types.ObjectId,
+    @Body() updateEnrolledDto: UpdateEnrolledDTO,
+  ) {
+    return await this.userService.updateCourse(
+      userId,
+      updateEnrolledDto,
+      courseId,
+    );
   }
 
   @Get('/:userId/wishlist')
