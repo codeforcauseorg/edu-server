@@ -164,6 +164,7 @@ export class UserService {
           (wishlist) => wishlist.id != wishId,
         );
         await deletedFrom.save();
+        return deletedFrom;
       } else {
         throw new NotFoundException('not found');
       }
@@ -172,6 +173,7 @@ export class UserService {
     }
   }
 
+  // update Enrolle Course
   async updateCourse(
     userID: mongoose.Schema.Types.ObjectId,
     updateEnrolledDto: UpdateEnrolledDTO,
