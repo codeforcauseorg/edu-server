@@ -49,7 +49,7 @@ export class UserService {
 
   // Edit User details
   async updateUser(
-    userID: string,
+    userID: mongoose.Schema.Types.ObjectId,
     UpdateUserDTO: UpdateUserDTO,
   ): Promise<User> {
     let updatedUser;
@@ -67,7 +67,7 @@ export class UserService {
   }
 
   // Delete a User
-  async deleteUser(userID: string): Promise<any> {
+  async deleteUser(userID: mongoose.Schema.Types.ObjectId): Promise<any> {
     let deletedUser;
     try {
       deletedUser = await this.userModel.findByIdAndRemove(userID);
@@ -85,7 +85,10 @@ export class UserService {
   }
 
   // adds Enrolled Course
-  async addCourse(userId: string, createEnrolledDTO: CreateEnrolledDTO) {
+  async addCourse(
+    _userId: mongoose.Schema.Types.ObjectId,
+    createEnrolledDTO: CreateEnrolledDTO,
+  ) {
     try {
       const newEnrolled = await new this.enrolledModel(createEnrolledDTO);
       await newEnrolled.save();
@@ -110,13 +113,16 @@ export class UserService {
   }
 
   // gets all wishlisted courses
-  async getWishList(userId: string) {
+  async getWishList(userId: mongoose.Schema.Types.ObjectId) {
     const UserWishList = await this.findUserById(userId);
     return UserWishList.wishlist;
   }
 
   // adds wishlisted course
-  async addWishlist(userId: string, cId: mongoose.Schema.Types.ObjectId) {
+  async addWishlist(
+    userId: mongoose.Schema.Types.ObjectId,
+    cId: mongoose.Schema.Types.ObjectId,
+  ) {
     try {
       const UserWishList = await this.findUserById(userId);
 
@@ -130,5 +136,26 @@ export class UserService {
     }
 
     throw new NotFoundException('course could not be wishlisted');
+  }
+
+  // Delete a wishList of User
+  async deleteWishList(
+    userID: mongoose.Schema.Types.ObjectId,
+    wishId: mongoose.Schema.Types.ObjectId,
+  ): Promise<any> {
+    let deletedFrom;
+    try {
+      deletedFrom = await this.userModel.findById(userID);
+      if (deletedFrom) {
+        deletedFrom.wishlist = deletedFrom.wishlist.filter(
+          (wishlist) => wishlist.id != wishId,
+        );
+        await deletedFrom.save();
+      } else {
+        throw new NotFoundException('not found');
+      }
+    } catch (e) {
+      throw new NotFoundException('Failed to deleted');
+    }
   }
 }

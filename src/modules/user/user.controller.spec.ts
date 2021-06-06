@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UpdateUserDTO } from './dto/update-user.dto';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
-
+import * as mongoose from 'mongoose';
 const mockuser = {
   wishlist: [],
   enrolled_courses: [],
@@ -63,7 +63,7 @@ describe('UserController', () => {
     });
 
     it('should be found be ID', async () => {
-      const _id = '6079f573062890a5e2cad208';
+      const _id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
       await expect(controller.getUser(_id)).resolves.toEqual({
         ...mockuser,
         _id,
@@ -72,7 +72,7 @@ describe('UserController', () => {
     });
 
     it('should be found be with another ID', async () => {
-      const _id = '6079f573062890a5e2cad2q8';
+      const _id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
       await expect(controller.getUser(_id)).resolves.toEqual({
         ...mockuser,
         _id,
@@ -81,7 +81,7 @@ describe('UserController', () => {
     });
 
     it('should be updated', async () => {
-      const _id = '6079f573062890a5e2cad2q8';
+      const _id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
       const dto: UpdateUserDTO = {
         first_name: 'New Name',
         last_name: 'New',
@@ -95,9 +95,7 @@ describe('UserController', () => {
         coverPhotoUrl: '',
         photoUrl: '',
       };
-      await expect(
-        controller.updateUser('6079f573062890a5e2cad2q8', dto),
-      ).resolves.toEqual({
+      await expect(controller.updateUser(_id, dto)).resolves.toEqual({
         _id,
         ...dto,
         wishlist: [],

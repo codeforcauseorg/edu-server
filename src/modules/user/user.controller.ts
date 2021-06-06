@@ -46,7 +46,7 @@ export class UserController {
   @Post('/:userId/enrolledCourses')
   @ApiCreatedResponse({ type: [mongoose.Schema.Types.ObjectId] })
   async addEnrolledCourses(
-    @Param('userId') userId: string,
+    @Param('userId') userId: mongoose.Schema.Types.ObjectId,
     @Body() createEnrolledDto: CreateEnrolledDTO,
   ) {
     return await this.userService.addCourse(userId, createEnrolledDto);
@@ -54,14 +54,14 @@ export class UserController {
 
   @Get('/:userId/wishlist')
   @ApiCreatedResponse({ type: [mongoose.Schema.Types.ObjectId] })
-  async getWishlist(@Param('userId') userId: string) {
+  async getWishlist(@Param('userId') userId: mongoose.Schema.Types.ObjectId) {
     return await this.userService.getWishList(userId);
   }
 
   @Post('/:userId/wishlist')
   @ApiCreatedResponse({ type: UserResponseBody })
   async addWishlist(
-    @Param('userId') userId: string,
+    @Param('userId') userId: mongoose.Schema.Types.ObjectId,
     @Body() cId: mongoose.Schema.Types.ObjectId,
   ) {
     return await this.userService.addWishlist(userId, cId);
@@ -70,14 +70,14 @@ export class UserController {
   // Fetch a particular User using ID
   @ApiCreatedResponse({ type: UserResponseBody })
   @Get('get/:userId')
-  async getUser(@Param('userId') userId: string) {
+  async getUser(@Param('userId') userId: mongoose.Schema.Types.ObjectId) {
     return await this.userService.findUserById(userId);
   }
 
   @Put('/update/:userId')
   @ApiCreatedResponse({ type: UserResponseBody })
   async updateUser(
-    @Param('userId') userId: string,
+    @Param('userId') userId: mongoose.Schema.Types.ObjectId,
     @Body() UpdateUserDTO: UpdateUserDTO,
   ) {
     return await this.userService.updateUser(userId, UpdateUserDTO);
@@ -86,7 +86,17 @@ export class UserController {
   // Delete a User
   @Delete('/delete/:userId')
   @ApiCreatedResponse({ type: UserResponseBody })
-  async deleteUser(@Param('userId') userId: string) {
+  async deleteUser(@Param('userId') userId: mongoose.Schema.Types.ObjectId) {
     return await this.userService.deleteUser(userId);
+  }
+
+  // Delete a User
+  @Delete('/:userId/wishlist/:wishId')
+  @ApiCreatedResponse({ type: [mongoose.Schema.Types.ObjectId] })
+  async deleteWishList(
+    @Param('userId') userId: mongoose.Schema.Types.ObjectId,
+    @Param('wishId') wishId: mongoose.Schema.Types.ObjectId,
+  ) {
+    return await this.userService.deleteWishList(userId, wishId);
   }
 }
