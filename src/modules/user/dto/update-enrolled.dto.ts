@@ -1,6 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty } from 'class-validator';
-import * as mongoose from 'mongoose';
 
 interface video {
   num: number;
