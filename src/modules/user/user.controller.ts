@@ -106,7 +106,17 @@ export class UserController {
     return await this.userService.deleteUser(userId);
   }
 
-  // Delete a User
+  // Delete enrolled course
+  @Delete('/:userId/enrollerdCoursse/:courseId')
+  @ApiCreatedResponse({ type: [mongoose.Schema.Types.ObjectId] })
+  async deleteEnrolled(
+    @Param('userId') userId: mongoose.Schema.Types.ObjectId,
+    @Param('courseId') courseId: mongoose.Schema.Types.ObjectId,
+  ) {
+    return await this.userService.deleteEnrolledCourse(userId, courseId);
+  }
+
+  // Delete a wishlist
   @Delete('/:userId/wishlist/:wishId')
   @ApiCreatedResponse({ type: [mongoose.Schema.Types.ObjectId] })
   async deleteWishList(

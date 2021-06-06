@@ -183,4 +183,25 @@ export class UserService {
       return updatedCourse;
     }
   }
+
+  // Delete Enrolled Course of User
+  async deleteEnrolledCourse(
+    userID: mongoose.Schema.Types.ObjectId,
+    courseId: mongoose.Schema.Types.ObjectId,
+  ): Promise<any> {
+    let deletedFrom;
+    try {
+      deletedFrom = await this.enrolledModel.findOneAndRemove({
+        studentId: userID,
+        courseId: courseId,
+      });
+      if (deletedFrom) {
+        return deletedFrom;
+      } else {
+        throw new NotFoundException('not found');
+      }
+    } catch (e) {
+      throw new NotFoundException('Failed to deleted');
+    }
+  }
 }
