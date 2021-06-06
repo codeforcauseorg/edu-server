@@ -83,7 +83,7 @@ export class UserService {
     courseId: mongoose.Schema.Types.ObjectId,
   ) {
     const enrolledCourses = await this.enrolledModel.findOne({
-      userId: userId,
+      studentId: userId,
       courseId: courseId,
     });
     return enrolledCourses;
@@ -177,9 +177,8 @@ export class UserService {
     updateEnrolledDto: UpdateEnrolledDTO,
     courseId: mongoose.Schema.Types.ObjectId,
   ): Promise<any> {
-    let updatedCourse;
     try {
-      const updatedCourse = await this.enrolledModel.findByIdAndUpdate(
+      const updatedCourse = await this.enrolledModel.findOneAndUpdate(
         {
           studentId: userID,
           courseId: courseId,
@@ -188,11 +187,8 @@ export class UserService {
         { new: true, useFindAndModify: false },
       );
       return updatedCourse;
-      console.log(updatedCourse);
     } catch (e) {
       throw new BadRequestException(e);
-    } finally {
-      return updatedCourse;
     }
   }
 
