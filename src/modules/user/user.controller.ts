@@ -43,6 +43,16 @@ export class UserController {
     return await this.userService.getEnrolledCourses(userId);
   }
 
+  // retreiving enrolled course by id of the course and of a user
+  @Get('/:userId/enrolledCourses/:courseId')
+  @ApiCreatedResponse({ type: [mongoose.Schema.Types.ObjectId] })
+  async getEnrolledCoursesById(
+    @Param('userId') userId: mongoose.Schema.Types.ObjectId,
+    @Param('courseId') courseId: mongoose.Schema.Types.ObjectId,
+  ) {
+    return await this.userService.getEnrolledCoursesById(userId, courseId);
+  }
+
   // user enrolling courses
   @Post('/:userId/enrolledCourses')
   @ApiCreatedResponse({ type: [mongoose.Schema.Types.ObjectId] })
