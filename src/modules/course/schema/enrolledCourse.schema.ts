@@ -33,8 +33,11 @@ export class EnrolledCourse {
   courseId: mongoose.Schema.Types.ObjectId;
 }
 
+// eslint-disable-next-line prettier/prettier
 export const EnrolledCourseSchema = SchemaFactory.createForClass(
+  // eslint-disable-next-line prettier/prettier
   EnrolledCourse,
+  // eslint-disable-next-line prettier/prettier
 );
 
 EnrolledCourseSchema.methods.toJSON = function () {
