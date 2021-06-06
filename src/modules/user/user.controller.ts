@@ -119,7 +119,7 @@ export class UserController {
   }
 
   // Delete enrolled course
-  @Delete('/:userId/enrollerdCoursse/:courseId')
+  @Delete('/:userId/enrolledCourses/:courseId')
   @ApiCreatedResponse({ type: [mongoose.Schema.Types.ObjectId] })
   async deleteEnrolled(
     @Param('userId') userId: mongoose.Schema.Types.ObjectId,
