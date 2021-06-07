@@ -7,22 +7,22 @@ export class UpdateUserDTO {
   @ApiProperty({
     type: String,
     description: 'The first name of the student',
-    default: '',
+    default: 'Tony',
   })
   readonly first_name: string;
 
   @ApiProperty({
     type: String,
     description: 'The last name of the student',
-    default: '',
+    default: 'Stark',
   })
   readonly last_name: string;
 
   @IsNotEmpty()
   @ApiProperty({
     type: String,
-    description: 'The email of the student',
-    default: '',
+    description: 'The email ID of the student',
+    default: 'John@gmai.com',
   })
   readonly email: string;
 
@@ -30,39 +30,42 @@ export class UpdateUserDTO {
   @ApiProperty({
     type: String,
     description: 'The phone number of the student',
-    default: '',
+    default: 9000500000,
   })
   readonly phone: string;
 
   @ApiProperty({
     type: String,
     description: 'The address of the student',
-    default: '',
+    default: 'Mayur Vihar, Delhi',
   })
   readonly address: string;
 
   @ApiProperty({
     type: String,
-    description: 'The description of the student',
-    default: '',
+    description: 'The short description of the student',
+    default: 'Aspiring Software Developer',
   })
   readonly description: string;
 
   @ApiProperty({
     type: Number,
     description: 'The score of the student',
+    default: 100,
   })
   readonly score: number;
 
   @ApiProperty({
     type: Boolean,
-    description: 'The field to show of whether the students is Admin or not',
+    description: 'The field to show whether the students is Admin or not',
+    default: false,
   })
   readonly isAdmin: boolean;
 
   @ApiProperty({
     type: [mongoose.Schema.Types.ObjectId],
     description: 'The list of wishlisted courses',
+    default: ['605e3fd9acc33583fb389aec'],
   })
   readonly wishlist: mongoose.Schema.Types.ObjectId[];
 

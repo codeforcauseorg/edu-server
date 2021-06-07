@@ -18,28 +18,28 @@ export class CreateEnrolledDTO {
 
   @ApiProperty({
     type: [Boolean],
-    description: 'The description of the student',
+    description: 'videos watched by the student',
     default: '',
   })
   videosWatched: boolean[];
 
   @ApiProperty({
     type: [Boolean],
-    description: 'The assignments doen by the student',
-    default: '',
+    description: 'The assignments done by the student',
+    default: [false, false],
   })
   assignmentsDone: boolean[];
 
   @ApiProperty({
-    description: 'The videos',
-    default: '',
+    description: 'The current video where student left',
+    default: [false, false],
   })
   currentVideo: video[];
 
   @ApiProperty({
     type: [String],
     description: 'The doubts of the student',
-    default: '',
+    default: ['problem in BFS', 'unable to understand Dynamic Programming'],
   })
   doubts: string[];
 
@@ -47,7 +47,7 @@ export class CreateEnrolledDTO {
   @ApiProperty({
     type: mongoose.Schema.Types.ObjectId,
     description: 'The id of the course',
-    default: '',
+    default: '605e3fd9acc33583fb389aec',
   })
   courseId: mongoose.Schema.Types.ObjectId;
 }

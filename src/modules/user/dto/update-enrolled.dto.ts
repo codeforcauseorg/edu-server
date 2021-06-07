@@ -8,20 +8,20 @@ interface video {
 export class UpdateEnrolledDTO {
   @ApiProperty({
     type: [Boolean],
-    description: 'The description of the student',
-    default: '',
+    description: 'The videos watched by the student',
+    default: [false, false],
   })
   videosWatched: boolean[];
 
   @ApiProperty({
     type: [Boolean],
-    description: 'The assignments doen by the student',
-    default: '',
+    description: 'The assignments done by the student',
+    default: [false, false],
   })
   assignmentsDone: boolean[];
 
   @ApiProperty({
-    description: 'The videos',
+    description: 'The current video where student left',
     default: '',
   })
   currentVideo: video[];
@@ -29,7 +29,7 @@ export class UpdateEnrolledDTO {
   @ApiProperty({
     type: [String],
     description: 'The doubts of the student',
-    default: '',
+    default: ['problem in BFS', 'unable to understand Dynamic Programming'],
   })
   doubts: string[];
 }
