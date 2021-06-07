@@ -22,7 +22,7 @@ export class UpdateEnrolledDTO {
 
   @ApiProperty({
     description: 'The current video where student left',
-    default: '',
+    default: { num: 1, timestamp: Date.now() },
   })
   currentVideo: video[];
 

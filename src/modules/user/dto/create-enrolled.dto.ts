@@ -12,14 +12,14 @@ export class CreateEnrolledDTO {
   @ApiProperty({
     type: mongoose.Schema.Types.ObjectId,
     description: 'The id of the student',
-    default: '',
+    default: '605e3fd9acc33583fb389aec',
   })
   studentId: mongoose.Schema.Types.ObjectId;
 
   @ApiProperty({
     type: [Boolean],
     description: 'videos watched by the student',
-    default: '',
+    default: [false, false],
   })
   videosWatched: boolean[];
 
@@ -32,7 +32,7 @@ export class CreateEnrolledDTO {
 
   @ApiProperty({
     description: 'The current video where student left',
-    default: [false, false],
+    default: { num: 1, timestamp: Date.now() },
   })
   currentVideo: video[];
 

@@ -7,14 +7,14 @@ export class CreateUserDTO {
   @ApiProperty({
     type: String,
     description: 'The first name of the student',
-    default: '',
+    default: 'Tony',
   })
   readonly first_name: string;
 
   @ApiProperty({
     type: String,
     description: 'The last name of the student',
-    default: '',
+    default: 'Stark',
   })
   readonly last_name: string;
 
