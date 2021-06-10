@@ -39,7 +39,7 @@ export class UserService {
     } catch (e) {
       throw new NotFoundException('User Not Found!');
     }
-    throw new NotFoundException('User Not Found!');
+    throw new NotFoundException('Error');
   }
 
   // post a single User
