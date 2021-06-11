@@ -3,14 +3,13 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Model } from 'mongoose';
+import { Model, Schema } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { UserDocument as User } from './schema/user.schema';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
 import { CourseDocument as Course } from '../course/schema/course.schema';
 import { EnrolledCourseDocument as Enrolled } from '../course/schema/enrolledCourse.schema';
-import * as mongoose from 'mongoose';
 import { CreateEnrolledDTO } from './dto/create-enrolled.dto';
 
 @Injectable()
@@ -28,7 +27,7 @@ export class UserService {
   }
 
   // Get a single User
-  async findUserById(userId): Promise<User> {
+  async findUserById(userId: Schema.Types.ObjectId): Promise<User> {
     try {
       const user = await this.userModel.findById(userId).exec();
 
@@ -77,7 +76,7 @@ export class UserService {
   }
 
   // gets all Enrolled courses
-  async getEnrolledCourses(userId: mongoose.Schema.Types.ObjectId) {
+  async getEnrolledCourses(userId: Schema.Types.ObjectId) {
     const enrolledCourses = await this.enrolledModel.findOne({
       studentId: userId,
     });
@@ -110,13 +109,15 @@ export class UserService {
   }
 
   // gets all wishlisted courses
-  async getWishList(userId: string) {
-    const UserWishList = await this.findUserById(userId);
-    return UserWishList.wishlist;
+  async getWishList(
+    userId: Schema.Types.ObjectId,
+  ): Promise<Schema.Types.ObjectId[]> {
+    const userWishList = await this.findUserById(userId);
+    return userWishList.wishlist;
   }
 
   // adds wishlisted course
-  async addWishlist(userId: string, cId: mongoose.Schema.Types.ObjectId) {
+  async addWishlist(userId: Schema.Types.ObjectId, cId: Schema.Types.ObjectId) {
     try {
       const UserWishList = await this.findUserById(userId);
 

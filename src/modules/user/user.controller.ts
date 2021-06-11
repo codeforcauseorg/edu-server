@@ -7,12 +7,12 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import * as mongoose from 'mongoose';
 import { ApiCreatedResponse, ApiProperty } from '@nestjs/swagger';
 import { CreateUserDTO } from './dto/create-user.dto'; //eslint-disable-line 
 import { UpdateUserDTO } from './dto/update-user.dto'; //eslint-disable-line 
 import { UserService } from './user.service'; //eslint-disable-line 
 import { CreateEnrolledDTO } from './dto/create-enrolled.dto';
+import { Schema } from 'mongoose';
 
 class UserResponseBody {
   @ApiProperty({ required: true, example: '605e3fd9acc33583fb389aec' })
@@ -65,9 +65,7 @@ export class UserController {
   }
 
   @Get('/:userId/enrolledCourses')
-  async getEnrolledCourses(
-    @Param('userId') userId: mongoose.Schema.Types.ObjectId,
-  ) {
+  async getEnrolledCourses(@Param('userId') userId: Schema.Types.ObjectId) {
     return await this.userService.getEnrolledCourses(userId);
   }
 
@@ -80,14 +78,16 @@ export class UserController {
   }
 
   @Get('/:userId/wishlist')
-  async getWishlist(@Param('userId') userId: string) {
+  async getWishlist(
+    @Param('userId') userId: Schema.Types.ObjectId,
+  ): Promise<any[]> {
     return await this.userService.getWishList(userId);
   }
 
   @Post('/:userId/wishlist')
   async addWishlist(
-    @Param('userId') userId: string,
-    @Body() cId: mongoose.Schema.Types.ObjectId,
+    @Param('userId') userId: Schema.Types.ObjectId,
+    @Body() cId: Schema.Types.ObjectId,
   ) {
     return await this.userService.addWishlist(userId, cId);
   }
@@ -95,7 +95,7 @@ export class UserController {
   // Fetch a particular User using ID
   @ApiCreatedResponse({ type: UserResponseBody })
   @Get('get/:userId')
-  async getUser(@Param('userId') userId: string) {
+  async getUser(@Param('userId') userId: Schema.Types.ObjectId) {
     return await this.userService.findUserById(userId);
   }
 
