@@ -3,14 +3,13 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Model } from 'mongoose';
+import { Model, Schema } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { UserDocument as User } from './schema/user.schema';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
 import { CourseDocument as Course } from '../course/schema/course.schema';
 import { EnrolledCourseDocument as Enrolled } from '../course/schema/enrolledCourse.schema';
-import * as mongoose from 'mongoose';
 import { CreateEnrolledDTO } from './dto/create-enrolled.dto';
 import { UpdateEnrolledDTO } from './dto/update-enrolled.dto';
 
@@ -29,7 +28,7 @@ export class UserService {
   }
 
   // Get a single User
-  async findUserById(userId): Promise<User> {
+  async findUserById(userId: Schema.Types.ObjectId): Promise<User> {
     try {
       const user = await this.userModel.findById(userId).exec();
 
@@ -50,7 +49,7 @@ export class UserService {
 
   // Edit User details
   async updateUser(
-    userID: mongoose.Schema.Types.ObjectId,
+    userID: Schema.Types.ObjectId,
     UpdateUserDTO: UpdateUserDTO,
   ): Promise<User> {
     let updatedUser;
@@ -68,7 +67,7 @@ export class UserService {
   }
 
   // Delete a User
-  async deleteUser(userID: mongoose.Schema.Types.ObjectId): Promise<any> {
+  async deleteUser(userID: Schema.Types.ObjectId): Promise<any> {
     let deletedUser;
     try {
       deletedUser = await this.userModel.findByIdAndRemove(userID);
@@ -79,8 +78,8 @@ export class UserService {
 
   // gets all Enrolled courses
   async getEnrolledCoursesById(
-    userId: mongoose.Schema.Types.ObjectId,
-    courseId: mongoose.Schema.Types.ObjectId,
+    userId: Schema.Types.ObjectId,
+    courseId: Schema.Types.ObjectId,
   ) {
     const enrolledCourses = await this.enrolledModel.findOne({
       studentId: userId,
@@ -90,7 +89,7 @@ export class UserService {
   }
 
   // gets all Enrolled courses
-  async getEnrolledCourses(userId: mongoose.Schema.Types.ObjectId) {
+  async getEnrolledCourses(userId: Schema.Types.ObjectId) {
     const enrolledCourses = await this.enrolledModel.findOne({
       studentId: userId,
     });
@@ -99,7 +98,7 @@ export class UserService {
 
   // adds Enrolled Course
   async addCourse(
-    _userId: mongoose.Schema.Types.ObjectId,
+    _userId: Schema.Types.ObjectId,
     createEnrolledDTO: CreateEnrolledDTO,
   ) {
     try {
@@ -126,16 +125,15 @@ export class UserService {
   }
 
   // gets all wishlisted courses
-  async getWishList(userId: mongoose.Schema.Types.ObjectId) {
-    const UserWishList = await this.findUserById(userId);
-    return UserWishList.wishlist;
+  async getWishList(
+    userId: Schema.Types.ObjectId,
+  ): Promise<Schema.Types.ObjectId[]> {
+    const userWishList = await this.findUserById(userId);
+    return userWishList.wishlist;
   }
 
   // adds wishlisted course
-  async addWishlist(
-    userId: mongoose.Schema.Types.ObjectId,
-    cId: mongoose.Schema.Types.ObjectId,
-  ) {
+  async addWishlist(userId: Schema.Types.ObjectId, cId: Schema.Types.ObjectId) {
     try {
       const UserWishList = await this.findUserById(userId);
 
@@ -153,8 +151,8 @@ export class UserService {
 
   // Delete a wishList of User
   async deleteWishList(
-    userID: mongoose.Schema.Types.ObjectId,
-    wishId: mongoose.Schema.Types.ObjectId,
+    userID: Schema.Types.ObjectId,
+    wishId: Schema.Types.ObjectId,
   ): Promise<any> {
     let deletedFrom;
     try {
@@ -175,9 +173,9 @@ export class UserService {
 
   // update Enrolle Course
   async updateCourse(
-    userID: mongoose.Schema.Types.ObjectId,
+    userID: Schema.Types.ObjectId,
     updateEnrolledDto: UpdateEnrolledDTO,
-    courseId: mongoose.Schema.Types.ObjectId,
+    courseId: Schema.Types.ObjectId,
   ): Promise<any> {
     try {
       const updatedCourse = await this.enrolledModel.findOneAndUpdate(
@@ -196,8 +194,8 @@ export class UserService {
 
   // Delete Enrolled Course of User
   async deleteEnrolledCourse(
-    userID: mongoose.Schema.Types.ObjectId,
-    courseId: mongoose.Schema.Types.ObjectId,
+    userID: Schema.Types.ObjectId,
+    courseId: Schema.Types.ObjectId,
   ): Promise<any> {
     let deletedFrom;
     try {

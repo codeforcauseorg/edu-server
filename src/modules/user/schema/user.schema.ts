@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
-import * as mongoose from 'mongoose';
+import { Document, Schema as SchemaTypes } from 'mongoose';
 
 export type UserDocument = User & Document;
 
@@ -37,7 +36,7 @@ export class User {
   isAdmin: boolean;
 
   @Prop({ default: [] })
-  wishlist: mongoose.Schema.Types.ObjectId[];
+  wishlist: SchemaTypes.Types.ObjectId[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

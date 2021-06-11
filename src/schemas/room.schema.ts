@@ -1,7 +1,7 @@
 import { Chat } from '../modules/chat/schema/chat.schema';
 import { User } from '../modules/user/schema/user.schema';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import * as mongoose from 'mongoose';
+import { Schema as SchemaTypes } from 'mongoose';
 import { Document } from 'mongoose';
 
 export type RoomDocument = Room & Document;
@@ -14,10 +14,10 @@ export class Room {
   @Prop({ required: true, maxlength: 20, minlength: 5 })
   name: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Chat' })
+  @Prop({ type: SchemaTypes.Types.ObjectId, ref: 'Chat' })
   chats: Chat;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  @Prop({ type: SchemaTypes.Types.ObjectId, ref: 'User' })
   connectedUsers: User;
 }
 

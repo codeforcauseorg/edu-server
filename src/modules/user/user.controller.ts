@@ -7,14 +7,14 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import * as mongoose from 'mongoose';
-import { UserResponseBody } from './user.responseBody';
 import { ApiCreatedResponse } from '@nestjs/swagger';
+import { UserResponseBody } from './user.responseBody';
 import { CreateUserDTO } from './dto/create-user.dto'; //eslint-disable-line 
 import { UpdateUserDTO } from './dto/update-user.dto'; //eslint-disable-line 
 import { UserService } from './user.service'; //eslint-disable-line 
 import { CreateEnrolledDTO } from './dto/create-enrolled.dto';
 import { UpdateEnrolledDTO } from './dto/update-enrolled.dto';
+import { Schema } from 'mongoose';
 
 @Controller('user')
 export class UserController {
@@ -36,10 +36,8 @@ export class UserController {
 
   // retreiving all enrolled courses of a particular user
   @Get('/:userId/enrolledCourses')
-  @ApiCreatedResponse({ type: [mongoose.Schema.Types.ObjectId] })
-  async getEnrolledCourses(
-    @Param('userId') userId: mongoose.Schema.Types.ObjectId,
-  ) {
+  @ApiCreatedResponse({ type: [Schema.Types.ObjectId] })
+  async getEnrolledCourses(@Param('userId') userId: Schema.Types.ObjectId) {
     return await this.userService.getEnrolledCourses(userId);
   }
 
@@ -47,17 +45,17 @@ export class UserController {
   @Get('/:userId/enrolledCourses/:courseId')
   @ApiCreatedResponse({ type: CreateEnrolledDTO })
   async getEnrolledCoursesById(
-    @Param('userId') userId: mongoose.Schema.Types.ObjectId,
-    @Param('courseId') courseId: mongoose.Schema.Types.ObjectId,
+    @Param('userId') userId: Schema.Types.ObjectId,
+    @Param('courseId') courseId: Schema.Types.ObjectId,
   ) {
     return await this.userService.getEnrolledCoursesById(userId, courseId);
   }
 
   // user enrolling courses
   @Post('/:userId/enrolledCourses')
-  @ApiCreatedResponse({ type: [mongoose.Schema.Types.ObjectId] })
+  @ApiCreatedResponse({ type: [Schema.Types.ObjectId] })
   async addEnrolledCourses(
-    @Param('userId') userId: mongoose.Schema.Types.ObjectId,
+    @Param('userId') userId: Schema.Types.ObjectId,
     @Body() createEnrolledDto: CreateEnrolledDTO,
   ) {
     return await this.userService.addCourse(userId, createEnrolledDto);
@@ -67,8 +65,8 @@ export class UserController {
   @Put('/:userId/enrolledCourses/:courseId')
   @ApiCreatedResponse({ type: UpdateEnrolledDTO })
   async updateEnrolledCourses(
-    @Param('userId') userId: mongoose.Schema.Types.ObjectId,
-    @Param('courseId') courseId: mongoose.Schema.Types.ObjectId,
+    @Param('userId') userId: Schema.Types.ObjectId,
+    @Param('courseId') courseId: Schema.Types.ObjectId,
     @Body() updateEnrolledDto: UpdateEnrolledDTO,
   ) {
     return await this.userService.updateCourse(
@@ -80,8 +78,8 @@ export class UserController {
 
   // Get all wishlisted courses
   @Get('/:userId/wishlist')
-  @ApiCreatedResponse({ type: [mongoose.Schema.Types.ObjectId] })
-  async getWishlist(@Param('userId') userId: mongoose.Schema.Types.ObjectId) {
+  @ApiCreatedResponse({ type: [Schema.Types.ObjectId] })
+  async getWishlist(@Param('userId') userId: Schema.Types.ObjectId) {
     return await this.userService.getWishList(userId);
   }
 
@@ -89,8 +87,8 @@ export class UserController {
   @Post('/:userId/wishlist')
   @ApiCreatedResponse({ type: UserResponseBody })
   async addWishlist(
-    @Param('userId') userId: mongoose.Schema.Types.ObjectId,
-    @Body() cId: mongoose.Schema.Types.ObjectId,
+    @Param('userId') userId: Schema.Types.ObjectId,
+    @Body() cId: Schema.Types.ObjectId,
   ) {
     return await this.userService.addWishlist(userId, cId);
   }
@@ -98,14 +96,14 @@ export class UserController {
   // Fetch a particular User using ID
   @ApiCreatedResponse({ type: UserResponseBody })
   @Get('get/:userId')
-  async getUser(@Param('userId') userId: mongoose.Schema.Types.ObjectId) {
+  async getUser(@Param('userId') userId: Schema.Types.ObjectId) {
     return await this.userService.findUserById(userId);
   }
 
   @Put('/update/:userId')
   @ApiCreatedResponse({ type: UserResponseBody })
   async updateUser(
-    @Param('userId') userId: mongoose.Schema.Types.ObjectId,
+    @Param('userId') userId: Schema.Types.ObjectId,
     @Body() UpdateUserDTO: UpdateUserDTO,
   ) {
     return await this.userService.updateUser(userId, UpdateUserDTO);
@@ -114,26 +112,26 @@ export class UserController {
   // Delete a User
   @Delete('/delete/:userId')
   @ApiCreatedResponse({ type: UserResponseBody })
-  async deleteUser(@Param('userId') userId: mongoose.Schema.Types.ObjectId) {
+  async deleteUser(@Param('userId') userId: Schema.Types.ObjectId) {
     return await this.userService.deleteUser(userId);
   }
 
   // Delete enrolled course
   @Delete('/:userId/enrolledCourses/:courseId')
-  @ApiCreatedResponse({ type: [mongoose.Schema.Types.ObjectId] })
+  @ApiCreatedResponse({ type: [Schema.Types.ObjectId] })
   async deleteEnrolled(
-    @Param('userId') userId: mongoose.Schema.Types.ObjectId,
-    @Param('courseId') courseId: mongoose.Schema.Types.ObjectId,
+    @Param('userId') userId: Schema.Types.ObjectId,
+    @Param('courseId') courseId: Schema.Types.ObjectId,
   ) {
     return await this.userService.deleteEnrolledCourse(userId, courseId);
   }
 
   // Delete a wishlist
   @Delete('/:userId/wishlist/:wishId')
-  @ApiCreatedResponse({ type: [mongoose.Schema.Types.ObjectId] })
+  @ApiCreatedResponse({ type: [Schema.Types.ObjectId] })
   async deleteWishList(
-    @Param('userId') userId: mongoose.Schema.Types.ObjectId,
-    @Param('wishId') wishId: mongoose.Schema.Types.ObjectId,
+    @Param('userId') userId: Schema.Types.ObjectId,
+    @Param('wishId') wishId: Schema.Types.ObjectId,
   ) {
     return await this.userService.deleteWishList(userId, wishId);
   }

@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import * as mongoose from 'mongoose';
+import { Schema as SchemaType } from 'mongoose';
 
 export type EnrolledCourseDocument = EnrolledCourse & Document;
 
@@ -15,7 +15,7 @@ interface video {
 })
 export class EnrolledCourse {
   @Prop({ required: true })
-  studentId: mongoose.Schema.Types.ObjectId;
+  studentId: SchemaType.Types.ObjectId;
 
   @Prop()
   videosWatched: boolean[];
@@ -30,15 +30,11 @@ export class EnrolledCourse {
   doubts: string[];
 
   @Prop({ required: true })
-  courseId: mongoose.Schema.Types.ObjectId;
+  courseId: SchemaType.Types.ObjectId;
 }
 
-// eslint-disable-next-line prettier/prettier
-export const EnrolledCourseSchema = SchemaFactory.createForClass(
-  // eslint-disable-next-line prettier/prettier
-  EnrolledCourse,
-  // eslint-disable-next-line prettier/prettier
-);
+export const EnrolledCourseSchema =
+  SchemaFactory.createForClass(EnrolledCourse);
 
 EnrolledCourseSchema.methods.toJSON = function () {
   const enrolledCourseObject = this.toObject();

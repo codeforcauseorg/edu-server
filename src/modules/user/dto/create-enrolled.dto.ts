@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty } from 'class-validator';
-import * as mongoose from 'mongoose';
+import { IsMongoId, IsNotEmpty } from 'class-validator';
+import { Schema } from 'mongoose';
 
 interface video {
   num: number;
@@ -9,12 +9,12 @@ interface video {
 
 export class CreateEnrolledDTO {
   @IsNotEmpty()
+  @IsMongoId()
   @ApiProperty({
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     description: 'The id of the student',
-    default: '605e3fd9acc33583fb389aec',
   })
-  studentId: mongoose.Schema.Types.ObjectId;
+  studentId: Schema.Types.ObjectId;
 
   @ApiProperty({
     type: [Boolean],
@@ -44,10 +44,10 @@ export class CreateEnrolledDTO {
   doubts: string[];
 
   @IsNotEmpty()
+  @IsMongoId()
   @ApiProperty({
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     description: 'The id of the course',
-    default: '605e3fd9acc33583fb389aec',
   })
-  courseId: mongoose.Schema.Types.ObjectId;
+  courseId: Schema.Types.ObjectId;
 }
