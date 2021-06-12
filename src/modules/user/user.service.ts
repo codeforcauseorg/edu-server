@@ -11,6 +11,7 @@ import { UpdateUserDTO } from './dto/update-user.dto';
 import { CourseDocument as Course } from '../course/schema/course.schema';
 import { EnrolledCourseDocument as Enrolled } from '../course/schema/enrolledCourse.schema';
 import { CreateEnrolledDTO } from './dto/create-enrolled.dto';
+import { UpdateEnrolledDTO } from './dto/update-enrolled.dto';
 
 @Injectable()
 export class UserService {
@@ -37,7 +38,7 @@ export class UserService {
     } catch (e) {
       throw new NotFoundException('User Not Found!');
     }
-    throw new NotFoundException('User Not Found!');
+    throw new NotFoundException('Error');
   }
 
   // post a single User
@@ -48,7 +49,7 @@ export class UserService {
 
   // Edit User details
   async updateUser(
-    userID: string,
+    userID: Schema.Types.ObjectId,
     UpdateUserDTO: UpdateUserDTO,
   ): Promise<User> {
     let updatedUser;
@@ -66,13 +67,25 @@ export class UserService {
   }
 
   // Delete a User
-  async deleteUser(userID: string): Promise<any> {
+  async deleteUser(userID: Schema.Types.ObjectId): Promise<any> {
     let deletedUser;
     try {
       deletedUser = await this.userModel.findByIdAndRemove(userID);
     } finally {
       return deletedUser;
     }
+  }
+
+  // gets all Enrolled courses
+  async getEnrolledCoursesById(
+    userId: Schema.Types.ObjectId,
+    courseId: Schema.Types.ObjectId,
+  ) {
+    const enrolledCourses = await this.enrolledModel.findOne({
+      studentId: userId,
+      courseId: courseId,
+    });
+    return enrolledCourses;
   }
 
   // gets all Enrolled courses
@@ -84,10 +97,13 @@ export class UserService {
   }
 
   // adds Enrolled Course
-  async addCourse(userId: string, createEnrolledDTO: CreateEnrolledDTO) {
+  async addCourse(
+    _userId: Schema.Types.ObjectId,
+    createEnrolledDTO: CreateEnrolledDTO,
+  ) {
     try {
       const newEnrolled = await new this.enrolledModel(createEnrolledDTO);
-      await newEnrolled.save();
+
       const course = await this.courseModel.findById(
         createEnrolledDTO.courseId,
       );
@@ -131,5 +147,69 @@ export class UserService {
     }
 
     throw new NotFoundException('course could not be wishlisted');
+  }
+
+  // Delete a wishList of User
+  async deleteWishList(
+    userID: Schema.Types.ObjectId,
+    wishId: Schema.Types.ObjectId,
+  ): Promise<any> {
+    let deletedFrom;
+    try {
+      deletedFrom = await this.userModel.findById(userID);
+      if (deletedFrom) {
+        deletedFrom.wishlist = deletedFrom.wishlist.filter(
+          (wishlist) => wishlist.id != wishId,
+        );
+        await deletedFrom.save();
+        return deletedFrom;
+      } else {
+        throw new NotFoundException('not found');
+      }
+    } catch (e) {
+      throw new NotFoundException('Failed to deleted');
+    }
+  }
+
+  // update Enrolle Course
+  async updateCourse(
+    userID: Schema.Types.ObjectId,
+    updateEnrolledDto: UpdateEnrolledDTO,
+    courseId: Schema.Types.ObjectId,
+  ): Promise<any> {
+    try {
+      const updatedCourse = await this.enrolledModel.findOneAndUpdate(
+        {
+          studentId: userID,
+          courseId: courseId,
+        },
+        updateEnrolledDto,
+        { new: true, useFindAndModify: false },
+      );
+      return updatedCourse;
+    } catch (e) {
+      throw new BadRequestException(e);
+    }
+  }
+
+  // Delete Enrolled Course of User
+  async deleteEnrolledCourse(
+    userID: Schema.Types.ObjectId,
+    courseId: Schema.Types.ObjectId,
+  ): Promise<any> {
+    let deletedFrom;
+    try {
+      deletedFrom = await this.enrolledModel.findOneAndRemove({
+        studentId: userID,
+        courseId: courseId,
+      });
+      if (deletedFrom) {
+        return deletedFrom;
+      } else {
+        throw new NotFoundException('not found');
+      }
+    } catch (e) {
+      throw new NotFoundException('Failed to deleted');
+    }
   }
 }

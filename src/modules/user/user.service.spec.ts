@@ -30,4 +30,10 @@ describe('UserService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+  describe('Testing userService after mock', () => {
+    //const id = new mongoose.Schema.Types.ObjectId('60bca010d17d463dd09baf9b');
+    it('testing get all method', () => {
+      expect(typeof service.getAllUser).not.toEqual(null);
+    });
+  });
 });

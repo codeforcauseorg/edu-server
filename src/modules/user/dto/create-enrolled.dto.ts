@@ -1,5 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger';
 import { IsMongoId, IsNotEmpty } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 import { Schema } from 'mongoose';
 
 interface video {
