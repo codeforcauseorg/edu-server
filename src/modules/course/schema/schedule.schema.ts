@@ -8,7 +8,7 @@ export class Schedule {
   @Prop({ required: true })
   chapterName: string;
 
-  @Prop({})
+  @Prop({ required: true })
   description: string;
 
   @Prop({ required: true })

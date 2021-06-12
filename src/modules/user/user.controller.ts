@@ -7,7 +7,12 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiOkResponse, ApiParam } from '@nestjs/swagger';
+import {
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 import { UserResponseBody } from './user.responseBody';
 import { CreateUserDTO } from './dto/create-user.dto'; //eslint-disable-line 
 import { UpdateUserDTO } from './dto/update-user.dto'; //eslint-disable-line 
@@ -16,6 +21,7 @@ import { CreateEnrolledDTO } from './dto/create-enrolled.dto';
 import { UpdateEnrolledDTO } from './dto/update-enrolled.dto';
 import { Schema } from 'mongoose';
 
+@ApiTags('User')
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
@@ -82,8 +88,9 @@ export class UserController {
 
   // Get all wishlisted courses
   @Get('/:userId/wishlist')
-  @ApiOkResponse({ type: [Schema.Types.ObjectId] })
-  async getWishlist(@Param('userId') userId: Schema.Types.ObjectId) {
+  async getWishlist(
+    @Param('userId') userId: Schema.Types.ObjectId,
+  ): Promise<any[]> {
     return await this.userService.getWishList(userId);
   }
 

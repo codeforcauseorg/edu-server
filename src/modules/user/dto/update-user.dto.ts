@@ -1,5 +1,6 @@
-import { IsNotEmpty } from 'class-validator';
-import * as mongoose from 'mongoose';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsArray, IsNotEmpty } from 'class-validator';
+import { Schema } from 'mongoose';
 
 export class UpdateUserDTO {
   @IsNotEmpty()
@@ -21,7 +22,9 @@ export class UpdateUserDTO {
 
   readonly isAdmin: boolean;
 
-  readonly wishlist: mongoose.Schema.Types.ObjectId[];
+  @ApiProperty({ type: [Schema.Types.ObjectId] })
+  @IsArray()
+  readonly wishlist: Schema.Types.ObjectId[];
 
   photoUrl: string;
 

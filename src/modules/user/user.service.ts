@@ -103,7 +103,7 @@ export class UserService {
   ) {
     try {
       const newEnrolled = await new this.enrolledModel(createEnrolledDTO);
-      await newEnrolled.save();
+
       const course = await this.courseModel.findById(
         createEnrolledDTO.courseId,
       );
