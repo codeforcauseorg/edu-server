@@ -19,17 +19,6 @@ describe('CourseService', () => {
     service = module.get<CourseService>(CourseService);
   });
 
-  describe('Testing userService after mock', () => {
-    it('testing get all courses method', () => {
-      expect(typeof service.getAllCourses).not.toEqual(null);
-    });
-    it('testing get by id method', () => {
-      expect(typeof service.findCourseById).not.toEqual(null);
-    });
-    it('testing get by id method', () => {
-      expect(typeof service.deleteCourse).not.toEqual(null);
-    });
-  });
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
