@@ -1,5 +1,4 @@
 import { IsArray, IsDateString, IsOptional, IsUrl } from 'class-validator';
-import { Schedule } from '../schema/schedule.schema';
 
 export class UpdateCourseDTO {
   readonly name: string;

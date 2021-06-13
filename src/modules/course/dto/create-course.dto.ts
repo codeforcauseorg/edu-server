@@ -5,7 +5,6 @@ import {
   IsNumber,
   IsUrl,
 } from 'class-validator';
-import { Schedule } from '../schema/schedule.schema';
 
 export class CreateCourseDto {
   @IsNotEmpty()
