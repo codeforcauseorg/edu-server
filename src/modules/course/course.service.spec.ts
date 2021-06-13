@@ -13,6 +13,10 @@ describe('CourseService', () => {
           provide: getModelToken('Course'),
           useValue: {},
         },
+        {
+          provide: getModelToken('Schedule'),
+          useValue: {},
+        },
       ],
     }).compile();
 
