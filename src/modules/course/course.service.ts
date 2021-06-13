@@ -7,6 +7,7 @@ import { CreateCourseDto } from './dto/create-course.dto';
 import { Schema } from 'mongoose';
 import { CreateScheduleDto } from './dto/create-schedule.dto';
 import { Schedule } from './schema/schedule.schema';
+import { UpdateScheduleDto } from './dto/update-schedule.dto';
 
 @Injectable()
 export class CourseService {
@@ -87,7 +88,53 @@ export class CourseService {
       throw new Error('failed to add schedule');
     }
   }
+
   // update a Schedule by Id
+  async updateScheduleCourse(
+    courseId: Schema.Types.ObjectId,
+    scheduleId: Schema.Types.ObjectId,
+    updateScheduleDto: UpdateScheduleDto,
+  ): Promise<any> {
+    try {
+      const course = await this.CourseModel.findById(courseId);
+      if (course) {
+        let updatedSchedule = null;
+        updatedSchedule = await this.ScheduleModel.findByIdAndUpdate(
+          scheduleId,
+          updateScheduleDto,
+          { new: true },
+        );
+        return updatedSchedule;
+      } else {
+        throw new NotFoundException(
+          'The course id is invalid or the course no longer exists',
+        );
+      }
+    } catch {
+      throw new Error('failed to update schedule');
+    }
+  }
 
   // Delete a schedule by Id
+  async deleteScheduleCourse(
+    courseId: Schema.Types.ObjectId,
+    scheduleId: Schema.Types.ObjectId,
+  ): Promise<any> {
+    try {
+      const course = await this.CourseModel.findById(courseId);
+      if (course) {
+        let deletedSchedule = null;
+        deletedSchedule = await this.ScheduleModel.findByIdAndRemove(
+          scheduleId,
+        );
+        return deletedSchedule;
+      } else {
+        throw new NotFoundException(
+          'The course id is invalid or the course no longer exists',
+        );
+      }
+    } catch {
+      throw new Error('failed to delete schedule');
+    }
+  }
 }

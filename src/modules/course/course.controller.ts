@@ -64,9 +64,9 @@ export class CourseController {
       createScheduleDto,
     );
   }
-  /*
+
   // update a Schedule by Id
-  @Post('/update/:courseId/schedule/:scheduleId')
+  @Put('/update/:courseId/schedule/:scheduleId')
   async updateScheduleCourse(
     @Param('courseId') courseId: Schema.Types.ObjectId,
     @Param('scheduleId') scheduleId: Schema.Types.ObjectId,
@@ -80,12 +80,11 @@ export class CourseController {
   }
 
   // Delete a schedule by Id
-  @Post('/delete/:courseId/schedule/:scheduleId')
+  @Delete('/delete/:courseId/schedule/:scheduleId')
   async deleteScheduleCourse(
     @Param('courseId') courseId: Schema.Types.ObjectId,
     @Param('scheduleId') scheduleId: Schema.Types.ObjectId,
   ) {
     return await this.courseService.deleteScheduleCourse(courseId, scheduleId);
   }
-*/
 }
