@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Schema as SchemaTypes } from 'mongoose';
+import { Schedule } from './schedule.schema';
 
 export type CourseDocument = Course & Document;
 
@@ -43,6 +44,9 @@ export class Course {
 
   @Prop()
   sharable_link: string;
+
+  @Prop({ type: [{ type: SchemaTypes.Types.ObjectId, ref: 'Schedule' }] })
+  schedule: Schedule[];
 }
 
 export const CourseSchema = SchemaFactory.createForClass(Course);

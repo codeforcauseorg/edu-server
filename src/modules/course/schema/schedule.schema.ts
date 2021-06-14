@@ -16,3 +16,14 @@ export class Schedule {
 }
 
 export const ScheduleSchema = SchemaFactory.createForClass(Schedule);
+
+ScheduleSchema.methods.toJSON = function () {
+  const scheduleObject = this.toObject();
+
+  scheduleObject.id = scheduleObject._id;
+
+  delete scheduleObject.__v;
+  delete scheduleObject._id;
+
+  return scheduleObject;
+};
