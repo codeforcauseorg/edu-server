@@ -12,13 +12,13 @@ export class CreateUserDTO {
 
   /**
    * Last name of the user
-   * @example 'Stark'
+   * @example 'Doe'
    */
   readonly last_name: string;
 
   /**
    * Email of the user
-   * @example 'John@gmai.com'
+   * @example 'john@example.com'
    */
   @IsNotEmpty()
   readonly email: string;
@@ -32,7 +32,7 @@ export class CreateUserDTO {
 
   /**
    * Address of the user
-   * @example 'Mayur Vihar, Delhi'
+   * @example 'Block C Amsterdam'
    */
   readonly address: string;
 
@@ -51,6 +51,7 @@ export class CreateUserDTO {
   /**
    * The field to show whether the students is Admin or not
    * @example false
+   * @default false
    */
   readonly isAdmin: boolean;
 

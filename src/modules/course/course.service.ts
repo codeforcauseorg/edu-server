@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CourseDocument as Course } from './schema/course.schema';
@@ -84,8 +88,8 @@ export class CourseService {
           'The course id is invalid or the course no longer exists',
         );
       }
-    } catch {
-      throw new Error('failed to add schedule');
+    } catch (e) {
+      throw new InternalServerErrorException(e);
     }
   }
 
@@ -110,8 +114,8 @@ export class CourseService {
           'The course id is invalid or the course no longer exists',
         );
       }
-    } catch {
-      throw new Error('failed to update schedule');
+    } catch (e) {
+      throw new InternalServerErrorException(e);
     }
   }
 
@@ -133,8 +137,8 @@ export class CourseService {
           'The course id is invalid or the course no longer exists',
         );
       }
-    } catch {
-      throw new Error('failed to delete schedule');
+    } catch (e) {
+      throw new InternalServerErrorException(e);
     }
   }
 }
