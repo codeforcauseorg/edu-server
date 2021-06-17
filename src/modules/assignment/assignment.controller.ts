@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { AssignmentService } from './assignment.service'; //eslint-disable-line 
 import { CreateAssignmentDTO } from './dto/create-assignment.dto'; //eslint-disable-line 
-import { ApiCreatedResponse, ApiProperty } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiProperty, ApiTags } from '@nestjs/swagger';
 import { UpdateAssignmentDTO } from './dto/update-assignment.dto';
 
 class AssignmentResponseBody {
@@ -26,6 +26,7 @@ class AssignmentResponseBody {
   submit_by: string;
 }
 
+@ApiTags('Assignment')
 @Controller('assignment')
 export class AssignmentController {
   constructor(private assignmentService: AssignmentService) {}

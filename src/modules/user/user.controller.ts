@@ -41,7 +41,7 @@ export class UserController {
   }
 
   // retreiving all enrolled courses of a particular user
-  @Get('/:userId/enrolledCourses')
+  @Get('/enrolledCourses/:userId')
   @ApiParam({ name: 'userId', type: String })
   @ApiOkResponse({ type: [Schema.Types.ObjectId] })
   async getEnrolledCourses(@Param('userId') userId: Schema.Types.ObjectId) {
@@ -49,7 +49,7 @@ export class UserController {
   }
 
   // retreiving enrolled course by id of the course and of a user
-  @Get('/:userId/enrolledCourses/:courseId')
+  @Get('/enrolledCourses/:userId/:courseId')
   @ApiParam({ name: 'userId', type: String })
   @ApiOkResponse({ type: CreateEnrolledDTO })
   async getEnrolledCoursesById(
@@ -60,7 +60,7 @@ export class UserController {
   }
 
   // user enrolling courses
-  @Post('/:userId/enrolledCourses')
+  @Post('/enrolledCourses/:userId')
   @ApiParam({ name: 'userId', type: String })
   @ApiCreatedResponse({ type: [Schema.Types.ObjectId] })
   async addEnrolledCourses(
@@ -71,7 +71,7 @@ export class UserController {
   }
 
   // user updating enrolled courses
-  @Put('/:userId/enrolledCourses/:courseId')
+  @Put('/enrolledCourses/:userId/:courseId')
   @ApiParam({ name: 'userId', type: String })
   @ApiCreatedResponse({ type: UpdateEnrolledDTO })
   async updateEnrolledCourses(
@@ -87,7 +87,7 @@ export class UserController {
   }
 
   // Get all wishlisted courses
-  @Get('/:userId/wishlist')
+  @Get('/wishlist/:userId')
   async getWishlist(
     @Param('userId') userId: Schema.Types.ObjectId,
   ): Promise<any[]> {
@@ -95,7 +95,7 @@ export class UserController {
   }
 
   // Add wishlist courses
-  @Post('/:userId/wishlist')
+  @Post('/wishlist/:userId')
   @ApiParam({ name: 'userId', type: String })
   @ApiCreatedResponse({ type: UserResponseBody })
   async addWishlist(
@@ -132,7 +132,7 @@ export class UserController {
   }
 
   // Delete enrolled course
-  @Delete('/:userId/enrolledCourses/:courseId')
+  @Delete('/enrolledCourses/:userId/:courseId')
   @ApiParam({ name: 'userId', type: String })
   @ApiOkResponse({ type: [Schema.Types.ObjectId] })
   async deleteEnrolled(
@@ -143,7 +143,7 @@ export class UserController {
   }
 
   // Delete a wishlist
-  @Delete('/:userId/wishlist/:wishId')
+  @Delete('/wishlist/:userId/:wishId')
   @ApiParam({ name: 'userId', type: String })
   @ApiOkResponse({ type: [Schema.Types.ObjectId] })
   async deleteWishList(

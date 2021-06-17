@@ -54,7 +54,7 @@ export class CourseController {
   }
 
   // Create a Schedule
-  @Post('/create/:courseId/schedule')
+  @Post('/schedule/:courseId')
   async addScheduleCourse(
     @Param('courseId') courseId: Schema.Types.ObjectId,
     @Body() createScheduleDto: CreateScheduleDto,
@@ -66,7 +66,7 @@ export class CourseController {
   }
 
   // update a Schedule by Id
-  @Put('/update/:courseId/schedule/:scheduleId')
+  @Put('/schedule/:courseId/:scheduleId')
   async updateScheduleCourse(
     @Param('courseId') courseId: Schema.Types.ObjectId,
     @Param('scheduleId') scheduleId: Schema.Types.ObjectId,
@@ -80,7 +80,7 @@ export class CourseController {
   }
 
   // Delete a schedule by Id
-  @Delete('/delete/:courseId/schedule/:scheduleId')
+  @Delete('/schedule/:courseId/:scheduleId')
   async deleteScheduleCourse(
     @Param('courseId') courseId: Schema.Types.ObjectId,
     @Param('scheduleId') scheduleId: Schema.Types.ObjectId,
