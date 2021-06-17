@@ -8,7 +8,7 @@ import {
   NotFoundException,
   Param,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiProperty } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiProperty, ApiTags } from '@nestjs/swagger';
 import { ChatService } from './chat.service'; //eslint-disable-line 
 import { CreateChatDTO } from './dto/create-chat.dto'; //eslint-disable-line 
 
@@ -26,6 +26,7 @@ class ChatResponseBody {
   message: string;
 }
 
+@ApiTags('Chat')
 @Controller('chat')
 export class ChatController {
   constructor(private chatService: ChatService) {}

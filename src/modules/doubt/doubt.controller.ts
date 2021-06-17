@@ -1,9 +1,10 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { ApiCreatedResponse } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { DoubtService } from './doubt.service';
 import { CreateDoubtDto } from './dto/create-doubt.dto';
 import { DoubtDocument as Doubt } from './schema/doubt.schema';
 
+@ApiTags('Doubt')
 @Controller('doubt')
 export class DoubtController {
   constructor(private doubtService: DoubtService) {}
