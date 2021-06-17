@@ -1,6 +1,7 @@
 import {
+  HttpException,
+  HttpStatus,
   Injectable,
-  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -24,7 +25,15 @@ export class CourseService {
   async getAllCourses(): Promise<Course[]> {
     try {
       return await this.CourseModel.find().exec();
-    } catch (e) {}
+    } catch (e) {
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   // fetch selected course by id
@@ -38,8 +47,14 @@ export class CourseService {
       } else {
         throw new NotFoundException('course not found');
       }
-    } catch {
-      throw new NotFoundException('course not found');
+    } catch (e) {
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 
@@ -47,8 +62,20 @@ export class CourseService {
   async addCourse(createCourseDto: CreateCourseDto): Promise<Course> {
     try {
       const newCourse = new this.CourseModel(createCourseDto);
-      return await newCourse.save();
-    } catch (e) {}
+      await newCourse.save();
+      if (newCourse) {
+        return newCourse;
+      }
+    } catch (e) {
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+    throw new NotFoundException('doubt not found!');
   }
 
   // edit course by Id
@@ -63,6 +90,14 @@ export class CourseService {
         updateCourseDTO,
         { new: true },
       );
+    } catch (e) {
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     } finally {
       return updatedCourse;
     }
@@ -73,7 +108,15 @@ export class CourseService {
     try {
       const deletedCourse = await this.CourseModel.findByIdAndRemove(courseId);
       return deletedCourse;
-    } catch (e) {}
+    } catch (e) {
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   // Create a Schedule
@@ -95,7 +138,13 @@ export class CourseService {
         );
       }
     } catch (e) {
-      throw new InternalServerErrorException(e);
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 
@@ -121,7 +170,13 @@ export class CourseService {
         );
       }
     } catch (e) {
-      throw new InternalServerErrorException(e);
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 
@@ -144,7 +199,13 @@ export class CourseService {
         );
       }
     } catch (e) {
-      throw new InternalServerErrorException(e);
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 }

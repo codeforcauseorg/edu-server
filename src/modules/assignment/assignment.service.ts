@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { AssignmentDocument as Assignment } from './schema/assignment.schema';
@@ -62,7 +67,11 @@ export class AssignmentService {
   ): Promise<Assignment> {
     try {
       const newAssignment = await new this.AssignmentModel(CreateAssignmentDTO);
-      return newAssignment.save();
+      await newAssignment.save();
+      if (newAssignment) {
+        return newAssignment;
+      }
+      throw new NotFoundException('doubt not found!');
     } catch (e) {
       throw new HttpException(
         {
@@ -85,7 +94,9 @@ export class AssignmentService {
         updateAssignmentDTO,
         { new: true },
       );
-      return updatedAssignment;
+      if (updatedAssignment) {
+        return updatedAssignment;
+      }
     } catch (e) {
       throw new HttpException(
         {
@@ -95,6 +106,7 @@ export class AssignmentService {
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
+    throw new NotFoundException('doubt not found!');
   }
 
   // Delete a Assignment
@@ -103,7 +115,10 @@ export class AssignmentService {
       const deletedAssignment = await this.AssignmentModel.findByIdAndRemove(
         AssignmentID,
       );
-      return deletedAssignment;
+      if (deletedAssignment) {
+        return deletedAssignment;
+      }
+      throw new NotFoundException('doubt not found!');
     } catch (e) {
       throw new HttpException(
         {
