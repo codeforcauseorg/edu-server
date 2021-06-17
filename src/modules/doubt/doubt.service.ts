@@ -1,6 +1,7 @@
 import {
+  HttpException,
+  HttpStatus,
   Injectable,
-  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -15,7 +16,17 @@ export class DoubtService {
   ) {}
 
   async getAllDoubts(): Promise<Doubt[]> {
-    return await this.DoubtModel.find().exec();
+    try {
+      return await this.DoubtModel.find().exec();
+    } catch (e) {
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   async findDoubtById(id: string): Promise<Doubt> {
@@ -26,7 +37,13 @@ export class DoubtService {
         return doubt;
       }
     } catch (e) {
-      throw new NotFoundException('doubt not found!');
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
 
     throw new NotFoundException('doubt not found!');
@@ -36,7 +53,13 @@ export class DoubtService {
     try {
       return await new this.DoubtModel(newDoubt).save();
     } catch (e) {
-      throw new InternalServerErrorException();
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 }

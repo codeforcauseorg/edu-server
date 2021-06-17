@@ -22,7 +22,9 @@ export class CourseService {
 
   // fetch all courses
   async getAllCourses(): Promise<Course[]> {
-    return await this.CourseModel.find().exec();
+    try {
+      return await this.CourseModel.find().exec();
+    } catch (e) {}
   }
 
   // fetch selected course by id
@@ -43,8 +45,10 @@ export class CourseService {
 
   // add course
   async addCourse(createCourseDto: CreateCourseDto): Promise<Course> {
-    const newCourse = new this.CourseModel(createCourseDto);
-    return await newCourse.save();
+    try {
+      const newCourse = new this.CourseModel(createCourseDto);
+      return await newCourse.save();
+    } catch (e) {}
   }
 
   // edit course by Id
@@ -66,8 +70,10 @@ export class CourseService {
 
   // Delete a Course by Id
   async deleteCourse(courseId): Promise<any> {
-    const deletedCourse = await this.CourseModel.findByIdAndRemove(courseId);
-    return deletedCourse;
+    try {
+      const deletedCourse = await this.CourseModel.findByIdAndRemove(courseId);
+      return deletedCourse;
+    } catch (e) {}
   }
 
   // Create a Schedule

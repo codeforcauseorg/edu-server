@@ -1,5 +1,6 @@
 import {
-  BadRequestException,
+  HttpException,
+  HttpStatus,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -23,8 +24,18 @@ export class UserService {
 
   // fetch all Users
   async getAllUser(): Promise<User[]> {
-    const users = await this.userModel.find().exec();
-    return users;
+    try {
+      const users = await this.userModel.find().exec();
+      return users;
+    } catch (e) {
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   // Get a single User
@@ -36,15 +47,31 @@ export class UserService {
         return user;
       }
     } catch (e) {
-      throw new NotFoundException('User Not Found!');
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
     throw new NotFoundException('Error');
   }
 
   // post a single User
   async addUser(CreateUserDTO: CreateUserDTO): Promise<User> {
-    const newUser = await new this.userModel(CreateUserDTO);
-    return newUser.save();
+    try {
+      const newUser = await new this.userModel(CreateUserDTO);
+      return newUser.save();
+    } catch (e) {
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   // Edit User details
@@ -60,7 +87,13 @@ export class UserService {
         { new: true, useFindAndModify: false },
       );
     } catch (e) {
-      throw new BadRequestException(e);
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     } finally {
       return updatedUser;
     }
@@ -71,8 +104,15 @@ export class UserService {
     let deletedUser;
     try {
       deletedUser = await this.userModel.findByIdAndRemove(userID);
-    } finally {
       return deletedUser;
+    } catch (e) {
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 
@@ -81,19 +121,39 @@ export class UserService {
     userId: Schema.Types.ObjectId,
     courseId: Schema.Types.ObjectId,
   ) {
-    const enrolledCourses = await this.enrolledModel.findOne({
-      studentId: userId,
-      courseId: courseId,
-    });
-    return enrolledCourses;
+    try {
+      const enrolledCourses = await this.enrolledModel.findOne({
+        studentId: userId,
+        courseId: courseId,
+      });
+      return enrolledCourses;
+    } catch (e) {
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   // gets all Enrolled courses
   async getEnrolledCourses(userId: Schema.Types.ObjectId) {
-    const enrolledCourses = await this.enrolledModel.findOne({
-      studentId: userId,
-    });
-    return enrolledCourses;
+    try {
+      const enrolledCourses = await this.enrolledModel.findOne({
+        studentId: userId,
+      });
+      return enrolledCourses;
+    } catch (e) {
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   // adds Enrolled Course
@@ -120,7 +180,13 @@ export class UserService {
       /*const newF = await this.enrolledModel.find({}).populate('students');
       return newF;*/
     } catch (e) {
-      throw new NotFoundException('User or Course does not exist');
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 
@@ -128,8 +194,18 @@ export class UserService {
   async getWishList(
     userId: Schema.Types.ObjectId,
   ): Promise<Schema.Types.ObjectId[]> {
-    const userWishList = await this.findUserById(userId);
-    return userWishList.wishlist;
+    try {
+      const userWishList = await this.findUserById(userId);
+      return userWishList.wishlist;
+    } catch (e) {
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   // adds wishlisted course
@@ -143,7 +219,13 @@ export class UserService {
         return UserWishList;
       }
     } catch (e) {
-      throw new NotFoundException('User or Course does not exist');
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
 
     throw new NotFoundException('course could not be wishlisted');
@@ -167,7 +249,13 @@ export class UserService {
         throw new NotFoundException('not found');
       }
     } catch (e) {
-      throw new NotFoundException('Failed to deleted');
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 
@@ -188,7 +276,13 @@ export class UserService {
       );
       return updatedCourse;
     } catch (e) {
-      throw new BadRequestException(e);
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 
@@ -209,7 +303,13 @@ export class UserService {
         throw new NotFoundException('not found');
       }
     } catch (e) {
-      throw new NotFoundException('Failed to deleted');
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 }

@@ -14,16 +14,37 @@ export class AssignmentService {
 
   // fetch all Assignments
   async getAllAssignment(): Promise<Assignment[]> {
-    const Assignments = await this.AssignmentModel.find().exec();
-    return Assignments;
+    try {
+      const Assignments = await this.AssignmentModel.find().exec();
+      return Assignments;
+    } catch (e) {
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   // Get a single Assignment
   async getAssignment(AssignmentId): Promise<Assignment> {
-    const Assignment = await this.AssignmentModel.findById(AssignmentId).exec();
-
-    if (Assignment) {
-      return Assignment;
+    try {
+      const Assignment = await this.AssignmentModel.findById(
+        AssignmentId,
+      ).exec();
+      if (Assignment) {
+        return Assignment;
+      }
+    } catch (e) {
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
 
     throw new HttpException(
@@ -39,8 +60,18 @@ export class AssignmentService {
   async addAssignment(
     CreateAssignmentDTO: CreateAssignmentDTO,
   ): Promise<Assignment> {
-    const newAssignment = await new this.AssignmentModel(CreateAssignmentDTO);
-    return newAssignment.save();
+    try {
+      const newAssignment = await new this.AssignmentModel(CreateAssignmentDTO);
+      return newAssignment.save();
+    } catch (e) {
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   // Edit Assignment details
@@ -48,19 +79,39 @@ export class AssignmentService {
     AssignmentID,
     updateAssignmentDTO: UpdateAssignmentDTO,
   ): Promise<Assignment> {
-    const updatedAssignment = await this.AssignmentModel.findByIdAndUpdate(
-      AssignmentID,
-      updateAssignmentDTO,
-      { new: true },
-    );
-    return updatedAssignment;
+    try {
+      const updatedAssignment = await this.AssignmentModel.findByIdAndUpdate(
+        AssignmentID,
+        updateAssignmentDTO,
+        { new: true },
+      );
+      return updatedAssignment;
+    } catch (e) {
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   // Delete a Assignment
   async deleteAssignment(AssignmentID): Promise<any> {
-    const deletedAssignment = await this.AssignmentModel.findByIdAndRemove(
-      AssignmentID,
-    );
-    return deletedAssignment;
+    try {
+      const deletedAssignment = await this.AssignmentModel.findByIdAndRemove(
+        AssignmentID,
+      );
+      return deletedAssignment;
+    } catch (e) {
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: `${e}`,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 }
