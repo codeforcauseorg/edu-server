@@ -1,6 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsNotEmpty } from 'class-validator';
-import { Schema } from 'mongoose';
+import { IsNotEmpty } from 'class-validator';
 
 export class CreateUserDTO {
   /**

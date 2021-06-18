@@ -41,7 +41,6 @@ export default class UserResponseBody {
    */
   description: string;
 
-
   score: number;
 
   /**
@@ -70,3 +69,45 @@ export default class UserResponseBody {
   wishlist: string[];
 }
 
+interface video {
+  num: number;
+  timestamp?: Date;
+}
+
+export class EnrolledCourseResponseBody {
+  /**
+   * Student Id
+   * @example "6079cf782f9a2181bc7aadbf"
+   */
+  studentId: string;
+
+  /**
+   * videos watched by the student
+   * @example [false, false]
+   */
+  videosWatched: boolean[];
+
+  /**
+   * The assignments done by the student
+   * @example [false, false]
+   */
+  assignmentsDone: boolean[];
+
+  /**
+   * The current video where student left
+   * @example { num: 1, timestamp: "12:PM" }
+   */
+  currentVideo: video[];
+
+  /**
+   * The doubts of the student
+   * @example ['problem in BFS', 'unable to understand Dynamic Programming']
+   */
+  doubts: string[];
+
+  /**
+   * Course Id
+   * @example "60ccf06ad682336931f0a61b"
+   */
+  courseId: string;
+}

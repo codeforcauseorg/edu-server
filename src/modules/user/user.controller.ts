@@ -13,13 +13,15 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
-import  UserResponseBody from './docUtils/user.responsedoc';
+import UserResponseBody from './docUtils/user.responsedoc';
 import { CreateUserDTO } from './dto/create-user.dto'; //eslint-disable-line 
 import { UpdateUserDTO } from './dto/update-user.dto'; //eslint-disable-line 
 import { UserService } from './user.service'; //eslint-disable-line 
 import { CreateEnrolledDTO } from './dto/create-enrolled.dto';
 import { UpdateEnrolledDTO } from './dto/update-enrolled.dto';
 import { Schema } from 'mongoose';
+import responsedoc from './docUtils/apidoc';
+import { userId } from './docUtils/user.paramdocs';
 
 @ApiTags('User')
 @Controller('user')
@@ -28,30 +30,30 @@ export class UserController {
 
   // add a User
   @Post()
-  @ApiCreatedResponse({ description: 'User created', type: UserResponseBody })
+  @ApiCreatedResponse(responsedoc.addUser)
   async addUser(@Body() CreateUserDTO: CreateUserDTO) {
     return await this.userService.addUser(CreateUserDTO);
   }
 
   // Retrieve Users list
-  @ApiOkResponse({ type: [UserResponseBody] })
   @Get()
+  @ApiOkResponse(responsedoc.getAllUser)
   async getAllUser() {
     return await this.userService.getAllUser();
   }
 
   // retreiving all enrolled courses of a particular user
   @Get('/enrolledCourses/:userId')
-  @ApiParam({ name: 'userId', type: String })
-  @ApiOkResponse({ type: [Schema.Types.ObjectId] })
+  @ApiParam(userId)
+  @ApiOkResponse(responsedoc.getEnrolledCourses)
   async getEnrolledCourses(@Param('userId') userId: Schema.Types.ObjectId) {
     return await this.userService.getEnrolledCourses(userId);
   }
 
   // retreiving enrolled course by id of the course and of a user
   @Get('/enrolledCourses/:userId/:courseId')
-  @ApiParam({ name: 'userId', type: String })
-  @ApiOkResponse({ type: CreateEnrolledDTO })
+  @ApiParam(userId)
+  @ApiOkResponse(responsedoc.getEnrolledCoursesById)
   async getEnrolledCoursesById(
     @Param('userId') userId: Schema.Types.ObjectId,
     @Param('courseId') courseId: Schema.Types.ObjectId,
@@ -61,8 +63,8 @@ export class UserController {
 
   // user enrolling courses
   @Post('/enrolledCourses/:userId')
-  @ApiParam({ name: 'userId', type: String })
-  @ApiCreatedResponse({ type: [Schema.Types.ObjectId] })
+  @ApiParam(userId)
+  @ApiCreatedResponse(responsedoc.addEnrolledCourses)
   async addEnrolledCourses(
     @Param('userId') userId: Schema.Types.ObjectId,
     @Body() createEnrolledDto: CreateEnrolledDTO,
@@ -72,8 +74,8 @@ export class UserController {
 
   // user updating enrolled courses
   @Put('/enrolledCourses/:userId/:courseId')
-  @ApiParam({ name: 'userId', type: String })
-  @ApiCreatedResponse({ type: UpdateEnrolledDTO })
+  @ApiParam(userId)
+  @ApiCreatedResponse(responsedoc.updateEnrolledCourses)
   async updateEnrolledCourses(
     @Param('userId') userId: Schema.Types.ObjectId,
     @Param('courseId') courseId: Schema.Types.ObjectId,
@@ -88,6 +90,7 @@ export class UserController {
 
   // Get all wishlisted courses
   @Get('/wishlist/:userId')
+  @ApiOkResponse(responsedoc.getWishlist)
   async getWishlist(
     @Param('userId') userId: Schema.Types.ObjectId,
   ): Promise<any[]> {
@@ -96,8 +99,8 @@ export class UserController {
 
   // Add wishlist courses
   @Post('/wishlist/:userId')
-  @ApiParam({ name: 'userId', type: String })
-  @ApiCreatedResponse({ type: UserResponseBody })
+  @ApiParam(userId)
+  @ApiCreatedResponse(responsedoc.addWishlist)
   async addWishlist(
     @Param('userId') userId: Schema.Types.ObjectId,
     @Body() cId: Schema.Types.ObjectId,
@@ -107,14 +110,14 @@ export class UserController {
 
   // Fetch a particular User using ID
   @ApiOkResponse({ type: UserResponseBody })
-  @ApiParam({ name: 'userId', type: String })
+  @ApiParam(userId)
   @Get('get/:userId')
   async getUser(@Param('userId') userId: Schema.Types.ObjectId) {
     return await this.userService.findUserById(userId);
   }
 
   @Put('/update/:userId')
-  @ApiParam({ name: 'userId', type: String })
+  @ApiParam(userId)
   @ApiOkResponse({ type: UserResponseBody })
   async updateUser(
     @Param('userId') userId: Schema.Types.ObjectId,
@@ -125,7 +128,7 @@ export class UserController {
 
   // Delete a User
   @Delete('/delete/:userId')
-  @ApiParam({ name: 'userId', type: String })
+  @ApiParam(userId)
   @ApiOkResponse({ type: UserResponseBody })
   async deleteUser(@Param('userId') userId: Schema.Types.ObjectId) {
     return await this.userService.deleteUser(userId);
@@ -133,7 +136,7 @@ export class UserController {
 
   // Delete enrolled course
   @Delete('/enrolledCourses/:userId/:courseId')
-  @ApiParam({ name: 'userId', type: String })
+  @ApiParam(userId)
   @ApiOkResponse({ type: [Schema.Types.ObjectId] })
   async deleteEnrolled(
     @Param('userId') userId: Schema.Types.ObjectId,
@@ -144,7 +147,7 @@ export class UserController {
 
   // Delete a wishlist
   @Delete('/wishlist/:userId/:wishId')
-  @ApiParam({ name: 'userId', type: String })
+  @ApiParam(userId)
   @ApiOkResponse({ type: [Schema.Types.ObjectId] })
   async deleteWishList(
     @Param('userId') userId: Schema.Types.ObjectId,
