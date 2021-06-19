@@ -24,7 +24,7 @@ export class CourseService {
   // fetch all courses
   async getAllCourses(): Promise<Course[]> {
     try {
-      return await this.CourseModel.find().exec();
+      return await this.CourseModel.find().populate('schedule').exec();
     } catch (e) {
       throw new HttpException(
         {
