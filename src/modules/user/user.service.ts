@@ -13,6 +13,7 @@ import { CourseDocument as Course } from '../course/schema/course.schema';
 import { EnrolledCourseDocument as Enrolled } from '../course/schema/enrolledCourse.schema';
 import { CreateEnrolledDTO } from './dto/create-enrolled.dto';
 import { UpdateEnrolledDTO } from './dto/update-enrolled.dto';
+import { CreateWishlistDTO } from './dto/create-wishlist.dto';
 
 @Injectable()
 export class UserService {
@@ -209,10 +210,13 @@ export class UserService {
   }
 
   // adds wishlisted course
-  async addWishlist(userId: Schema.Types.ObjectId, cId: Schema.Types.ObjectId) {
+  async addWishlist(
+    userId: Schema.Types.ObjectId,
+    createWishlistDto: CreateWishlistDTO,
+  ) {
     try {
       const UserWishList = await this.findUserById(userId);
-
+      const { cId } = createWishlistDto;
       if (UserWishList) {
         UserWishList.wishlist.push(cId);
         await UserWishList.save();
@@ -236,13 +240,14 @@ export class UserService {
     userID: Schema.Types.ObjectId,
     wishId: Schema.Types.ObjectId,
   ): Promise<any> {
-    let deletedFrom;
     try {
-      deletedFrom = await this.userModel.findById(userID);
+      const deletedFrom = await this.userModel.findById(userID);
+      console.log(wishId);
       if (deletedFrom) {
         deletedFrom.wishlist = deletedFrom.wishlist.filter(
-          (wishlist) => wishlist.id != wishId,
+          (wishlist) => wishlist != wishId,
         );
+        console.log(deletedFrom);
         await deletedFrom.save();
         return deletedFrom;
       } else {

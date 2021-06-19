@@ -22,6 +22,7 @@ import { UpdateEnrolledDTO } from './dto/update-enrolled.dto';
 import { Schema } from 'mongoose';
 import responsedoc from './docUtils/apidoc';
 import { userId } from './docUtils/user.paramdocs';
+import { CreateWishlistDTO } from './dto/create-wishlist.dto';
 
 @ApiTags('User')
 @Controller('user')
@@ -103,9 +104,9 @@ export class UserController {
   @ApiCreatedResponse(responsedoc.addWishlist)
   async addWishlist(
     @Param('userId') userId: Schema.Types.ObjectId,
-    @Body() cId: Schema.Types.ObjectId,
+    @Body() createWishlistDto: CreateWishlistDTO,
   ) {
-    return await this.userService.addWishlist(userId, cId);
+    return await this.userService.addWishlist(userId, createWishlistDto);
   }
 
   // Fetch a particular User using ID
