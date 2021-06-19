@@ -135,18 +135,25 @@ export class UserService {
   // adds wishlisted course
   async addWishlist(userId: Schema.Types.ObjectId, cId: Schema.Types.ObjectId) {
     try {
-      const UserWishList = await this.findUserById(userId);
+      const user = await this.findUserById(userId);
 
-      if (UserWishList) {
-        UserWishList.wishlist.push(cId);
-        await UserWishList.save();
-        return UserWishList;
+      if (user) {
+        const doesWishlistExists = await this.courseModel.exists({
+          _id: cId['cId'],
+        });
+        if (doesWishlistExists) {
+          user.wishlist.push(cId['cId']);
+          await user.save();
+          return user;
+        } else {
+          throw new NotFoundException("Wishlisted Course doesn't exist");
+        }
+      } else {
+        throw new NotFoundException('User Not Found');
       }
     } catch (e) {
       throw new NotFoundException('User or Course does not exist');
     }
-
-    throw new NotFoundException('course could not be wishlisted');
   }
 
   // Delete a wishList of User
@@ -159,7 +166,7 @@ export class UserService {
       deletedFrom = await this.userModel.findById(userID);
       if (deletedFrom) {
         deletedFrom.wishlist = deletedFrom.wishlist.filter(
-          (wishlist) => wishlist.id != wishId,
+          (wishlist) => wishlist != wishId,
         );
         await deletedFrom.save();
         return deletedFrom;

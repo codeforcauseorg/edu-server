@@ -62,7 +62,7 @@ export class UserController {
   }
 
   // user enrolling courses
-  @Post('/enrolledCourses/:userId')
+  @Put('/enrolledCourses/:userId')
   @ApiParam(userId)
   @ApiCreatedResponse(responsedoc.addEnrolledCourses)
   async addEnrolledCourses(
@@ -98,7 +98,7 @@ export class UserController {
   }
 
   // Add wishlist courses
-  @Post('/wishlist/:userId')
+  @Put('/wishlist/:userId')
   @ApiParam(userId)
   @ApiCreatedResponse(responsedoc.addWishlist)
   async addWishlist(
