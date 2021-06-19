@@ -63,7 +63,7 @@ export class UserController {
   }
 
   // user enrolling courses
-  @Post('/enrolledCourses/:userId')
+  @Put('/enrolledCourses/:userId')
   @ApiParam(userId)
   @ApiCreatedResponse(responsedoc.addEnrolledCourses)
   async addEnrolledCourses(
@@ -99,14 +99,14 @@ export class UserController {
   }
 
   // Add wishlist courses
-  @Post('/wishlist/:userId')
+  @Put('/wishlist/:userId')
   @ApiParam(userId)
   @ApiCreatedResponse(responsedoc.addWishlist)
   async addWishlist(
     @Param('userId') userId: Schema.Types.ObjectId,
-    @Body() createWishlistDto: CreateWishlistDTO,
+    @Body() cId: Schema.Types.ObjectId,
   ) {
-    return await this.userService.addWishlist(userId, createWishlistDto);
+    return await this.userService.addWishlist(userId, cId);
   }
 
   // Fetch a particular User using ID

@@ -12,7 +12,6 @@ import { CourseDocument as Course } from '../course/schema/course.schema';
 import { EnrolledCourseDocument as Enrolled } from '../course/schema/enrolledCourse.schema';
 import { CreateEnrolledDTO } from './dto/create-enrolled.dto';
 import { UpdateEnrolledDTO } from './dto/update-enrolled.dto';
-import { CreateWishlistDTO } from './dto/create-wishlist.dto';
 
 @Injectable()
 export class UserService {
@@ -155,23 +154,27 @@ export class UserService {
   }
 
   // adds wishlisted course
-  async addWishlist(
-    userId: Schema.Types.ObjectId,
-    createWishlistDto: CreateWishlistDTO,
-  ) {
+  async addWishlist(userId: Schema.Types.ObjectId, cId: Schema.Types.ObjectId) {
     try {
-      const UserWishList = await this.findUserById(userId);
-      const { cId } = createWishlistDto;
-      if (UserWishList) {
-        UserWishList.wishlist.push(cId);
-        await UserWishList.save();
-        return UserWishList;
+      const user = await this.findUserById(userId);
+
+      if (user) {
+        const doesWishlistExists = await this.courseModel.exists({
+          _id: cId['cId'],
+        });
+        if (doesWishlistExists) {
+          user.wishlist.push(cId['cId']);
+          await user.save();
+          return user;
+        } else {
+          throw new NotFoundException("Wishlisted Course doesn't exist");
+        }
+      } else {
+        throw new NotFoundException('User Not Found');
       }
     } catch (e) {
       throw new InternalServerErrorException(e);
     }
-
-    throw new NotFoundException('course could not be wishlisted');
   }
 
   // Delete a wishList of User
