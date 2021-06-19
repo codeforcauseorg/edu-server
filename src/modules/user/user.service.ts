@@ -1,7 +1,6 @@
 import {
-  HttpException,
-  HttpStatus,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { Model, Schema } from 'mongoose';
@@ -29,13 +28,7 @@ export class UserService {
       const users = await this.userModel.find().exec();
       return users;
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     }
   }
 
@@ -48,13 +41,7 @@ export class UserService {
         return user;
       }
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     }
     throw new NotFoundException('Error');
   }
@@ -65,13 +52,7 @@ export class UserService {
       const newUser = await new this.userModel(CreateUserDTO);
       return newUser.save();
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     }
   }
 
@@ -88,13 +69,7 @@ export class UserService {
         { new: true, useFindAndModify: false },
       );
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     } finally {
       return updatedUser;
     }
@@ -107,13 +82,7 @@ export class UserService {
       deletedUser = await this.userModel.findByIdAndRemove(userID);
       return deletedUser;
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     }
   }
 
@@ -129,13 +98,7 @@ export class UserService {
       });
       return enrolledCourses;
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     }
   }
 
@@ -147,13 +110,7 @@ export class UserService {
       });
       return enrolledCourses;
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     }
   }
 
@@ -181,13 +138,7 @@ export class UserService {
       /*const newF = await this.enrolledModel.find({}).populate('students');
       return newF;*/
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     }
   }
 
@@ -199,13 +150,7 @@ export class UserService {
       const userWishList = await this.findUserById(userId);
       return userWishList.wishlist;
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     }
   }
 
@@ -223,13 +168,7 @@ export class UserService {
         return UserWishList;
       }
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     }
 
     throw new NotFoundException('course could not be wishlisted');
@@ -252,13 +191,7 @@ export class UserService {
         throw new NotFoundException('not found');
       }
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     }
   }
 
@@ -279,13 +212,7 @@ export class UserService {
       );
       return updatedCourse;
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     }
   }
 
@@ -306,13 +233,7 @@ export class UserService {
         throw new NotFoundException('not found');
       }
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     }
   }
 }
