@@ -1,6 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsNotEmpty } from 'class-validator';
-import { Schema } from 'mongoose';
+import { IsNotEmpty } from 'class-validator';
 
 export class CreateUserDTO {
   /**
@@ -34,19 +32,13 @@ export class CreateUserDTO {
    * Address of the user
    * @example 'Block C Amsterdam'
    */
-  readonly address: string;
+  readonly address?: string;
 
   /**
    * Description of the user
    * @example 'Aspiring Software Developer'
    */
-  readonly description: string;
-
-  /**
-   * Number of user
-   * @example 100
-   */
-  readonly score: number;
+  readonly description?: string;
 
   /**
    * The field to show whether the students is Admin or not
@@ -55,19 +47,15 @@ export class CreateUserDTO {
    */
   readonly isAdmin: boolean;
 
-  @ApiProperty({ type: [Schema.Types.ObjectId] })
-  @IsArray()
-  readonly wishlist: Schema.Types.ObjectId[];
-
   /**
    * The photo url
-   * @example 'unsplash1231main.jpeg'
+   * @example 'https://g.gle/mypic.jpeg'
    */
-  photoUrl: string;
+  photoUrl?: string;
 
   /**
    * The cover photo url
-   * @example 'unsplash123.jpeg'
+   * @example 'https://g.gle/mycover.jpeg'
    */
-  coverPhotoUrl: string;
+  coverPhotoUrl?: string;
 }
