@@ -242,12 +242,10 @@ export class UserService {
   ): Promise<any> {
     try {
       const deletedFrom = await this.userModel.findById(userID);
-      console.log(wishId);
       if (deletedFrom) {
         deletedFrom.wishlist = deletedFrom.wishlist.filter(
           (wishlist) => wishlist != wishId,
         );
-        console.log(deletedFrom);
         await deletedFrom.save();
         return deletedFrom;
       } else {
