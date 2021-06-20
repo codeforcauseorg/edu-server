@@ -2,11 +2,10 @@ import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from './user.service';
 import { createMock } from '@golevelup/nestjs-testing';
-import { Model, Mongoose, Query } from 'mongoose';
+import { Model, Query } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { User } from './interfaces/user.interface';
 import { UserDoc } from './interfaces/user-document.interface';
-import { Document, Schema as SchemaTypes } from 'mongoose';
 import { UpdateUserDTO } from './dto/update-user.dto';
 
 const mockUser = (

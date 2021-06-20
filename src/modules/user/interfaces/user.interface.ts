@@ -1,5 +1,4 @@
-import { Schema } from 'inspector';
-import { Document, Schema as SchemaTypes } from 'mongoose';
+import { Schema as SchemaTypes } from 'mongoose';
 
 export interface User {
   first_name: string;
