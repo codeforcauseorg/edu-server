@@ -43,7 +43,7 @@ export class UpdateUserDTO {
   readonly description: string;
 
   /**
-   * Number of user
+   * score of user
    * @example 100
    */
   readonly score: number;
