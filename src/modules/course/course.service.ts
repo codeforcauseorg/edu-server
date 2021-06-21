@@ -50,13 +50,10 @@ export class CourseService {
     try {
       const newCourse = new this.CourseModel(createCourseDto);
       await newCourse.save();
-      if (newCourse) {
-        return newCourse;
-      }
+      return newCourse;
     } catch (e) {
       throw new InternalServerErrorException(e);
     }
-    throw new NotFoundException('doubt not found!');
   }
 
   // edit course by Id

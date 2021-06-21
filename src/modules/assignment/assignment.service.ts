@@ -49,10 +49,7 @@ export class AssignmentService {
     try {
       const newAssignment = await new this.AssignmentModel(CreateAssignmentDTO);
       await newAssignment.save();
-      if (newAssignment) {
-        return newAssignment;
-      }
-      throw new NotFoundException('doubt not found!');
+      return newAssignment;
     } catch (e) {
       throw new InternalServerErrorException(e);
     }
@@ -75,7 +72,7 @@ export class AssignmentService {
     } catch (e) {
       throw new InternalServerErrorException(e);
     }
-    throw new NotFoundException('doubt not found!');
+    throw new NotFoundException('Assignment not found!');
   }
 
   // Delete a Assignment
@@ -87,7 +84,7 @@ export class AssignmentService {
       if (deletedAssignment) {
         return deletedAssignment;
       }
-      throw new NotFoundException('doubt not found!');
+      throw new NotFoundException('Assignment not found!');
     } catch (e) {
       throw new InternalServerErrorException(e);
     }
