@@ -183,47 +183,6 @@ describe('UserService', () => {
       expect(foundUser).toEqual(findMockUser);
     });
 
-    /*it('should insert a new user', async () => {
-      jest.spyOn(model, 'create').mockImplementationOnce(() =>
-        Promise.resolve({
-          wishlist: [],
-          isAdmin: false,
-          _id: '6079f573062890a5e2cad207',
-          first_name: 'John',
-          last_name: 'Doe',
-          email: 'john@example.com',
-          phone: '9909999099',
-          photoUrl: 'https://google.com/john',
-          address: 'Block C Amsterdam',
-          description: 'Aspiring Software Developer',
-        }),
-      );
-      const newUser = await service.addUser({
-        isAdmin: false,
-        first_name: 'John',
-        last_name: 'Doe',
-        email: 'john@example.com',
-        phone: '9909999099',
-        photoUrl: 'https://google.com/john',
-        address: 'Block C Amsterdam',
-        description: 'Aspiring Software Developer',
-      });
-      expect(newUser).toEqual(
-        mockUser(
-          [],
-          false,
-          '6079f573062890a5e2cad207',
-          'John',
-          'Doe',
-          'john@example.com',
-          '9909999099',
-          'https://google.com/john',
-          'Block C Amsterdam',
-          'Aspiring Software Developer',
-        ),
-      );
-    });*/
-
     it.skip('should update a User successfully', async () => {
       jest.spyOn(model, 'findOneAndUpdate').mockReturnValueOnce(
         createMock<Query<UserDoc, UserDoc>>({
