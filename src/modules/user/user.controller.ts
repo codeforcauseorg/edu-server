@@ -22,7 +22,6 @@ import { UpdateEnrolledDTO } from './dto/update-enrolled.dto';
 import { Schema } from 'mongoose';
 import responsedoc from './docUtils/apidoc';
 import { userId } from './docUtils/user.paramdocs';
-import { CreateWishlistDTO } from './dto/create-wishlist.dto';
 
 @ApiTags('User')
 @Controller('user')
