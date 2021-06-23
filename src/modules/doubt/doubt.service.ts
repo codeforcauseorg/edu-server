@@ -15,7 +15,11 @@ export class DoubtService {
   ) {}
 
   async getAllDoubts(): Promise<Doubt[]> {
-    return await this.DoubtModel.find().exec();
+    try {
+      return await this.DoubtModel.find().exec();
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
   }
 
   async findDoubtById(id: string): Promise<Doubt> {
@@ -26,7 +30,7 @@ export class DoubtService {
         return doubt;
       }
     } catch (e) {
-      throw new NotFoundException('doubt not found!');
+      throw new InternalServerErrorException(e);
     }
 
     throw new NotFoundException('doubt not found!');
@@ -36,7 +40,7 @@ export class DoubtService {
     try {
       return await new this.DoubtModel(newDoubt).save();
     } catch (e) {
-      throw new InternalServerErrorException();
+      throw new InternalServerErrorException(e);
     }
   }
 }

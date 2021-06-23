@@ -41,6 +41,12 @@ export class CreateUserDTO {
   readonly description?: string;
 
   /**
+   * score of user
+   * @example 100
+   */
+  readonly score: number;
+
+  /**
    * The field to show whether the students is Admin or not
    * @example false
    * @default false

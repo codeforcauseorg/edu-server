@@ -22,7 +22,11 @@ export class CourseService {
 
   // fetch all courses
   async getAllCourses(): Promise<Course[]> {
-    return await this.CourseModel.find().exec();
+    try {
+      return await this.CourseModel.find().exec();
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
   }
 
   // fetch selected course by id
@@ -36,15 +40,20 @@ export class CourseService {
       } else {
         throw new NotFoundException('course not found');
       }
-    } catch {
-      throw new NotFoundException('course not found');
+    } catch (e) {
+      throw new InternalServerErrorException(e);
     }
   }
 
   // add course
   async addCourse(createCourseDto: CreateCourseDto): Promise<Course> {
-    const newCourse = new this.CourseModel(createCourseDto);
-    return await newCourse.save();
+    try {
+      const newCourse = new this.CourseModel(createCourseDto);
+      await newCourse.save();
+      return newCourse;
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
   }
 
   // edit course by Id
@@ -59,6 +68,8 @@ export class CourseService {
         updateCourseDTO,
         { new: true },
       );
+    } catch (e) {
+      throw new InternalServerErrorException(e);
     } finally {
       return updatedCourse;
     }
@@ -66,8 +77,12 @@ export class CourseService {
 
   // Delete a Course by Id
   async deleteCourse(courseId): Promise<any> {
-    const deletedCourse = await this.CourseModel.findByIdAndRemove(courseId);
-    return deletedCourse;
+    try {
+      const deletedCourse = await this.CourseModel.findByIdAndRemove(courseId);
+      return deletedCourse;
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
   }
 
   // Create a Schedule

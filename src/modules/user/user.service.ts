@@ -1,6 +1,6 @@
 import {
-  BadRequestException,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { Model, Schema } from 'mongoose';
@@ -23,8 +23,12 @@ export class UserService {
 
   // fetch all Users
   async getAllUser(): Promise<User[]> {
-    const users = await this.userModel.find().exec();
-    return users;
+    try {
+      const users = await this.userModel.find().exec();
+      return users;
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
   }
 
   // Get a single User
@@ -36,15 +40,19 @@ export class UserService {
         return user;
       }
     } catch (e) {
-      throw new NotFoundException('User Not Found!');
+      throw new InternalServerErrorException(e);
     }
     throw new NotFoundException('Error');
   }
 
   // post a single User
   async addUser(CreateUserDTO: CreateUserDTO): Promise<User> {
-    const newUser = await new this.userModel(CreateUserDTO);
-    return newUser.save();
+    try {
+      const newUser = await new this.userModel(CreateUserDTO);
+      return newUser.save();
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
   }
 
   // Edit User details
@@ -60,7 +68,7 @@ export class UserService {
         { new: true, useFindAndModify: false },
       );
     } catch (e) {
-      throw new BadRequestException(e);
+      throw new InternalServerErrorException(e);
     } finally {
       return updatedUser;
     }
@@ -71,8 +79,9 @@ export class UserService {
     let deletedUser;
     try {
       deletedUser = await this.userModel.findByIdAndRemove(userID);
-    } finally {
       return deletedUser;
+    } catch (e) {
+      throw new InternalServerErrorException(e);
     }
   }
 
@@ -81,19 +90,27 @@ export class UserService {
     userId: Schema.Types.ObjectId,
     courseId: Schema.Types.ObjectId,
   ) {
-    const enrolledCourses = await this.enrolledModel.findOne({
-      studentId: userId,
-      courseId: courseId,
-    });
-    return enrolledCourses;
+    try {
+      const enrolledCourses = await this.enrolledModel.findOne({
+        studentId: userId,
+        courseId: courseId,
+      });
+      return enrolledCourses;
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
   }
 
   // gets all Enrolled courses
   async getEnrolledCourses(userId: Schema.Types.ObjectId) {
-    const enrolledCourses = await this.enrolledModel.findOne({
-      studentId: userId,
-    });
-    return enrolledCourses;
+    try {
+      const enrolledCourses = await this.enrolledModel.findOne({
+        studentId: userId,
+      });
+      return enrolledCourses;
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
   }
 
   // adds Enrolled Course
@@ -120,7 +137,7 @@ export class UserService {
       /*const newF = await this.enrolledModel.find({}).populate('students');
       return newF;*/
     } catch (e) {
-      throw new NotFoundException('User or Course does not exist');
+      throw new InternalServerErrorException(e);
     }
   }
 
@@ -128,8 +145,12 @@ export class UserService {
   async getWishList(
     userId: Schema.Types.ObjectId,
   ): Promise<Schema.Types.ObjectId[]> {
-    const userWishList = await this.findUserById(userId);
-    return userWishList.wishlist;
+    try {
+      const userWishList = await this.findUserById(userId);
+      return userWishList.wishlist;
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
   }
 
   // adds wishlisted course
@@ -152,7 +173,7 @@ export class UserService {
         throw new NotFoundException('User Not Found');
       }
     } catch (e) {
-      throw new NotFoundException('User or Course does not exist');
+      throw new InternalServerErrorException(e);
     }
   }
 
@@ -161,20 +182,17 @@ export class UserService {
     userID: Schema.Types.ObjectId,
     wishId: Schema.Types.ObjectId,
   ): Promise<any> {
-    let deletedFrom;
     try {
-      deletedFrom = await this.userModel.findById(userID);
-      if (deletedFrom) {
-        deletedFrom.wishlist = deletedFrom.wishlist.filter(
-          (wishlist) => wishlist != wishId,
-        );
-        await deletedFrom.save();
-        return deletedFrom;
+      const user = await this.userModel.findById(userID);
+      if (user) {
+        user.wishlist = user.wishlist.filter((wishlist) => wishlist != wishId);
+        await user.save();
+        return user;
       } else {
         throw new NotFoundException('not found');
       }
     } catch (e) {
-      throw new NotFoundException('Failed to deleted');
+      throw new InternalServerErrorException(e);
     }
   }
 
@@ -195,7 +213,7 @@ export class UserService {
       );
       return updatedCourse;
     } catch (e) {
-      throw new BadRequestException(e);
+      throw new InternalServerErrorException(e);
     }
   }
 
@@ -216,7 +234,7 @@ export class UserService {
         throw new NotFoundException('not found');
       }
     } catch (e) {
-      throw new NotFoundException('Failed to deleted');
+      throw new InternalServerErrorException(e);
     }
   }
 }
