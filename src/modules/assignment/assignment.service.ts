@@ -1,7 +1,6 @@
 import {
-  HttpException,
-  HttpStatus,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { Model } from 'mongoose';
@@ -23,13 +22,7 @@ export class AssignmentService {
       const Assignments = await this.AssignmentModel.find().exec();
       return Assignments;
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     }
   }
 
@@ -43,22 +36,10 @@ export class AssignmentService {
         return Assignment;
       }
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     }
 
-    throw new HttpException(
-      {
-        status: HttpStatus.NOT_FOUND,
-        error: 'Assignment Not Found',
-      },
-      HttpStatus.NOT_FOUND,
-    );
+    throw new NotFoundException('Assignment not found');
   }
 
   // post a single Assignment
@@ -68,18 +49,9 @@ export class AssignmentService {
     try {
       const newAssignment = await new this.AssignmentModel(CreateAssignmentDTO);
       await newAssignment.save();
-      if (newAssignment) {
-        return newAssignment;
-      }
-      throw new NotFoundException('doubt not found!');
+      return newAssignment;
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     }
   }
 
@@ -98,15 +70,9 @@ export class AssignmentService {
         return updatedAssignment;
       }
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     }
-    throw new NotFoundException('doubt not found!');
+    throw new NotFoundException('Assignment not found!');
   }
 
   // Delete a Assignment
@@ -118,15 +84,9 @@ export class AssignmentService {
       if (deletedAssignment) {
         return deletedAssignment;
       }
-      throw new NotFoundException('doubt not found!');
+      throw new NotFoundException('Assignment not found!');
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     }
   }
 }

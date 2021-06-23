@@ -1,7 +1,6 @@
 import {
-  HttpException,
-  HttpStatus,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -24,15 +23,9 @@ export class CourseService {
   // fetch all courses
   async getAllCourses(): Promise<Course[]> {
     try {
-      return await this.CourseModel.find().populate('schedule').exec();
+      return await this.CourseModel.find().exec();
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     }
   }
 
@@ -48,13 +41,7 @@ export class CourseService {
         throw new NotFoundException('course not found');
       }
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     }
   }
 
@@ -63,19 +50,10 @@ export class CourseService {
     try {
       const newCourse = new this.CourseModel(createCourseDto);
       await newCourse.save();
-      if (newCourse) {
-        return newCourse;
-      }
+      return newCourse;
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     }
-    throw new NotFoundException('doubt not found!');
   }
 
   // edit course by Id
@@ -91,13 +69,7 @@ export class CourseService {
         { new: true },
       );
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     } finally {
       return updatedCourse;
     }
@@ -109,13 +81,7 @@ export class CourseService {
       const deletedCourse = await this.CourseModel.findByIdAndRemove(courseId);
       return deletedCourse;
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     }
   }
 
@@ -138,13 +104,7 @@ export class CourseService {
         );
       }
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     }
   }
 
@@ -170,13 +130,7 @@ export class CourseService {
         );
       }
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     }
   }
 
@@ -199,13 +153,7 @@ export class CourseService {
         );
       }
     } catch (e) {
-      throw new HttpException(
-        {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          error: `${e}`,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException(e);
     }
   }
 }
