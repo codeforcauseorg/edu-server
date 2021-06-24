@@ -1,4 +1,11 @@
-import { IsArray, IsDateString, IsOptional, IsUrl } from 'class-validator';
+import {
+  IsArray,
+  IsDateString,
+  IsNotEmpty,
+  IsOptional,
+  IsUrl,
+} from 'class-validator';
+import { TagType } from '../course-tag.enum';
 
 export class UpdateCourseDTO {
   readonly name: string;
@@ -27,4 +34,19 @@ export class UpdateCourseDTO {
 
   @IsOptional()
   no_of_enrollments: number;
+
+  @IsNotEmpty()
+  tags: TagType;
+
+  @IsNotEmpty()
+  courseDetails: string;
+
+  @IsNotEmpty()
+  courseLevel: string;
+
+  @IsUrl()
+  courseThumbnail: string;
+
+  @IsUrl()
+  courseTrailerUrl: string;
 }

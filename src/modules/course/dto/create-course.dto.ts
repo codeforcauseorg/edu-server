@@ -5,6 +5,7 @@ import {
   IsNumber,
   IsUrl,
 } from 'class-validator';
+import { TagType } from '../course-tag.enum';
 
 export class CreateCourseDto {
   @IsNotEmpty()
@@ -40,4 +41,19 @@ export class CreateCourseDto {
   @IsNotEmpty()
   @IsArray()
   mentor: [];
+
+  @IsNotEmpty()
+  tags: TagType;
+
+  @IsNotEmpty()
+  courseDetails: string;
+
+  @IsNotEmpty()
+  courseLevel: string;
+
+  @IsUrl()
+  courseThumbnail: string;
+
+  @IsUrl()
+  courseTrailerUrl: string;
 }

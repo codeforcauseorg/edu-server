@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as SchemaTypes } from 'mongoose';
 import { Schedule } from './schedule.schema';
+import { TagType } from '../course-tag.enum';
 
 export type CourseDocument = Course & Document;
 
@@ -47,6 +48,21 @@ export class Course {
 
   @Prop({ type: [{ type: SchemaTypes.Types.ObjectId, ref: 'Schedule' }] })
   schedule: Schedule[];
+
+  @Prop({})
+  tags: TagType;
+
+  @Prop({ required: true })
+  courseDetails: string;
+
+  @Prop({ default: 'Training' })
+  courseLevel: string;
+
+  @Prop({})
+  courseThumbnail: string;
+
+  @Prop({})
+  courseTrailerUrl: string;
 }
 
 export const CourseSchema = SchemaFactory.createForClass(Course);
