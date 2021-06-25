@@ -38,7 +38,6 @@ export class UpdateCourseDTO {
   @IsNotEmpty()
   tags: TagType;
 
-  @IsNotEmpty()
   courseDetails: string;
 
   @IsNotEmpty()

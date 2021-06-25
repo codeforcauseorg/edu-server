@@ -17,6 +17,10 @@ describe('CourseService', () => {
           provide: getModelToken('Schedule'),
           useValue: {},
         },
+        {
+          provide: getModelToken('Review'),
+          useValue: {},
+        },
       ],
     }).compile();
 

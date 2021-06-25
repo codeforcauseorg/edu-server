@@ -12,18 +12,25 @@ import { Schema } from 'mongoose';
 import { CreateScheduleDto } from './dto/create-schedule.dto';
 import { Schedule } from './schema/schedule.schema';
 import { UpdateScheduleDto } from './dto/update-schedule.dto';
+import { CreateReviewDto } from './dto/create-review.dto';
+import { UpdateReviewDto } from './dto/update-review.dto';
+import { Review } from './schema/review.schema';
 
 @Injectable()
 export class CourseService {
   constructor(
     @InjectModel('Course') private readonly CourseModel: Model<Course>,
     @InjectModel('Schedule') private readonly ScheduleModel: Model<Schedule>,
+    @InjectModel('Review') private readonly ReviewModel: Model<Review>,
   ) {}
 
   // fetch all courses
   async getAllCourses(): Promise<Course[]> {
     try {
-      return await this.CourseModel.find().exec();
+      return await this.CourseModel.find()
+        .populate('schedule')
+        .populate('reviews')
+        .exec();
     } catch (e) {
       throw new InternalServerErrorException(e);
     }
@@ -34,6 +41,7 @@ export class CourseService {
     try {
       const Course = await this.CourseModel.findById(courseId)
         .populate('schedule')
+        .populate('reviews')
         .exec();
       if (Course) {
         return Course;
@@ -147,6 +155,76 @@ export class CourseService {
           scheduleId,
         );
         return deletedSchedule;
+      } else {
+        throw new NotFoundException(
+          'The course id is invalid or the course no longer exists',
+        );
+      }
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+  }
+
+  // Create a Review
+  async addReview(
+    courseId: Schema.Types.ObjectId,
+    createReviewDto: CreateReviewDto,
+  ): Promise<any> {
+    try {
+      const course = await this.CourseModel.findById(courseId);
+      if (course) {
+        const newReview = new this.ReviewModel(createReviewDto);
+        await newReview.save();
+        course.reviews.push(newReview);
+        await course.save();
+        return newReview;
+      } else {
+        throw new NotFoundException(
+          'The course id is invalid or the course no longer exists',
+        );
+      }
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+  }
+
+  // update a Review by Id
+  async updateReview(
+    courseId: Schema.Types.ObjectId,
+    reviewId: Schema.Types.ObjectId,
+    updateReviewDto: UpdateReviewDto,
+  ): Promise<any> {
+    try {
+      const course = await this.CourseModel.findById(courseId);
+      if (course) {
+        let updatedReview = null;
+        updatedReview = await this.ReviewModel.findByIdAndUpdate(
+          reviewId,
+          updateReviewDto,
+          { new: true },
+        );
+        return updatedReview;
+      } else {
+        throw new NotFoundException(
+          'The course id is invalid or the course no longer exists',
+        );
+      }
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+  }
+
+  // Delete a Review by Id
+  async deleteReview(
+    courseId: Schema.Types.ObjectId,
+    reviewId: Schema.Types.ObjectId,
+  ): Promise<any> {
+    try {
+      const course = await this.CourseModel.findById(courseId);
+      if (course) {
+        let deletedReview = null;
+        deletedReview = await this.ReviewModel.findByIdAndRemove(reviewId);
+        return deletedReview;
       } else {
         throw new NotFoundException(
           'The course id is invalid or the course no longer exists',

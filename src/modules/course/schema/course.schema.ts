@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as SchemaTypes } from 'mongoose';
 import { Schedule } from './schedule.schema';
 import { TagType } from '../course-tag.enum';
+import { Review } from './review.schema';
 
 export type CourseDocument = Course & Document;
 
@@ -52,7 +53,7 @@ export class Course {
   @Prop({})
   tags: TagType;
 
-  @Prop({ required: true })
+  @Prop({})
   courseDetails: string;
 
   @Prop({ default: 'Training' })
@@ -63,6 +64,9 @@ export class Course {
 
   @Prop({})
   courseTrailerUrl: string;
+
+  @Prop({ type: [{ type: SchemaTypes.Types.ObjectId, ref: 'Review' }] })
+  reviews: Review[];
 }
 
 export const CourseSchema = SchemaFactory.createForClass(Course);

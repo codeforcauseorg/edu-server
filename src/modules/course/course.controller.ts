@@ -14,6 +14,8 @@ import { ApiTags } from '@nestjs/swagger';
 import { Schema } from 'mongoose';
 import { CreateScheduleDto } from './dto/create-schedule.dto';
 import { UpdateScheduleDto } from './dto/update-schedule.dto';
+import { CreateReviewDto } from './dto/create-review.dto';
+import { UpdateReviewDto } from './dto/update-review.dto';
 
 @ApiTags('Course')
 @Controller('course')
@@ -86,5 +88,37 @@ export class CourseController {
     @Param('scheduleId') scheduleId: Schema.Types.ObjectId,
   ) {
     return await this.courseService.deleteScheduleCourse(courseId, scheduleId);
+  }
+
+  // Create a Review
+  @Post('/review/:courseId')
+  async addReview(
+    @Param('courseId') courseId: Schema.Types.ObjectId,
+    @Body() createReviewDto: CreateReviewDto,
+  ) {
+    return await this.courseService.addReview(courseId, createReviewDto);
+  }
+
+  // update a Review by Id
+  @Put('/review/:courseId/:reviewId')
+  async updateReview(
+    @Param('courseId') courseId: Schema.Types.ObjectId,
+    @Param('reviewId') reviewId: Schema.Types.ObjectId,
+    @Body() updateReviewDto: UpdateReviewDto,
+  ) {
+    return await this.courseService.updateReview(
+      courseId,
+      reviewId,
+      updateReviewDto,
+    );
+  }
+
+  // Delete a Review by Id
+  @Delete('/review/:courseId/:reviewId')
+  async deleteReview(
+    @Param('courseId') courseId: Schema.Types.ObjectId,
+    @Param('reviewId') reviewId: Schema.Types.ObjectId,
+  ) {
+    return await this.courseService.deleteReview(courseId, reviewId);
   }
 }

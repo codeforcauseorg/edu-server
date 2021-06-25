@@ -45,7 +45,6 @@ export class CreateCourseDto {
   @IsNotEmpty()
   tags: TagType;
 
-  @IsNotEmpty()
   courseDetails: string;
 
   @IsNotEmpty()
