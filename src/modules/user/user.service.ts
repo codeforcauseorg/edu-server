@@ -183,13 +183,11 @@ export class UserService {
     wishId: Schema.Types.ObjectId,
   ): Promise<any> {
     try {
-      const deletedFrom = await this.userModel.findById(userID);
-      if (deletedFrom) {
-        deletedFrom.wishlist = deletedFrom.wishlist.filter(
-          (wishlist) => wishlist != wishId,
-        );
-        await deletedFrom.save();
-        return deletedFrom;
+      const user = await this.userModel.findById(userID);
+      if (user) {
+        user.wishlist = user.wishlist.filter((wishlist) => wishlist != wishId);
+        await user.save();
+        return user;
       } else {
         throw new NotFoundException('not found');
       }
