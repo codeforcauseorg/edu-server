@@ -16,7 +16,7 @@ export class Review {
   occupation: ReviewType;
 
   @Prop({})
-  raitedStars: number;
+  stars: number;
 }
 
 export const ReviewSchema = SchemaFactory.createForClass(Review);

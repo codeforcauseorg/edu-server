@@ -15,5 +15,5 @@ export class CreateReviewDto {
 
   @IsNotEmpty()
   @IsNumber()
-  raitedStars: number;
+  stars: number;
 }

@@ -15,5 +15,5 @@ export class UpdateReviewDto {
 
   @IsNotEmpty()
   @IsNumber()
-  raitedStars: number;
+  stars: number;
 }
