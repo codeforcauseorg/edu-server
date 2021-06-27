@@ -1,6 +1,5 @@
 import {
   IsEnum,
-  IsMongoId,
   IsNotEmpty,
   IsNumber,
   IsString,
@@ -8,7 +7,6 @@ import {
   Min,
 } from 'class-validator';
 import { ReviewType } from '../review.enum';
-import { Schema } from 'mongoose';
 
 export class CreateReviewDto {
   @IsNotEmpty()

@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Schema as SchemaTypes } from 'mongoose';
+import { Document } from 'mongoose';
 import { ReviewType } from '../review.enum';
 
 export type ReviewDocument = Review & Document;
