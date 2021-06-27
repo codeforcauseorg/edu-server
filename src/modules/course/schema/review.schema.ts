@@ -17,9 +17,6 @@ export class Review {
 
   @Prop({})
   stars: number;
-
-  @Prop({ required: true })
-  reviewerId: SchemaTypes.Types.ObjectId;
 }
 
 export const ReviewSchema = SchemaFactory.createForClass(Review);

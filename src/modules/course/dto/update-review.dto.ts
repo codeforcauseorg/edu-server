@@ -8,7 +8,6 @@ import {
   Min,
 } from 'class-validator';
 import { ReviewType } from '../review.enum';
-import { Schema } from 'mongoose';
 
 export class UpdateReviewDto {
   @IsNotEmpty()
@@ -28,8 +27,4 @@ export class UpdateReviewDto {
   @Max(5)
   @Min(0)
   stars: number;
-
-  @IsNotEmpty()
-  @IsMongoId()
-  reviewerId: Schema.Types.ObjectId;
 }

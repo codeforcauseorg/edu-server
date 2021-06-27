@@ -28,8 +28,4 @@ export class CreateReviewDto {
   @Max(5)
   @Min(0)
   stars: number;
-
-  @IsNotEmpty()
-  @IsMongoId()
-  reviewerId: Schema.Types.ObjectId;
 }
