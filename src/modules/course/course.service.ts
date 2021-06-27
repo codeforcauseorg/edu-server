@@ -197,13 +197,11 @@ export class CourseService {
     try {
       const course = await this.CourseModel.findById(courseId);
       if (course) {
-        let updatedReview = null;
-        updatedReview = await this.ReviewModel.findByIdAndUpdate(
+        return await this.ReviewModel.findByIdAndUpdate(
           reviewId,
           updateReviewDto,
           { new: true },
         );
-        return updatedReview;
       } else {
         throw new NotFoundException(
           'The course id is invalid or the course no longer exists',
@@ -222,9 +220,7 @@ export class CourseService {
     try {
       const course = await this.CourseModel.findById(courseId);
       if (course) {
-        let deletedReview = null;
-        deletedReview = await this.ReviewModel.findByIdAndRemove(reviewId);
-        return deletedReview;
+        return await this.ReviewModel.findByIdAndRemove(reviewId);
       } else {
         throw new NotFoundException(
           'The course id is invalid or the course no longer exists',
