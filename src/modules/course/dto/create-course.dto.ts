@@ -45,14 +45,17 @@ export class CreateCourseDto {
   @IsNotEmpty()
   tags: TagType;
 
+  @IsNotEmpty()
   courseDetails: string;
 
   @IsNotEmpty()
   courseLevel: string;
 
   @IsUrl()
+  @IsNotEmpty()
   courseThumbnail: string;
 
   @IsUrl()
+  @IsNotEmpty()
   courseTrailerUrl: string;
 }

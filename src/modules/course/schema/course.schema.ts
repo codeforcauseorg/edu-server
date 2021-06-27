@@ -50,19 +50,19 @@ export class Course {
   @Prop({ type: [{ type: SchemaTypes.Types.ObjectId, ref: 'Schedule' }] })
   schedule: Schedule[];
 
-  @Prop({})
+  @Prop({ required: true })
   tags: TagType;
 
-  @Prop({})
+  @Prop({ required: true })
   courseDetails: string;
 
-  @Prop({ default: 'Training' })
+  @Prop({ default: 'Training', required: true })
   courseLevel: string;
 
-  @Prop({})
+  @Prop({ required: true })
   courseThumbnail: string;
 
-  @Prop({})
+  @Prop({ required: true })
   courseTrailerUrl: string;
 
   @Prop({ type: [{ type: SchemaTypes.Types.ObjectId, ref: 'Review' }] })

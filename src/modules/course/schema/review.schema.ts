@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Schema as SchemaTypes } from 'mongoose';
 import { ReviewType } from '../review.enum';
 
 export type ReviewDocument = Review & Document;
@@ -17,6 +17,9 @@ export class Review {
 
   @Prop({})
   stars: number;
+
+  @Prop({ required: true })
+  reviewerId: SchemaTypes.Types.ObjectId;
 }
 
 export const ReviewSchema = SchemaFactory.createForClass(Review);
