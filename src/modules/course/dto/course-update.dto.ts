@@ -60,8 +60,8 @@ export class UpdateCourseDTO {
   end_date: Date;
 
   /**
-   * The shareable link of the course
-   * @example '88900xyz.com'
+   * The sharable link of the course
+   * @example 'https://sharable_link.com'
    */
   @IsUrl()
   @IsOptional()

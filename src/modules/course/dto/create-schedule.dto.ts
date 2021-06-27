@@ -11,7 +11,7 @@ export class CreateScheduleDto {
 
   /**
    * The description of the schedule item
-   * @example 'Rest Apis'
+   * @example 'A session on REST API which is an application programming interface (API or web API) that conforms to the constraints of REST architectural style and allows for interaction with RESTful web services.'
    */
   @IsNotEmpty()
   @IsString()
@@ -19,7 +19,7 @@ export class CreateScheduleDto {
 
   /**
    * The time required to finish the scheduled item
-   * @example 'Rest Apis'
+   * @example '11 hours'
    */
   @IsNotEmpty()
   @IsString()
