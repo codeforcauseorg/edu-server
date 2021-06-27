@@ -1,11 +1,13 @@
 import {
   IsArray,
   IsDateString,
+  IsEnum,
   IsNotEmpty,
   IsOptional,
   IsUrl,
 } from 'class-validator';
 import { TagType } from '../course-tag.enum';
+import { courseLevelType } from '../courseLevel.enum';
 
 export class UpdateCourseDTO {
   readonly name: string;
@@ -36,13 +38,15 @@ export class UpdateCourseDTO {
   no_of_enrollments: number;
 
   @IsNotEmpty()
-  tags: TagType;
+  @IsEnum(TagType)
+  tags: TagType[];
 
   @IsNotEmpty()
   courseDetails: string;
 
   @IsNotEmpty()
-  courseLevel: string;
+  @IsEnum(courseLevelType)
+  courseLevel: courseLevelType;
 
   @IsUrl()
   @IsNotEmpty()

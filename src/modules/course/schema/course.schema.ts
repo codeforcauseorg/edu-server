@@ -3,6 +3,7 @@ import { Document, Schema as SchemaTypes } from 'mongoose';
 import { Schedule } from './schedule.schema';
 import { TagType } from '../course-tag.enum';
 import { Review } from './review.schema';
+import { courseLevelType } from '../courseLevel.enum';
 
 export type CourseDocument = Course & Document;
 
@@ -51,13 +52,13 @@ export class Course {
   schedule: Schedule[];
 
   @Prop({ required: true })
-  tags: TagType;
+  tags: TagType[];
 
   @Prop({ required: true })
   courseDetails: string;
 
   @Prop({ default: 'Training', required: true })
-  courseLevel: string;
+  courseLevel: courseLevelType;
 
   @Prop({ required: true })
   courseThumbnail: string;
