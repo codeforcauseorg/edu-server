@@ -36,6 +36,7 @@ export class CourseController {
 
   // get selected course by Id
   @Get('/:courseId')
+  @ApiParam(courseId)
   @ApiOkResponse(responsedoc.getSelectedCourses)
   async getSelectedCourse(@Param('courseId') courseId: Schema.Types.ObjectId) {
     return await this.courseService.findCourseById(courseId);
