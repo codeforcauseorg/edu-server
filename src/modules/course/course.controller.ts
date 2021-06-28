@@ -10,10 +10,17 @@ import {
 import { UpdateCourseDTO } from './dto/course-update.dto';
 import { CourseService } from './course.service';
 import { CreateCourseDto } from './dto/create-course.dto';
-import { ApiTags } from '@nestjs/swagger';
+import {
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Schema } from 'mongoose';
 import { CreateScheduleDto } from './dto/create-schedule.dto';
 import { UpdateScheduleDto } from './dto/update-schedule.dto';
+import { courseId } from './docUtils/course.paramdocs';
+import responsedoc from './docUtils/apidoc';
 
 @ApiTags('Course')
 @Controller('course')
@@ -22,24 +29,30 @@ export class CourseController {
 
   // get all courses
   @Get('/all')
+  @ApiOkResponse(responsedoc.getAllCourses)
   async getAllCourses() {
     return await this.courseService.getAllCourses();
   }
 
   // get selected course by Id
   @Get('/:courseId')
+  @ApiParam(courseId)
+  @ApiOkResponse(responsedoc.getSelectedCourses)
   async getSelectedCourse(@Param('courseId') courseId: Schema.Types.ObjectId) {
     return await this.courseService.findCourseById(courseId);
   }
 
   // add a Course
   @Post('/create')
+  @ApiCreatedResponse(responsedoc.addCourse)
   async addCourse(@Body() createCourseDto: CreateCourseDto) {
     return await this.courseService.addCourse(createCourseDto);
   }
 
   // update a course by Id
   @Put('/edit/:courseId')
+  @ApiParam(courseId)
+  @ApiOkResponse(responsedoc.updateCourse)
   async updateCourse(
     @Param('courseId') courseId: Schema.Types.ObjectId,
     @Body() updateCourseDTO: UpdateCourseDTO,
@@ -49,12 +62,16 @@ export class CourseController {
 
   // delete a course by Id
   @Delete('delete/:courseId')
+  @ApiParam(courseId)
+  @ApiOkResponse(responsedoc.deleteCourse)
   async deleteCourse(@Param('courseId') courseId: Schema.Types.ObjectId) {
     return await this.courseService.deleteCourse(courseId);
   }
 
   // Create a Schedule
   @Post('/schedule/:courseId')
+  @ApiCreatedResponse(responsedoc.addScheduleCourse)
+  @ApiParam(courseId)
   async addScheduleCourse(
     @Param('courseId') courseId: Schema.Types.ObjectId,
     @Body() createScheduleDto: CreateScheduleDto,
@@ -67,6 +84,8 @@ export class CourseController {
 
   // update a Schedule by Id
   @Put('/schedule/:courseId/:scheduleId')
+  @ApiParam(courseId)
+  @ApiOkResponse(responsedoc.updateScheduleCourse)
   async updateScheduleCourse(
     @Param('courseId') courseId: Schema.Types.ObjectId,
     @Param('scheduleId') scheduleId: Schema.Types.ObjectId,
@@ -81,6 +100,8 @@ export class CourseController {
 
   // Delete a schedule by Id
   @Delete('/schedule/:courseId/:scheduleId')
+  @ApiParam(courseId)
+  @ApiOkResponse(responsedoc.deleteScheduleCourse)
   async deleteScheduleCourse(
     @Param('courseId') courseId: Schema.Types.ObjectId,
     @Param('scheduleId') scheduleId: Schema.Types.ObjectId,
