@@ -2,13 +2,16 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CourseController } from './course.controller';
 import { CourseService } from './course.service';
 import * as mongoose from 'mongoose';
+import { UpdateCourseDTO } from './dto/course-update.dto';
+import { CreateCourseDto } from './dto/create-course.dto';
 const mockCourse = {
-  schedule: ['60cda21c44ce7c2e3c4a43e8', '60cdb0f4a358e5603c6bedd4'],
+  schedule: [],
   assignments: [],
   mentor: [],
   active: false,
   name: 'devesh K',
   price: 0,
+  no_of_enrollments: 100,
   coupons: 0,
   video_num: 0,
   duration: '11.5 hours',
@@ -32,10 +35,9 @@ describe('CourseController', () => {
       id: uid,
       ...body,
     })),
-    // deleteCourse: jest.fn().mockResolvedValue([mockCourse]),
-    // getEnrolledCourses: jest.fn().mockResolvedValue([mockCourse]),
-    // addCourse: jest.fn().mockResolvedValue([mockCourse]),
-    // getWishList: jest.fn().mockResolvedValue([mockCourse]),
+    addCourse: jest.fn().mockResolvedValue([mockCourse]),
+    updateCourse: jest.fn().mockResolvedValue([mockCourse]),
+    deleteCourse: jest.fn().mockResolvedValue([mockCourse]),
   };
 
   beforeEach(async () => {
@@ -69,6 +71,57 @@ describe('CourseController', () => {
         id,
       });
       expect(service.findCourseById).toHaveBeenCalledWith(id);
+    });
+
+    it('should be created', async () => {
+      const dto: CreateCourseDto = {
+        mentor: [],
+        active: false,
+        name: 'devesh K',
+        price: 0,
+        coupons: 0,
+        video_num: 0,
+        duration: '11.5 hours',
+        sharable_link: '88900xyz.com',
+        start_date: new Date(),
+        end_date: new Date(),
+      };
+      await expect(controller.addCourse(dto)).resolves.not.toBeNull();
+      expect(service.addCourse).toHaveBeenCalledWith(dto);
+    });
+
+    it('should be updated', async () => {
+      const id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
+      const dto: UpdateCourseDTO = {
+        assignments: [],
+        mentor: [],
+        active: false,
+        name: 'devesh K',
+        price: 0,
+        coupons: 0,
+        video_num: 0,
+        duration: '11.5 hours',
+        sharable_link: '88900xyz.com',
+        no_of_enrollments: 100,
+        start_date: new Date(),
+        end_date: new Date(),
+      };
+      await expect(controller.updateCourse(id, dto)).resolves.toEqual({
+        id,
+        ...dto,
+        schedule: [],
+      });
+      expect(service.editCourse).toHaveBeenCalledWith(id, dto);
+    });
+
+    it('should be deleted', async () => {
+      const id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
+      await expect(controller.deleteCourse(id)).resolves.toEqual([
+        {
+          ...mockCourse,
+        },
+      ]);
+      expect(service.deleteCourse).toHaveBeenCalledWith(id);
     });
   });
 });
