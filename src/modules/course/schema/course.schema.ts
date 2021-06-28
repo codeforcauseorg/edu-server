@@ -34,7 +34,7 @@ export class Course {
   student_num: number;
 
   @Prop({ required: true })
-  mentor: [];
+  mentor: string[];
 
   @Prop({ required: true })
   video_num: number;
