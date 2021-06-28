@@ -2,6 +2,7 @@ import {
   Injectable,
   InternalServerErrorException,
   NotFoundException,
+  ConflictException,
 } from '@nestjs/common';
 import { Model, Schema } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
@@ -163,9 +164,14 @@ export class UserService {
           _id: cId['cId'],
         });
         if (doesWishlistExists) {
-          user.wishlist.push(cId['cId']);
-          await user.save();
-          return user;
+          const doesUserExistInWishList = user.wishlist.includes(cId['cId']);
+          if (!doesUserExistInWishList) {
+            user.wishlist.push(cId['cId']);
+            await user.save();
+            return user;
+          } else {
+            throw new ConflictException('Course Already Exists In WishList');
+          }
         } else {
           throw new NotFoundException("Wishlisted Course doesn't exist");
         }
@@ -173,7 +179,7 @@ export class UserService {
         throw new NotFoundException('User Not Found');
       }
     } catch (e) {
-      throw new InternalServerErrorException(e);
+      throw new NotFoundException('User or Course does not exist');
     }
   }
 
