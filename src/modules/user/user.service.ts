@@ -179,7 +179,7 @@ export class UserService {
         throw new NotFoundException('User Not Found');
       }
     } catch (e) {
-      throw new NotFoundException('User or Course does not exist');
+      throw new InternalServerErrorException(e);
     }
   }
 
