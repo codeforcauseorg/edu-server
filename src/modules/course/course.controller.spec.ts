@@ -4,6 +4,8 @@ import { CourseService } from './course.service';
 import * as mongoose from 'mongoose';
 import { UpdateCourseDTO } from './dto/course-update.dto';
 import { CreateCourseDto } from './dto/create-course.dto';
+import { TagType } from './course-tag.enum';
+import { courseLevelType } from './courseLevel.enum';
 const mockCourse = {
   schedule: [],
   assignments: [],
@@ -19,6 +21,12 @@ const mockCourse = {
   end_date: '2020-02-05T06:35:22.000Z',
   sharable_link: '88900xyz.com',
   id: '60c5eafba5940a4964d5ea96',
+  tags: TagType.WEB_DEV,
+  courseDetails:
+    'The course gives a hands on learning experience on Rest APIs and Javascript',
+  courseLevel: courseLevelType.BEGINNER,
+  courseThumbnail: 'https://codeforcause.org/courses',
+  courseTrailerUrl: 'https://codeforcause.org/courseTrailer',
 };
 
 describe('CourseController', () => {
@@ -85,6 +93,13 @@ describe('CourseController', () => {
         sharable_link: '88900xyz.com',
         start_date: new Date(),
         end_date: new Date(),
+        assignments: [],
+        tags: [],
+        courseDetails:
+          'The course gives a hands on learning experience on Rest APIs and Javascript',
+        courseLevel: courseLevelType.BEGINNER,
+        courseThumbnail: 'https://codeforcause.org/courses',
+        courseTrailerUrl: 'https://codeforcause.org/courseTrailer',
       };
       await expect(controller.addCourse(dto)).resolves.not.toBeNull();
       expect(service.addCourse).toHaveBeenCalledWith(dto);
@@ -105,6 +120,12 @@ describe('CourseController', () => {
         no_of_enrollments: 100,
         start_date: new Date(),
         end_date: new Date(),
+        tags: [],
+        courseDetails:
+          'The course gives a hands on learning experience on Rest APIs and Javascript',
+        courseLevel: courseLevelType.BEGINNER,
+        courseThumbnail: 'https://codeforcause.org/courses',
+        courseTrailerUrl: 'https://codeforcause.org/courseTrailer',
       };
       await expect(controller.updateCourse(id, dto)).resolves.toEqual({
         id,
