@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UpdateUserDTO } from './dto/update-user.dto';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
+import { CreateUserDTO } from './dto/create-user.dto';
 import * as mongoose from 'mongoose';
 const mockuser = {
   wishlist: [],
@@ -32,6 +33,7 @@ describe('UserController', () => {
       _id: uid,
       ...body,
     })),
+    addUser: jest.fn().mockImplementation((body) => ({ ...mockuser, ...body })),
     // deleteUser: jest.fn().mockResolvedValue([mockuser]),
     // getEnrolledCourses: jest.fn().mockResolvedValue([mockuser]),
     // addCourse: jest.fn().mockResolvedValue([mockuser]),
@@ -59,6 +61,22 @@ describe('UserController', () => {
 
   describe('User', () => {
     it('should be created', async () => {
+      const dto: CreateUserDTO = {
+        isAdmin: false,
+        first_name: 'John',
+        last_name: 'Doe',
+        email: 'john@example.com',
+        phone: '9909999099',
+        photoUrl: 'https://google.com/john',
+        score: 0,
+      };
+      await expect(controller.addUser(dto)).resolves.toEqual({
+        _id: expect.any(String),
+        ...mockuser,
+      });
+    });
+
+    it('should find all users', async () => {
       await expect(controller.getAllUser()).resolves.toEqual([mockuser]);
     });
 
