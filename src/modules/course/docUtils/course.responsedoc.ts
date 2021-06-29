@@ -1,3 +1,7 @@
+import { TagType } from '../course-tag.enum';
+import { courseLevelType } from '../courseLevel.enum';
+import { ReviewType } from '../review.enum';
+import { Review } from '../schema/review.schema';
 import { Schedule } from '../schema/schedule.schema';
 
 export default class CourseResponseBody {
@@ -74,10 +78,52 @@ export default class CourseResponseBody {
   mentor: string[];
 
   /**
-   * The schedule of teh course
+   * The schedule of the course
    * @example []
    */
   schedule: Schedule[];
+
+  /**
+   * The schedule of the course
+   * @example []
+   */
+  review: Review[];
+
+  /**
+   * The number of enrollments of the course
+   * @example 100001
+   */
+  no_of_enrollments: number;
+
+  /**
+   * The Tag associated with the course
+   * @example WEB_DEV
+   */
+  tags: TagType[];
+
+  /**
+   * The details of the course
+   * @example 'The course gives a hands on learning experience on Rest APIs and Javascript'
+   */
+  courseDetails: string;
+
+  /**
+   * The level associated with the course
+   * @example BEGINNER
+   */
+  courseLevel: courseLevelType;
+
+  /**
+   * The link/URL of the course
+   * @example 'https://codeforcause.org/courses'
+   */
+  courseThumbnail: string;
+
+  /**
+   * The link/URL of the course trailer
+   * @example 'https://codeforcause.org/courseTrailer'
+   */
+  courseTrailerUrl: string;
 }
 
 export class ScheduleResponseBody {
@@ -107,4 +153,36 @@ export class ScheduleResponseBody {
    */
 
   time: string;
+}
+
+export class ReviewResponseBody {
+  /**
+   * Review Id
+   * @example "6079cf782f9a2181bc7aadbf"
+   */
+  id: string;
+
+  /**
+   * name of the reviewer
+   * @example "John Doe"
+   */
+  reviewerName: string;
+
+  /**
+   * The description of the Reviw
+   * @example "The course was just fantastic"
+   */
+  reviewDescription: string;
+
+  /**
+   * The type of Review
+   * @example STUDENT
+   */
+  occupation: ReviewType;
+
+  /**
+   * The number of stars given in the review
+   * @example 5
+   */
+  stars: number;
 }

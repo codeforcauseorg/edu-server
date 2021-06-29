@@ -1,4 +1,13 @@
-import { IsArray, IsDateString, IsOptional, IsUrl } from 'class-validator';
+import {
+  IsArray,
+  IsDateString,
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsUrl,
+} from 'class-validator';
+import { TagType } from '../course-tag.enum';
+import { courseLevelType } from '../courseLevel.enum';
 
 export class UpdateCourseDTO {
   /**
@@ -81,4 +90,43 @@ export class UpdateCourseDTO {
    */
   @IsOptional()
   no_of_enrollments: number;
+
+  /**
+   * The Tag associated with the course
+   * @example WEB_DEV
+   */
+  @IsNotEmpty()
+  @IsEnum(TagType)
+  tags: TagType[];
+
+  /**
+   * The details of the course
+   * @example 'The course gives a hands on learning experience on Rest APIs and Javascript'
+   */
+  @IsNotEmpty()
+  courseDetails: string;
+
+  /**
+   * The level associated with the course
+   * @example BEGINNER
+   */
+  @IsNotEmpty()
+  @IsEnum(courseLevelType)
+  courseLevel: courseLevelType;
+
+  /**
+   * The link/URL of the course
+   * @example 'https://codeforcause.org/courses'
+   */
+  @IsUrl()
+  @IsNotEmpty()
+  courseThumbnail: string;
+
+  /**
+   * The link/URL of the course trailer
+   * @example 'https://codeforcause.org/courseTrailer'
+   */
+  @IsUrl()
+  @IsNotEmpty()
+  courseTrailerUrl: string;
 }

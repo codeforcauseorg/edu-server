@@ -1,4 +1,7 @@
-import CourseResponseBody, { ScheduleResponseBody } from './course.responsedoc';
+import CourseResponseBody, {
+  ReviewResponseBody,
+  ScheduleResponseBody,
+} from './course.responsedoc';
 import { ApiResponseOptions } from '@nestjs/swagger';
 
 const getAllCourses: ApiResponseOptions = {
@@ -32,13 +35,27 @@ const addScheduleCourse: ApiResponseOptions = {
 };
 
 const updateScheduleCourse: ApiResponseOptions = {
-  description: 'update a schedule for tehe course',
+  description: 'update a schedule for the course',
   type: ScheduleResponseBody,
 };
 
 const deleteScheduleCourse: ApiResponseOptions = {
   description: 'Delete schedule for the course',
   type: ScheduleResponseBody,
+};
+
+const addReview: ApiResponseOptions = {
+  description: 'Add a review for the course',
+  type: ReviewResponseBody,
+};
+
+const updateReview: ApiResponseOptions = {
+  description: 'update a review for the course',
+  type: ReviewResponseBody,
+};
+const deleteReview: ApiResponseOptions = {
+  description: 'Delete review for the course',
+  type: ReviewResponseBody,
 };
 
 const responses = {
@@ -50,6 +67,9 @@ const responses = {
   addScheduleCourse,
   updateScheduleCourse,
   deleteScheduleCourse,
+  addReview,
+  updateReview,
+  deleteReview,
 };
 
 export default responses;
