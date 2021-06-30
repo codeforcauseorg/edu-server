@@ -11,6 +11,7 @@ import { ChatModule } from './modules/chat/chat.module';
 import * as path from 'path';
 import { CourseModule } from './modules/course/course.module';
 import { DoubtModule } from './modules/doubt/doubt.module';
+import { AnnouncementModule } from 'modules/announcements/announcement.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { DoubtModule } from './modules/doubt/doubt.module';
     CourseModule,
     ChatModule,
     DoubtModule,
+    AnnouncementModule,
   ],
   controllers: [AppController],
   providers: [AppService],
