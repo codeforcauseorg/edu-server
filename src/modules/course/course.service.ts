@@ -1,4 +1,5 @@
 import {
+  ConflictException,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -171,13 +172,23 @@ export class CourseService {
     createReviewDto: CreateReviewDto,
   ): Promise<any> {
     try {
-      const course = await this.CourseModel.findById(courseId);
+      const course = await this.CourseModel.findById(courseId).populate(
+        'reviews',
+      );
       if (course) {
-        const newReview = new this.ReviewModel(createReviewDto);
-        await newReview.save();
-        course.reviews.push(newReview);
-        await course.save();
-        return newReview;
+        const reviewExist = course.reviews.some(
+          (review) =>
+            review.reviewerId.toString() === createReviewDto.reviewerId,
+        );
+        if (reviewExist) {
+          throw new ConflictException('You have already reviewed the course!');
+        } else {
+          const newReview = new this.ReviewModel(createReviewDto);
+          await newReview.save();
+          course.reviews.push(newReview);
+          await course.save();
+          return newReview;
+        }
       } else {
         throw new NotFoundException(
           'The course id is invalid or the course no longer exists',
