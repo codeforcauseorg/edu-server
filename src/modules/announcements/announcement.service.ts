@@ -27,11 +27,11 @@ export class AnnouncementService {
   }
 
   // Get a single Announcement
-  async getAnnouncement(AnnouncementId): Promise<Announcement> {
+  async getAnnouncement(announcementId): Promise<Announcement> {
     try {
       const Announcement = await this.AnnouncementModel.findById(
-        AnnouncementId,
-      ).exec();
+        announcementId,
+      );
       if (Announcement) {
         return Announcement;
       }
@@ -59,13 +59,13 @@ export class AnnouncementService {
 
   // Edit Announcement details
   async updateAnnouncement(
-    AnnouncementID,
+    announcementId,
     updateAnnouncementDTO: UpdateAnnouncementDTO,
   ): Promise<Announcement> {
     try {
       const updatedAnnouncement =
         await this.AnnouncementModel.findByIdAndUpdate(
-          AnnouncementID,
+          announcementId,
           updateAnnouncementDTO,
           { new: true },
         );
@@ -79,10 +79,10 @@ export class AnnouncementService {
   }
 
   // Delete a Announcement
-  async deleteAnnouncement(AnnouncementID): Promise<any> {
+  async deleteAnnouncement(announcementId): Promise<any> {
     try {
       const deletedAnnouncement =
-        await this.AnnouncementModel.findByIdAndRemove(AnnouncementID);
+        await this.AnnouncementModel.findByIdAndRemove(announcementId);
       if (deletedAnnouncement) {
         return deletedAnnouncement;
       }
