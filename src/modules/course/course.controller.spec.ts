@@ -63,20 +63,34 @@ describe('CourseController', () => {
     service = module.get<CourseService>(CourseService);
   });
 
+  // check if controller is defined
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
 
   describe('Course', () => {
+    // course creation
     it('should be created', async () => {
       await expect(controller.getAllCourses()).resolves.toEqual([mockCourse]);
     });
 
+    // course found by id
     it('should be found by ID', async () => {
       const id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
       await expect(controller.getSelectedCourse(id)).resolves.toEqual({
         ...mockCourse,
         id,
+      });
+      expect(service.findCourseById).toHaveBeenCalledWith(id);
+    });
+
+    // retrieved value not equal as id if different/does not exist
+    it('should not be equal to the returned value if  ID does not exist', async () => {
+      const id = new mongoose.Schema.Types.ObjectId('18', 0, 'riep');
+      const idFix = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
+      await expect(controller.getSelectedCourse(id)).resolves.not.toEqual({
+        ...mockCourse,
+        idFix,
       });
       expect(service.findCourseById).toHaveBeenCalledWith(id);
     });
@@ -105,6 +119,7 @@ describe('CourseController', () => {
       expect(service.addCourse).toHaveBeenCalledWith(dto);
     });
 
+    // should be updated
     it('should be updated', async () => {
       const id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
       const dto: UpdateCourseDTO = {
@@ -135,6 +150,38 @@ describe('CourseController', () => {
       expect(service.editCourse).toHaveBeenCalledWith(id, dto);
     });
 
+    // retrieved value not equal as id if different/does not exist
+    it('should not be updated and be equal to the returned value if  ID does not exist', async () => {
+      const id = new mongoose.Schema.Types.ObjectId('18', 0, 'riep');
+      const idFix = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
+      const dto: UpdateCourseDTO = {
+        assignments: [],
+        mentor: [],
+        active: false,
+        name: 'devesh K',
+        price: 0,
+        coupons: 0,
+        video_num: 0,
+        duration: '11.5 hours',
+        sharable_link: '88900xyz.com',
+        no_of_enrollments: 100,
+        start_date: new Date(),
+        end_date: new Date(),
+        tags: [],
+        courseDetails:
+          'The course gives a hands on learning experience on Rest APIs and Javascript',
+        courseLevel: courseLevelType.BEGINNER,
+        courseThumbnail: 'https://codeforcause.org/courses',
+        courseTrailerUrl: 'https://codeforcause.org/courseTrailer',
+      };
+      await expect(controller.updateCourse(id, dto)).resolves.not.toEqual({
+        ...mockCourse,
+        idFix,
+      });
+      expect(service.editCourse).toHaveBeenCalledWith(id, dto);
+    });
+
+    // shpuld be deleted
     it('should be deleted', async () => {
       const id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
       await expect(controller.deleteCourse(id)).resolves.toEqual([
@@ -144,5 +191,16 @@ describe('CourseController', () => {
       ]);
       expect(service.deleteCourse).toHaveBeenCalledWith(id);
     });
+  });
+
+  // retrieved value not equal as id if different/does not exist
+  it('should not be deleted and be equal to the returned value if  ID does not exist', async () => {
+    const id = new mongoose.Schema.Types.ObjectId('18', 0, 'riep');
+    const idFix = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
+    await expect(controller.deleteCourse(id)).resolves.not.toEqual({
+      ...mockCourse,
+      idFix,
+    });
+    expect(service.deleteCourse).toHaveBeenCalledWith(id);
   });
 });
