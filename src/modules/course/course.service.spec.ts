@@ -21,6 +21,10 @@ describe('CourseService', () => {
           provide: getModelToken('Review'),
           useValue: {},
         },
+        {
+          provide: getModelToken('Assignment'),
+          useValue: {},
+        },
       ],
     }).compile();
 

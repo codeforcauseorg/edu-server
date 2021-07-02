@@ -1,70 +1,63 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Put,
-  Delete,
-  Param,
-} from '@nestjs/common';
+import { Controller, Post, Body, Put, Delete, Param } from '@nestjs/common';
 import { AssignmentService } from './assignment.service'; //eslint-disable-line 
 import { CreateAssignmentDTO } from './dto/create-assignment.dto'; //eslint-disable-line 
-import { ApiCreatedResponse, ApiProperty, ApiTags } from '@nestjs/swagger';
+import {
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 import { UpdateAssignmentDTO } from './dto/update-assignment.dto';
-
-class AssignmentResponseBody {
-  @ApiProperty({ required: true, example: '605e3fd9acc33583fb389aec' })
-  id: string;
-
-  @ApiProperty({ required: true, example: 'Noob' })
-  name: string;
-
-  @ApiProperty({ required: true, example: 'Coder' })
-  link: string;
-
-  @ApiProperty({ required: true, example: 'noobcoder@gmai.com' })
-  submit_by: string;
-}
+import { Schema } from 'mongoose';
+import { courseId } from './docUtils/assignment.paramdocs';
+import responsedoc from './docUtils/apidoc';
 
 @ApiTags('Assignment')
 @Controller('assignment')
 export class AssignmentController {
   constructor(private assignmentService: AssignmentService) {}
 
-  // add a Assignment
-  @Post()
-  async addAssignment(@Body() CreateAssignmentDTO: CreateAssignmentDTO) {
-    return await this.assignmentService.addAssignment(CreateAssignmentDTO);
+  // add an Assignment
+  @Post('/:courseId')
+  @ApiCreatedResponse(responsedoc.addAssignment)
+  @ApiParam(courseId)
+  async addAssignment(
+    @Param('courseId') courseId: Schema.Types.ObjectId,
+    @Body() CreateAssignmentDTO: CreateAssignmentDTO,
+  ) {
+    return await this.assignmentService.addAssignment(
+      courseId,
+      CreateAssignmentDTO,
+    );
   }
 
-  // Retrieve Assignments list
-  @ApiCreatedResponse({ type: [AssignmentResponseBody] })
-  @Get()
-  async getAllAssignment() {
-    return await this.assignmentService.getAllAssignment();
-  }
-
-  // Fetch a particular Assignment using ID
-  @ApiCreatedResponse({ type: AssignmentResponseBody })
-  @Get('/:assignmentId')
-  async getAssignment(@Param('assignmentId') AssignmentId: string) {
-    return await this.assignmentService.getAssignment(AssignmentId);
-  }
-
-  @Put('/:assignmentId')
+  // Delete an Assignment
+  @Put('/:courseId/:assignmentId')
+  @ApiParam(courseId)
+  @ApiOkResponse(responsedoc.updateAssignment)
   async updateAssignment(
-    @Param('assignmentId') assignmentId: string,
+    @Param('courseId') courseId: Schema.Types.ObjectId,
+    @Param('assignmentId') assignmentId: Schema.Types.ObjectId,
     @Body() updateAssignmentDTO: UpdateAssignmentDTO,
   ) {
     return await this.assignmentService.updateAssignment(
+      courseId,
       assignmentId,
       updateAssignmentDTO,
     );
   }
 
-  // Delete a Assignment
-  @Delete('/:assignmentId')
-  async deleteAssignment(@Param('assignmentId') assignmentId: string) {
-    return await this.assignmentService.deleteAssignment(assignmentId);
+  // Delete an Assignment
+  @Delete('/:courseId/:assignmentId')
+  @ApiParam(courseId)
+  @ApiOkResponse(responsedoc.deleteAssignment)
+  async deleteAssignment(
+    @Param('courseId') courseId: Schema.Types.ObjectId,
+    @Param('assignmentId') assignmentId: Schema.Types.ObjectId,
+  ) {
+    return await this.assignmentService.deleteAssignment(
+      courseId,
+      assignmentId,
+    );
   }
 }

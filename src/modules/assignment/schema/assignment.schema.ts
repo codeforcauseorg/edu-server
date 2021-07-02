@@ -3,19 +3,24 @@ import { Document } from 'mongoose';
 
 export type AssignmentDocument = Assignment & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Assignment {
   @Prop({ required: true })
-  name: string;
+  assignmentLink: string;
 
   @Prop({ required: true })
-  link: string;
+  assignmenDescription: string;
 
-  @Prop()
-  submit_by: number;
-
-  @Prop()
-  created_at: Date;
+  @Prop({ required: true })
+  createdBy: string;
 }
 
 export const AssignmentSchema = SchemaFactory.createForClass(Assignment);
+
+AssignmentSchema.methods.toJSON = function () {
+  const assignmentObject = this.toObject();
+  assignmentObject.id = assignmentObject._id;
+  delete assignmentObject.__v;
+  delete assignmentObject._id;
+  return assignmentObject;
+};
