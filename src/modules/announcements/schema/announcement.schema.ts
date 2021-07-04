@@ -13,6 +13,9 @@ export class Announcement {
 
   @Prop({ default: false })
   read: boolean;
+
+  @Prop({ default: false })
+  created_by: string;
 }
 
 export const AnnouncementSchema = SchemaFactory.createForClass(Announcement);

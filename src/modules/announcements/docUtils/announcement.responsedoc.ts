@@ -16,4 +16,10 @@ export default class AnnouncementResponseBody {
    * @example true
    */
   read: boolean;
+
+  /**
+   * Creator of the announcement
+   * @example 'John Doe'
+   */
+  created_by: string;
 }

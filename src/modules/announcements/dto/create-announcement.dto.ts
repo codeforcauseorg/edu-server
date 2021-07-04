@@ -24,4 +24,12 @@ export class CreateAnnouncementDTO {
   @IsNotEmpty()
   @IsBoolean()
   read: boolean;
+
+  /**
+   * Creator of the announcement
+   * @example 'John Doe'
+   */
+  @IsNotEmpty()
+  @IsString()
+  created_by: string;
 }
