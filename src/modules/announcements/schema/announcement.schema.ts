@@ -14,7 +14,7 @@ export class Announcement {
   @Prop({ default: false })
   read: boolean;
 
-  @Prop({ default: false })
+  @Prop({ required: true })
   created_by: string;
 }
 
