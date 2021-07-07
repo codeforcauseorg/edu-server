@@ -24,7 +24,7 @@ export class Auth {
         return;
       }
       const userInfo = await admin.auth().verifyIdToken(authToken);
-      req.body.owner = userInfo.uid;
+      req.body.user = userInfo.uid;
       return userInfo;
     } catch (e) {
       throw new InternalServerErrorException(e);
@@ -51,7 +51,7 @@ export class adminAuth {
         return;
       }
       const userInfo = await admin.auth().verifyIdToken(authToken);
-      req.body.owner = userInfo.uid;
+      req.body.user = userInfo.uid;
       req.email = userInfo.email;
       return userInfo;
     } catch (e) {
