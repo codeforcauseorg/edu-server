@@ -4,6 +4,7 @@ import { Schedule } from './schedule.schema';
 import { TagType } from '../course-tag.enum';
 import { Review } from './review.schema';
 import { courseLevelType } from '../courseLevel.enum';
+import { Doubt } from 'modules/doubt/schema/doubt.schema';
 
 export type CourseDocument = Course & Document;
 
@@ -68,6 +69,9 @@ export class Course {
 
   @Prop({ type: [{ type: SchemaTypes.Types.ObjectId, ref: 'Review' }] })
   reviews: Review[];
+
+  @Prop({ type: [{ type: SchemaTypes.Types.ObjectId, ref: 'Doubt' }] })
+  doubts: Doubt[];
 }
 
 export const CourseSchema = SchemaFactory.createForClass(Course);

@@ -12,6 +12,14 @@ describe('DoubtService', () => {
           provide: getModelToken('Doubt'),
           useValue: {},
         },
+        {
+          provide: getModelToken('Course'),
+          useValue: {},
+        },
+        {
+          provide: getModelToken('DoubtAnswer'),
+          useValue: {},
+        },
       ],
     }).compile();
     service = module.get<DoubtService>(DoubtService);

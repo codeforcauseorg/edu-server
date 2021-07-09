@@ -7,7 +7,7 @@ import {
 } from 'class-validator';
 import { TagType } from '../doubt-tag.enum';
 
-export class CreateDoubtDto {
+export class UpdateDoubtDto {
   @IsNotEmpty()
   @IsEnum(TagType)
   tags: TagType[];

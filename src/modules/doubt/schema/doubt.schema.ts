@@ -1,26 +1,42 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
-import { User } from '../../user/schema/user.schema';
 import { Schema as SchemaType } from 'mongoose';
+import { TagType } from '../doubt-tag.enum';
+import { DoubtAnswer } from './doubtAnswer.schema';
 
 export type DoubtDocument = Doubt & mongoose.Document;
 
 @Schema()
 export class Doubt {
   @Prop({ required: true })
-  tags: string[];
+  tags: TagType[];
 
-  @Prop({ type: SchemaType.Types.ObjectId, ref: 'User' })
-  asked_by: User;
+  @Prop({ required: true })
+  asked_by: string;
 
-  @Prop()
-  answers: string[];
+  @Prop({ type: [{ type: SchemaType.Types.ObjectId, ref: 'DoubtAnswer' }] })
+  answers: DoubtAnswer[];
+
+  @Prop({ required: true })
+  question: string;
 
   @Prop({ default: false })
   is_resolved: boolean;
 
-  @Prop()
+  @Prop({ required: true })
   request_mentor: boolean;
 }
 
 export const DoubtSchema = SchemaFactory.createForClass(Doubt);
+
+DoubtSchema.methods.toJSON = function () {
+  const doubtObject = this.toObject();
+  doubtObject.id = doubtObject._id;
+
+  delete doubtObject._id;
+  delete doubtObject.__v;
+  delete doubtObject['createdAt'];
+  delete doubtObject['updatedAt'];
+
+  return doubtObject;
+};

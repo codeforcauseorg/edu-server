@@ -5,6 +5,7 @@ import { CourseController } from './course.controller';
 import { CourseService } from './course.service';
 import { ScheduleSchema } from './schema/schedule.schema';
 import { ReviewSchema } from './schema/review.schema';
+import { DoubtSchema } from 'modules/doubt/schema/doubt.schema';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { ReviewSchema } from './schema/review.schema';
       { name: 'Course', schema: CourseSchema },
       { name: 'Schedule', schema: ScheduleSchema },
       { name: 'Review', schema: ReviewSchema },
+      { name: 'Doubt', schema: DoubtSchema },
     ]),
   ],
   controllers: [CourseController],

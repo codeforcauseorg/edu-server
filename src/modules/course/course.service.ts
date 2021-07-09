@@ -16,6 +16,7 @@ import { UpdateScheduleDto } from './dto/update-schedule.dto';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
 import { Review } from './schema/review.schema';
+import { Doubt } from 'modules/doubt/schema/doubt.schema';
 
 @Injectable()
 export class CourseService {
@@ -23,6 +24,7 @@ export class CourseService {
     @InjectModel('Course') private readonly CourseModel: Model<Course>,
     @InjectModel('Schedule') private readonly ScheduleModel: Model<Schedule>,
     @InjectModel('Review') private readonly ReviewModel: Model<Review>,
+    @InjectModel('Doubt') private readonly DoubtModel: Model<Doubt>,
   ) {}
 
   // fetch all courses
@@ -31,6 +33,7 @@ export class CourseService {
       return await this.CourseModel.find()
         .populate('schedule')
         .populate('reviews')
+        .populate('doubts')
         .exec();
     } catch (e) {
       throw new InternalServerErrorException(e);
@@ -43,6 +46,7 @@ export class CourseService {
       const Course = await this.CourseModel.findById(courseId)
         .populate('schedule')
         .populate('reviews')
+        .populate('doubts')
         .exec();
       if (Course) {
         return Course;
