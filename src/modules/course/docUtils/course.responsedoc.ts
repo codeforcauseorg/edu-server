@@ -1,3 +1,4 @@
+import { Doubt } from 'modules/doubt/schema/doubt.schema';
 import { TagType } from '../course-tag.enum';
 import { courseLevelType } from '../courseLevel.enum';
 import { ReviewType } from '../review.enum';
@@ -124,6 +125,12 @@ export default class CourseResponseBody {
    * @example 'https://codeforcause.org/courseTrailer'
    */
   courseTrailerUrl: string;
+
+  /**
+   * The doubts of the course with its answers
+   * @example []
+   */
+  doubts: Doubt[];
 }
 
 export class ScheduleResponseBody {
