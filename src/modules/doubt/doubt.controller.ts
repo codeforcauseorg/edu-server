@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Schema } from 'mongoose';
 import { DoubtService } from './doubt.service';
@@ -13,6 +21,14 @@ import { DoubtAnswer } from './schema/doubtAnswer.schema';
 @Controller('doubt')
 export class DoubtController {
   constructor(private doubtService: DoubtService) {}
+
+  // get doubts for courses
+  @Get('/get/:courseId')
+  async getDoubtsForSelectedCourse(
+    @Param('courseId') courseId: Schema.Types.ObjectId,
+  ): Promise<Doubt> {
+    return await this.doubtService.findDoubtsForSelectedCourse(courseId);
+  }
 
   // add a new doubt
   @Post('/new/:courseId')

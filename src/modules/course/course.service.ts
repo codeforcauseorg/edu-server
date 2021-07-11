@@ -36,14 +36,6 @@ export class CourseService {
       return await this.CourseModel.find()
         .populate('schedule')
         .populate('reviews')
-        .populate({
-          path: 'doubts',
-          model: 'Doubt',
-          populate: {
-            path: 'answers',
-            model: 'DoubtAnswer',
-          },
-        })
         .exec();
     } catch (e) {
       throw new InternalServerErrorException(e);
@@ -56,7 +48,6 @@ export class CourseService {
       const Course = await this.CourseModel.findById(courseId)
         .populate('schedule')
         .populate('reviews')
-        .populate('doubts')
         .exec();
       if (Course) {
         return Course;

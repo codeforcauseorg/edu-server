@@ -189,4 +189,30 @@ export class DoubtService {
       throw new InternalServerErrorException(e);
     }
   }
+
+  // get doubts for selected courses
+  async findDoubtsForSelectedCourse(
+    courseId: Schema.Types.ObjectId,
+  ): Promise<any> {
+    try {
+      const Course = await this.CourseModel.findById(courseId)
+        .populate({
+          path: 'doubts',
+          model: 'Doubt',
+          populate: {
+            path: 'answers',
+            model: 'DoubtAnswer',
+          },
+        })
+        .exec();
+      if (Course) {
+        const { doubts } = Course;
+        return doubts;
+      } else {
+        throw new NotFoundException('course not found');
+      }
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+  }
 }
