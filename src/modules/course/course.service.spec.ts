@@ -4,31 +4,33 @@ import { CourseService } from './course.service';
 import { createMock } from '@golevelup/nestjs-testing';
 import { Model, Query } from 'mongoose';
 import * as mongoose from 'mongoose';
-import { Course } from './interfaces/course.interface';
-import { CourseDoc } from './interfaces/course-document.interface';
+import { Course, CourseDocument as CourseDoc } from './schema/course.schema';
+// import { CourseDoc } from './interfaces/course-document.interface';
 import { UpdateCourseDTO } from './dto/course-update.dto';
 import { TagType } from './course-tag.enum';
 import { courseLevelType } from './courseLevel.enum';
 
 const mockCourse = (
-  name: 'John Doe',
-  price: 100,
-  active: false,
-  coupons: 0,
-  video_num: 0,
-  duration: '11.5 hours',
-  assignments: [],
-  start_date: '2020-02-05T06:35:22.000Z',
-  end_date: '2020-02-05T06:35:22.000Z',
-  sharable_link: '88900xyz.com',
-  mentor: [],
-  tags: [TagType.WEB_DEV],
-  courseDetails: 'The course gives a hands on learning experience on Rest APIs and Javascript',
-  courseLevel: courseLevelType.BEGINNER,
-  courseThumbnail: 'https://codeforcause.org/courses',
-  courseTrailerUrl: 'https://codeforcause.org/courseTrailer',
-  _id: '6079f573062890a5e2cad207',
-  no_of_enrollments: 1000,
+  name = 'DSA with JS',
+  price = 100,
+  active = false,
+  coupons = 0,
+  video_num = 0,
+  duration = '11.5 hours',
+  assignments = [],
+  start_date = new Date('2020-02-05T06:35:22.000Z'),
+  end_date = new Date('2020-02-05T06:35:22.000Z'),
+  sharable_link = 'https://88900xyz.com',
+  mentor = ['6079f573062890a5e2cad200'],
+  tags = [TagType.WEB_DEV],
+  courseDetails = 'The course gives a hands on learning experience on Rest APIs and Javascript',
+  courseLevel = courseLevelType.BEGINNER,
+  courseThumbnail = 'https://codeforcause.org/courses',
+  courseTrailerUrl = 'https://codeforcause.org/courseTrailer',
+  no_of_enrollments = 1000,
+  student_num = 2,
+  schedule = [],
+  reviews = [],
 ): Course => ({
   name,
   price,
@@ -46,21 +48,23 @@ const mockCourse = (
   courseLevel,
   courseThumbnail,
   courseTrailerUrl,
-  _id,
   no_of_enrollments,
+  student_num,
+  schedule,
+  reviews,
 });
 
-const mockCourseDoc = (mock?: Partial<Course>): Partial<CourseDoc> => ({
-  name: mock?.name || 'John Doe',
+const mockCourseDoc = (mock?: Partial<Course>, _id?): Partial<CourseDoc> => ({
+  name: mock?.name || 'DSA with JS',
   price: mock?.price || 100,
   active: mock?.active || false,
   coupons: mock?.coupons || 0,
   video_num: mock?.video_num || 0,
   duration: mock?.duration || '11.5 hours',
   assignments: mock?.assignments || [],
-  start_date: mock?.start_date || '2020-02-05T06:35:22.000Z',
-  end_date: mock?.end_date || '2020-02-05T06:35:22.000Z',
-  sharable_link: mock?.sharable_link || '88900xyz.com',
+  start_date: mock?.start_date || new Date('2020-02-05T06:35:22.000Z'),
+  end_date: mock?.end_date || new Date('2020-02-05T06:35:22.000Z'),
+  sharable_link: mock?.sharable_link || 'https://88900xyz.com',
   mentor: mock?.mentor || [],
   tags: mock?.tags || [TagType.WEB_DEV],
   courseDetails:
@@ -70,56 +74,12 @@ const mockCourseDoc = (mock?: Partial<Course>): Partial<CourseDoc> => ({
   courseThumbnail: mock?.courseThumbnail || 'https://codeforcause.org/courses',
   courseTrailerUrl:
     mock?.courseTrailerUrl || 'https://codeforcause.org/courseTrailer',
-  _id: mock?._id || '6079f573062890a5e2cad207',
+  _id: _id || '6079f573062890a5e2cad207',
   no_of_enrollments: mock?.no_of_enrollments || 1000,
+  student_num: mock?.student_num || 2,
+  schedule: mock?.schedule || [],
+  reviews: mock?.reviews || [],
 });
-
-const courseArray = [
-  mockCourse(
-    'John Doe',
-    100,
-    false,
-    0,
-    0,
-    '11.5 hours',
-    [],
-    '2020-02-05T06:35:22.000Z',
-    '2020-02-05T06:35:22.000Z',
-    '88900xyz.com',
-    [],
-    [TagType.WEB_DEV],
-    'The course gives a hands on learning experience on Rest APIs and Javascript',
-    courseLevelType.BEGINNER,
-    'https://codeforcause.org/courses',
-    'https://codeforcause.org/courseTrailer',
-    '6079f573062890a5e2cad207',
-    1000,
-  ),
-];
-
-const courseDocArray = [
-  mockCourseDoc({
-    name: 'John Doe',
-    price: 100,
-    active: false,
-    coupons: 0,
-    video_num: 0,
-    duration: '11.5 hours',
-    assignments: [],
-    start_date: '2020-02-05T06:35:22.000Z',
-    end_date: '2020-02-05T06:35:22.000Z',
-    sharable_link: '88900xyz.com',
-    mentor: [],
-    tags: [TagType.WEB_DEV],
-    courseDetails:
-      'The course gives a hands on learning experience on Rest APIs and Javascript',
-    courseLevel: courseLevelType.BEGINNER,
-    courseThumbnail: 'https://codeforcause.org/courses',
-    courseTrailerUrl: 'https://codeforcause.org/courseTrailer',
-    _id: '6079f573062890a5e2cad207',
-    no_of_enrollments: 1000,
-  }),
-];
 
 describe('CourseService', () => {
   let service: CourseService;
@@ -173,14 +133,18 @@ describe('CourseService', () => {
   });
 
   describe('Testing courseservice after mock', () => {
-    //const id = new mongoose.Schema.Types.ObjectId('60bca010d17d463dd09baf9b');
+    const _id = '60bca010d17d463dd09baf9b';
+    const courseDocArray = [
+      mockCourseDoc({ mentor: ['6079f573062890a5e2cad200'] }, _id),
+    ];
+
     // Test for testing the service for returning all courses
     it('should return all courses', async () => {
       jest.spyOn(model, 'find').mockReturnValue({
         exec: jest.fn().mockResolvedValueOnce(courseDocArray),
       } as any);
       const courses = await service.findAllCourses();
-      // console.log(courses);
+      const courseArray = [{ ...mockCourse(), _id }];
       expect(courses).toEqual(courseArray);
     });
 
@@ -188,51 +152,10 @@ describe('CourseService', () => {
     it.skip('should getOne course by id', async () => {
       jest.spyOn(model, 'findById').mockReturnValueOnce(
         createMock<Query<CourseDoc, CourseDoc>>({
-          exec: jest.fn().mockResolvedValueOnce(
-            mockCourseDoc({
-              name: 'John Doe',
-              price: 100,
-              active: false,
-              coupons: 0,
-              video_num: 0,
-              duration: '11.5 hours',
-              assignments: [],
-              start_date: '2020-02-05T06:35:22.000Z',
-              end_date: '2020-02-05T06:35:22.000Z',
-              sharable_link: '88900xyz.com',
-              mentor: [],
-              tags: [TagType.WEB_DEV],
-              courseDetails:
-                'The course gives a hands on learning experience on Rest APIs and Javascript',
-              courseLevel: courseLevelType.BEGINNER,
-              courseThumbnail: 'https://codeforcause.org/courses',
-              courseTrailerUrl: 'https://codeforcause.org/courseTrailer',
-              _id: '6079f573062890a5e2cad207',
-              no_of_enrollments: 1000,
-            }),
-          ),
+          exec: jest.fn().mockResolvedValueOnce(mockCourseDoc()),
         }),
       );
-      const findMockCourse = mockCourse(
-        'John Doe',
-        100,
-        false,
-        0,
-        0,
-        '11.5 hours',
-        [],
-        '2020-02-05T06:35:22.000Z',
-        '2020-02-05T06:35:22.000Z',
-        '88900xyz.com',
-        [],
-        [TagType.WEB_DEV],
-        'The course gives a hands on learning experience on Rest APIs and Javascript',
-        courseLevelType.BEGINNER,
-        'https://codeforcause.org/courses',
-        'https://codeforcause.org/courseTrailer',
-        '6079f573062890a5e2cad207',
-        1000,
-      );
+      const findMockCourse = mockCourse();
       const id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
       const foundCourse = await service.findCourseById(id);
       expect(foundCourse).toEqual(findMockCourse);
@@ -243,7 +166,7 @@ describe('CourseService', () => {
       jest.spyOn(model, 'findByIdAndUpdate').mockReturnValueOnce(
         createMock<Query<CourseDoc, CourseDoc>>({
           exec: jest.fn().mockResolvedValueOnce({
-            name: 'John Doe',
+            name: 'DSA with JAVA',
             price: 100,
             active: false,
             coupons: 0,
@@ -252,7 +175,7 @@ describe('CourseService', () => {
             assignments: [],
             start_date: '2020-02-05T06:35:22.000Z',
             end_date: '2020-02-05T06:35:22.000Z',
-            sharable_link: '88900xyz.com',
+            sharable_link: 'https://java.com',
             mentor: [],
             tags: [TagType.WEB_DEV],
             courseDetails:
@@ -261,12 +184,16 @@ describe('CourseService', () => {
             courseThumbnail: 'https://codeforcause.org/courses',
             courseTrailerUrl: 'https://codeforcause.org/courseTrailer',
             no_of_enrollments: 1000,
+            student_num: 2,
+            schedule: [],
+            reviews: [],
+            _id: '6079f573062890a5e2cad207',
           }),
         }),
       );
       const id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
       const updateCoursedto: UpdateCourseDTO = {
-        name: 'John Doe',
+        name: 'DSA with JAVA',
         price: 100,
         active: false,
         coupons: 0,
@@ -275,7 +202,7 @@ describe('CourseService', () => {
         assignments: [],
         start_date: new Date('2020-02-05T06:35:22.000Z'),
         end_date: new Date('2020-02-05T06:35:22.000Z'),
-        sharable_link: '88900xyz.com',
+        sharable_link: 'https://java.com',
         mentor: [],
         tags: [TagType.WEB_DEV],
         courseDetails:
@@ -286,31 +213,9 @@ describe('CourseService', () => {
         no_of_enrollments: 1000,
       };
       const updatedCourse = await service.editCourse(id, updateCoursedto);
-      // console.log(updatedCourse);
       const _id = '6079f573062890a5e2cad207';
-      const updatedCourseFinal = { ...updatedCourse, _id };
-      expect(updatedCourseFinal).toEqual(
-        mockCourse(
-          'John Doe',
-          100,
-          false,
-          0,
-          0,
-          '11.5 hours',
-          [],
-          '2020-02-05T06:35:22.000Z',
-          '2020-02-05T06:35:22.000Z',
-          '88900xyz.com',
-          [],
-          [TagType.WEB_DEV],
-          'The course gives a hands on learning experience on Rest APIs and Javascript',
-          courseLevelType.BEGINNER,
-          'https://codeforcause.org/courses',
-          'https://codeforcause.org/courseTrailer',
-          '6079f573062890a5e2cad207',
-          1000,
-        ),
-      );
+      const updatedCourseFinal = { ...mockCourse(), ...updatedCourse, _id };
+      expect(updatedCourse).toEqual(updatedCourseFinal);
     });
   });
 });
