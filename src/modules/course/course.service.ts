@@ -25,6 +25,15 @@ export class CourseService {
     @InjectModel('Review') private readonly ReviewModel: Model<Review>,
   ) {}
 
+  // fetch all courses without populating
+  async findAllCourses(): Promise<Course[]> {
+    try {
+      return await this.CourseModel.find().exec();
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+  }
+
   // fetch all courses
   async getAllCourses(): Promise<Course[]> {
     try {
@@ -76,7 +85,7 @@ export class CourseService {
         courseId,
         updateCourseDTO,
         { new: true },
-      );
+      ).exec();
     } catch (e) {
       throw new InternalServerErrorException(e);
     } finally {
