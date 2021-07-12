@@ -3,7 +3,7 @@ import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 export class UpdateMentorDTO {
   /**
    * name of the mentor
-   * @example 'John Doe'
+   * @example 'Anuj Garg'
    */
   @IsNotEmpty()
   @IsString()
@@ -11,7 +11,7 @@ export class UpdateMentorDTO {
 
   /**
    * Email of the mentor
-   * @example 'john@gmail.com'
+   * @example 'anuj@codeforcause.org'
    */
   @IsNotEmpty()
   @IsString()
@@ -19,7 +19,7 @@ export class UpdateMentorDTO {
 
   /**
    * number of students under the mentorship of that mentor
-   * @example 4
+   * @example 500
    */
   @IsNotEmpty()
   @IsNumber()

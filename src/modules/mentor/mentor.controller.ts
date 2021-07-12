@@ -14,9 +14,9 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import MentorResponseBody from './docUtils/mentor.responsedoc';
-  import { CreateMentorDTO } from './dto/create-mentor.dto'; //eslint-disable-line 
-  import { UpdateMentorDTO } from './dto/update-mentor.dto'; //eslint-disable-line 
-  import { MentorService } from './mentor.service'; //eslint-disable-line 
+import { CreateMentorDTO } from './dto/create-mentor.dto'; //eslint-disable-line 
+import { UpdateMentorDTO } from './dto/update-mentor.dto'; //eslint-disable-line 
+import { MentorService } from './mentor.service'; //eslint-disable-line 
 import { Schema } from 'mongoose';
 import responsedoc from './docUtils/apidoc';
 import { mentorId } from './docUtils/mentor.paramdocs';
@@ -36,12 +36,11 @@ export class MentorController {
   // Retrieve Mentor list
   @Get()
   @ApiOkResponse(responsedoc.getAllMentors)
-  async getAllUser() {
+  async getAllMentor() {
     return await this.mentorService.getAllMentor();
   }
 
   // Fetch a particular Mentor using ID
-  @ApiOkResponse({ type: MentorResponseBody })
   @ApiParam(mentorId)
   @ApiOkResponse(responsedoc.getMentor)
   @Get('get/:mentorId')
@@ -53,8 +52,7 @@ export class MentorController {
   @Put('/update/:mentorId')
   @ApiParam(mentorId)
   @ApiOkResponse(responsedoc.updateMentor)
-  @ApiOkResponse({ type: MentorResponseBody })
-  async updateUser(
+  async updateMentor(
     @Param('mentorId') mentorId: Schema.Types.ObjectId,
     @Body() UpdateMentorDTO: UpdateMentorDTO,
   ) {
@@ -65,7 +63,6 @@ export class MentorController {
   @Delete('/delete/:mentorId')
   @ApiParam(mentorId)
   @ApiOkResponse(responsedoc.deleteMentor)
-  @ApiOkResponse({ type: MentorResponseBody })
   async deleteMentor(@Param('mentorId') mentorId: Schema.Types.ObjectId) {
     return await this.mentorService.deleteMentor(mentorId);
   }

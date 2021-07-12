@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Schema as SchemaTypes } from 'mongoose';
+import { Document } from 'mongoose';
+import { Course } from '../../course/schema/course.schema';
 
 export type MentorDocument = Mentor & Document;
 
@@ -12,7 +13,7 @@ export class Mentor {
   email: string;
 
   @Prop({ default: [] })
-  courses: SchemaTypes.Types.ObjectId[];
+  courses: Course[];
 
   @Prop({ default: 0 })
   number_of_students: number;

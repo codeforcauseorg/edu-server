@@ -7,13 +7,13 @@ export default class MentorResponseBody {
 
   /**
    * name of the mentor
-   * @example 'John Doe'
+   * @example 'Anuj Garg'
    */
   name: string;
 
   /**
    * Email of the mentor
-   * @example 'John_cfc@gmail.com'
+   * @example 'anuj@codeforcause.com'
    */
   email: string;
 
@@ -25,7 +25,7 @@ export default class MentorResponseBody {
 
   /**
    * number of students under the mentorship of that mentor
-   * @example 5
+   * @example 500
    */
   number_of_students: number;
 }

@@ -21,7 +21,7 @@ export class MentorService {
   // fetch all Mentors
   async getAllMentor(): Promise<Mentor[]> {
     try {
-      const mentors = await this.mentorModel.find().exec();
+      const mentors = await this.mentorModel.find();
       return mentors;
     } catch (e) {
       throw new InternalServerErrorException(e);
@@ -31,7 +31,7 @@ export class MentorService {
   // Get a single Mentor
   async findMentorById(mentorId: Schema.Types.ObjectId): Promise<Mentor> {
     try {
-      const mentor = await this.mentorModel.findById(mentorId).exec();
+      const mentor = await this.mentorModel.findById(mentorId);
 
       if (mentor) {
         return mentor;
@@ -57,26 +57,21 @@ export class MentorService {
     mentorId: Schema.Types.ObjectId,
     UpdateMentorDTO: UpdateMentorDTO,
   ): Promise<Mentor> {
-    let updatedMentor;
     try {
-      updatedMentor = await this.mentorModel.findByIdAndUpdate(
+      return await this.mentorModel.findByIdAndUpdate(
         mentorId,
         UpdateMentorDTO,
         { new: true, useFindAndModify: false },
       );
     } catch (e) {
       throw new InternalServerErrorException(e);
-    } finally {
-      return updatedMentor;
     }
   }
 
   // Delete a Mentor
   async deleteMentor(mentorId: Schema.Types.ObjectId): Promise<any> {
-    let deletedMentor;
     try {
-      deletedMentor = await this.mentorModel.findByIdAndRemove(mentorId);
-      return deletedMentor;
+      return await this.mentorModel.findByIdAndRemove(mentorId);
     } catch (e) {
       throw new InternalServerErrorException(e);
     }
