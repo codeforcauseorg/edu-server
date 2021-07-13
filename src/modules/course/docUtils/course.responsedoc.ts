@@ -18,10 +18,10 @@ export default class CourseResponseBody {
   name: string;
 
   /**
-   * The price of the course
+   * The original price of the course
    * @example 400
    */
-  price: number;
+  originalPrice: number;
 
   /**
    * Whether the user is active or not in the course
@@ -124,6 +124,48 @@ export default class CourseResponseBody {
    * @example 'https://codeforcause.org/courseTrailer'
    */
   courseTrailerUrl: string;
+
+  /**
+   * The discounted price of the course
+   * @example 120
+   */
+  crossPrice: number;
+
+  /**
+   * The short description of the course
+   * @example 'Short description--'
+   */
+  courseShortDescription: string;
+
+  /**
+   * The long description of the course
+   * @example 'Long description--'
+   */
+  courseLongDescription: string;
+
+  /**
+   * The rating of the course
+   * @example 5
+   */
+  rating: number;
+
+  /**
+   * The prerequisites of the course
+   * @example ["HTML","CSS"]
+   */
+  prerequisites: string[];
+
+  /**
+   * The skills of the course
+   * @example ["HTML","CSS"]
+   */
+  skills: string[];
+
+  /**
+   * what will one learn from the course
+   * @example ["HTML","CSS"]
+   */
+  whatYouWillLearn: string[];
 }
 
 export class ScheduleResponseBody {

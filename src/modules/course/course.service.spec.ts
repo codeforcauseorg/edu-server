@@ -12,7 +12,7 @@ import { courseLevelType } from './courseLevel.enum';
 
 const mockCourse = (
   name = 'DSA with JS',
-  price = 100,
+  originalPrice = 100,
   active = false,
   coupons = 0,
   video_num = 0,
@@ -31,9 +31,16 @@ const mockCourse = (
   student_num = 2,
   schedule = [],
   reviews = [],
+  crossPrice = 120,
+  courseShortDescription = 'Short description--',
+  courseLongDescription = 'Long description--',
+  rating = 5,
+  prerequisites = [],
+  skills = [],
+  whatYouWillLearn = [],
 ): Course => ({
   name,
-  price,
+  originalPrice,
   active,
   coupons,
   video_num,
@@ -52,11 +59,18 @@ const mockCourse = (
   student_num,
   schedule,
   reviews,
+  crossPrice,
+  courseShortDescription,
+  courseLongDescription,
+  rating,
+  prerequisites,
+  skills,
+  whatYouWillLearn,
 });
 
 const mockCourseDoc = (mock?: Partial<Course>, _id?): Partial<CourseDoc> => ({
   name: mock?.name || 'DSA with JS',
-  price: mock?.price || 100,
+  originalPrice: mock?.originalPrice || 100,
   active: mock?.active || false,
   coupons: mock?.coupons || 0,
   video_num: mock?.video_num || 0,
@@ -79,6 +93,13 @@ const mockCourseDoc = (mock?: Partial<Course>, _id?): Partial<CourseDoc> => ({
   student_num: mock?.student_num || 2,
   schedule: mock?.schedule || [],
   reviews: mock?.reviews || [],
+  crossPrice: mock?.crossPrice || 120,
+  courseShortDescription: mock?.courseShortDescription || 'Short description--',
+  courseLongDescription: mock?.courseLongDescription || 'Long description--',
+  rating: mock?.rating || 5,
+  prerequisites: mock?.prerequisites || [],
+  skills: mock?.skills || [],
+  whatYouWillLearn: mock?.whatYouWillLearn || [],
 });
 
 describe('CourseService', () => {
@@ -167,7 +188,7 @@ describe('CourseService', () => {
         createMock<Query<CourseDoc, CourseDoc>>({
           exec: jest.fn().mockResolvedValueOnce({
             name: 'DSA with JAVA',
-            price: 100,
+            originalPrice: 100,
             active: false,
             coupons: 0,
             video_num: 0,
@@ -188,13 +209,20 @@ describe('CourseService', () => {
             schedule: [],
             reviews: [],
             _id: '6079f573062890a5e2cad207',
+            crossPrice: 120,
+            courseShortDescription: 'Short description--',
+            courseLongDescription: 'Long description--',
+            rating: 5,
+            prerequisites: [],
+            skills: [],
+            whatYouWillLearn: [],
           }),
         }),
       );
       const id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
       const updateCoursedto: UpdateCourseDTO = {
         name: 'DSA with JAVA',
-        price: 100,
+        originalPrice: 100,
         active: false,
         coupons: 0,
         video_num: 0,
@@ -211,6 +239,13 @@ describe('CourseService', () => {
         courseThumbnail: 'https://codeforcause.org/courses',
         courseTrailerUrl: 'https://codeforcause.org/courseTrailer',
         no_of_enrollments: 1000,
+        crossPrice: 120,
+        courseShortDescription: 'Short description--',
+        courseLongDescription: 'Long description--',
+        rating: 5,
+        prerequisites: [],
+        skills: [],
+        whatYouWillLearn: [],
       };
       const updatedCourse = await service.editCourse(id, updateCoursedto);
       const _id = '6079f573062890a5e2cad207';
