@@ -1,11 +1,15 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { User } from '../../user/schema/user.schema';
+import { Document, Schema as SchemaTypes } from 'mongoose';
 import { ReviewType } from '../review.enum';
 
 export type ReviewDocument = Review & Document;
 
 @Schema({ timestamps: true })
 export class Review {
+  @Prop({ required: true, type: SchemaTypes.Types.ObjectId, ref: 'User' })
+  reviewerId: User;
+
   @Prop({ required: true })
   reviewerName: string;
 

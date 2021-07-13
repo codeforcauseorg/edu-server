@@ -1,5 +1,6 @@
 import {
   IsEnum,
+  IsMongoId,
   IsNotEmpty,
   IsNumber,
   IsString,
@@ -9,6 +10,14 @@ import {
 import { ReviewType } from '../review.enum';
 
 export class CreateReviewDto {
+  /**
+   * Reviewer's MongoId
+   * @example "60dcbd2609c34c1e48d2d0ae"
+   */
+  @IsNotEmpty()
+  @IsMongoId()
+  reviewerId: string;
+
   /**
    * name of the reviewer
    * @example "John Doe"

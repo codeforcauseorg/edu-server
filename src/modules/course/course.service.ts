@@ -1,4 +1,5 @@
 import {
+  ConflictException,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -23,6 +24,15 @@ export class CourseService {
     @InjectModel('Schedule') private readonly ScheduleModel: Model<Schedule>,
     @InjectModel('Review') private readonly ReviewModel: Model<Review>,
   ) {}
+
+  // fetch all courses without populating
+  async findAllCourses(): Promise<Course[]> {
+    try {
+      return await this.CourseModel.find().exec();
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+  }
 
   // fetch all courses
   async getAllCourses(): Promise<Course[]> {
@@ -75,7 +85,7 @@ export class CourseService {
         courseId,
         updateCourseDTO,
         { new: true },
-      );
+      ).exec();
     } catch (e) {
       throw new InternalServerErrorException(e);
     } finally {
@@ -171,13 +181,23 @@ export class CourseService {
     createReviewDto: CreateReviewDto,
   ): Promise<any> {
     try {
-      const course = await this.CourseModel.findById(courseId);
+      const course = await this.CourseModel.findById(courseId).populate(
+        'reviews',
+      );
       if (course) {
-        const newReview = new this.ReviewModel(createReviewDto);
-        await newReview.save();
-        course.reviews.push(newReview);
-        await course.save();
-        return newReview;
+        const reviewExist = course.reviews.some(
+          (review) =>
+            review.reviewerId.toString() === createReviewDto.reviewerId,
+        );
+        if (reviewExist) {
+          throw new ConflictException('You have already reviewed the course!');
+        } else {
+          const newReview = new this.ReviewModel(createReviewDto);
+          await newReview.save();
+          course.reviews.push(newReview);
+          await course.save();
+          return newReview;
+        }
       } else {
         throw new NotFoundException(
           'The course id is invalid or the course no longer exists',
