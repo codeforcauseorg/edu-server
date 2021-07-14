@@ -46,6 +46,19 @@ export class CourseService {
     }
   }
 
+  // fetch brief info for cards for all courses
+  async getBreifAllCourses(): Promise<Course[]> {
+    try {
+      return await this.CourseModel.find()
+        .select(
+          'name courseShortDescription tags ratingno_of_enrollments mentor crossPrice courseLevel duration',
+        )
+        .exec();
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+  }
+
   // fetch selected course by id
   async findCourseById(courseId: Schema.Types.ObjectId): Promise<Course> {
     try {

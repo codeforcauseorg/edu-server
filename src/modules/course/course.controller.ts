@@ -29,6 +29,13 @@ import responsedoc from './docUtils/apidoc';
 export class CourseController {
   constructor(private courseService: CourseService) {}
 
+  // get brief information on cards for all courses initially
+  @Get('/cards/all')
+  @ApiOkResponse(responsedoc.getAllCourses)
+  async getBreifAllCourses() {
+    return await this.courseService.getBreifAllCourses();
+  }
+
   // get all courses
   @Get('/all')
   @ApiOkResponse(responsedoc.getAllCourses)
