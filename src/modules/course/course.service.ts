@@ -16,6 +16,7 @@ import { UpdateScheduleDto } from './dto/update-schedule.dto';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
 import { Review } from './schema/review.schema';
+import { GetCourseFilterDto } from './dto/course-filter.dto';
 
 @Injectable()
 export class CourseService {
@@ -54,6 +55,36 @@ export class CourseService {
           'name courseShortDescription tags ratingno_of_enrollments mentor crossPrice courseLevel duration',
         )
         .exec();
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+  }
+
+  // fetch query results for search string
+  async getSearchResults(filterDto: GetCourseFilterDto) {
+    try {
+      const { Query } = filterDto;
+      if (!Query) {
+        throw new NotFoundException('Enter something to search');
+      }
+
+      // attach the relevant search options, using regex
+      const searchOptions = [];
+      const regexQuery = new RegExp(Query, 'i');
+
+      searchOptions.push({ name: { $regex: regexQuery } });
+
+      // search using regex and lean for fast queries
+      const data = await this.CourseModel.find({})
+        .or(searchOptions)
+        .limit(50)
+        .lean();
+
+      if (data) {
+        return data;
+      } else {
+        throw new InternalServerErrorException('Error :(');
+      }
     } catch (e) {
       throw new InternalServerErrorException(e);
     }

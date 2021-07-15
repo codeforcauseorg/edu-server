@@ -13,7 +13,6 @@ import {
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
-import MentorResponseBody from './docUtils/mentor.responsedoc';
 import { CreateMentorDTO } from './dto/create-mentor.dto'; //eslint-disable-line 
 import { UpdateMentorDTO } from './dto/update-mentor.dto'; //eslint-disable-line 
 import { MentorService } from './mentor.service'; //eslint-disable-line 

@@ -6,6 +6,7 @@ import {
   Post,
   Put,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { UpdateCourseDTO } from './dto/course-update.dto';
 import { CourseService } from './course.service';
@@ -23,6 +24,7 @@ import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
 import { courseId } from './docUtils/course.paramdocs';
 import responsedoc from './docUtils/apidoc';
+import { GetCourseFilterDto } from './dto/course-filter.dto';
 
 @ApiTags('Course')
 @Controller('course')
@@ -34,6 +36,12 @@ export class CourseController {
   @ApiOkResponse(responsedoc.getAllCourses)
   async getBreifAllCourses() {
     return await this.courseService.getBreifAllCourses();
+  }
+
+  // fetch query results for search string
+  @Get('/all/query')
+  async getSearchResults(@Query() filterDto: GetCourseFilterDto) {
+    return await this.courseService.getSearchResults(filterDto);
   }
 
   // get all courses
