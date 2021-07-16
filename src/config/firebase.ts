@@ -1,6 +1,4 @@
 import admin from 'firebase-admin';
-
-// replace it with {example.service.json} for starting the project without firebase credential
 import firebaseAccountCredentials from './service';
 
 const serviceAccount = firebaseAccountCredentials[
