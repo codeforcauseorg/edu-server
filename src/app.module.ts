@@ -11,7 +11,10 @@ import { ChatModule } from './modules/chat/chat.module';
 import * as path from 'path';
 import { CourseModule } from './modules/course/course.module';
 import { DoubtModule } from './modules/doubt/doubt.module';
-import { MentorModule } from 'modules/mentor/mentor.module';
+import { MentorModule } from './modules/mentor/mentor.module';
+
+import * as dotenv from 'dotenv';
+dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
 
 @Module({
   imports: [
@@ -21,7 +24,7 @@ import { MentorModule } from 'modules/mentor/mentor.module';
     FirebaseModule,
     AuthModule,
     AssignmentModule,
-    MongooseModule.forRoot('mongodb://localhost/nest'),
+    MongooseModule.forRoot(process.env.MONGOURL),
     UserModule,
     CourseModule,
     ChatModule,
