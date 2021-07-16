@@ -19,7 +19,7 @@
     "start:func": "npm run shell",
     "start:dev": "NODE_ENV=dev tsc-watch -p tsconfig.build.json --onSuccess \"node dist/main.js\"",
     "start:debug": "tsc-watch -p tsconfig.build.json --onSuccess \"node --inspect-brk dist/main.js\"",
-    "start:prod": "NODE_ENV=prod node dist/main.js",
+    "start:prod": "NODE_ENV=production node dist/main.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
