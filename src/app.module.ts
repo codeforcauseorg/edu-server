@@ -13,8 +13,8 @@ import { CourseModule } from './modules/course/course.module';
 import { DoubtModule } from './modules/doubt/doubt.module';
 import { MentorModule } from './modules/mentor/mentor.module';
 
-import * as dotenv from "dotenv";
-dotenv.config({path: path.resolve(__dirname, '..', ".env")})
+import * as dotenv from 'dotenv';
+dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
 
 @Module({
   imports: [
@@ -34,4 +34,4 @@ dotenv.config({path: path.resolve(__dirname, '..', ".env")})
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
