@@ -54,7 +54,7 @@ export class CourseService {
         .select(
           'name courseShortDescription tags ratingno_of_enrollments mentor crossPrice courseLevel duration',
         )
-        .exec();
+        .lean();
     } catch (e) {
       throw new InternalServerErrorException(e);
     }
@@ -80,11 +80,7 @@ export class CourseService {
         .limit(50)
         .lean();
 
-      if (data) {
-        return data;
-      } else {
-        throw new InternalServerErrorException('Error :(');
-      }
+      return data;
     } catch (e) {
       throw new InternalServerErrorException(e);
     }

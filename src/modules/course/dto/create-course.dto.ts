@@ -173,7 +173,7 @@ export class CreateCourseDto {
 
   /**
    * what will one learn from the course
-   * @example ["HTML","CSS"]
+   * @example ["You will get to know about web technologies basics", "A good understanstanding of Html, css and JS", "You will learn about hooks and functional components"]
    */
   whatYouWillLearn: string[];
 }
