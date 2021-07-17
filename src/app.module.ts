@@ -11,6 +11,7 @@ import { ChatModule } from './modules/chat/chat.module';
 import * as path from 'path';
 import { CourseModule } from './modules/course/course.module';
 import { DoubtModule } from './modules/doubt/doubt.module';
+import { AnnouncementModule } from 'modules/announcements/announcement.module';
 import { MentorModule } from './modules/mentor/mentor.module';
 
 import * as dotenv from 'dotenv';
@@ -29,6 +30,7 @@ dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
     CourseModule,
     ChatModule,
     DoubtModule,
+    AnnouncementModule,
     MentorModule,
   ],
   controllers: [AppController],
