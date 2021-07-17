@@ -20,4 +20,9 @@ export class AppController {
   getHello() {
     return this.fireSDK.auth().listUsers();
   }
+
+  @Get('/hello')
+  getHey(@Req() request: Request): string {
+    return 'Hello ' + request['user']?.email + '!';
+  }
 }

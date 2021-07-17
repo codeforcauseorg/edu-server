@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { ConfigModule } from 'nestjs-config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -14,6 +14,7 @@ import { DoubtModule } from './modules/doubt/doubt.module';
 import { MentorModule } from './modules/mentor/mentor.module';
 
 import * as dotenv from 'dotenv';
+import { PreauthMiddleware } from 'middleware/preAuth.middleware';
 dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
 
 @Module({
@@ -34,4 +35,11 @@ dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(PreauthMiddleware).forRoutes({
+      path: '*',
+      method: RequestMethod.ALL,
+    });
+  }
+}
