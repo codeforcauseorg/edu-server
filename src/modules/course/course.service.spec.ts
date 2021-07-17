@@ -31,6 +31,7 @@ const mockCourse = (
   student_num = 2,
   schedule = [],
   reviews = [],
+  doubts = [],
 ): Course => ({
   name,
   price,
@@ -52,6 +53,7 @@ const mockCourse = (
   student_num,
   schedule,
   reviews,
+  doubts,
 });
 
 const mockCourseDoc = (mock?: Partial<Course>, _id?): Partial<CourseDoc> => ({
@@ -79,6 +81,7 @@ const mockCourseDoc = (mock?: Partial<Course>, _id?): Partial<CourseDoc> => ({
   student_num: mock?.student_num || 2,
   schedule: mock?.schedule || [],
   reviews: mock?.reviews || [],
+  doubts: mock?.doubts || [],
 });
 
 describe('CourseService', () => {
@@ -195,6 +198,7 @@ describe('CourseService', () => {
             student_num: 2,
             schedule: [],
             reviews: [],
+            doubts: [],
             _id: '6079f573062890a5e2cad207',
           }),
         }),
