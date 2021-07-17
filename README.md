@@ -81,7 +81,8 @@ npm install
 - In project settings of your newly created project there will be tab called as "Service Accounts". 
 - Click on it, then it will ask to create a service account, click to create a new service account.
 - After creating a service account, click on generate new private key it will automatically download a json file.
-- Copy the json file from your downloads folder and paste it into the project **src/config** folder and rename it to "service.json"
+- Copy the content of [.env.sample](.env.sample) into your newly created file `.env`.
+- Copy the credentials for firebase to use it as your environment variable as suggested in [.env.sample](.env.sample).
 
 
 <a id="setup-remote"></a>
@@ -150,7 +151,11 @@ The above Url contains the detailed steps to install it locally
 2)Run the Installer and continue with the steps
 3)Intsall mongodb compass also
 
-Instead of installing MongoDB , you can also setup a mongourl for yourself and work on the project .
+Instead of installing MongoDB , you can also setup a mongourl for yourself and work on the project.
+
+**OR**
+
+Create a Mongodb cluster from [Mongodb Cloud](https://www.mongodb.com/cloud/atlas).
 
 <a id="setup-Docker"></a>
 ### 7. 📡 Setup Docker
