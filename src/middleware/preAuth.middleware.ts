@@ -3,6 +3,8 @@ import { NextFunction, Request, Response } from 'express';
 import * as firebase from 'firebase-admin';
 import * as firebaseConfig from '../config/service';
 import admin from 'firebase-admin';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 const firebase_params = {
   type: process.env.TYPE,
@@ -17,7 +19,7 @@ const firebase_params = {
   client_x509_cert_url: process.env.CLIENT_X509_CERT_URL,
 };
 
-const serviceAccount = firebaseConfig as admin.ServiceAccount;
+const serviceAccount = firebase_params as admin.ServiceAccount;
 
 @Injectable()
 export class PreauthMiddleware implements NestMiddleware {

@@ -4,7 +4,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { FirebaseModule } from './firebase/firebase.module';
 import { UserModule } from './modules/user/user.module';
 import { AssignmentModule } from './modules/assignment/assignment.module';
 import { ChatModule } from './modules/chat/chat.module';
@@ -22,7 +21,6 @@ dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
     ConfigModule.load(
       path.resolve(__dirname, 'config', '**', '!(*.d).{ts,js}'),
     ),
-    FirebaseModule,
     AuthModule,
     AssignmentModule,
     MongooseModule.forRoot(process.env.MONGOURL),
