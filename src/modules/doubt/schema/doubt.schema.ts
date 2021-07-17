@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import * as mongoose from 'mongoose';
 import { Schema as SchemaType } from 'mongoose';
 import { TagType } from '../doubt-tag.enum';
 import { DoubtAnswer } from './doubtAnswer.schema';
+import { Document } from 'mongoose';
 
-export type DoubtDocument = Doubt & mongoose.Document;
+export type DoubtDocument = Doubt & Document;
 
 @Schema()
 export class Doubt {
