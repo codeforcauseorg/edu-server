@@ -40,6 +40,7 @@ export class CourseController {
 
   // fetch query results for search string
   @Get('/all/query')
+  @ApiOkResponse(responsedoc.getAllQueryCourses)
   async getSearchResults(@Query() filterDto: GetCourseFilterDto) {
     return await this.courseService.getSearchResults(filterDto);
   }
