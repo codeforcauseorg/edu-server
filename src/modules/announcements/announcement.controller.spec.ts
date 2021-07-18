@@ -52,15 +52,15 @@ describe('AnnouncementController', () => {
   });
 
   describe('Course', () => {
-    // course creation
-    it('should be created', async () => {
+    // Announcement creation
+    it('Announcement should be created', async () => {
       await expect(controller.getAllAnnouncement()).resolves.toEqual([
         mockAnnouncement,
       ]);
     });
 
-    // course found by id
-    it('should be found by ID', async () => {
+    // Announcement found by id
+    it('Announcement should be found by ID', async () => {
       const id = '60c5eafba5940a4964d5ea96';
       await expect(controller.getAnnouncement(id)).resolves.toEqual({
         ...mockAnnouncement,
@@ -70,7 +70,7 @@ describe('AnnouncementController', () => {
     });
 
     // retrieved value not equal as id if different/does not exist
-    it('should not be equal to the returned value if  ID does not exist', async () => {
+    it('Announcement should not be equal to the returned value if  ID does not exist', async () => {
       const id = '60c5eafba5940a4884d5fa96';
       const idFix = '60c5eafba5940a4964d5ea96';
       await expect(controller.getAnnouncement(id)).resolves.not.toEqual({
@@ -80,7 +80,8 @@ describe('AnnouncementController', () => {
       expect(service.getAnnouncement).toHaveBeenCalledWith(id);
     });
 
-    it('should be created', async () => {
+    // Announcement should be created
+    it('Announcement should be created', async () => {
       const dto: CreateAnnouncementDTO = {
         title: ' New Course on react ',
         read: false,
@@ -92,8 +93,8 @@ describe('AnnouncementController', () => {
       expect(service.addAnnouncement).toHaveBeenCalledWith(dto);
     });
 
-    // should be updated
-    it('should be updated', async () => {
+    // Announcement should be updated
+    it('Announcement should be updated', async () => {
       const id = '60c5eafba5940a4964d5ea96';
       const dto: UpdateAnnouncementDTO = {
         title: ' New Course on react ',
@@ -112,7 +113,7 @@ describe('AnnouncementController', () => {
     });
 
     // retrieved value not equal as id if different/does not exist
-    it('should not be updated and be equal to the returned value if  ID does not exist', async () => {
+    it('Announcement should not be updated and be equal to the returned value if  ID does not exist', async () => {
       const id = '60c5eafba5940a4884d5fa96';
       const idFix = '60c5eafba5940a4964d5ea96';
       const dto: UpdateAnnouncementDTO = {
@@ -131,8 +132,8 @@ describe('AnnouncementController', () => {
       expect(service.updateAnnouncement).toHaveBeenCalledWith(id, dto);
     });
 
-    // shpuld be deleted
-    it('should be deleted', async () => {
+    //  Announcement shpuld be deleted
+    it('Announcement should be deleted', async () => {
       const id = '60c5eafba5940a4964d5ea96';
       await expect(controller.deleteAnnouncement(id)).resolves.toEqual([
         {
@@ -144,7 +145,7 @@ describe('AnnouncementController', () => {
   });
 
   // retrieved value not equal as id if different/does not exist
-  it('should not be deleted and be equal to the returned value if  ID does not exist', async () => {
+  it('Announcement should not be deleted and be equal to the returned value if  ID does not exist', async () => {
     const id = '60c5eafba5940a4884d5fa96';
     const idFix = '60c5eafba5940a4964d5ea96';
     await expect(controller.deleteAnnouncement(id)).resolves.not.toEqual({
