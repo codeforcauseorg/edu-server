@@ -11,7 +11,7 @@ const mockCourse = {
   mentor: [],
   active: false,
   name: 'devesh K',
-  price: 0,
+  originalPrice: 0,
   no_of_enrollments: 100,
   coupons: 0,
   video_num: 0,
@@ -26,6 +26,13 @@ const mockCourse = {
   courseLevel: courseLevelType.BEGINNER,
   courseThumbnail: 'https://codeforcause.org/courses',
   courseTrailerUrl: 'https://codeforcause.org/courseTrailer',
+  crossPrice: 120,
+  courseShortDescription: 'Short description--',
+  courseLongDescription: 'Long description--',
+  rating: 5,
+  prerequisites: ['HTML', 'CSS'],
+  skills: ['HTML', 'CSS'],
+  whatYouWillLearn: ['HTML', 'CSS'],
 };
 
 describe('CourseController', () => {
@@ -99,7 +106,7 @@ describe('CourseController', () => {
         mentor: [],
         active: false,
         name: 'devesh K',
-        price: 0,
+        originalPrice: 0,
         coupons: 0,
         video_num: 0,
         duration: '11.5 hours',
@@ -112,6 +119,13 @@ describe('CourseController', () => {
         courseLevel: courseLevelType.BEGINNER,
         courseThumbnail: 'https://codeforcause.org/courses',
         courseTrailerUrl: 'https://codeforcause.org/courseTrailer',
+        crossPrice: 120,
+        courseShortDescription: 'Short description--',
+        courseLongDescription: 'Long description--',
+        rating: 5,
+        prerequisites: ['HTML', 'CSS'],
+        skills: ['HTML', 'CSS'],
+        whatYouWillLearn: ['HTML', 'CSS'],
       };
       await expect(controller.addCourse(dto)).resolves.not.toBeNull();
       expect(service.addCourse).toHaveBeenCalledWith(dto);
@@ -124,7 +138,7 @@ describe('CourseController', () => {
         mentor: [],
         active: false,
         name: 'devesh K',
-        price: 0,
+        originalPrice: 0,
         coupons: 0,
         video_num: 0,
         duration: '11.5 hours',
@@ -138,6 +152,13 @@ describe('CourseController', () => {
         courseLevel: courseLevelType.BEGINNER,
         courseThumbnail: 'https://codeforcause.org/courses',
         courseTrailerUrl: 'https://codeforcause.org/courseTrailer',
+        crossPrice: 120,
+        courseShortDescription: 'Short description--',
+        courseLongDescription: 'Long description--',
+        rating: 5,
+        prerequisites: ['HTML', 'CSS'],
+        skills: ['HTML', 'CSS'],
+        whatYouWillLearn: ['HTML', 'CSS'],
       };
       await expect(controller.updateCourse(id, dto)).resolves.toEqual({
         id,
@@ -155,7 +176,7 @@ describe('CourseController', () => {
         mentor: [],
         active: false,
         name: 'devesh K',
-        price: 0,
+        originalPrice: 0,
         coupons: 0,
         video_num: 0,
         duration: '11.5 hours',
@@ -169,6 +190,13 @@ describe('CourseController', () => {
         courseLevel: courseLevelType.BEGINNER,
         courseThumbnail: 'https://codeforcause.org/courses',
         courseTrailerUrl: 'https://codeforcause.org/courseTrailer',
+        crossPrice: 120,
+        courseShortDescription: 'Short description--',
+        courseLongDescription: 'Long description--',
+        rating: 5,
+        prerequisites: ['HTML', 'CSS'],
+        skills: ['HTML', 'CSS'],
+        whatYouWillLearn: ['HTML', 'CSS'],
       };
       await expect(controller.updateCourse(id, dto)).resolves.not.toEqual({
         ...mockCourse,

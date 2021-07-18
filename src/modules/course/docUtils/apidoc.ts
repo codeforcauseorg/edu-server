@@ -9,6 +9,12 @@ const getAllCourses: ApiResponseOptions = {
   type: [CourseResponseBody],
 };
 
+const getAllQueryCourses: ApiResponseOptions = {
+  description:
+    'Get all the courses whose name feild matches the query parameter',
+  type: [CourseResponseBody],
+};
+
 const getSelectedCourses: ApiResponseOptions = {
   description: 'Get course by id from the database',
   type: CourseResponseBody,
@@ -70,6 +76,7 @@ const responses = {
   addReview,
   updateReview,
   deleteReview,
+  getAllQueryCourses,
 };
 
 export default responses;

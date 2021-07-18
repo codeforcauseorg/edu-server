@@ -17,6 +17,7 @@ import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
 import { Review } from './schema/review.schema';
 import { Assignment } from 'modules/assignment/schema/assignment.schema';
+import { GetCourseFilterDto } from './dto/course-filter.dto';
 
 @Injectable()
 export class CourseService {
@@ -28,6 +29,15 @@ export class CourseService {
     private readonly AssignmentModel: Model<Assignment>,
   ) {}
 
+  // fetch all courses without populating
+  async findAllCourses(): Promise<Course[]> {
+    try {
+      return await this.CourseModel.find().exec();
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+  }
+
   // fetch all courses
   async getAllCourses(): Promise<Course[]> {
     try {
@@ -36,6 +46,45 @@ export class CourseService {
         .populate('reviews')
         .populate('assignments')
         .exec();
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+  }
+
+  // fetch brief info for cards for all courses
+  async getBreifAllCourses(): Promise<Course[]> {
+    try {
+      return await this.CourseModel.find()
+        .select(
+          'name courseShortDescription tags ratingno_of_enrollments mentor crossPrice courseLevel duration',
+        )
+        .lean();
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+  }
+
+  // fetch query results for search string
+  async getSearchResults(filterDto: GetCourseFilterDto) {
+    try {
+      const { Query } = filterDto;
+      if (!Query) {
+        throw new NotFoundException('Enter something to search');
+      }
+
+      // attach the relevant search options, using regex
+      const searchOptions = [];
+      const regexQuery = new RegExp(Query, 'i');
+
+      searchOptions.push({ name: { $regex: regexQuery } });
+
+      // search using regex and lean for fast queries
+      const data = await this.CourseModel.find({})
+        .or(searchOptions)
+        .limit(50)
+        .lean();
+
+      return data;
     } catch (e) {
       throw new InternalServerErrorException(e);
     }
@@ -81,7 +130,7 @@ export class CourseService {
         courseId,
         updateCourseDTO,
         { new: true },
-      );
+      ).exec();
     } catch (e) {
       throw new InternalServerErrorException(e);
     } finally {
