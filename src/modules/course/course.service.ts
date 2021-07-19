@@ -52,8 +52,9 @@ export class CourseService {
     try {
       return await this.CourseModel.find()
         .select(
-          'name courseShortDescription tags ratingno_of_enrollments mentor crossPrice courseLevel duration',
+          'name courseShortDescription tags rating no_of_enrollments mentor crossPrice courseLevel courseThumbnail duration reviews video_num',
         )
+        .populate('reviewa')
         .lean();
     } catch (e) {
       throw new InternalServerErrorException(e);
