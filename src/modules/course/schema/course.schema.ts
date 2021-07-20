@@ -14,7 +14,7 @@ export class Course {
   name: string;
 
   @Prop({ required: true })
-  price: number;
+  originalPrice: number;
 
   @Prop({ required: true, default: Date.now })
   start_date: Date;
@@ -72,6 +72,26 @@ export class Course {
 
   @Prop({ type: [{ type: SchemaTypes.Types.ObjectId, ref: 'Doubt' }] })
   doubts: Doubt[];
+  @Prop({ required: true })
+  crossPrice: number;
+
+  @Prop({ required: true })
+  courseShortDescription: string;
+
+  @Prop({ required: true })
+  courseLongDescription: string;
+
+  @Prop({ required: true })
+  rating: number;
+
+  @Prop({ required: true })
+  prerequisites: string[];
+
+  @Prop({ required: true })
+  skills: string[];
+
+  @Prop({ required: true })
+  whatYouWillLearn: string[];
 }
 
 export const CourseSchema = SchemaFactory.createForClass(Course);

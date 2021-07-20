@@ -1,9 +1,12 @@
 import {
   IsArray,
+  IsBoolean,
   IsDateString,
   IsEnum,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
+  IsString,
   IsUrl,
 } from 'class-validator';
 import { TagType } from '../course-tag.enum';
@@ -14,36 +17,42 @@ export class UpdateCourseDTO {
    * The name of the course
    * @example 'Rest Apis'
    */
+  @IsString()
   readonly name: string;
 
   /**
-   * The price of the course
-   * @example 4
+   * The original price of the course
+   * @example 400
    */
-  readonly price: number;
+  @IsNumber()
+  readonly originalPrice: number;
 
   /**
    * Whether the user is active or not in the course
    * @example true
    */
+  @IsBoolean()
   readonly active: boolean;
 
   /**
    * The number of coupons of the course
    * @example 5
    */
+  @IsNumber()
   readonly coupons: number;
 
   /**
    * The number of videos of the course
    * @example 3
    */
+  @IsNumber()
   readonly video_num: number;
 
   /**
    * The duration of the course
    * @example '11 hours'
    */
+  @IsString()
   readonly duration: string;
 
   /**
@@ -129,4 +138,50 @@ export class UpdateCourseDTO {
   @IsUrl()
   @IsNotEmpty()
   courseTrailerUrl: string;
+
+  /**
+   * The discounted price of the course
+   * @example 120
+   */
+  @IsNumber()
+  crossPrice: number;
+
+  /**
+   * The short description of the course
+   * @example 'Short description--'
+   */
+  @IsString()
+  courseShortDescription: string;
+
+  /**
+   * The long description of the course
+   * @example 'Long description--'
+   */
+  @IsString()
+  courseLongDescription: string;
+
+  /**
+   * The rating of the course
+   * @example 5
+   */
+  @IsNumber()
+  rating: number;
+
+  /**
+   * The prerequisites of the course
+   * @example ["HTML","CSS"]
+   */
+  prerequisites: string[];
+
+  /**
+   * The skills of the course
+   * @example ["HTML","CSS"]
+   */
+  skills: string[];
+
+  /**
+   * what will one learn from the course
+   * @example ["You will get to know about web technologies basics", "A good understanstanding of Html, css and JS", "You will learn about hooks and functional components"]
+   */
+  whatYouWillLearn: string[];
 }
