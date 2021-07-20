@@ -5,8 +5,8 @@ import { CourseController } from './course.controller';
 import { CourseService } from './course.service';
 import { ScheduleSchema } from './schema/schedule.schema';
 import { ReviewSchema } from './schema/review.schema';
-import { DoubtSchema } from 'modules/doubt/schema/doubt.schema';
-import { DoubtAnswerSchema } from 'modules/doubt/schema/doubtAnswer.schema';
+import { DoubtSchema } from '../doubt/schema/doubt.schema';
+import { DoubtAnswerSchema } from '../doubt/schema/doubtAnswer.schema';
 
 @Module({
   imports: [

@@ -16,8 +16,8 @@ import { UpdateScheduleDto } from './dto/update-schedule.dto';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
 import { Review } from './schema/review.schema';
-import { Doubt } from 'modules/doubt/schema/doubt.schema';
-import { DoubtAnswer } from 'modules/doubt/schema/doubtAnswer.schema';
+import { Doubt } from '../doubt/schema/doubt.schema';
+import { DoubtAnswer } from '../doubt/schema/doubtAnswer.schema';
 import { GetCourseFilterDto } from './dto/course-filter.dto';
 
 @Injectable()
