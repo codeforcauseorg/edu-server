@@ -1,7 +1,6 @@
-import { Injectable, NestMiddleware } from '@nestjs/common';
+import { ConflictException, Injectable, NestMiddleware } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
 import * as firebase from 'firebase-admin';
-import * as firebaseConfig from '../config/service';
 import admin from 'firebase-admin';
 import * as dotenv from 'dotenv';
 dotenv.config();
@@ -34,7 +33,7 @@ export class PreauthMiddleware implements NestMiddleware {
 
   use(req: Request, res: Response, next: NextFunction) {
     const token = req.headers.authorization;
-    if (token != null && token != '') {
+    if (token && token != null && token != '' && token.length > 0) {
       this.defaultApp
         .auth()
         .verifyIdToken(token.replace('Bearer ', ''))
@@ -50,7 +49,7 @@ export class PreauthMiddleware implements NestMiddleware {
           this.accessDenied(req.url, res);
         });
     } else {
-      next();
+      throw new ConflictException('Access Denied as Token does not exist');
     }
   }
 

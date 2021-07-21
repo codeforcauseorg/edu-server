@@ -17,13 +17,6 @@ export class UpdateUserDTO {
   readonly last_name: string;
 
   /**
-   * Email of the user
-   * @example 'john@example.com'
-   */
-  @IsNotEmpty()
-  readonly email: string;
-
-  /**
    * Phone number of the user
    * @example '9000500000'
    */

@@ -1,5 +1,3 @@
-import admin from 'firebase-admin';
-import firebaseAccountCredentials from './service';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
