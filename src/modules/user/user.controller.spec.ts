@@ -70,8 +70,9 @@ describe('UserController', () => {
         photoUrl: 'https://google.com/john',
         score: 0,
       };
-      await expect(controller.addUser(dto)).resolves.toEqual({
+      await expect(controller.addUser('x', dto)).resolves.toEqual({
         _id: expect.any(String),
+        '0': 'x',
         ...mockuser,
       });
     });
@@ -103,7 +104,6 @@ describe('UserController', () => {
       const dto: UpdateUserDTO = {
         first_name: 'New Name',
         last_name: 'New',
-        email: '',
         phone: '',
         wishlist: [],
         address: '',
@@ -113,8 +113,10 @@ describe('UserController', () => {
         coverPhotoUrl: '',
         photoUrl: '',
       };
+      const email = 'john@example.com';
       await expect(controller.updateUser(_id, dto)).resolves.toEqual({
         _id,
+        email,
         ...dto,
         wishlist: [],
         enrolled_courses: [],
