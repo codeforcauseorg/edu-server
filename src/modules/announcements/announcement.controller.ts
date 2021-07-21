@@ -12,6 +12,7 @@ import { CreateAnnouncementDTO } from './dto/create-announcement.dto'; //eslint-
 import {
   ApiCreatedResponse,
   ApiOkResponse,
+  ApiOperation,
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
@@ -26,6 +27,9 @@ export class AnnouncementController {
 
   // add a Announcement
   @Post()
+  @ApiOperation({
+    summary: 'add a Announcement',
+  })
   @ApiCreatedResponse(responsedoc.addAnnouncement)
   async addAnnouncement(@Body() CreateAnnouncementDTO: CreateAnnouncementDTO) {
     return await this.announcementService.addAnnouncement(
@@ -35,6 +39,9 @@ export class AnnouncementController {
 
   // Retrieve Announcements list
   @Get()
+  @ApiOperation({
+    summary: 'Retrieve Announcements list',
+  })
   @ApiOkResponse(responsedoc.getAllAnnouncement)
   async getAllAnnouncement() {
     return await this.announcementService.getAllAnnouncement();
@@ -43,13 +50,20 @@ export class AnnouncementController {
   // Fetch a particular Announcement using ID
   @Get('/:announcementId')
   @ApiParam(announcementId)
+  @ApiOperation({
+    summary: 'Fetch a particular Announcement using ID',
+  })
   @ApiOkResponse(responsedoc.getAnnouncement)
   async getAnnouncement(@Param('announcementId') announcementId: string) {
     return await this.announcementService.getAnnouncement(announcementId);
   }
 
+  // update Announcement by Id
   @Put('/:announcementId')
   @ApiParam(announcementId)
+  @ApiOperation({
+    summary: 'update Announcement by Id',
+  })
   @ApiOkResponse(responsedoc.updateAnnouncement)
   async updateAnnouncement(
     @Param('announcementId') announcementId: string,
@@ -61,9 +75,12 @@ export class AnnouncementController {
     );
   }
 
-  // Delete a Announcement
+  // Delete an Announcement by Id
   @Delete('/:announcementId')
   @ApiParam(announcementId)
+  @ApiOperation({
+    summary: 'Delete an Announcement by Id',
+  })
   @ApiOkResponse(responsedoc.deleteAnnouncement)
   async deleteAnnouncement(@Param('announcementId') announcementId: string) {
     return await this.announcementService.deleteAnnouncement(announcementId);
