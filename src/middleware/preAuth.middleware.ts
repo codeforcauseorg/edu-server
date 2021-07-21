@@ -28,7 +28,7 @@ export class PreauthMiddleware implements NestMiddleware {
   constructor() {
     this.defaultApp = firebase.initializeApp({
       credential: firebase.credential.cert(serviceAccount),
-      databaseURL: 'https://set-project-36e71.firebaseio.com',
+      databaseURL: 'https://gsoc-fc3e9.firebaseio.com',
     });
   }
 
