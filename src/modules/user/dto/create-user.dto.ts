@@ -1,4 +1,4 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateUserDTO {
   /**
@@ -64,4 +64,11 @@ export class CreateUserDTO {
    * @example 'https://g.gle/mycover.jpeg'
    */
   coverPhotoUrl?: string;
+
+  /**
+   * The Firebase Id
+   * @example "60ccf3037025096f45cb87ba"
+   */
+  @IsString()
+  fId: string;
 }

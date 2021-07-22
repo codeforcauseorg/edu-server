@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsNotEmpty } from 'class-validator';
+import { IsArray, IsNotEmpty, IsString } from 'class-validator';
 import { Schema } from 'mongoose';
 
 export class UpdateUserDTO {
@@ -69,4 +69,11 @@ export class UpdateUserDTO {
    * @example 'unsplash123.jpeg'
    */
   coverPhotoUrl: string;
+
+  /**
+   * The Firebase Id
+   * @example "60ccf3037025096f45cb87ba"
+   */
+  @IsString()
+  fId: string;
 }
