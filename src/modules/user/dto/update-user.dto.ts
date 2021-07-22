@@ -69,11 +69,4 @@ export class UpdateUserDTO {
    * @example 'unsplash123.jpeg'
    */
   coverPhotoUrl: string;
-
-  /**
-   * The Firebase Id
-   * @example "60ccf3037025096f45cb87ba"
-   */
-  @IsString()
-  fId: string;
 }
