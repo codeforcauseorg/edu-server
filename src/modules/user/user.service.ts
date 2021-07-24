@@ -47,9 +47,15 @@ export class UserService {
   }
 
   // post a single User
-  async addUser(CreateUserDTO: CreateUserDTO): Promise<User> {
+  async addUser(request, CreateUserDTO: CreateUserDTO): Promise<User> {
     try {
-      const newUser = await new this.userModel(CreateUserDTO);
+      const { email } = request['user'];
+      const userExists = await this.userModel.findOne({ email: email }).lean();
+      if (userExists) {
+        throw new ConflictException('User already exists');
+      }
+      const userToBeCreated = { ...CreateUserDTO, email };
+      const newUser = await new this.userModel(userToBeCreated);
       return newUser.save();
     } catch (e) {
       throw new InternalServerErrorException(e);

@@ -1,10 +1,9 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { ConfigModule } from 'nestjs-config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { FirebaseModule } from './firebase/firebase.module';
 import { UserModule } from './modules/user/user.module';
 import { AssignmentModule } from './modules/assignment/assignment.module';
 import { ChatModule } from './modules/chat/chat.module';
@@ -15,6 +14,7 @@ import { AnnouncementModule } from './modules/announcements/announcement.module'
 import { MentorModule } from './modules/mentor/mentor.module';
 
 import * as dotenv from 'dotenv';
+import { PreauthMiddleware } from 'middleware/preAuth.middleware';
 dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
 
 @Module({
@@ -22,7 +22,6 @@ dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
     ConfigModule.load(
       path.resolve(__dirname, 'config', '**', '!(*.d).{ts,js}'),
     ),
-    FirebaseModule,
     AuthModule,
     AssignmentModule,
     MongooseModule.forRoot(process.env.MONGOURL),
@@ -36,4 +35,11 @@ dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(PreauthMiddleware).forRoutes({
+      path: '*',
+      method: RequestMethod.ALL,
+    });
+  }
+}

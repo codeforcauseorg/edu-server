@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Req,
 } from '@nestjs/common';
 import {
   ApiCreatedResponse,
@@ -31,8 +32,8 @@ export class UserController {
   // add a User
   @Post()
   @ApiCreatedResponse(responsedoc.addUser)
-  async addUser(@Body() CreateUserDTO: CreateUserDTO) {
-    return await this.userService.addUser(CreateUserDTO);
+  async addUser(@Req() request, @Body() CreateUserDTO: CreateUserDTO) {
+    return await this.userService.addUser(request, CreateUserDTO);
   }
 
   // Retrieve Users list
