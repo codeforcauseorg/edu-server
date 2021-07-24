@@ -54,7 +54,7 @@ export class CourseService {
         .select(
           'name courseShortDescription tags rating no_of_enrollments mentor crossPrice courseLevel courseThumbnail duration reviews video_num',
         )
-        .populate('reviewa')
+        .populate('review')
         .lean();
     } catch (e) {
       throw new InternalServerErrorException(e);
