@@ -5,12 +5,18 @@ import { SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import * as helmet from 'helmet';
 import { Request, Response, NextFunction } from 'express';
+import admin from 'firebase-admin';
+import firebaseAccountCredentials from './config/firebase';
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // setup swagger-ui
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('api', app, document, customOptions);
+
+  // Firebase Initialisation
+  admin.initializeApp(firebaseAccountCredentials);
 
   app.enableCors();
   app.use(helmet());
@@ -34,3 +40,4 @@ async function bootstrap() {
 }
 
 bootstrap();
+export default admin;

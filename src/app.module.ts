@@ -14,7 +14,7 @@ import { AnnouncementModule } from './modules/announcements/announcement.module'
 import { MentorModule } from './modules/mentor/mentor.module';
 
 import * as dotenv from 'dotenv';
-import { PreauthMiddleware } from 'middleware/preAuth.middleware';
+import { PreauthMiddleware } from './middleware/preAuth.middleware';
 dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
 
 @Module({
