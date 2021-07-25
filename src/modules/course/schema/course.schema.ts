@@ -72,6 +72,7 @@ export class Course {
 
   @Prop({ type: [{ type: SchemaTypes.Types.ObjectId, ref: 'Doubt' }] })
   doubts: Doubt[];
+
   @Prop({ required: true })
   crossPrice: number;
 

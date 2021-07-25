@@ -1,4 +1,5 @@
 import {
+  IsArray,
   IsBoolean,
   IsEnum,
   IsNotEmpty,
@@ -9,7 +10,8 @@ import { TagType } from '../doubt-tag.enum';
 
 export class UpdateDoubtDto {
   @IsNotEmpty()
-  @IsEnum(TagType)
+  @IsArray()
+  @IsEnum(TagType, { each: true })
   tags: TagType[];
 
   @IsString()
