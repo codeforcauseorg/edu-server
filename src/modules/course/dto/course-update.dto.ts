@@ -105,7 +105,8 @@ export class UpdateCourseDTO {
    * @example WEB_DEV
    */
   @IsNotEmpty()
-  @IsEnum(TagType)
+  @IsArray()
+  @IsEnum(TagType, { each: true })
   tags: TagType[];
 
   /**
