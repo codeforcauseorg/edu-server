@@ -6,7 +6,7 @@ import { Document } from 'mongoose';
 
 export type DoubtDocument = Doubt & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Doubt {
   @Prop({ required: true })
   tags: TagType[];
@@ -35,8 +35,6 @@ DoubtSchema.methods.toJSON = function () {
 
   delete doubtObject._id;
   delete doubtObject.__v;
-  delete doubtObject['createdAt'];
-  delete doubtObject['updatedAt'];
 
   return doubtObject;
 };
