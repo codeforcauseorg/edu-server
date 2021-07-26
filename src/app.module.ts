@@ -2,7 +2,6 @@ import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { ConfigModule } from 'nestjs-config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './modules/user/user.module';
 import { AssignmentModule } from './modules/assignment/assignment.module';
@@ -22,7 +21,6 @@ dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
     ConfigModule.load(
       path.resolve(__dirname, 'config', '**', '!(*.d).{ts,js}'),
     ),
-    AuthModule,
     AssignmentModule,
     MongooseModule.forRoot(process.env.MONGOURL),
     UserModule,
