@@ -67,6 +67,12 @@ export default class UserResponseBody {
    * @example ["60ccf3037025096f45cb87ba", "60ccf3037025096f45cb87bq"]
    */
   wishlist: string[];
+
+  /**
+   * The Firebase Id
+   * @example "60ccf3037025096f45cb87ba"
+   */
+  fId: string;
 }
 
 interface video {

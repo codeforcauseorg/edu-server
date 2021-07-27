@@ -37,6 +37,9 @@ export class User {
 
   @Prop({ default: [] })
   wishlist: SchemaTypes.Types.ObjectId[];
+
+  @Prop()
+  fId: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

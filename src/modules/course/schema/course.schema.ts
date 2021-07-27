@@ -89,6 +89,9 @@ export class Course {
 
   @Prop({ required: true })
   whatYouWillLearn: string[];
+
+  @Prop({ required: true })
+  certificateUrl: string;
 }
 
 export const CourseSchema = SchemaFactory.createForClass(Course);
