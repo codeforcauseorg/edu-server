@@ -38,6 +38,7 @@ const mockCourse = (
   prerequisites = [],
   skills = [],
   whatYouWillLearn = [],
+  certificateUrl = 'https://codeforcause.org/certificate',
 ): Course => ({
   name,
   originalPrice,
@@ -66,6 +67,7 @@ const mockCourse = (
   prerequisites,
   skills,
   whatYouWillLearn,
+  certificateUrl,
 });
 
 const mockCourseDoc = (mock?: Partial<Course>, _id?): Partial<CourseDoc> => ({
@@ -100,6 +102,8 @@ const mockCourseDoc = (mock?: Partial<Course>, _id?): Partial<CourseDoc> => ({
   prerequisites: mock?.prerequisites || [],
   skills: mock?.skills || [],
   whatYouWillLearn: mock?.whatYouWillLearn || [],
+  certificateUrl:
+    mock?.certificateUrl || 'https://codeforcause.org/certificate',
 });
 
 describe('CourseService', () => {
@@ -216,6 +220,7 @@ describe('CourseService', () => {
             prerequisites: [],
             skills: [],
             whatYouWillLearn: [],
+            certificateUrl: 'https://codeforcause.org/certificate',
           }),
         }),
       );
@@ -246,6 +251,7 @@ describe('CourseService', () => {
         prerequisites: [],
         skills: [],
         whatYouWillLearn: [],
+        certificateUrl: 'https://codeforcause.org/certificate',
       };
       const updatedCourse = await service.editCourse(id, updateCoursedto);
       const _id = '6079f573062890a5e2cad207';
