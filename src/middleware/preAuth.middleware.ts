@@ -4,6 +4,7 @@ import { UserDocument as User } from '../modules/user/schema/user.schema';
 import { NextFunction, Request, Response } from 'express';
 import admin from '../main';
 import { Model } from 'mongoose';
+import { Role } from '../roles/role.enum';
 
 @Injectable()
 export class PreauthMiddleware implements NestMiddleware {
@@ -15,9 +16,21 @@ export class PreauthMiddleware implements NestMiddleware {
         .auth()
         .verifyIdToken(token.replace('Bearer ', ''))
         .then(async (decodedToken) => {
+          const { email } = decodedToken;
+          const userExists = await this.userModel
+            .findOne({ email: email })
+            .lean();
+          let role;
+          if (userExists) {
+            role = userExists.role || Role.STUDENT;
+          } else {
+            role = Role.STUDENT;
+            console.log(role);
+          }
           const user = {
             email: decodedToken.email,
             fId: decodedToken.uid,
+            role: role,
           };
           req['user'] = user;
           next();

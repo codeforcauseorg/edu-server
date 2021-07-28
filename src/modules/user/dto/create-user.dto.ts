@@ -47,13 +47,6 @@ export class CreateUserDTO {
   readonly score: number;
 
   /**
-   * The field to show whether the students is Admin or not
-   * @example false
-   * @default false
-   */
-  readonly isAdmin: boolean;
-
-  /**
    * The photo url
    * @example 'https://g.gle/mypic.jpeg'
    */

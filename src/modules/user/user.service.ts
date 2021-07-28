@@ -49,12 +49,12 @@ export class UserService {
   // post a single User
   async addUser(request, CreateUserDTO: CreateUserDTO): Promise<User> {
     try {
-      const { email, fId } = request['user'];
+      const { email, fId, role } = request['user'];
       const userExists = await this.userModel.findOne({ email: email }).lean();
       if (userExists) {
         throw new ConflictException('User already exists');
       }
-      const userToBeCreated = { ...CreateUserDTO, email, fId };
+      const userToBeCreated = { ...CreateUserDTO, email, fId, role };
       const newUser = await new this.userModel(userToBeCreated);
       return newUser.save();
     } catch (e) {
