@@ -11,9 +11,10 @@ import { CourseModule } from './modules/course/course.module';
 import { DoubtModule } from './modules/doubt/doubt.module';
 import { AnnouncementModule } from './modules/announcements/announcement.module';
 import { MentorModule } from './modules/mentor/mentor.module';
-
+import { APP_GUARD } from '@nestjs/core';
 import * as dotenv from 'dotenv';
 import { PreauthMiddleware } from './middleware/preAuth.middleware';
+import { RolesGuard } from 'middleware/roles.guard';
 dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
 
 @Module({
@@ -31,7 +32,13 @@ dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
     MentorModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
