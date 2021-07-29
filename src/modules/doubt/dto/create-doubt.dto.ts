@@ -1,11 +1,14 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsArray,
   IsBoolean,
   IsEnum,
+  IsMongoId,
   IsNotEmpty,
   IsOptional,
   IsString,
 } from 'class-validator';
+import { Schema } from 'mongoose';
 import { TagType } from '../doubt-tag.enum';
 
 export class CreateDoubtDto {
@@ -14,9 +17,11 @@ export class CreateDoubtDto {
   @IsEnum(TagType, { each: true })
   tags: TagType[];
 
-  @IsString()
   @IsNotEmpty()
-  asked_by: string;
+  @IsMongoId()
+  @IsNotEmpty()
+  @ApiProperty({ type: Schema.Types.ObjectId })
+  asked_by: Schema.Types.ObjectId;
 
   @IsString()
   @IsNotEmpty()

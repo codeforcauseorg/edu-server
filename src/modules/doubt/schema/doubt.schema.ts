@@ -12,7 +12,7 @@ export class Doubt {
   tags: TagType[];
 
   @Prop({ required: true })
-  asked_by: string;
+  asked_by: SchemaType.Types.ObjectId;
 
   @Prop({ type: [{ type: SchemaType.Types.ObjectId, ref: 'DoubtAnswer' }] })
   answers: DoubtAnswer[];

@@ -58,7 +58,7 @@ export class DoubtService {
           doubtId,
           updateDoubtDto,
           { new: true },
-        );
+        ).lean();
         if (updatedDoubt) {
           return updatedDoubt;
         } else {
@@ -85,9 +85,9 @@ export class DoubtService {
       const course = await this.CourseModel.findById(courseId);
       if (course) {
         let deletedDoubt = null;
-        deletedDoubt = await this.DoubtModel.findByIdAndRemove(
-          doubtId,
-        ).populate('answers');
+        deletedDoubt = await this.DoubtModel.findByIdAndRemove(doubtId)
+          .populate('answers')
+          .lean();
         if (deletedDoubt) {
           return deletedDoubt;
         } else {

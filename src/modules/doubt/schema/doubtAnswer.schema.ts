@@ -1,12 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { Schema as SchemaType } from 'mongoose';
 
 export type DoubtAnswerDocument = DoubtAnswer & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class DoubtAnswer {
   @Prop({ required: true })
-  answered_by: string;
+  answered_by: SchemaType.Types.ObjectId;
 
   @Prop({ required: true })
   answer: string;
@@ -20,8 +21,6 @@ DoubtAnswerSchema.methods.toJSON = function () {
 
   delete doubtAnswerObject._id;
   delete doubtAnswerObject.__v;
-  delete doubtAnswerObject['createdAt'];
-  delete doubtAnswerObject['updatedAt'];
 
   return doubtAnswerObject;
 };
