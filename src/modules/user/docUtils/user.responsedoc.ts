@@ -45,8 +45,8 @@ export default class UserResponseBody {
 
   /**
    * The field to show the role
-   * @example "Student"
-   * @default "Student"
+   * @example "student"
+   * @default "student"
    */
   role: string;
 

@@ -16,22 +16,27 @@ export class PreauthMiddleware implements NestMiddleware {
         .auth()
         .verifyIdToken(token.replace('Bearer ', ''))
         .then(async (decodedToken) => {
-          const { email } = decodedToken;
+          const { email, uid } = decodedToken;
+
           const userExists = await this.userModel
             .findOne({ email: email })
             .lean();
+
           let role;
+
           if (userExists) {
             role = userExists.role || Role.STUDENT;
           } else {
             role = Role.STUDENT;
             console.log(role);
           }
+
           const user = {
-            email: decodedToken.email,
-            fId: decodedToken.uid,
+            email: email,
+            fId: uid,
             role: role,
           };
+
           req['user'] = user;
           next();
         })

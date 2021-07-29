@@ -14,8 +14,8 @@ import { MentorModule } from './modules/mentor/mentor.module';
 import { APP_GUARD } from '@nestjs/core';
 import * as dotenv from 'dotenv';
 import { PreauthMiddleware } from './middleware/preAuth.middleware';
-import { RolesGuard } from 'middleware/roles.guard';
-import { UserSchema } from 'modules/user/schema/user.schema';
+import { RolesGuard } from './middleware/roles.guard';
+import { UserSchema } from './modules/user/schema/user.schema';
 dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
 
 @Module({
