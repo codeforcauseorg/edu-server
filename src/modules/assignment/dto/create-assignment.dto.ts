@@ -1,14 +1,27 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsString, IsUrl } from 'class-validator';
 
 export class CreateAssignmentDTO {
+  /**
+   * The assignment link
+   * @example 'https://codeforcause.org/courses/assignments/1'
+   */
   @IsNotEmpty()
-  readonly name: string;
+  @IsUrl()
+  assignmentLink: string;
 
+  /**
+   * The assignment description
+   * @example 'In this assignment you will have to implement the knowledge of functional component to make this component in React'
+   */
   @IsNotEmpty()
-  readonly link: string;
+  @IsString()
+  assignmenDescription: string;
 
-  readonly submit_by: number;
-
+  /**
+   * The creator of the assignment
+   * @example 'John Doe'
+   */
   @IsNotEmpty()
-  readonly created_at: Date;
+  @IsString()
+  createdBy: string;
 }

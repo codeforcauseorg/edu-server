@@ -56,12 +56,6 @@ export class CreateCourseDto {
   readonly duration: string;
 
   /**
-   * The assignments of the course
-   * @example ['Create Api task', 'Update Api Task']
-   */
-  readonly assignments: string[];
-
-  /**
    * The start date of the course
    * @example '2020-02-05T06:35:22.000Z'
    */

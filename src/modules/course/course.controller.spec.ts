@@ -8,7 +8,6 @@ import { TagType } from './course-tag.enum';
 import { courseLevelType } from './courseLevel.enum';
 const mockCourse = {
   schedule: [],
-  assignments: [],
   mentor: [],
   active: false,
   name: 'devesh K',
@@ -115,7 +114,6 @@ describe('CourseController', () => {
         sharable_link: '88900xyz.com',
         start_date: new Date(),
         end_date: new Date(),
-        assignments: [],
         tags: [],
         courseDetails:
           'The course gives a hands on learning experience on Rest APIs and Javascript',
@@ -139,7 +137,6 @@ describe('CourseController', () => {
     it('should be updated', async () => {
       const id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
       const dto: UpdateCourseDTO = {
-        assignments: [],
         mentor: [],
         active: false,
         name: 'devesh K',
@@ -179,7 +176,6 @@ describe('CourseController', () => {
       const id = new mongoose.Schema.Types.ObjectId('18', 0, 'riep');
       const idFix = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
       const dto: UpdateCourseDTO = {
-        assignments: [],
         mentor: [],
         active: false,
         name: 'devesh K',

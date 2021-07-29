@@ -138,6 +138,10 @@ describe('CourseService', () => {
           provide: getModelToken('Review'),
           useValue: {},
         },
+        {
+          provide: getModelToken('Assignment'),
+          useValue: {},
+        },
       ],
     }).compile();
 
@@ -232,7 +236,6 @@ describe('CourseService', () => {
         coupons: 0,
         video_num: 0,
         duration: '11.5 hours',
-        assignments: [],
         start_date: new Date('2020-02-05T06:35:22.000Z'),
         end_date: new Date('2020-02-05T06:35:22.000Z'),
         sharable_link: 'https://java.com',

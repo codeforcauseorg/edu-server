@@ -1,3 +1,4 @@
+import { Assignment } from 'modules/assignment/schema/assignment.schema';
 import { TagType } from '../course-tag.enum';
 import { courseLevelType } from '../courseLevel.enum';
 import { ReviewType } from '../review.enum';
@@ -46,12 +47,6 @@ export default class CourseResponseBody {
    * @example '11 hours'
    */
   duration: string;
-
-  /**
-   * The assignments of the course
-   * @example ['Create Api task', 'Update Api Task']
-   */
-  assignments: string[];
 
   /**
    * The start date of the course
@@ -124,6 +119,12 @@ export default class CourseResponseBody {
    * @example 'https://codeforcause.org/courseTrailer'
    */
   courseTrailerUrl: string;
+
+  /**
+   * The assignments of the course
+   * @example 'https://codeforcause.org/assignments/1'
+   */
+  assignments: Assignment[];
 
   /**
    * The discounted price of the course

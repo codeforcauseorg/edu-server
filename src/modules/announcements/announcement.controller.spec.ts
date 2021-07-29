@@ -7,7 +7,7 @@ const mockAnnouncement = {
   id: '60c5eafba5940a4964d5ea96',
   title: ' New Course on react ',
   read: false,
-  created_by: ' John Doe ',
+  added_by: ' John Doe ',
   description:
     'The course gives a hands on learning experience on Rest APIs and Javascript',
 };
@@ -85,7 +85,7 @@ describe('AnnouncementController', () => {
       const dto: CreateAnnouncementDTO = {
         title: ' New Course on react ',
         read: false,
-        created_by: ' John Doe ',
+        added_by: ' John Doe ',
         description:
           'The course gives a hands on learning experience on Rest APIs and Javascript',
       };
@@ -99,7 +99,7 @@ describe('AnnouncementController', () => {
       const dto: UpdateAnnouncementDTO = {
         title: ' New Course on react ',
         read: false,
-        created_by: ' John Doe ',
+        added_by: ' John Doe ',
         description:
           'The course gives a hands on learning experience on Rest APIs and Javascript',
       };
@@ -119,7 +119,7 @@ describe('AnnouncementController', () => {
       const dto: UpdateAnnouncementDTO = {
         title: ' New Course on react ',
         read: false,
-        created_by: ' John Doe ',
+        added_by: ' John Doe ',
         description:
           'The course gives a hands on learning experience on Rest APIs and Javascript',
       };

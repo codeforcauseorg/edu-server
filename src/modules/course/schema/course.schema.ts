@@ -4,6 +4,7 @@ import { Schedule } from './schedule.schema';
 import { TagType } from '../course-tag.enum';
 import { Review } from './review.schema';
 import { courseLevelType } from '../courseLevel.enum';
+import { Assignment } from '../../assignment/schema/assignment.schema';
 
 export type CourseDocument = Course & Document;
 
@@ -39,9 +40,6 @@ export class Course {
   @Prop({ required: true })
   video_num: number;
 
-  @Prop()
-  assignments: string[]; //links to questions pdf
-
   @Prop({ default: 0 })
   no_of_enrollments: number;
 
@@ -69,6 +67,8 @@ export class Course {
   @Prop({ type: [{ type: SchemaTypes.Types.ObjectId, ref: 'Review' }] })
   reviews: Review[];
 
+  @Prop({ type: [{ type: SchemaTypes.Types.ObjectId, ref: 'Assignment' }] })
+  assignments: Assignment[];
   @Prop({ required: true })
   crossPrice: number;
 

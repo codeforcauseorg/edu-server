@@ -16,6 +16,7 @@ import { UpdateScheduleDto } from './dto/update-schedule.dto';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
 import { Review } from './schema/review.schema';
+import { Assignment } from 'modules/assignment/schema/assignment.schema';
 import { GetCourseFilterDto } from './dto/course-filter.dto';
 
 @Injectable()
@@ -24,6 +25,8 @@ export class CourseService {
     @InjectModel('Course') private readonly CourseModel: Model<Course>,
     @InjectModel('Schedule') private readonly ScheduleModel: Model<Schedule>,
     @InjectModel('Review') private readonly ReviewModel: Model<Review>,
+    @InjectModel('Assignment')
+    private readonly AssignmentModel: Model<Assignment>,
   ) {}
 
   // fetch all courses without populating
@@ -41,6 +44,7 @@ export class CourseService {
       return await this.CourseModel.find()
         .populate('schedule')
         .populate('reviews')
+        .populate('assignments')
         .exec();
     } catch (e) {
       throw new InternalServerErrorException(e);
@@ -93,6 +97,7 @@ export class CourseService {
       const Course = await this.CourseModel.findById(courseId)
         .populate('schedule')
         .populate('reviews')
+        .populate('assignments')
         .exec();
       if (Course) {
         return Course;

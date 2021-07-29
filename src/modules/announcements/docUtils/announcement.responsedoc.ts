@@ -21,5 +21,5 @@ export default class AnnouncementResponseBody {
    * Creator of the announcement
    * @example 'John Doe'
    */
-  created_by: string;
+  added_by: string;
 }

@@ -31,5 +31,5 @@ export class CreateAnnouncementDTO {
    */
   @IsNotEmpty()
   @IsString()
-  created_by: string;
+  added_by: string;
 }

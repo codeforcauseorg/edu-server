@@ -26,7 +26,7 @@ export class AnnouncementController {
   constructor(private announcementService: AnnouncementService) {}
 
   @Post()
-  @ApiOperation({ summary: 'add a Announcement' })
+  @ApiOperation({ summary: 'add an Announcement' })
   @ApiCreatedResponse(responsedoc.addAnnouncement)
   async addAnnouncement(@Body() CreateAnnouncementDTO: CreateAnnouncementDTO) {
     return await this.announcementService.addAnnouncement(
