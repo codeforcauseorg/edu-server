@@ -4,6 +4,7 @@ import { CreateAssignmentDTO } from './dto/create-assignment.dto'; //eslint-disa
 import {
   ApiCreatedResponse,
   ApiOkResponse,
+  ApiOperation,
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
@@ -17,10 +18,10 @@ import responsedoc from './docUtils/apidoc';
 export class AssignmentController {
   constructor(private assignmentService: AssignmentService) {}
 
-  // add an Assignment
   @Post('/:courseId')
   @ApiCreatedResponse(responsedoc.addAssignment)
   @ApiParam(courseId)
+  @ApiOperation({ summary: 'add an Assignment' })
   async addAssignment(
     @Param('courseId') courseId: Schema.Types.ObjectId,
     @Body() CreateAssignmentDTO: CreateAssignmentDTO,
@@ -31,9 +32,9 @@ export class AssignmentController {
     );
   }
 
-  // Delete an Assignment
   @Put('/:courseId/:assignmentId')
   @ApiParam(courseId)
+  @ApiOperation({ summary: 'update an Assignment' })
   @ApiOkResponse(responsedoc.updateAssignment)
   async updateAssignment(
     @Param('courseId') courseId: Schema.Types.ObjectId,
@@ -47,9 +48,9 @@ export class AssignmentController {
     );
   }
 
-  // Delete an Assignment
   @Delete('/:courseId/:assignmentId')
   @ApiParam(courseId)
+  @ApiOperation({ summary: 'delete an Assignment' })
   @ApiOkResponse(responsedoc.deleteAssignment)
   async deleteAssignment(
     @Param('courseId') courseId: Schema.Types.ObjectId,

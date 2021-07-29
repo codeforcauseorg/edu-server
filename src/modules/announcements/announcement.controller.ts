@@ -51,7 +51,6 @@ export class AnnouncementController {
     return await this.announcementService.getAnnouncement(announcementId);
   }
 
-  // update announcement by Id
   @Put('/:announcementId')
   @ApiParam(announcementId)
   @ApiOperation({ summary: 'update Announcement by Id' })
