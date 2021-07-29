@@ -167,6 +167,12 @@ export default class CourseResponseBody {
    * @example ["You will get to know about web technologies basics", "A good understanstanding of Html, css and JS", "You will learn about hooks and functional components"]
    */
   whatYouWillLearn: string[];
+
+  /**
+   * the certificate Url
+   * @example "https://codeforcause.org/certificate"
+   */
+  certificateUrl: string;
 }
 
 export class ScheduleResponseBody {
@@ -196,6 +202,13 @@ export class ScheduleResponseBody {
    */
 
   time: string;
+
+  /**
+   * The lecture Number/Index among all lectures in the schedule
+   * @example 8
+   */
+
+  lectureNumber: number;
 }
 
 export class ReviewResponseBody {

@@ -1,23 +1,19 @@
-import { Controller, Get, Inject, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
-import {
-  FirebaseAdminSDK,
-  FIREBASE_ADMIN_INJECT,
-} from '@tfarras/nestjs-firebase-admin';
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { RolesGuard } from './middleware/roles.guard';
+import { Roles } from './middleware/role.decorator';
+import { Role } from './roles/role.enum';
 
 @ApiBearerAuth()
 @Controller()
+@UseGuards(RolesGuard)
 export class AppController {
-  constructor(
-    private readonly appService: AppService,
-    @Inject(FIREBASE_ADMIN_INJECT) private readonly fireSDK: FirebaseAdminSDK,
-  ) {}
+  constructor(private readonly appService: AppService) {}
 
-  @Get()
-  @UseGuards(AuthGuard('firebase'))
-  getHello() {
-    return this.fireSDK.auth().listUsers();
+  @Get('/hello')
+  @Roles(Role.ADMIN)
+  getHey(@Req() request): string {
+    return 'Hello ' + request['user']?.email + request['user']?.role + '!';
   }
 }

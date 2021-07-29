@@ -13,6 +13,9 @@ export class Schedule {
 
   @Prop({ required: true })
   time: string;
+
+  @Prop({ required: true })
+  lectureNumber: number;
 }
 
 export const ScheduleSchema = SchemaFactory.createForClass(Schedule);

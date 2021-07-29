@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateScheduleDto {
   /**
@@ -24,4 +24,12 @@ export class CreateScheduleDto {
   @IsNotEmpty()
   @IsString()
   time: string;
+
+  /**
+   * The lecture Number/Index among all lectures in the schedule
+   * @example 8
+   */
+  @IsNotEmpty()
+  @IsNumber()
+  lectureNumber: number;
 }

@@ -8,11 +8,11 @@ import {
   Param,
 } from '@nestjs/common';
 import { AnnouncementService } from './announcement.service'; //eslint-disable-line 
-import { ApiOperation } from '@nestjs/swagger';
 import { CreateAnnouncementDTO } from './dto/create-announcement.dto'; //eslint-disable-line 
 import {
   ApiCreatedResponse,
   ApiOkResponse,
+  ApiOperation,
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
@@ -25,7 +25,6 @@ import { announcementId } from './docUtils/announcement.paramdocs';
 export class AnnouncementController {
   constructor(private announcementService: AnnouncementService) {}
 
-  // add an Announcement
   @Post()
   @ApiOperation({ summary: 'add an Announcement' })
   @ApiCreatedResponse(responsedoc.addAnnouncement)
@@ -35,7 +34,6 @@ export class AnnouncementController {
     );
   }
 
-  // Retrieve Announcements list
   @Get()
   @ApiOperation({ summary: 'Retrieve Announcements list' })
   @ApiOkResponse(responsedoc.getAllAnnouncement)
@@ -43,10 +41,11 @@ export class AnnouncementController {
     return await this.announcementService.getAllAnnouncement();
   }
 
-  // Fetch a particular Announcement using ID
   @Get('/:announcementId')
   @ApiParam(announcementId)
-  @ApiOperation({ summary: 'Fetch a particular Announcement using ID' })
+  @ApiOperation({
+    summary: 'Fetch a particular Announcement using ID',
+  })
   @ApiOkResponse(responsedoc.getAnnouncement)
   async getAnnouncement(@Param('announcementId') announcementId: string) {
     return await this.announcementService.getAnnouncement(announcementId);
@@ -55,7 +54,7 @@ export class AnnouncementController {
   // update announcement by Id
   @Put('/:announcementId')
   @ApiParam(announcementId)
-  @ApiOperation({ summary: 'update announcement by Id' })
+  @ApiOperation({ summary: 'update Announcement by Id' })
   @ApiOkResponse(responsedoc.updateAnnouncement)
   async updateAnnouncement(
     @Param('announcementId') announcementId: string,
@@ -67,10 +66,9 @@ export class AnnouncementController {
     );
   }
 
-  // Delete a Announcement
   @Delete('/:announcementId')
   @ApiParam(announcementId)
-  @ApiOperation({ summary: 'Delete a Announcement' })
+  @ApiOperation({ summary: 'Delete an Announcement by Id' })
   @ApiOkResponse(responsedoc.deleteAnnouncement)
   async deleteAnnouncement(@Param('announcementId') announcementId: string) {
     return await this.announcementService.deleteAnnouncement(announcementId);
