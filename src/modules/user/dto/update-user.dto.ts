@@ -41,12 +41,6 @@ export class UpdateUserDTO {
    */
   readonly score: number;
 
-  /**
-   * The field to show whether the students is Admin or not
-   * @example false
-   */
-  readonly isAdmin: boolean;
-
   @ApiProperty({ type: [Schema.Types.ObjectId] })
   @IsArray()
   readonly wishlist: Schema.Types.ObjectId[];

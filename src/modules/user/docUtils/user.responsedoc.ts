@@ -44,11 +44,11 @@ export default class UserResponseBody {
   score: number;
 
   /**
-   * The field to show whether the students is Admin or not
-   * @example false
-   * @default false
+   * The field to show the role
+   * @example "student"
+   * @default "student"
    */
-  isAdmin: boolean;
+  role: string;
 
   /**
    * The photo url
