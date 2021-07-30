@@ -22,6 +22,18 @@ import { DoubtAnswer } from './schema/doubtAnswer.schema';
 export class DoubtController {
   constructor(private doubtService: DoubtService) {}
 
+  // Retrieve doubts list
+  @Get()
+  async getAllDoubts() {
+    return await this.doubtService.getAllDoubts();
+  }
+
+  // Retrieve doubt by id
+  @Get('/get/:doubtId')
+  async getDoubtById(@Param('doubtId') doubtId: Schema.Types.ObjectId) {
+    return await this.doubtService.getDoubtById(doubtId);
+  }
+
   // get doubts for courses
   @Get('/get/:courseId')
   async getDoubtsForSelectedCourse(

@@ -22,6 +22,32 @@ export class DoubtService {
     private readonly DoubtAnswerModel: Model<DoubtAnswer>,
   ) {}
 
+  // fetch all Doubts
+  async getAllDoubts() {
+    try {
+      const doubts = await this.DoubtModel.find().populate('answers').lean();
+      return doubts;
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+  }
+
+  // Get a single Doubt
+  async getDoubtById(doubtId: Schema.Types.ObjectId) {
+    try {
+      const doubt = await this.DoubtModel.findById(doubtId)
+        .populate('answers')
+        .lean();
+
+      if (doubt) {
+        return doubt;
+      }
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+    throw new NotFoundException('Error');
+  }
+
   // add a new doubt
   async addNewDoubt(
     courseId: Schema.Types.ObjectId,
