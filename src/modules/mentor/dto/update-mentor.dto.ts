@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString, IsUrl } from 'class-validator';
 
 export class UpdateMentorDTO {
   /**
@@ -24,4 +24,12 @@ export class UpdateMentorDTO {
   @IsNotEmpty()
   @IsNumber()
   number_of_students: number;
+
+  /**
+   * photo url of the mentor
+   * @example 'https://g.gle/mypic.jpeg'
+   */
+  @IsNotEmpty()
+  @IsUrl()
+  mentorPhoto: string;
 }

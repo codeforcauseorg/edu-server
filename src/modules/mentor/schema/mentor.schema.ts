@@ -17,6 +17,9 @@ export class Mentor {
 
   @Prop({ default: 0 })
   number_of_students: number;
+
+  @Prop({ required: true })
+  mentorPhoto: string;
 }
 
 export const MentorSchema = SchemaFactory.createForClass(Mentor);
