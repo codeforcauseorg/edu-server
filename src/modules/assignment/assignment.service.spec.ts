@@ -12,6 +12,10 @@ describe('AssignmentService', () => {
           provide: getModelToken('Assignment'),
           useValue: {},
         },
+        {
+          provide: getModelToken('Course'),
+          useValue: {},
+        },
       ],
     }).compile();
     service = module.get<AssignmentService>(AssignmentService);

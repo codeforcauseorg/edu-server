@@ -17,13 +17,6 @@ export class UpdateUserDTO {
   readonly last_name: string;
 
   /**
-   * Email of the user
-   * @example 'john@example.com'
-   */
-  @IsNotEmpty()
-  readonly email: string;
-
-  /**
    * Phone number of the user
    * @example '9000500000'
    */
@@ -47,12 +40,6 @@ export class UpdateUserDTO {
    * @example 100
    */
   readonly score: number;
-
-  /**
-   * The field to show whether the students is Admin or not
-   * @example false
-   */
-  readonly isAdmin: boolean;
 
   @ApiProperty({ type: [Schema.Types.ObjectId] })
   @IsArray()

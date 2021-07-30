@@ -7,7 +7,7 @@ import * as mongoose from 'mongoose';
 const mockuser = {
   wishlist: [],
   enrolled_courses: [],
-  isAdmin: false,
+  role: 'Student',
   score: 0,
   _id: '6079f573062890a5e2cad207',
   first_name: 'John',
@@ -62,7 +62,6 @@ describe('UserController', () => {
   describe('User', () => {
     it('should be created', async () => {
       const dto: CreateUserDTO = {
-        isAdmin: false,
         first_name: 'John',
         last_name: 'Doe',
         email: 'john@example.com',
@@ -70,8 +69,10 @@ describe('UserController', () => {
         photoUrl: 'https://google.com/john',
         score: 0,
       };
-      await expect(controller.addUser(dto)).resolves.toEqual({
+      await expect(controller.addUser('x', dto)).resolves.toEqual({
         _id: expect.any(String),
+        '0': 'x',
+        role: 'Student',
         ...mockuser,
       });
     });
@@ -83,6 +84,7 @@ describe('UserController', () => {
     it('should be found be ID', async () => {
       const _id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
       await expect(controller.getUser(_id)).resolves.toEqual({
+        role: 'Student',
         ...mockuser,
         _id,
       });
@@ -92,6 +94,7 @@ describe('UserController', () => {
     it('should be found be with another ID', async () => {
       const _id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
       await expect(controller.getUser(_id)).resolves.toEqual({
+        role: 'Student',
         ...mockuser,
         _id,
       });
@@ -103,18 +106,19 @@ describe('UserController', () => {
       const dto: UpdateUserDTO = {
         first_name: 'New Name',
         last_name: 'New',
-        email: '',
         phone: '',
         wishlist: [],
         address: '',
         description: '',
         score: 1,
-        isAdmin: false,
         coverPhotoUrl: '',
         photoUrl: '',
       };
+      const email = 'john@example.com';
       await expect(controller.updateUser(_id, dto)).resolves.toEqual({
         _id,
+        email,
+        role: 'Student',
         ...dto,
         wishlist: [],
         enrolled_courses: [],

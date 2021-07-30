@@ -18,6 +18,7 @@ import { UpdateReviewDto } from './dto/update-review.dto';
 import { Review } from './schema/review.schema';
 import { Doubt } from '../doubt/schema/doubt.schema';
 import { DoubtAnswer } from '../doubt/schema/doubtAnswer.schema';
+import { Assignment } from 'modules/assignment/schema/assignment.schema';
 import { GetCourseFilterDto } from './dto/course-filter.dto';
 
 @Injectable()
@@ -29,6 +30,8 @@ export class CourseService {
     @InjectModel('Doubt') private readonly DoubtModel: Model<Doubt>,
     @InjectModel('DoubtAnswer')
     private readonly DoubtAnswerModel: Model<DoubtAnswer>,
+    @InjectModel('Assignment')
+    private readonly AssignmentModel: Model<Assignment>,
   ) {}
 
   // fetch all courses without populating
@@ -46,6 +49,7 @@ export class CourseService {
       return await this.CourseModel.find()
         .populate('schedule')
         .populate('reviews')
+        .populate('assignments')
         .exec();
     } catch (e) {
       throw new InternalServerErrorException(e);
@@ -59,7 +63,7 @@ export class CourseService {
         .select(
           'name courseShortDescription tags rating no_of_enrollments mentor crossPrice courseLevel courseThumbnail duration reviews video_num',
         )
-        .populate('reviewa')
+        .populate('reviews')
         .lean();
     } catch (e) {
       throw new InternalServerErrorException(e);
@@ -98,6 +102,7 @@ export class CourseService {
       const Course = await this.CourseModel.findById(courseId)
         .populate('schedule')
         .populate('reviews')
+        .populate('assignments')
         .exec();
       if (Course) {
         return Course;

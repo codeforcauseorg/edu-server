@@ -56,12 +56,6 @@ export class CreateCourseDto {
   readonly duration: string;
 
   /**
-   * The assignments of the course
-   * @example ['Create Api task', 'Update Api Task']
-   */
-  readonly assignments: string[];
-
-  /**
    * The start date of the course
    * @example '2020-02-05T06:35:22.000Z'
    */
@@ -97,7 +91,8 @@ export class CreateCourseDto {
    * @example WEB_DEV
    */
   @IsNotEmpty()
-  @IsEnum(TagType)
+  @IsArray()
+  @IsEnum(TagType, { each: true })
   tags: TagType[];
 
   /**
@@ -163,17 +158,27 @@ export class CreateCourseDto {
    * The prerequisites of the course
    * @example ["HTML","CSS"]
    */
+  @IsString()
   prerequisites: string[];
 
   /**
    * The skills of the course
    * @example ["HTML","CSS"]
    */
+  @IsString()
   skills: string[];
 
   /**
    * what will one learn from the course
    * @example ["You will get to know about web technologies basics", "A good understanstanding of Html, css and JS", "You will learn about hooks and functional components"]
    */
+  @IsString()
   whatYouWillLearn: string[];
+
+  /**
+   * the certificate Url
+   * @example "https://codeforcause.org/certificate"
+   */
+  @IsString()
+  certificateUrl: string;
 }

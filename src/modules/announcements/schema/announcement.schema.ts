@@ -15,7 +15,7 @@ export class Announcement {
   read: boolean;
 
   @Prop({ required: true })
-  created_by: string;
+  added_by: string;
 }
 
 export const AnnouncementSchema = SchemaFactory.createForClass(Announcement);

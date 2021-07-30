@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as SchemaTypes } from 'mongoose';
+import { Role } from '../../../roles/role.enum';
 
 export type UserDocument = User & Document;
 
@@ -32,11 +33,14 @@ export class User {
   @Prop({ default: 0 })
   score: number;
 
-  @Prop({ default: false })
-  isAdmin: boolean;
+  @Prop({ default: Role.STUDENT })
+  role: string;
 
   @Prop({ default: [] })
   wishlist: SchemaTypes.Types.ObjectId[];
+
+  @Prop()
+  fId: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

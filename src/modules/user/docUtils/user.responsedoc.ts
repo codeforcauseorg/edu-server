@@ -44,11 +44,11 @@ export default class UserResponseBody {
   score: number;
 
   /**
-   * The field to show whether the students is Admin or not
-   * @example false
-   * @default false
+   * The field to show the role
+   * @example "student"
+   * @default "student"
    */
-  isAdmin: boolean;
+  role: string;
 
   /**
    * The photo url
@@ -67,6 +67,12 @@ export default class UserResponseBody {
    * @example ["60ccf3037025096f45cb87ba", "60ccf3037025096f45cb87bq"]
    */
   wishlist: string[];
+
+  /**
+   * The Firebase Id
+   * @example "60ccf3037025096f45cb87ba"
+   */
+  fId: string;
 }
 
 interface video {
