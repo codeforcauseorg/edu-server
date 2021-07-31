@@ -44,122 +44,99 @@ export class UserController {
     return await this.userService.getAllUser();
   }
 
-  @Get('/enrolledCourses/:userId')
+  @Get('/enrolledCourses')
   @ApiParam(userId)
   @ApiOperation({
     summary: 'retreiving all enrolled courses of a particular user',
   })
   @ApiOkResponse(responsedoc.getEnrolledCourses)
-  async getEnrolledCourses(@Param('userId') userId: Schema.Types.ObjectId) {
-    return await this.userService.getEnrolledCourses(userId);
+  async getEnrolledCourses() {
+    return await this.userService.getEnrolledCourses();
   }
 
-  @Get('/enrolledCourses/:userId/:courseId')
+  @Get('/enrolledCourses/:courseId')
   @ApiParam(userId)
   @ApiOperation({
     summary: 'retreiving enrolled course by id of the course and of a user',
   })
   @ApiOkResponse(responsedoc.getEnrolledCoursesById)
   async getEnrolledCoursesById(
-    @Param('userId') userId: Schema.Types.ObjectId,
     @Param('courseId') courseId: Schema.Types.ObjectId,
   ) {
-    return await this.userService.getEnrolledCoursesById(userId, courseId);
+    return await this.userService.getEnrolledCoursesById(courseId);
   }
 
-  @Put('/enrolledCourses/:userId')
+  @Put('/enrolledCourses')
   @ApiParam(userId)
   @ApiOperation({ summary: 'user enrolling courses' })
   @ApiCreatedResponse(responsedoc.addEnrolledCourses)
-  async addEnrolledCourses(
-    @Param('userId') userId: Schema.Types.ObjectId,
-    @Body() createEnrolledDto: CreateEnrolledDTO,
-  ) {
-    return await this.userService.addCourse(userId, createEnrolledDto);
+  async addEnrolledCourses(@Body() createEnrolledDto: CreateEnrolledDTO) {
+    return await this.userService.addCourse(createEnrolledDto);
   }
 
-  @Put('/enrolledCourses/:userId/:courseId')
+  @Put('/enrolledCourses/:courseId')
   @ApiParam(userId)
   @ApiOperation({ summary: 'user updating enrolled courses' })
   @ApiCreatedResponse(responsedoc.updateEnrolledCourses)
   async updateEnrolledCourses(
-    @Param('userId') userId: Schema.Types.ObjectId,
     @Param('courseId') courseId: Schema.Types.ObjectId,
     @Body() updateEnrolledDto: UpdateEnrolledDTO,
   ) {
-    return await this.userService.updateCourse(
-      userId,
-      updateEnrolledDto,
-      courseId,
-    );
+    return await this.userService.updateCourse(updateEnrolledDto, courseId);
   }
 
-  @Get('/wishlist/:userId')
+  @Get('/wishlist')
   @ApiOperation({ summary: 'Get all wishlisted courses' })
   @ApiOkResponse(responsedoc.getWishlist)
-  async getWishlist(
-    @Param('userId') userId: Schema.Types.ObjectId,
-  ): Promise<any[]> {
-    return await this.userService.getWishList(userId);
+  async getWishlist(): Promise<any[]> {
+    return await this.userService.getWishList();
   }
 
-  @Put('/wishlist/:userId')
+  @Put('/wishlist')
   @ApiOperation({ summary: 'Add wishlisted courses' })
   @ApiParam(userId)
   @ApiCreatedResponse(responsedoc.addWishlist)
-  async addWishlist(
-    @Param('userId') userId: Schema.Types.ObjectId,
-    @Body() cId: Schema.Types.ObjectId,
-  ) {
-    return await this.userService.addWishlist(userId, cId);
+  async addWishlist(@Body() cId: Schema.Types.ObjectId) {
+    return await this.userService.addWishlist(cId);
   }
 
-  @Get('get/:userId')
+  @Get('get')
   @ApiParam(userId)
   @ApiOperation({ summary: 'Fetch a particular User using ID' })
   @ApiOkResponse({ type: UserResponseBody })
-  async getUser(@Param('userId') userId: Schema.Types.ObjectId) {
-    return await this.userService.findUserById(userId);
+  async getUser() {
+    return await this.userService.findUserById();
   }
 
-  @Put('/update/:userId')
+  @Put('/update')
   @ApiParam(userId)
-  @ApiOperation({ summary: 'update a User by Id' })
+  @ApiOperation({ summary: 'update a User ' })
   @ApiOkResponse({ type: UserResponseBody })
-  async updateUser(
-    @Param('userId') userId: Schema.Types.ObjectId,
-    @Body() UpdateUserDTO: UpdateUserDTO,
-  ) {
-    return await this.userService.updateUser(userId, UpdateUserDTO);
+  async updateUser(@Body() UpdateUserDTO: UpdateUserDTO) {
+    return await this.userService.updateUser(UpdateUserDTO);
   }
 
-  @Delete('/delete/:userId')
+  @Delete('/delete')
   @ApiParam(userId)
   @ApiOperation({ summary: 'Delete a User' })
   @ApiOkResponse({ type: UserResponseBody })
-  async deleteUser(@Param('userId') userId: Schema.Types.ObjectId) {
-    return await this.userService.deleteUser(userId);
+  async deleteUser() {
+    return await this.userService.deleteUser();
   }
 
-  @Delete('/enrolledCourses/:userId/:courseId')
+  @Delete('/enrolledCourses/:courseId')
   @ApiParam(userId)
   @ApiOperation({ summary: 'Delete enrolled course' })
   @ApiOkResponse({ type: [Schema.Types.ObjectId] })
-  async deleteEnrolled(
-    @Param('userId') userId: Schema.Types.ObjectId,
-    @Param('courseId') courseId: Schema.Types.ObjectId,
-  ) {
-    return await this.userService.deleteEnrolledCourse(userId, courseId);
+  async deleteEnrolled(@Param('courseId') courseId: Schema.Types.ObjectId) {
+    return await this.userService.deleteEnrolledCourse(courseId);
   }
 
-  @Delete('/wishlist/:userId/:wishId')
+  @Delete('/wishlist/:wishId')
   @ApiParam(userId)
   @ApiOperation({ summary: 'Delete a wishlist' })
   @ApiOkResponse({ type: [Schema.Types.ObjectId] })
-  async deleteWishList(
-    @Param('userId') userId: Schema.Types.ObjectId,
-    @Param('wishId') wishId: Schema.Types.ObjectId,
-  ) {
-    return await this.userService.deleteWishList(userId, wishId);
+  async deleteWishList(@Param('wishId') wishId: Schema.Types.ObjectId) {
+    return await this.userService.deleteWishList(wishId);
   }
 }

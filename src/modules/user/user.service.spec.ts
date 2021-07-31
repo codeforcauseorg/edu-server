@@ -3,7 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from './user.service';
 
 describe('UserService', () => {
-  let service: UserService;
+  let service: any;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -24,7 +24,7 @@ describe('UserService', () => {
       ],
     }).compile();
 
-    service = module.get<UserService>(UserService);
+    service = module.resolve<UserService>(UserService);
   });
 
   it('should be defined', () => {
