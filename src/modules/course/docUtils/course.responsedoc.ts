@@ -242,3 +242,29 @@ export class ReviewResponseBody {
    */
   stars: number;
 }
+
+export class LectureResponseBody {
+  /**
+   * lecture Id
+   * @example "6079cf782f9a2181bc7aadbf"
+   */
+  id: string;
+
+  /**
+   * name of the lecture
+   * @example "Play with pandas"
+   */
+  lectureName: string;
+
+  /**
+   * The description of the lecture in the schedule
+   * @example "The pandas library"
+   */
+  description: string;
+
+  /**
+   * The length of the video
+   * @example "5 minutes"
+   */
+  time: string;
+}

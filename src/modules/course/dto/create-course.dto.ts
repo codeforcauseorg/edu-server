@@ -158,21 +158,21 @@ export class CreateCourseDto {
    * The prerequisites of the course
    * @example ["HTML","CSS"]
    */
-  @IsString()
+  @IsArray()
   prerequisites: string[];
 
   /**
    * The skills of the course
    * @example ["HTML","CSS"]
    */
-  @IsString()
+  @IsArray()
   skills: string[];
 
   /**
    * what will one learn from the course
    * @example ["You will get to know about web technologies basics", "A good understanstanding of Html, css and JS", "You will learn about hooks and functional components"]
    */
-  @IsString()
+  @IsArray()
   whatYouWillLearn: string[];
 
   /**
