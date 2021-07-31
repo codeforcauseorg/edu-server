@@ -39,7 +39,6 @@ const mockCourse = (
   skills = [],
   whatYouWillLearn = [],
   certificateUrl = 'https://codeforcause.org/certificate',
-  lecture = [],
 ): Course => ({
   name,
   originalPrice,
@@ -69,7 +68,6 @@ const mockCourse = (
   skills,
   whatYouWillLearn,
   certificateUrl,
-  lecture,
 });
 
 const mockCourseDoc = (mock?: Partial<Course>, _id?): Partial<CourseDoc> => ({
@@ -106,7 +104,6 @@ const mockCourseDoc = (mock?: Partial<Course>, _id?): Partial<CourseDoc> => ({
   whatYouWillLearn: mock?.whatYouWillLearn || [],
   certificateUrl:
     mock?.certificateUrl || 'https://codeforcause.org/certificate',
-  lecture: mock?.lecture || [],
 });
 
 describe('CourseService', () => {
@@ -232,7 +229,6 @@ describe('CourseService', () => {
             skills: [],
             whatYouWillLearn: [],
             certificateUrl: 'https://codeforcause.org/certificate',
-            lecture: [],
           }),
         }),
       );
