@@ -29,7 +29,7 @@ export class Course {
   active: boolean;
 
   @Prop()
-  coupons: number;
+  couponCode: string;
 
   @Prop({ default: 0 })
   student_num: number;

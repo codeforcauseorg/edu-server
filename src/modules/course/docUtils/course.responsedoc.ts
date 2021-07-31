@@ -31,10 +31,10 @@ export default class CourseResponseBody {
   active: boolean;
 
   /**
-   * The number of coupons of the course
-   * @example 5
+   * The coupon code of the course
+   * @example 'CFC424'
    */
-  coupons: number;
+  couponCode: string;
 
   /**
    * The number of videos of the course

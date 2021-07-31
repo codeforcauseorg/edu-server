@@ -20,6 +20,12 @@ export class Mentor {
 
   @Prop({ required: true })
   mentorPhoto: string;
+
+  @Prop({ required: true })
+  aboutMe: string;
+
+  @Prop({ required: true })
+  techStack: string[];
 }
 
 export const MentorSchema = SchemaFactory.createForClass(Mentor);

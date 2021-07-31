@@ -34,4 +34,16 @@ export default class MentorResponseBody {
    * @example 'https://g.gle/mypic.jpeg'
    */
   mentorPhoto: string;
+
+  /**
+   * description of the mentor
+   * @example 'I am a developer'
+   */
+  aboutMe: string;
+
+  /**
+   * Tech Stack of the mentor
+   * @example ['MERN', 'Python']
+   */
+  techStack: string[];
 }
