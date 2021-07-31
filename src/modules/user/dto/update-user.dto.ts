@@ -14,6 +14,7 @@ export class UpdateUserDTO {
    * Last name of the user
    * @example 'Doe'
    */
+  @IsNotEmpty()
   readonly last_name: string;
 
   /**
