@@ -27,6 +27,12 @@ export class PreauthMiddleware implements NestMiddleware {
           if (userExists) {
             role = userExists.role || Role.STUDENT;
           } else {
+            const newUser = new this.userModel({
+              email,
+              fid: uid,
+              role: Role.STUDENT,
+            });
+            newUser.save();
             role = Role.STUDENT;
             console.log(role);
           }
