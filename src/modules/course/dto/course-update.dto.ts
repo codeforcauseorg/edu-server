@@ -189,4 +189,11 @@ export class UpdateCourseDTO {
    */
   @IsString()
   certificateUrl: string;
+
+  /**
+   * The boolean value to depict whether the course is upcoming or not
+   * @example false
+   */
+  @IsBoolean()
+  isUpcoming: boolean;
 }

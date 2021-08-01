@@ -34,6 +34,7 @@ const mockCourse = {
   skills: ['HTML', 'CSS'],
   whatYouWillLearn: ['HTML', 'CSS'],
   certificateUrl: 'https://codeforcause.org/certificate',
+  isUpcoming: false,
 };
 
 describe('CourseController', () => {
@@ -128,6 +129,7 @@ describe('CourseController', () => {
         skills: ['HTML', 'CSS'],
         whatYouWillLearn: ['HTML', 'CSS'],
         certificateUrl: 'https://codeforcause.org/certificate',
+        isUpcoming: false,
       };
       await expect(controller.addCourse(dto)).resolves.not.toBeNull();
       expect(service.addCourse).toHaveBeenCalledWith(dto);
@@ -162,6 +164,7 @@ describe('CourseController', () => {
         skills: ['HTML', 'CSS'],
         whatYouWillLearn: ['HTML', 'CSS'],
         certificateUrl: 'https://codeforcause.org/certificate',
+        isUpcoming: false,
       };
       await expect(controller.updateCourse(id, dto)).resolves.toEqual({
         id,
@@ -201,6 +204,7 @@ describe('CourseController', () => {
         skills: ['HTML', 'CSS'],
         whatYouWillLearn: ['HTML', 'CSS'],
         certificateUrl: 'https://codeforcause.org/certificate',
+        isUpcoming: false,
       };
       await expect(controller.updateCourse(id, dto)).resolves.not.toEqual({
         ...mockCourse,

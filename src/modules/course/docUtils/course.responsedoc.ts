@@ -173,6 +173,12 @@ export default class CourseResponseBody {
    * @example "https://codeforcause.org/certificate"
    */
   certificateUrl: string;
+
+  /**
+   * The boolean value to depict whether the course is upcoming or not
+   * @example false
+   */
+  isUpcoming: boolean;
 }
 
 export class ScheduleResponseBody {

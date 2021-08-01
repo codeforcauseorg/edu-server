@@ -92,6 +92,9 @@ export class Course {
 
   @Prop({ required: true })
   certificateUrl: string;
+
+  @Prop({ default: false })
+  isUpcoming: boolean;
 }
 
 export const CourseSchema = SchemaFactory.createForClass(Course);
