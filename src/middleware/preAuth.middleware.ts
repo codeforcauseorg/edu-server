@@ -5,7 +5,6 @@ import { NextFunction, Request, Response } from 'express';
 import admin from '../main';
 import { Model } from 'mongoose';
 import { Role } from '../roles/role.enum';
-import { PictureAsPdf } from '@material-ui/icons';
 
 @Injectable()
 export class PreauthMiddleware implements NestMiddleware {
