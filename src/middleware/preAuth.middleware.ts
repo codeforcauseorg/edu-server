@@ -5,6 +5,7 @@ import { NextFunction, Request, Response } from 'express';
 import admin from '../main';
 import { Model } from 'mongoose';
 import { Role } from '../roles/role.enum';
+import { PictureAsPdf } from '@material-ui/icons';
 
 @Injectable()
 export class PreauthMiddleware implements NestMiddleware {
@@ -16,7 +17,7 @@ export class PreauthMiddleware implements NestMiddleware {
         .auth()
         .verifyIdToken(token.replace('Bearer ', ''))
         .then(async (decodedToken) => {
-          const { email, uid } = decodedToken;
+          const { email, uid, picture } = decodedToken;
 
           const userExists = await this.userModel
             .findOne({ email: email })
@@ -31,6 +32,7 @@ export class PreauthMiddleware implements NestMiddleware {
               email,
               fid: uid,
               role: Role.STUDENT,
+              photoUrl: picture,
             });
             newUser.save();
             role = Role.STUDENT;
