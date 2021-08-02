@@ -44,9 +44,33 @@ dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(PreauthMiddleware).forRoutes({
-      path: '*',
-      method: RequestMethod.ALL,
-    });
+    consumer
+      .apply(PreauthMiddleware)
+      .exclude(
+        {
+          path: 'course/(.*)',
+          method: RequestMethod.GET,
+        },
+        {
+          path: 'Announcement/(.*)',
+          method: RequestMethod.GET,
+        },
+        {
+          path: 'Announcement',
+          method: RequestMethod.GET,
+        },
+        {
+          path: 'Mentor/(.*)',
+          method: RequestMethod.GET,
+        },
+        {
+          path: 'Mentor',
+          method: RequestMethod.GET,
+        },
+      )
+      .forRoutes({
+        path: '*',
+        method: RequestMethod.ALL,
+      });
   }
 }

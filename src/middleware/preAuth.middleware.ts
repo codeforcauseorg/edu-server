@@ -33,7 +33,7 @@ export class PreauthMiddleware implements NestMiddleware {
               role: Role.STUDENT,
               photoUrl: picture,
             });
-            newUser.save();
+            await newUser.save();
             role = Role.STUDENT;
             console.log(role);
           }
