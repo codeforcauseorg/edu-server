@@ -35,11 +35,11 @@ export class CreateCourseDto {
   readonly active: boolean;
 
   /**
-   * The number of coupons of the course
-   * @example 5
+   * The coupon code of the course
+   * @example 'CFC424'
    */
-  @IsNumber()
-  readonly coupons: number;
+  @IsString()
+  couponCode: string;
 
   /**
    * The number of videos of the course
@@ -158,21 +158,21 @@ export class CreateCourseDto {
    * The prerequisites of the course
    * @example ["HTML","CSS"]
    */
-  @IsString()
+  @IsArray()
   prerequisites: string[];
 
   /**
    * The skills of the course
    * @example ["HTML","CSS"]
    */
-  @IsString()
+  @IsArray()
   skills: string[];
 
   /**
    * what will one learn from the course
    * @example ["You will get to know about web technologies basics", "A good understanstanding of Html, css and JS", "You will learn about hooks and functional components"]
    */
-  @IsString()
+  @IsArray()
   whatYouWillLearn: string[];
 
   /**
@@ -181,4 +181,11 @@ export class CreateCourseDto {
    */
   @IsString()
   certificateUrl: string;
+
+  /**
+   * The boolean value to depict whether the course is upcoming or not
+   * @example false
+   */
+  @IsBoolean()
+  isUpcoming: boolean;
 }

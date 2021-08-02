@@ -14,7 +14,7 @@ const mockCourse = (
   name = 'DSA with JS',
   originalPrice = 100,
   active = false,
-  coupons = 0,
+  couponCode = 'CFC424',
   video_num = 0,
   duration = '11.5 hours',
   assignments = [],
@@ -39,11 +39,12 @@ const mockCourse = (
   skills = [],
   whatYouWillLearn = [],
   certificateUrl = 'https://codeforcause.org/certificate',
+  isUpcoming = false,
 ): Course => ({
   name,
   originalPrice,
   active,
-  coupons,
+  couponCode,
   video_num,
   duration,
   assignments,
@@ -68,13 +69,14 @@ const mockCourse = (
   skills,
   whatYouWillLearn,
   certificateUrl,
+  isUpcoming,
 });
 
 const mockCourseDoc = (mock?: Partial<Course>, _id?): Partial<CourseDoc> => ({
   name: mock?.name || 'DSA with JS',
   originalPrice: mock?.originalPrice || 100,
   active: mock?.active || false,
-  coupons: mock?.coupons || 0,
+  couponCode: mock?.couponCode || 'CFC424',
   video_num: mock?.video_num || 0,
   duration: mock?.duration || '11.5 hours',
   assignments: mock?.assignments || [],
@@ -104,6 +106,7 @@ const mockCourseDoc = (mock?: Partial<Course>, _id?): Partial<CourseDoc> => ({
   whatYouWillLearn: mock?.whatYouWillLearn || [],
   certificateUrl:
     mock?.certificateUrl || 'https://codeforcause.org/certificate',
+  isUpcoming: mock?.isUpcoming || false,
 });
 
 describe('CourseService', () => {
@@ -140,6 +143,10 @@ describe('CourseService', () => {
         },
         {
           provide: getModelToken('Assignment'),
+          useValue: {},
+        },
+        {
+          provide: getModelToken('Lecture'),
           useValue: {},
         },
       ],
@@ -198,7 +205,7 @@ describe('CourseService', () => {
             name: 'DSA with JAVA',
             originalPrice: 100,
             active: false,
-            coupons: 0,
+            couponCode: 'CFC424',
             video_num: 0,
             duration: '11.5 hours',
             assignments: [],
@@ -225,6 +232,7 @@ describe('CourseService', () => {
             skills: [],
             whatYouWillLearn: [],
             certificateUrl: 'https://codeforcause.org/certificate',
+            isUpcoming: false,
           }),
         }),
       );
@@ -233,7 +241,7 @@ describe('CourseService', () => {
         name: 'DSA with JAVA',
         originalPrice: 100,
         active: false,
-        coupons: 0,
+        couponCode: 'CFC424',
         video_num: 0,
         duration: '11.5 hours',
         start_date: new Date('2020-02-05T06:35:22.000Z'),
@@ -255,6 +263,7 @@ describe('CourseService', () => {
         skills: [],
         whatYouWillLearn: [],
         certificateUrl: 'https://codeforcause.org/certificate',
+        isUpcoming: false,
       };
       const updatedCourse = await service.editCourse(id, updateCoursedto);
       const _id = '6079f573062890a5e2cad207';

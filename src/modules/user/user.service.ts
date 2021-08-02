@@ -59,7 +59,8 @@ export class UserService {
       const { email, fId, role } = request['user'];
       const userExists = await this.userModel.findOne({ email: email }).lean();
       if (userExists) {
-        throw new ConflictException('User already exists');
+        console.log('User Already Exists');
+        return;
       }
       const userToBeCreated = { ...CreateUserDTO, email, fId, role };
       const newUser = await new this.userModel(userToBeCreated);

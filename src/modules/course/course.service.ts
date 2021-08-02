@@ -18,6 +18,9 @@ import { UpdateReviewDto } from './dto/update-review.dto';
 import { Review } from './schema/review.schema';
 import { Assignment } from 'modules/assignment/schema/assignment.schema';
 import { GetCourseFilterDto } from './dto/course-filter.dto';
+import { Lecture } from './schema/lecture.schema';
+import { CreateLectureDto } from './dto/create-lecture.dto';
+import { UpdateLectureDto } from './dto/update-lecture.dto';
 
 @Injectable()
 export class CourseService {
@@ -27,6 +30,7 @@ export class CourseService {
     @InjectModel('Review') private readonly ReviewModel: Model<Review>,
     @InjectModel('Assignment')
     private readonly AssignmentModel: Model<Assignment>,
+    @InjectModel('Lecture') private readonly LectureModel: Model<Lecture>,
   ) {}
 
   // fetch all courses without populating
@@ -91,13 +95,20 @@ export class CourseService {
     }
   }
 
-  // fetch selected course by id
+  // fetch selected course by id (schedule, reviews, assignments and lectures are populated)
   async findCourseById(courseId: Schema.Types.ObjectId): Promise<Course> {
     try {
       const Course = await this.CourseModel.findById(courseId)
-        .populate('schedule')
         .populate('reviews')
         .populate('assignments')
+        .populate({
+          path: 'schedule',
+          model: 'Schedule',
+          populate: {
+            path: 'lecture',
+            model: 'Lecture',
+          },
+        })
         .exec();
       if (Course) {
         return Course;
@@ -290,6 +301,87 @@ export class CourseService {
       } else {
         throw new NotFoundException(
           'The course id is invalid or the course no longer exists',
+        );
+      }
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+  }
+
+  // add a new Lecture
+  async addLecture(
+    scheduleId: Schema.Types.ObjectId,
+    createLectureDto: CreateLectureDto,
+  ) {
+    try {
+      const schedule = await this.ScheduleModel.findById(scheduleId);
+      if (schedule) {
+        const newLecture = await new this.LectureModel(createLectureDto).save();
+        schedule.lecture.push(newLecture);
+        await schedule.save();
+        return newLecture;
+      } else {
+        throw new NotFoundException(
+          'The schedule id is invalid or the schedule no longer exists',
+        );
+      }
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+  }
+
+  // edit the Lecture by Id
+  async updateLecture(
+    scheduleId: Schema.Types.ObjectId,
+    lectureId: Schema.Types.ObjectId,
+    updateLectureDto: UpdateLectureDto,
+  ) {
+    try {
+      const schedule = await this.ScheduleModel.findById(scheduleId);
+      if (schedule) {
+        let updatedSchedule = null;
+        updatedSchedule = await this.LectureModel.findByIdAndUpdate(
+          lectureId,
+          updateLectureDto,
+          { new: true },
+        );
+        if (updatedSchedule) {
+          return updatedSchedule;
+        } else {
+          throw new NotFoundException(
+            'The lectureId id is invalid or the lectureId no longer exists',
+          );
+        }
+      } else {
+        throw new NotFoundException(
+          'The schedule id is invalid or the schedule no longer exists',
+        );
+      }
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+  }
+
+  // Delete a Lecture by Id
+  async deleteLecture(
+    scheduleId: Schema.Types.ObjectId,
+    lectureId: Schema.Types.ObjectId,
+  ): Promise<any> {
+    try {
+      const schedule = await this.ScheduleModel.findById(scheduleId);
+      if (schedule) {
+        let deletedSchedule = null;
+        deletedSchedule = await this.LectureModel.findByIdAndRemove(lectureId);
+        if (deletedSchedule) {
+          return deletedSchedule;
+        } else {
+          throw new NotFoundException(
+            'The lectureId id is invalid or the lectureId no longer exists',
+          );
+        }
+      } else {
+        throw new NotFoundException(
+          'The schedule id is invalid or the schedule no longer exists',
         );
       }
     } catch (e) {

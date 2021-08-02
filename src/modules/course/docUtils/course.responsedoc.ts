@@ -31,10 +31,10 @@ export default class CourseResponseBody {
   active: boolean;
 
   /**
-   * The number of coupons of the course
-   * @example 5
+   * The coupon code of the course
+   * @example 'CFC424'
    */
-  coupons: number;
+  couponCode: string;
 
   /**
    * The number of videos of the course
@@ -173,6 +173,12 @@ export default class CourseResponseBody {
    * @example "https://codeforcause.org/certificate"
    */
   certificateUrl: string;
+
+  /**
+   * The boolean value to depict whether the course is upcoming or not
+   * @example false
+   */
+  isUpcoming: boolean;
 }
 
 export class ScheduleResponseBody {
@@ -241,4 +247,30 @@ export class ReviewResponseBody {
    * @example 5
    */
   stars: number;
+}
+
+export class LectureResponseBody {
+  /**
+   * lecture Id
+   * @example "6079cf782f9a2181bc7aadbf"
+   */
+  id: string;
+
+  /**
+   * name of the lecture
+   * @example "Play with pandas"
+   */
+  lectureName: string;
+
+  /**
+   * The description of the lecture in the schedule
+   * @example "The pandas library"
+   */
+  description: string;
+
+  /**
+   * The length of the video
+   * @example "5 minutes"
+   */
+  time: string;
 }

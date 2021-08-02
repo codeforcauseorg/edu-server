@@ -11,6 +11,8 @@ const mockMentor = {
   courses: [],
   number_of_students: 500,
   mentorPhoto: 'https://g.gle/mypic.jpeg',
+  aboutMe: 'I am a developer',
+  techStack: ['MERN', 'Python'],
 };
 
 describe('MentorController', () => {
@@ -86,6 +88,8 @@ describe('MentorController', () => {
         email: ' johnDoe@gmail.com ',
         number_of_students: 500,
         mentorPhoto: 'https://g.gle/mypic.jpeg',
+        aboutMe: 'I am a developer',
+        techStack: ['MERN', 'Python'],
       };
       await expect(controller.addMentor(dto)).resolves.not.toBeNull();
       expect(service.addMentor).toHaveBeenCalledWith(dto);
@@ -99,6 +103,8 @@ describe('MentorController', () => {
         email: ' johnDoe@gmail.com ',
         number_of_students: 500,
         mentorPhoto: 'https://g.gle/mypic.jpeg',
+        aboutMe: 'I am a developer',
+        techStack: ['MERN', 'Python'],
       };
       await expect(controller.updateMentor(id, dto)).resolves.toEqual([
         {
@@ -118,6 +124,8 @@ describe('MentorController', () => {
         email: ' johnDoe@gmail.com ',
         number_of_students: 500,
         mentorPhoto: 'https://g.gle/mypic.jpeg',
+        aboutMe: 'I am a developer',
+        techStack: ['MERN', 'Python'],
       };
       await expect(controller.updateMentor(id, dto)).resolves.not.toEqual({
         ...mockMentor,

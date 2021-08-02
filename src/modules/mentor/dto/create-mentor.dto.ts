@@ -1,4 +1,5 @@
 import {
+  IsArray,
   IsEmail,
   IsNotEmpty,
   IsNumber,
@@ -38,4 +39,20 @@ export class CreateMentorDTO {
   @IsNotEmpty()
   @IsUrl()
   mentorPhoto: string;
+
+  /**
+   * description of the mentor
+   * @example 'I am a developer'
+   */
+  @IsNotEmpty()
+  @IsString()
+  aboutMe: string;
+
+  /**
+   * Tech Stack of the mentor
+   * @example ['MERN', 'Python']
+   */
+  @IsNotEmpty()
+  @IsArray()
+  techStack: string[];
 }

@@ -23,9 +23,11 @@ import { CreateScheduleDto } from './dto/create-schedule.dto';
 import { UpdateScheduleDto } from './dto/update-schedule.dto';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
-import { courseId } from './docUtils/course.paramdocs';
+import { courseId, scheduleId } from './docUtils/course.paramdocs';
 import responsedoc from './docUtils/apidoc';
 import { GetCourseFilterDto } from './dto/course-filter.dto';
+import { CreateLectureDto } from './dto/create-lecture.dto';
+import { UpdateLectureDto } from './dto/update-lecture.dto';
 
 @ApiTags('Course')
 @Controller('course')
@@ -166,5 +168,43 @@ export class CourseController {
     @Param('reviewId') reviewId: Schema.Types.ObjectId,
   ) {
     return await this.courseService.deleteReview(courseId, reviewId);
+  }
+
+  @Post('/newLecture/:scheduleId')
+  @ApiParam(scheduleId)
+  @ApiOperation({ summary: 'Create a Lecture' })
+  @ApiCreatedResponse(responsedoc.addLecture)
+  async addLecture(
+    @Param('scheduleId') scheduleId: Schema.Types.ObjectId,
+    @Body() createReviewDto: CreateLectureDto,
+  ) {
+    return await this.courseService.addLecture(scheduleId, createReviewDto);
+  }
+
+  @Put('/updateLecture/:scheduleId/:lectureId')
+  @ApiParam(scheduleId)
+  @ApiOperation({ summary: 'update a Lecture by Id' })
+  @ApiOkResponse(responsedoc.updateLecture)
+  async updateLecture(
+    @Param('scheduleId') scheduleId: Schema.Types.ObjectId,
+    @Param('lectureId') lectureId: Schema.Types.ObjectId,
+    @Body() updateLectureDto: UpdateLectureDto,
+  ) {
+    return await this.courseService.updateLecture(
+      scheduleId,
+      lectureId,
+      updateLectureDto,
+    );
+  }
+
+  @Delete('/deleteLecture/:scheduleId/:lectureId')
+  @ApiParam(scheduleId)
+  @ApiOperation({ summary: 'Delete a Lecture by Id' })
+  @ApiOkResponse(responsedoc.deleteLecture)
+  async deleteLecture(
+    @Param('scheduleId') scheduleId: Schema.Types.ObjectId,
+    @Param('lectureId') lectureId: Schema.Types.ObjectId,
+  ) {
+    return await this.courseService.deleteLecture(scheduleId, lectureId);
   }
 }

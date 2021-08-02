@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsNumber, IsString, IsUrl } from 'class-validator';
+import {
+  IsArray,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  IsUrl,
+} from 'class-validator';
 
 export class UpdateMentorDTO {
   /**
@@ -32,4 +38,20 @@ export class UpdateMentorDTO {
   @IsNotEmpty()
   @IsUrl()
   mentorPhoto: string;
+
+  /**
+   * description of the mentor
+   * @example 'I am a developer'
+   */
+  @IsNotEmpty()
+  @IsString()
+  aboutMe: string;
+
+  /**
+   * Tech Stack of the mentor
+   * @example ['MERN', 'Python']
+   */
+  @IsNotEmpty()
+  @IsArray()
+  techStack: string[];
 }

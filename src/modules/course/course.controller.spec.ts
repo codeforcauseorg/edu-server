@@ -13,7 +13,7 @@ const mockCourse = {
   name: 'devesh K',
   originalPrice: 0,
   no_of_enrollments: 100,
-  coupons: 0,
+  couponCode: 'CFC424',
   video_num: 0,
   duration: '11.5 hours',
   start_date: '2020-02-05T06:35:22.000Z',
@@ -34,6 +34,7 @@ const mockCourse = {
   skills: ['HTML', 'CSS'],
   whatYouWillLearn: ['HTML', 'CSS'],
   certificateUrl: 'https://codeforcause.org/certificate',
+  isUpcoming: false,
 };
 
 describe('CourseController', () => {
@@ -108,7 +109,7 @@ describe('CourseController', () => {
         active: false,
         name: 'devesh K',
         originalPrice: 0,
-        coupons: 0,
+        couponCode: 'CFC424',
         video_num: 0,
         duration: '11.5 hours',
         sharable_link: '88900xyz.com',
@@ -128,6 +129,7 @@ describe('CourseController', () => {
         skills: ['HTML', 'CSS'],
         whatYouWillLearn: ['HTML', 'CSS'],
         certificateUrl: 'https://codeforcause.org/certificate',
+        isUpcoming: false,
       };
       await expect(controller.addCourse(dto)).resolves.not.toBeNull();
       expect(service.addCourse).toHaveBeenCalledWith(dto);
@@ -141,7 +143,7 @@ describe('CourseController', () => {
         active: false,
         name: 'devesh K',
         originalPrice: 0,
-        coupons: 0,
+        couponCode: 'CFC424',
         video_num: 0,
         duration: '11.5 hours',
         sharable_link: '88900xyz.com',
@@ -162,6 +164,7 @@ describe('CourseController', () => {
         skills: ['HTML', 'CSS'],
         whatYouWillLearn: ['HTML', 'CSS'],
         certificateUrl: 'https://codeforcause.org/certificate',
+        isUpcoming: false,
       };
       await expect(controller.updateCourse(id, dto)).resolves.toEqual({
         id,
@@ -180,7 +183,7 @@ describe('CourseController', () => {
         active: false,
         name: 'devesh K',
         originalPrice: 0,
-        coupons: 0,
+        couponCode: 'CFC424',
         video_num: 0,
         duration: '11.5 hours',
         sharable_link: '88900xyz.com',
@@ -201,6 +204,7 @@ describe('CourseController', () => {
         skills: ['HTML', 'CSS'],
         whatYouWillLearn: ['HTML', 'CSS'],
         certificateUrl: 'https://codeforcause.org/certificate',
+        isUpcoming: false,
       };
       await expect(controller.updateCourse(id, dto)).resolves.not.toEqual({
         ...mockCourse,

@@ -16,7 +16,7 @@ export class PreauthMiddleware implements NestMiddleware {
         .auth()
         .verifyIdToken(token.replace('Bearer ', ''))
         .then(async (decodedToken) => {
-          const { email, uid } = decodedToken;
+          const { email, uid, picture } = decodedToken;
 
           const userExists = await this.userModel
             .findOne({ email: email })
@@ -27,6 +27,13 @@ export class PreauthMiddleware implements NestMiddleware {
           if (userExists) {
             role = userExists.role || Role.STUDENT;
           } else {
+            const newUser = new this.userModel({
+              email,
+              fid: uid,
+              role: Role.STUDENT,
+              photoUrl: picture,
+            });
+            newUser.save();
             role = Role.STUDENT;
             console.log(role);
           }

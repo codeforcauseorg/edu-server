@@ -29,7 +29,7 @@ export class Course {
   active: boolean;
 
   @Prop()
-  coupons: number;
+  couponCode: string;
 
   @Prop({ default: 0 })
   student_num: number;
@@ -92,6 +92,9 @@ export class Course {
 
   @Prop({ required: true })
   certificateUrl: string;
+
+  @Prop({ default: false })
+  isUpcoming: boolean;
 }
 
 export const CourseSchema = SchemaFactory.createForClass(Course);
