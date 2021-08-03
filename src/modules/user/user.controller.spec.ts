@@ -3,13 +3,11 @@ import { UpdateUserDTO } from './dto/update-user.dto';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { CreateUserDTO } from './dto/create-user.dto';
-import * as mongoose from 'mongoose';
 const mockuser = {
   wishlist: [],
   enrolled_courses: [],
   role: 'Student',
   score: 0,
-  _id: '6079f573062890a5e2cad207',
   first_name: 'John',
   last_name: 'Doe',
   email: 'john@example.com',
@@ -28,9 +26,8 @@ describe('UserController', () => {
     findUserById: jest
       .fn()
       .mockImplementation((_id: string) => ({ ...mockuser, _id })),
-    updateUser: jest.fn().mockImplementation((uid, body) => ({
+    updateUser: jest.fn().mockImplementation((body) => ({
       ...mockuser,
-      _id: uid,
       ...body,
     })),
     addUser: jest.fn().mockImplementation((body) => ({ ...mockuser, ...body })),
@@ -64,13 +61,11 @@ describe('UserController', () => {
       const dto: CreateUserDTO = {
         first_name: 'John',
         last_name: 'Doe',
-        email: 'john@example.com',
         phone: '9909999099',
         photoUrl: 'https://google.com/john',
         score: 0,
       };
       await expect(controller.addUser('x', dto)).resolves.toEqual({
-        _id: expect.any(String),
         '0': 'x',
         role: 'Student',
         ...mockuser,
@@ -82,27 +77,25 @@ describe('UserController', () => {
     });
 
     it('should be found be ID', async () => {
-      const _id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
-      await expect(controller.getUser(_id)).resolves.toEqual({
+      // const _id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
+      await expect(controller.getUser()).resolves.toEqual({
         role: 'Student',
         ...mockuser,
-        _id,
       });
-      expect(service.findUserById).toHaveBeenCalledWith(_id);
+      expect(service.findUserById).toHaveBeenCalledWith();
     });
 
     it('should be found be with another ID', async () => {
-      const _id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
-      await expect(controller.getUser(_id)).resolves.toEqual({
+      // const _id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
+      await expect(controller.getUser()).resolves.toEqual({
         role: 'Student',
         ...mockuser,
-        _id,
       });
-      expect(service.findUserById).toHaveBeenCalledWith(_id);
+      expect(service.findUserById).toHaveBeenCalledWith();
     });
 
     it('should be updated', async () => {
-      const _id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
+      // const _id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
       const dto: UpdateUserDTO = {
         first_name: 'New Name',
         last_name: 'New',
@@ -115,8 +108,7 @@ describe('UserController', () => {
         photoUrl: '',
       };
       const email = 'john@example.com';
-      await expect(controller.updateUser(_id, dto)).resolves.toEqual({
-        _id,
+      await expect(controller.updateUser(dto)).resolves.toEqual({
         email,
         role: 'Student',
         ...dto,

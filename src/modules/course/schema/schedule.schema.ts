@@ -1,5 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { Lecture } from './lecture.schema';
+import { Schema as SchemaTypes } from 'mongoose';
 
 export type ScheduleDocument = Schedule & Document;
 
@@ -16,6 +18,9 @@ export class Schedule {
 
   @Prop({ required: true })
   lectureNumber: number;
+
+  @Prop({ type: [{ type: SchemaTypes.Types.ObjectId, ref: 'Review' }] })
+  lecture: Lecture[];
 }
 
 export const ScheduleSchema = SchemaFactory.createForClass(Schedule);

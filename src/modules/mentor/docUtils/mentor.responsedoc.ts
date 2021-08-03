@@ -28,4 +28,22 @@ export default class MentorResponseBody {
    * @example 500
    */
   number_of_students: number;
+
+  /**
+   * photo url of the mentor
+   * @example 'https://g.gle/mypic.jpeg'
+   */
+  mentorPhoto: string;
+
+  /**
+   * description of the mentor
+   * @example 'I am a developer'
+   */
+  aboutMe: string;
+
+  /**
+   * Tech Stack of the mentor
+   * @example ['MERN', 'Python']
+   */
+  techStack: string[];
 }

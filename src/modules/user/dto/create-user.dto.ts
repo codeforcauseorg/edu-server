@@ -12,20 +12,13 @@ export class CreateUserDTO {
    * Last name of the user
    * @example 'Doe'
    */
-  readonly last_name: string;
-
-  /**
-   * Email of the user
-   * @example 'john@example.com'
-   */
   @IsNotEmpty()
-  readonly email: string;
+  readonly last_name: string;
 
   /**
    * Phone number of the user
    * @example '9000500000'
    */
-  @IsNotEmpty()
   readonly phone: string;
 
   /**

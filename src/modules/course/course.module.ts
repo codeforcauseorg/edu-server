@@ -8,6 +8,7 @@ import { ReviewSchema } from './schema/review.schema';
 import { DoubtSchema } from '../doubt/schema/doubt.schema';
 import { DoubtAnswerSchema } from '../doubt/schema/doubtAnswer.schema';
 import { AssignmentSchema } from 'modules/assignment/schema/assignment.schema';
+import { LectureSchema } from './schema/lecture.schema';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { AssignmentSchema } from 'modules/assignment/schema/assignment.schema';
       { name: 'Doubt', schema: DoubtSchema },
       { name: 'DoubtAnswer', schema: DoubtAnswerSchema },
       { name: 'Assignment', schema: AssignmentSchema },
+      { name: 'Lecture', schema: LectureSchema },
     ]),
   ],
   controllers: [CourseController],

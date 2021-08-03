@@ -1,4 +1,11 @@
-import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsEmail,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  IsUrl,
+} from 'class-validator';
 
 export class CreateMentorDTO {
   /**
@@ -24,4 +31,28 @@ export class CreateMentorDTO {
   @IsNotEmpty()
   @IsNumber()
   number_of_students: number;
+
+  /**
+   * photo url of the mentor
+   * @example 'https://g.gle/mypic.jpeg'
+   */
+  @IsNotEmpty()
+  @IsUrl()
+  mentorPhoto: string;
+
+  /**
+   * description of the mentor
+   * @example 'I am a developer'
+   */
+  @IsNotEmpty()
+  @IsString()
+  aboutMe: string;
+
+  /**
+   * Tech Stack of the mentor
+   * @example ['MERN', 'Python']
+   */
+  @IsNotEmpty()
+  @IsArray()
+  techStack: string[];
 }
