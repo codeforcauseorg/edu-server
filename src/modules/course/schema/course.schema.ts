@@ -4,7 +4,7 @@ import { Schedule } from './schedule.schema';
 import { TagType } from '../course-tag.enum';
 import { Review } from './review.schema';
 import { courseLevelType } from '../courseLevel.enum';
-import { Doubt } from 'modules/doubt/schema/doubt.schema';
+import { Doubt } from '../../doubt/schema/doubt.schema';
 import { Assignment } from '../../assignment/schema/assignment.schema';
 
 export type CourseDocument = Course & Document;

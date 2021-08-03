@@ -7,7 +7,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Schema } from 'mongoose';
 import { CreateDoubtDto } from './dto/create-doubt.dto';
 import { DoubtDocument as Doubt } from './schema/doubt.schema';
-import { Course } from 'modules/course/schema/course.schema';
+import { Course } from '../course/schema/course.schema';
 import { UpdateDoubtDto } from './dto/update-doubt.dto';
 import { DoubtAnswer } from './schema/doubtAnswer.schema';
 import { UpdateDoubtAnswerDto } from './dto/update-doubtAnswer.dto';
@@ -45,7 +45,7 @@ export class DoubtService {
     } catch (e) {
       throw new InternalServerErrorException(e);
     }
-    throw new NotFoundException('Error');
+    throw new NotFoundException('Error, doubt not found');
   }
 
   // add a new doubt
