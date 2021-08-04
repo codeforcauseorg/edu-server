@@ -80,13 +80,6 @@ export class CreateCourseDto {
   readonly sharable_link: string;
 
   /**
-   * The Mentor of the course
-   * @example ['John Doe']
-   */
-  @IsArray()
-  mentor: [];
-
-  /**
    * The Tag associated with the course
    * @example WEB_DEV
    */
@@ -131,21 +124,21 @@ export class CreateCourseDto {
    * @example 120
    */
   @IsNumber()
-  crossPrice: number;
+  crossPrice?: number;
 
   /**
    * The short description of the course
    * @example 'Short description--'
    */
   @IsString()
-  courseShortDescription: string;
+  courseShortDescription?: string;
 
   /**
    * The long description of the course
    * @example 'Long description--'
    */
   @IsString()
-  courseLongDescription: string;
+  courseLongDescription?: string;
 
   /**
    * The rating of the course
@@ -173,14 +166,14 @@ export class CreateCourseDto {
    * @example ["You will get to know about web technologies basics", "A good understanstanding of Html, css and JS", "You will learn about hooks and functional components"]
    */
   @IsArray()
-  whatYouWillLearn: string[];
+  whatYouWillLearn?: string[];
 
   /**
    * the certificate Url
    * @example "https://codeforcause.org/certificate"
    */
   @IsString()
-  certificateUrl: string;
+  certificateUrl?: string;
 
   /**
    * The boolean value to depict whether the course is upcoming or not

@@ -67,12 +67,6 @@ export default class CourseResponseBody {
   sharable_link: string;
 
   /**
-   * The Mentor of the course
-   * @example ['John Doe']
-   */
-  mentor: string[];
-
-  /**
    * The schedule of the course
    * @example []
    */

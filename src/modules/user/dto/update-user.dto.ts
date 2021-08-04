@@ -7,34 +7,31 @@ export class UpdateUserDTO {
    * First name of the user
    * @example 'John'
    */
-  @IsNotEmpty()
-  readonly first_name: string;
+  readonly first_name?: string;
 
   /**
    * Last name of the user
    * @example 'Doe'
    */
-  @IsNotEmpty()
-  readonly last_name: string;
+  readonly last_name?: string;
 
   /**
    * Phone number of the user
    * @example '9000500000'
    */
-  @IsNotEmpty()
-  readonly phone: string;
+  readonly phone?: string;
 
   /**
    * Address of the user
    * @example 'Block C Amsterdam'
    */
-  readonly address: string;
+  readonly address?: string;
 
   /**
    * Description of the user
    * @example 'Aspiring Software Developer'
    */
-  readonly description: string;
+  readonly description?: string;
 
   /**
    * score of user
@@ -56,5 +53,5 @@ export class UpdateUserDTO {
    * The cover photo url
    * @example 'unsplash123.jpeg'
    */
-  coverPhotoUrl: string;
+  coverPhotoUrl?: string;
 }

@@ -35,9 +35,6 @@ export class Course {
   student_num: number;
 
   @Prop({ required: true })
-  mentor: string[];
-
-  @Prop({ required: true })
   video_num: number;
 
   @Prop({ default: 0 })
@@ -69,28 +66,29 @@ export class Course {
 
   @Prop({ type: [{ type: SchemaTypes.Types.ObjectId, ref: 'Assignment' }] })
   assignments: Assignment[];
+
   @Prop({ required: true })
   crossPrice: number;
 
-  @Prop({ required: true })
+  @Prop()
   courseShortDescription: string;
 
-  @Prop({ required: true })
+  @Prop()
   courseLongDescription: string;
 
-  @Prop({ required: true })
+  @Prop()
   rating: number;
 
-  @Prop({ required: true })
+  @Prop()
   prerequisites: string[];
 
-  @Prop({ required: true })
+  @Prop()
   skills: string[];
 
-  @Prop({ required: true })
+  @Prop()
   whatYouWillLearn: string[];
 
-  @Prop({ required: true })
+  @Prop()
   certificateUrl: string;
 
   @Prop({ default: false })

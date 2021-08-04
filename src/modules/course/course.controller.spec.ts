@@ -8,7 +8,6 @@ import { TagType } from './course-tag.enum';
 import { courseLevelType } from './courseLevel.enum';
 const mockCourse = {
   schedule: [],
-  mentor: [],
   active: false,
   name: 'devesh K',
   originalPrice: 0,
@@ -105,7 +104,6 @@ describe('CourseController', () => {
 
     it('should be created', async () => {
       const dto: CreateCourseDto = {
-        mentor: [],
         active: false,
         name: 'devesh K',
         originalPrice: 0,
@@ -139,7 +137,6 @@ describe('CourseController', () => {
     it('should be updated', async () => {
       const id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
       const dto: UpdateCourseDTO = {
-        mentor: [],
         active: false,
         name: 'devesh K',
         originalPrice: 0,
@@ -179,7 +176,6 @@ describe('CourseController', () => {
       const id = new mongoose.Schema.Types.ObjectId('18', 0, 'riep');
       const idFix = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
       const dto: UpdateCourseDTO = {
-        mentor: [],
         active: false,
         name: 'devesh K',
         originalPrice: 0,
