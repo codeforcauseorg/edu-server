@@ -52,6 +52,14 @@ export class AppModule {
           method: RequestMethod.GET,
         },
         {
+          path: 'Doubt/(.*)',
+          method: RequestMethod.GET,
+        },
+        {
+          path: 'Doubt',
+          method: RequestMethod.GET,
+        },
+        {
           path: 'Announcement/(.*)',
           method: RequestMethod.GET,
         },
