@@ -5,6 +5,8 @@ import { CourseController } from './course.controller';
 import { CourseService } from './course.service';
 import { ScheduleSchema } from './schema/schedule.schema';
 import { ReviewSchema } from './schema/review.schema';
+import { DoubtSchema } from '../doubt/schema/doubt.schema';
+import { DoubtAnswerSchema } from '../doubt/schema/doubtAnswer.schema';
 import { AssignmentSchema } from 'modules/assignment/schema/assignment.schema';
 import { LectureSchema } from './schema/lecture.schema';
 
@@ -14,6 +16,8 @@ import { LectureSchema } from './schema/lecture.schema';
       { name: 'Course', schema: CourseSchema },
       { name: 'Schedule', schema: ScheduleSchema },
       { name: 'Review', schema: ReviewSchema },
+      { name: 'Doubt', schema: DoubtSchema },
+      { name: 'DoubtAnswer', schema: DoubtAnswerSchema },
       { name: 'Assignment', schema: AssignmentSchema },
       { name: 'Lecture', schema: LectureSchema },
     ]),

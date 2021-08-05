@@ -11,7 +11,7 @@ import {
 import { Schema } from 'mongoose';
 import { TagType } from '../doubt-tag.enum';
 
-export class CreateDoubtDto {
+export class UpdateDoubtDto {
   @IsNotEmpty()
   @IsArray()
   @IsEnum(TagType, { each: true })
