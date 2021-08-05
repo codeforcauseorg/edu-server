@@ -34,7 +34,7 @@ const deleteDoubtAnswer: ApiResponseOptions = {
 };
 
 const getDoubtsForSelectedCourse: ApiResponseOptions = {
-  description: 'Get doubts for coursesr',
+  description: 'Get doubts for courses',
   type: [DoubtResponseBody],
 };
 
@@ -44,7 +44,7 @@ const getAllDoubts: ApiResponseOptions = {
 };
 
 const getDoubtById: ApiResponseOptions = {
-  description: 'Delete a doubt Answer',
+  description: 'get doubt by Id',
   type: DoubtResponseBody,
 };
 
