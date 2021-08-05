@@ -104,7 +104,6 @@ export class DoubtController {
     );
   }
 
-  // edit the doubtAnswer by Id
   @Put('/updateDoubtAnswer/:doubtId/:doubtAnswerId')
   @ApiParam(doubtAnswerId)
   @ApiParam(doubtId)
@@ -122,7 +121,6 @@ export class DoubtController {
     );
   }
 
-  // Delete a doubtAnswerby Id
   @Delete('/deleteDoubtAnswer/:doubtId/:doubtAnswerId')
   @ApiParam(doubtAnswerId)
   @ApiParam(doubtId)
