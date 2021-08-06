@@ -16,13 +16,13 @@ export class Course {
   @Prop({ required: true })
   originalPrice: number;
 
-  @Prop({ required: true, default: Date.now })
+  @Prop({ default: Date.now })
   start_date: Date;
 
   @Prop()
   end_date: Date;
 
-  @Prop({ required: true })
+  @Prop({})
   duration: string;
 
   @Prop({ default: false })
@@ -34,7 +34,10 @@ export class Course {
   @Prop({ default: 0 })
   student_num: number;
 
-  @Prop({ required: true })
+  @Prop({})
+  mentor: string[];
+
+  @Prop({})
   video_num: number;
 
   @Prop({ default: 0 })
@@ -58,7 +61,7 @@ export class Course {
   @Prop({ required: true })
   courseThumbnail: string;
 
-  @Prop({ required: true })
+  @Prop({})
   courseTrailerUrl: string;
 
   @Prop({ type: [{ type: SchemaTypes.Types.ObjectId, ref: 'Review' }] })

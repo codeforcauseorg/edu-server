@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsNotEmpty } from 'class-validator';
+import { IsArray } from 'class-validator';
 import { Schema } from 'mongoose';
 
 export class UpdateUserDTO {
@@ -41,7 +41,7 @@ export class UpdateUserDTO {
 
   @ApiProperty({ type: [Schema.Types.ObjectId] })
   @IsArray()
-  readonly wishlist: Schema.Types.ObjectId[];
+  readonly wishlist?: Schema.Types.ObjectId[];
 
   /**
    * The photo url

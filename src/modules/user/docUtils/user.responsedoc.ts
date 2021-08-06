@@ -69,6 +69,12 @@ export default class UserResponseBody {
   wishlist: string[];
 
   /**
+   * The Courses added to Cart
+   * @example ["60ccf3037025096f45cb87ba", "60ccf3037025096f45cb87bq"]
+   */
+  cartList: string[];
+
+  /**
    * The Firebase Id
    * @example "60ccf3037025096f45cb87ba"
    */

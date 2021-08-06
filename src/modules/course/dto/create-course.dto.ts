@@ -80,6 +80,13 @@ export class CreateCourseDto {
   readonly sharable_link: string;
 
   /**
+   * The Mentor of the course
+   * @example ['John Doe']
+   */
+  @IsArray()
+  mentor?: string[];
+
+  /**
    * The Tag associated with the course
    * @example WEB_DEV
    */
