@@ -44,9 +44,8 @@ export class CreateMentorDTO {
    * description of the mentor
    * @example 'I am a developer'
    */
-  @IsNotEmpty()
   @IsString()
-  aboutMe: string;
+  aboutMe?: string;
 
   /**
    * Tech Stack of the mentor

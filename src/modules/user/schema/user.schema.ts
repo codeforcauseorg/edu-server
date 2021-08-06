@@ -39,6 +39,9 @@ export class User {
   @Prop({ default: [] })
   wishlist: SchemaTypes.Types.ObjectId[];
 
+  @Prop({ default: [] })
+  cartList: SchemaTypes.Types.ObjectId[];
+
   @Prop()
   fId: string;
 }

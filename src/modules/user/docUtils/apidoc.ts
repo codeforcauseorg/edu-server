@@ -49,6 +49,16 @@ const deleteWishList: ApiResponseOptions = {
   type: UserResponseBody,
 };
 
+const addCartList: ApiResponseOptions = {
+  description: 'Add Course to cartList',
+  type: UserResponseBody,
+};
+
+const deleteCartList: ApiResponseOptions = {
+  description: 'Delete course from cartList',
+  type: UserResponseBody,
+};
+
 const responses = {
   addUser,
   getAllUser,
@@ -59,6 +69,8 @@ const responses = {
   getWishlist,
   addWishlist,
   deleteWishList,
+  addCartList,
+  deleteCartList,
 };
 
 export default responses;

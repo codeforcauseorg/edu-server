@@ -93,6 +93,13 @@ export class UserController {
     return await this.userService.addWishlist(cId);
   }
 
+  @Put('/cartList')
+  @ApiOperation({ summary: 'Add courses to cartList' })
+  @ApiCreatedResponse(responsedoc.addCartList)
+  async addcartList(@Body() cId: Schema.Types.ObjectId) {
+    return await this.userService.addCartList(cId);
+  }
+
   @Get('get')
   @ApiOperation({ summary: 'Fetch a particular User using ID' })
   @ApiOkResponse({ type: UserResponseBody })
@@ -126,5 +133,12 @@ export class UserController {
   @ApiOkResponse({ type: [Schema.Types.ObjectId] })
   async deleteWishList(@Param('wishId') wishId: Schema.Types.ObjectId) {
     return await this.userService.deleteWishList(wishId);
+  }
+
+  @Delete('/cartList/:cartId')
+  @ApiOperation({ summary: 'Delete a course from cartlist' })
+  @ApiOkResponse({ type: [Schema.Types.ObjectId] })
+  async deleteCartList(@Param('cartId') cartId: Schema.Types.ObjectId) {
+    return await this.userService.deleteCardList(cartId);
   }
 }

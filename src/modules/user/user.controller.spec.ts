@@ -5,6 +5,7 @@ import { UserService } from './user.service';
 import { CreateUserDTO } from './dto/create-user.dto';
 const mockuser = {
   wishlist: [],
+  cartList: [],
   enrolled_courses: [],
   role: 'Student',
   score: 0,
@@ -112,6 +113,7 @@ describe('UserController', () => {
         email,
         role: 'Student',
         ...dto,
+        cartList: [],
         wishlist: [],
         enrolled_courses: [],
         created_at: '2021-03-27T14:05:28.000Z',

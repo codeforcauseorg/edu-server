@@ -227,6 +227,55 @@ export class UserService {
     }
   }
 
+  // adds a course to Cart
+  async addCartList(cId: Schema.Types.ObjectId) {
+    try {
+      const user = await this.userModel.findOne({
+        email: this.request['user']['email'],
+      });
+
+      if (user) {
+        const doesCartListExists = await this.courseModel.exists({
+          _id: cId['cId'],
+        });
+        if (doesCartListExists) {
+          const doesUserExistInCartList = user.cartList.includes(cId['cId']);
+          if (!doesUserExistInCartList) {
+            user.cartList.push(cId['cId']);
+            await user.save();
+            return user;
+          } else {
+            throw new ConflictException('Course Already Exists In Cart');
+          }
+        } else {
+          throw new NotFoundException("Course doesn't exist");
+        }
+      } else {
+        throw new NotFoundException('User Not Found');
+      }
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+  }
+
+  // Delete a course from cart of user
+  async deleteCardList(cartId: Schema.Types.ObjectId): Promise<any> {
+    try {
+      const user = await this.userModel.findOne({
+        email: this.request['user']['email'],
+      });
+      if (user) {
+        user.cartList = user.cartList.filter((cartList) => cartList != cartId);
+        await user.save();
+        return user;
+      } else {
+        throw new NotFoundException('User not found');
+      }
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+  }
+
   // update Enrolle Course
   async updateCourse(
     updateEnrolledDto: UpdateEnrolledDTO,
