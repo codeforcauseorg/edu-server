@@ -84,8 +84,7 @@ export class UpdateCourseDTO {
    * @example ['John Doe']
    */
   @IsArray()
-  @IsOptional()
-  mentor: string[];
+  mentor?: string[];
 
   /**
    * The number of enrollments of the course
@@ -139,35 +138,35 @@ export class UpdateCourseDTO {
    * @example 120
    */
   @IsNumber()
-  crossPrice: number;
+  crossPrice?: number;
 
   /**
    * The short description of the course
    * @example 'Short description--'
    */
   @IsString()
-  courseShortDescription: string;
+  courseShortDescription?: string;
 
   /**
    * The long description of the course
    * @example 'Long description--'
    */
   @IsString()
-  courseLongDescription: string;
+  courseLongDescription?: string;
 
   /**
    * The rating of the course
    * @example 5
    */
   @IsNumber()
-  rating: number;
+  rating?: number;
 
   /**
    * The prerequisites of the course
    * @example ["HTML","CSS"]
    */
   @IsArray()
-  prerequisites: string[];
+  prerequisites?: string[];
 
   /**
    * The skills of the course
@@ -181,14 +180,14 @@ export class UpdateCourseDTO {
    * @example ["You will get to know about web technologies basics", "A good understanstanding of Html, css and JS", "You will learn about hooks and functional components"]
    */
   @IsArray()
-  whatYouWillLearn: string[];
+  whatYouWillLearn?: string[];
 
   /**
    * the certificate Url
    * @example "https://codeforcause.org/certificate"
    */
   @IsString()
-  certificateUrl: string;
+  certificateUrl?: string;
 
   /**
    * The boolean value to depict whether the course is upcoming or not

@@ -94,8 +94,15 @@ export class UserController {
     return await this.userService.addWishlist(cId);
   }
 
+  @Put('/cartList')
+  @ApiOperation({ summary: 'Add courses to cartList' })
+  @ApiCreatedResponse(responsedoc.addCartList)
+  async addcartList(@Body() cId: Schema.Types.ObjectId) {
+    return await this.userService.addCartList(cId);
+  }
+
   @Get('/get')
-  @ApiOperation({ summary: 'Fetch a particular User using ID' })
+  @ApiOperation({ summary: 'Fetch a particular User using Email ID' })
   @ApiOkResponse({ type: UserResponseBody })
   async getuserByEmail(@Query() email) {
     return await this.userService.findUserByEmail(email);
@@ -129,10 +136,18 @@ export class UserController {
     return await this.userService.deleteWishList(wishId);
   }
 
+<<<<<<< HEAD
   @Get("/users")
   @ApiOperation({ summary: 'Retreive user list' })
   @ApiOkResponse(responsedoc.getAllUser)
   async getAllUser() {
     return await this.userService.getAllUser();
+=======
+  @Delete('/cartList/:cartId')
+  @ApiOperation({ summary: 'Delete a course from cartlist' })
+  @ApiOkResponse({ type: [Schema.Types.ObjectId] })
+  async deleteCartList(@Param('cartId') cartId: Schema.Types.ObjectId) {
+    return await this.userService.deleteCardList(cartId);
+>>>>>>> 37fa7e057ad5e3e1e179646467a44ec8393268a2
   }
 }

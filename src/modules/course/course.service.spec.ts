@@ -31,6 +31,7 @@ const mockCourse = (
   student_num = 2,
   schedule = [],
   reviews = [],
+  doubts = [],
   crossPrice = 120,
   courseShortDescription = 'Short description--',
   courseLongDescription = 'Long description--',
@@ -61,6 +62,7 @@ const mockCourse = (
   student_num,
   schedule,
   reviews,
+  doubts,
   crossPrice,
   courseShortDescription,
   courseLongDescription,
@@ -97,6 +99,7 @@ const mockCourseDoc = (mock?: Partial<Course>, _id?): Partial<CourseDoc> => ({
   student_num: mock?.student_num || 2,
   schedule: mock?.schedule || [],
   reviews: mock?.reviews || [],
+  doubts: mock?.doubts || [],
   crossPrice: mock?.crossPrice || 120,
   courseShortDescription: mock?.courseShortDescription || 'Short description--',
   courseLongDescription: mock?.courseLongDescription || 'Long description--',
@@ -139,6 +142,14 @@ describe('CourseService', () => {
         },
         {
           provide: getModelToken('Review'),
+          useValue: {},
+        },
+        {
+          provide: getModelToken('Doubt'),
+          useValue: {},
+        },
+        {
+          provide: getModelToken('DoubtAnswer'),
           useValue: {},
         },
         {
@@ -223,6 +234,7 @@ describe('CourseService', () => {
             student_num: 2,
             schedule: [],
             reviews: [],
+            doubts: [],
             _id: '6079f573062890a5e2cad207',
             crossPrice: 120,
             courseShortDescription: 'Short description--',
