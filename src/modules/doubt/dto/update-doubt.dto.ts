@@ -12,26 +12,46 @@ import { Schema } from 'mongoose';
 import { TagType } from '../doubt-tag.enum';
 
 export class UpdateDoubtDto {
+  /**
+   * The tags associated with the doubt
+   * @example ["Web development"]
+   */
   @IsNotEmpty()
   @IsArray()
   @IsEnum(TagType, { each: true })
-  tags: TagType[];
+  tags?: TagType[];
 
+  /**
+   * The name of the person who asked the doubt
+   * @example '60ccf3037025096f45cb87bf'
+   */
   @IsNotEmpty()
   @IsMongoId()
   @IsNotEmpty()
   @ApiProperty({ type: Schema.Types.ObjectId })
   asked_by: Schema.Types.ObjectId;
 
+  /**
+   * The question/doubt
+   * @example "Why do we use memoization over tabulation ?"
+   */
   @IsString()
   @IsNotEmpty()
   question: string;
 
+  /**
+   * Whether the metor's assistance is needed or not for the doubt
+   * @example true
+   */
   @IsBoolean()
   @IsOptional()
   @IsNotEmpty()
-  request_mentor: boolean;
+  request_mentor?: boolean;
 
+  /**
+   * Whether the doubt was resolved or not
+   * @example true
+   */
   @IsBoolean()
   @IsOptional()
   @IsNotEmpty()

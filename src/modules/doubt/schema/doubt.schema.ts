@@ -8,7 +8,7 @@ export type DoubtDocument = Doubt & Document;
 
 @Schema({ timestamps: true })
 export class Doubt {
-  @Prop({ required: true })
+  @Prop()
   tags: TagType[];
 
   @Prop({ required: true })
@@ -23,7 +23,7 @@ export class Doubt {
   @Prop({ default: false })
   is_resolved: boolean;
 
-  @Prop({ required: true })
+  @Prop()
   request_mentor: boolean;
 }
 

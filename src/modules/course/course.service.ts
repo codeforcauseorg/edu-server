@@ -65,7 +65,7 @@ export class CourseService {
     try {
       return await this.CourseModel.find()
         .select(
-          'name courseShortDescription tags rating no_of_enrollments mentor crossPrice courseLevel courseThumbnail duration reviews video_num',
+          'name courseShortDescription tags rating no_of_enrollments mentor crossPrice courseLevel courseThumbnail duration reviews video_num isUpcoming',
         )
         .populate('reviews')
         .lean();
