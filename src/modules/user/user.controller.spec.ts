@@ -24,7 +24,7 @@ describe('UserController', () => {
 
   const mockUservalue = {
     getAllUser: jest.fn().mockResolvedValue([mockuser]),
-    findUserById: jest
+    getMe: jest
       .fn()
       .mockImplementation((_id: string) => ({ ...mockuser, _id })),
     updateUser: jest.fn().mockImplementation((body) => ({
@@ -79,20 +79,20 @@ describe('UserController', () => {
 
     it('should be found be ID', async () => {
       // const _id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
-      await expect(controller.getUser()).resolves.toEqual({
+      await expect(controller.getMe()).resolves.toEqual({
         role: 'Student',
         ...mockuser,
       });
-      expect(service.findUserById).toHaveBeenCalledWith();
+      expect(service.getMe).toHaveBeenCalledWith();
     });
 
     it('should be found be with another ID', async () => {
       // const _id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
-      await expect(controller.getUser()).resolves.toEqual({
+      await expect(controller.getMe()).resolves.toEqual({
         role: 'Student',
         ...mockuser,
       });
-      expect(service.findUserById).toHaveBeenCalledWith();
+      expect(service.getMe).toHaveBeenCalledWith();
     });
 
     it('should be updated', async () => {
