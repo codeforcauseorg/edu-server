@@ -25,7 +25,7 @@ export class UserService {
     @InjectModel('Course') private readonly courseModel: Model<Course>,
     @InjectModel('Enrolled') private readonly enrolledModel: Model<Enrolled>,
     @Inject(REQUEST) private readonly request: Request,
-  ) {}
+  ) { }
 
   // fetch all Users
   async getAllUser(): Promise<User[]> {
@@ -38,7 +38,23 @@ export class UserService {
   }
 
   // Get a single User
-  async findUserById(): Promise<User> {
+  async findUserByEmail(query): Promise<User> {
+    try {
+      const { email } = query;
+      const user = await this.userModel.findOne({ email });
+
+      if (user) {
+        return user;
+      } else {
+        throw new NotFoundException(`user with email ${email} not Found`);
+      }
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+  }
+
+  // Get a single User
+  async getMe(): Promise<User> {
     try {
       const user = await this.userModel.findOne({
         email: this.request['user']['email'],
@@ -46,11 +62,12 @@ export class UserService {
 
       if (user) {
         return user;
+      } else {
+        throw new NotFoundException("Your email doesn't Exist in database");
       }
     } catch (e) {
       throw new InternalServerErrorException(e);
     }
-    throw new NotFoundException('Error');
   }
 
   // post a single User
@@ -59,8 +76,7 @@ export class UserService {
       const { email, fId, role } = request['user'];
       const userExists = await this.userModel.findOne({ email: email }).lean();
       if (userExists) {
-        console.log('User Already Exists');
-        return;
+        throw new ConflictException(`User with email ${email} already exists`);
       }
       const userToBeCreated = { ...CreateUserDTO, email, fId, role };
       const newUser = await new this.userModel(userToBeCreated);
@@ -88,13 +104,15 @@ export class UserService {
   }
 
   // Delete a User
-  async deleteUser(): Promise<any> {
-    let deletedUser;
-    const filter = { email: this.request['user']['email'] };
+  async deleteUser(query: any): Promise<any> {
     try {
-      deletedUser = await this.userModel.findOneAndDelete(filter);
-      return deletedUser;
-      // console.log(deletedUser);
+      const deletedUser = await this.userModel.findOneAndDelete(query);
+      if (deletedUser) {
+        return deletedUser;
+      }
+      else {
+        throw new NotFoundException("User not Found or query not correct!")
+      }
     } catch (e) {
       throw new InternalServerErrorException(e);
     }
@@ -167,11 +185,11 @@ export class UserService {
   }
 
   // gets all wishlisted courses
-  async getWishList(): Promise<Schema.Types.ObjectId[]> {
+  async getWishList(): Promise<any> {
     try {
       const userWishList = await this.userModel.findOne({
         email: this.request['user']['email'],
-      });
+      }).lean();
       return userWishList.wishlist;
     } catch (e) {
       throw new InternalServerErrorException(e);

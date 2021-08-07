@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Query,
   Post,
   Put,
   Req,
@@ -26,7 +27,7 @@ import responsedoc from './docUtils/apidoc';
 @ApiTags('User')
 @Controller('user')
 export class UserController {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
 
   @Post()
   @ApiOperation({ summary: 'Create a User' })
@@ -35,11 +36,11 @@ export class UserController {
     return await this.userService.addUser(request, CreateUserDTO);
   }
 
-  @Get()
-  @ApiOperation({ summary: 'Retreive user list' })
-  @ApiOkResponse(responsedoc.getAllUser)
-  async getAllUser() {
-    return await this.userService.getAllUser();
+  @Get('/me')
+  @ApiOperation({ summary: 'Get the Logged in user Details' })
+  @ApiOkResponse({ type: UserResponseBody })
+  async getMe() {
+    return await this.userService.getMe();
   }
 
   @Get('/enrolledCourses')
@@ -82,7 +83,7 @@ export class UserController {
   @Get('/wishlist')
   @ApiOperation({ summary: 'Get all wishlisted courses' })
   @ApiOkResponse(responsedoc.getWishlist)
-  async getWishlist(): Promise<any[]> {
+  async getWishlist(): Promise<Object[]> {
     return await this.userService.getWishList();
   }
 
@@ -93,11 +94,11 @@ export class UserController {
     return await this.userService.addWishlist(cId);
   }
 
-  @Get('get')
+  @Get('/get')
   @ApiOperation({ summary: 'Fetch a particular User using ID' })
   @ApiOkResponse({ type: UserResponseBody })
-  async getUser() {
-    return await this.userService.findUserById();
+  async getuserByEmail(@Query() email) {
+    return await this.userService.findUserByEmail(email);
   }
 
   @Put('/update')
@@ -110,8 +111,8 @@ export class UserController {
   @Delete('/delete')
   @ApiOperation({ summary: 'Delete a User' })
   @ApiOkResponse({ type: UserResponseBody })
-  async deleteUser() {
-    return await this.userService.deleteUser();
+  async deleteUser(@Query() query) {
+    return await this.userService.deleteUser(query);
   }
 
   @Delete('/enrolledCourses/:courseId')
@@ -126,5 +127,12 @@ export class UserController {
   @ApiOkResponse({ type: [Schema.Types.ObjectId] })
   async deleteWishList(@Param('wishId') wishId: Schema.Types.ObjectId) {
     return await this.userService.deleteWishList(wishId);
+  }
+
+  @Get("/users")
+  @ApiOperation({ summary: 'Retreive user list' })
+  @ApiOkResponse(responsedoc.getAllUser)
+  async getAllUser() {
+    return await this.userService.getAllUser();
   }
 }
