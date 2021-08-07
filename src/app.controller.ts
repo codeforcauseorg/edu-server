@@ -12,7 +12,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get('/hello')
-  @Roles(Role.ADMIN)
+  @Roles(Role.STUDENT)
   getHey(@Req() request): string {
     return 'Hello ' + request['user']?.email + request['user']?.role + '!';
   }

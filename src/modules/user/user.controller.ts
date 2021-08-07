@@ -27,7 +27,7 @@ import responsedoc from './docUtils/apidoc';
 @ApiTags('User')
 @Controller('user')
 export class UserController {
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a User' })
@@ -83,7 +83,7 @@ export class UserController {
   @Get('/wishlist')
   @ApiOperation({ summary: 'Get all wishlisted courses' })
   @ApiOkResponse(responsedoc.getWishlist)
-  async getWishlist(): Promise<Object[]> {
+  async getWishlist(): Promise<any[]> {
     return await this.userService.getWishList();
   }
 
@@ -108,8 +108,7 @@ export class UserController {
     return await this.userService.findUserByEmail(email);
   }
 
-
-  @Get("/users")
+  @Get('/users')
   @ApiOperation({ summary: 'Retreive user list' })
   @ApiOkResponse(responsedoc.getAllUser)
   async getAllUser() {

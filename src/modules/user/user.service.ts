@@ -25,7 +25,7 @@ export class UserService {
     @InjectModel('Course') private readonly courseModel: Model<Course>,
     @InjectModel('Enrolled') private readonly enrolledModel: Model<Enrolled>,
     @Inject(REQUEST) private readonly request: Request,
-  ) { }
+  ) {}
 
   // fetch all Users
   async getAllUser(): Promise<User[]> {
@@ -109,9 +109,8 @@ export class UserService {
       const deletedUser = await this.userModel.findOneAndDelete(query);
       if (deletedUser) {
         return deletedUser;
-      }
-      else {
-        throw new NotFoundException("User not Found or query not correct!")
+      } else {
+        throw new NotFoundException('User not Found or query not correct!');
       }
     } catch (e) {
       throw new InternalServerErrorException(e);
@@ -187,9 +186,11 @@ export class UserService {
   // gets all wishlisted courses
   async getWishList(): Promise<any> {
     try {
-      const userWishList = await this.userModel.findOne({
-        email: this.request['user']['email'],
-      }).lean();
+      const userWishList = await this.userModel
+        .findOne({
+          email: this.request['user']['email'],
+        })
+        .lean();
       return userWishList.wishlist;
     } catch (e) {
       throw new InternalServerErrorException(e);
