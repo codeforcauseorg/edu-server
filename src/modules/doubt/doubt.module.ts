@@ -3,7 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { DoubtSchema } from './schema/doubt.schema';
 import { DoubtController } from './doubt.controller';
 import { DoubtService } from './doubt.service';
-import { CourseSchema } from 'modules/course/schema/course.schema';
+import { CourseSchema } from '../course/schema/course.schema';
 import { DoubtAnswerSchema } from './schema/doubtAnswer.schema';
 
 @Module({

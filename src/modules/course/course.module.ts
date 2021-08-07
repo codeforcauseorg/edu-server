@@ -7,7 +7,7 @@ import { ScheduleSchema } from './schema/schedule.schema';
 import { ReviewSchema } from './schema/review.schema';
 import { DoubtSchema } from '../doubt/schema/doubt.schema';
 import { DoubtAnswerSchema } from '../doubt/schema/doubtAnswer.schema';
-import { AssignmentSchema } from 'modules/assignment/schema/assignment.schema';
+import { AssignmentSchema } from '../assignment/schema/assignment.schema';
 import { LectureSchema } from './schema/lecture.schema';
 
 @Module({
