@@ -8,7 +8,7 @@ import { Role } from '../roles/role.enum';
 
 @Injectable()
 export class PreauthMiddleware implements NestMiddleware {
-  constructor(@InjectModel('User') private readonly userModel: Model<User>) {}
+  constructor(@InjectModel('User') private readonly userModel: Model<User>) { }
   use(req: Request, res: Response, next: NextFunction) {
     const token = req.headers.authorization;
     if (token && token != null && token != '' && token.length > 0) {
@@ -48,20 +48,25 @@ export class PreauthMiddleware implements NestMiddleware {
           next();
         })
         .catch((error) => {
-          console.error(error);
-          this.accessDenied(req.url, res);
+          if (error.errorInfo.code == 'auth/id-token-expired') {
+            this.accessDenied(req.url, res, undefined, error.errorInfo);
+          }
+          else {
+            this.accessDenied(req.url, res, error.errorInfo.message, error.errorInfo);
+          }
         });
     } else {
       throw new ConflictException('Access Denied as Token does not exist');
     }
   }
 
-  private accessDenied(url: string, res: Response) {
+  private accessDenied(url: string, res: Response, message: string, others?: Object) {
     res.status(403).json({
       statusCode: 403,
       timestamp: new Date().toISOString(),
       path: url,
-      message: 'Access Denied',
+      message: message ? message : 'Access Denied',
+      ...others
     });
   }
 }
