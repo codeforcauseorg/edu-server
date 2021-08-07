@@ -108,6 +108,14 @@ export class UserController {
     return await this.userService.findUserByEmail(email);
   }
 
+
+  @Get("/users")
+  @ApiOperation({ summary: 'Retreive user list' })
+  @ApiOkResponse(responsedoc.getAllUser)
+  async getAllUser() {
+    return await this.userService.getAllUser();
+  }
+
   @Put('/update')
   @ApiOperation({ summary: 'update a User ' })
   @ApiOkResponse({ type: UserResponseBody })
@@ -136,18 +144,10 @@ export class UserController {
     return await this.userService.deleteWishList(wishId);
   }
 
-<<<<<<< HEAD
-  @Get("/users")
-  @ApiOperation({ summary: 'Retreive user list' })
-  @ApiOkResponse(responsedoc.getAllUser)
-  async getAllUser() {
-    return await this.userService.getAllUser();
-=======
   @Delete('/cartList/:cartId')
   @ApiOperation({ summary: 'Delete a course from cartlist' })
   @ApiOkResponse({ type: [Schema.Types.ObjectId] })
   async deleteCartList(@Param('cartId') cartId: Schema.Types.ObjectId) {
     return await this.userService.deleteCardList(cartId);
->>>>>>> 37fa7e057ad5e3e1e179646467a44ec8393268a2
   }
 }
