@@ -207,4 +207,15 @@ export class CourseController {
   ) {
     return await this.courseService.deleteLecture(scheduleId, lectureId);
   }
+
+  @Post('/mentor/:courseId/:mentorId')
+  @ApiOperation({ summary: 'Add a mentor to course' })
+  @ApiCreatedResponse(responsedoc.addMentorToCourse)
+  @ApiParam(courseId)
+  async addMentorToCourse(
+    @Param('courseId') courseId: Schema.Types.ObjectId,
+    @Param('mentorId') mentorId: Schema.Types.ObjectId,
+  ) {
+    return await this.courseService.addMentorToCourse(courseId, mentorId);
+  }
 }

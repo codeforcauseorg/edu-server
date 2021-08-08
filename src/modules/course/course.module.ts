@@ -9,6 +9,7 @@ import { DoubtSchema } from '../doubt/schema/doubt.schema';
 import { DoubtAnswerSchema } from '../doubt/schema/doubtAnswer.schema';
 import { AssignmentSchema } from '../assignment/schema/assignment.schema';
 import { LectureSchema } from './schema/lecture.schema';
+import { MentorSchema } from 'modules/mentor/schema/mentor.schema';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { LectureSchema } from './schema/lecture.schema';
       { name: 'DoubtAnswer', schema: DoubtAnswerSchema },
       { name: 'Assignment', schema: AssignmentSchema },
       { name: 'Lecture', schema: LectureSchema },
+      { name: 'Mentor', schema: MentorSchema },
     ]),
   ],
   controllers: [CourseController],

@@ -79,6 +79,11 @@ const deleteLecture: ApiResponseOptions = {
   type: LectureResponseBody,
 };
 
+const addMentorToCourse: ApiResponseOptions = {
+  description: 'Add mentor to the course',
+  type: CourseResponseBody,
+};
+
 const responses = {
   getAllCourses,
   getSelectedCourses,
@@ -95,6 +100,7 @@ const responses = {
   addLecture,
   updateLecture,
   deleteLecture,
+  addMentorToCourse,
 };
 
 export default responses;
