@@ -6,6 +6,7 @@ import { Review } from './review.schema';
 import { courseLevelType } from '../courseLevel.enum';
 import { Doubt } from '../../doubt/schema/doubt.schema';
 import { Assignment } from '../../assignment/schema/assignment.schema';
+import { Mentor } from 'modules/mentor/schema/mentor.schema';
 
 export type CourseDocument = Course & Document;
 
@@ -35,8 +36,8 @@ export class Course {
   @Prop({ default: 0 })
   student_num: number;
 
-  @Prop({})
-  mentor: string[];
+  @Prop({ type: [{ type: SchemaTypes.Types.ObjectId, ref: 'Mentor' }] })
+  mentor: Mentor[];
 
   @Prop({})
   video_num: number;

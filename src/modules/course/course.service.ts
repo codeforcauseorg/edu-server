@@ -23,6 +23,7 @@ import { GetCourseFilterDto } from './dto/course-filter.dto';
 import { Lecture } from './schema/lecture.schema';
 import { CreateLectureDto } from './dto/create-lecture.dto';
 import { UpdateLectureDto } from './dto/update-lecture.dto';
+import { Mentor } from 'modules/mentor/schema/mentor.schema';
 
 @Injectable()
 export class CourseService {
@@ -36,6 +37,7 @@ export class CourseService {
     @InjectModel('Assignment')
     private readonly AssignmentModel: Model<Assignment>,
     @InjectModel('Lecture') private readonly LectureModel: Model<Lecture>,
+    @InjectModel('Mentor') private readonly mentorModel: Model<Mentor>,
   ) {}
 
   // fetch all courses without populating
@@ -68,6 +70,7 @@ export class CourseService {
           'name courseShortDescription tags rating no_of_enrollments mentor crossPrice courseLevel courseThumbnail duration reviews video_num isUpcoming',
         )
         .populate('reviews')
+        .populate('mentor')
         .lean();
     } catch (e) {
       throw new InternalServerErrorException(e);
@@ -106,6 +109,7 @@ export class CourseService {
       const Course = await this.CourseModel.findById(courseId)
         .populate('reviews')
         .populate('assignments')
+        .populate('mentor')
         .populate({
           path: 'schedule',
           model: 'Schedule',
@@ -395,6 +399,34 @@ export class CourseService {
       } else {
         throw new NotFoundException(
           'The schedule id is invalid or the schedule no longer exists',
+        );
+      }
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+  }
+
+  // add mentor to course
+  async addMentorToCourse(
+    courseId: Schema.Types.ObjectId,
+    mentorId: Schema.Types.ObjectId,
+  ): Promise<any> {
+    try {
+      const course = await this.CourseModel.findById(courseId);
+      if (course) {
+        const mentor = await this.mentorModel.findById(mentorId);
+        if (mentor) {
+          course.mentor.push(mentor);
+          await course.save();
+          return course;
+        } else {
+          throw new NotFoundException(
+            'The mentor id is invalid or the mentor no longer exists',
+          );
+        }
+      } else {
+        throw new NotFoundException(
+          'The course id is invalid or the course no longer exists',
         );
       }
     } catch (e) {

@@ -80,13 +80,6 @@ export class UpdateCourseDTO {
   readonly sharable_link: string;
 
   /**
-   * The Mentor of the course
-   * @example ['John Doe']
-   */
-  @IsArray()
-  mentor?: string[];
-
-  /**
    * The number of enrollments of the course
    * @example 100001
    */

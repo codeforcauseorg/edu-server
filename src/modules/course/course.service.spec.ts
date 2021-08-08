@@ -21,7 +21,7 @@ const mockCourse = (
   start_date = new Date('2020-02-05T06:35:22.000Z'),
   end_date = new Date('2020-02-05T06:35:22.000Z'),
   sharable_link = 'https://88900xyz.com',
-  mentor = ['6079f573062890a5e2cad200'],
+  mentor = [],
   tags = [TagType.WEB_DEV],
   courseDetails = 'The course gives a hands on learning experience on Rest APIs and Javascript',
   courseLevel = courseLevelType.BEGINNER,
@@ -160,6 +160,10 @@ describe('CourseService', () => {
           provide: getModelToken('Lecture'),
           useValue: {},
         },
+        {
+          provide: getModelToken('Mentor'),
+          useValue: {},
+        },
       ],
     }).compile();
 
@@ -181,9 +185,7 @@ describe('CourseService', () => {
 
   describe('Testing courseservice after mock', () => {
     const _id = '60bca010d17d463dd09baf9b';
-    const courseDocArray = [
-      mockCourseDoc({ mentor: ['6079f573062890a5e2cad200'] }, _id),
-    ];
+    const courseDocArray = [mockCourseDoc({}, _id)];
 
     // Test for testing the service for returning all courses
     it('should return all courses', async () => {
@@ -259,7 +261,6 @@ describe('CourseService', () => {
         start_date: new Date('2020-02-05T06:35:22.000Z'),
         end_date: new Date('2020-02-05T06:35:22.000Z'),
         sharable_link: 'https://java.com',
-        mentor: [],
         tags: [TagType.WEB_DEV],
         courseDetails:
           'The course gives a hands on learning experience on Rest APIs and Javascript',
