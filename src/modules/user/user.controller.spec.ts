@@ -24,9 +24,7 @@ describe('UserController', () => {
 
   const mockUservalue = {
     getAllUser: jest.fn().mockResolvedValue([mockuser]),
-    getMe: jest
-      .fn()
-      .mockImplementation((_id: string) => ({ ...mockuser, _id })),
+    getMe: jest.fn().mockResolvedValue(mockuser),
     updateUser: jest.fn().mockImplementation((body) => ({
       ...mockuser,
       ...body,

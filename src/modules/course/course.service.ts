@@ -114,6 +114,14 @@ export class CourseService {
             model: 'Lecture',
           },
         })
+        .populate({
+          path: 'doubts',
+          model: 'Doubt',
+          populate: {
+            path: 'answers',
+            model: 'DoubtAnswer',
+          },
+        })
         .exec();
       if (Course) {
         return Course;
