@@ -25,6 +25,9 @@ describe('UserController', () => {
   const mockUservalue = {
     getAllUser: jest.fn().mockResolvedValue([mockuser]),
     getMe: jest.fn().mockResolvedValue(mockuser),
+    findUserByEmail: jest
+      .fn()
+      .mockImplementation((email) => ({ ...mockuser, email })),
     updateUser: jest.fn().mockImplementation((body) => ({
       ...mockuser,
       ...body,
@@ -75,7 +78,7 @@ describe('UserController', () => {
       await expect(controller.getAllUser()).resolves.toEqual([mockuser]);
     });
 
-    it('should be found be ID', async () => {
+    it('should be found', async () => {
       // const _id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
       await expect(controller.getMe()).resolves.toEqual({
         role: 'Student',
@@ -84,13 +87,32 @@ describe('UserController', () => {
       expect(service.getMe).toHaveBeenCalledWith();
     });
 
-    it('should be found be with another ID', async () => {
+    it('should be found', async () => {
       // const _id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
       await expect(controller.getMe()).resolves.toEqual({
         role: 'Student',
         ...mockuser,
       });
       expect(service.getMe).toHaveBeenCalledWith();
+    });
+
+    it('should be found by email ID', async () => {
+      const email = 'john@example.com';
+      await expect(controller.getuserByEmail(email)).resolves.toEqual({
+        role: 'Student',
+        ...mockuser,
+      });
+      expect(service.findUserByEmail).toHaveBeenCalledWith(email);
+    });
+
+    it('should not be found be with another email ID', async () => {
+      // const email = 'john@example.com';
+      const emailOther = 'cfc@gmail.com';
+      await expect(controller.getuserByEmail(emailOther)).resolves.not.toEqual({
+        role: 'Student',
+        ...mockuser,
+      });
+      expect(service.findUserByEmail).toHaveBeenCalledWith(emailOther);
     });
 
     it('should be updated', async () => {
