@@ -246,6 +246,20 @@ export class UserService {
     }
   }
 
+  // gets all courses on cartList
+  async getCartList(): Promise<any> {
+    try {
+      const userCartList = await this.userModel
+        .findOne({
+          email: this.request['user']['email'],
+        })
+        .lean();
+      return userCartList.cartList;
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+  }
+
   // adds a course to Cart
   async addCartList(cId: Schema.Types.ObjectId) {
     try {
@@ -295,7 +309,7 @@ export class UserService {
     }
   }
 
-  // update Enrolle Course
+  // update Enrolled Course
   async updateCourse(
     updateEnrolledDto: UpdateEnrolledDTO,
     courseId: Schema.Types.ObjectId,

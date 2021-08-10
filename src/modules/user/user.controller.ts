@@ -94,6 +94,13 @@ export class UserController {
     return await this.userService.addWishlist(cId);
   }
 
+  @Get('/cartList')
+  @ApiOperation({ summary: 'Get all cartList courses' })
+  @ApiOkResponse(responsedoc.getCartList)
+  async getCartList(): Promise<any[]> {
+    return await this.userService.getCartList();
+  }
+
   @Put('/cartList')
   @ApiOperation({ summary: 'Add courses to cartList' })
   @ApiCreatedResponse(responsedoc.addCartList)
