@@ -6,6 +6,7 @@ import {
   Put,
   Delete,
   Param,
+  UseGuards,
 } from '@nestjs/common';
 import { AnnouncementService } from './announcement.service'; //eslint-disable-line 
 import { CreateAnnouncementDTO } from './dto/create-announcement.dto'; //eslint-disable-line 
@@ -19,13 +20,18 @@ import {
 import { UpdateAnnouncementDTO } from './dto/update-announcement.dto';
 import responsedoc from './docUtils/apidoc';
 import { announcementId } from './docUtils/announcement.paramdocs';
+import { RolesGuard } from '../../middleware/roles.guard';
+import { Roles } from '../../middleware/role.decorator';
+import { Role } from '../../roles/role.enum';
 
 @ApiTags('Announcement')
 @Controller('Announcement')
+@UseGuards(RolesGuard)
 export class AnnouncementController {
   constructor(private announcementService: AnnouncementService) {}
 
   @Post()
+  @Roles(Role.ADMIN)
   @ApiOperation({ summary: 'add an Announcement' })
   @ApiCreatedResponse(responsedoc.addAnnouncement)
   async addAnnouncement(@Body() CreateAnnouncementDTO: CreateAnnouncementDTO) {
@@ -52,6 +58,7 @@ export class AnnouncementController {
   }
 
   @Put('/:announcementId')
+  @Roles(Role.ADMIN)
   @ApiParam(announcementId)
   @ApiOperation({ summary: 'update Announcement by Id' })
   @ApiOkResponse(responsedoc.updateAnnouncement)
@@ -66,6 +73,7 @@ export class AnnouncementController {
   }
 
   @Delete('/:announcementId')
+  @Roles(Role.ADMIN)
   @ApiParam(announcementId)
   @ApiOperation({ summary: 'Delete an Announcement by Id' })
   @ApiOkResponse(responsedoc.deleteAnnouncement)

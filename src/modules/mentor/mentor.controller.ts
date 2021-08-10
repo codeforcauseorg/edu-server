@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiCreatedResponse,
@@ -20,13 +21,18 @@ import { MentorService } from './mentor.service'; //eslint-disable-line
 import { Schema } from 'mongoose';
 import responsedoc from './docUtils/apidoc';
 import { mentorId } from './docUtils/mentor.paramdocs';
+import { RolesGuard } from '../../middleware/roles.guard';
+import { Roles } from '../../middleware/role.decorator';
+import { Role } from '../../roles/role.enum';
 
 @ApiTags('Mentor')
 @Controller('Mentor')
+@UseGuards(RolesGuard)
 export class MentorController {
   constructor(private mentorService: MentorService) {}
 
   @Post()
+  @Roles(Role.ADMIN)
   @ApiOperation({ summary: 'add a Mentor' })
   @ApiCreatedResponse(responsedoc.addMentor)
   async addMentor(@Body() CreateMentorDTO: CreateMentorDTO) {
@@ -49,6 +55,7 @@ export class MentorController {
   }
 
   @Put('/update/:mentorId')
+  @Roles(Role.ADMIN)
   @ApiParam(mentorId)
   @ApiOperation({ summary: 'update info of a mentor using id' })
   @ApiOkResponse(responsedoc.updateMentor)
@@ -60,6 +67,7 @@ export class MentorController {
   }
 
   @Delete('/delete/:mentorId')
+  @Roles(Role.ADMIN)
   @ApiParam(mentorId)
   @ApiOperation({ summary: 'Delete a Mentor' })
   @ApiOkResponse(responsedoc.deleteMentor)
@@ -68,6 +76,7 @@ export class MentorController {
   }
 
   @Put('/assign/:mentorId')
+  @Roles(Role.ADMIN)
   @ApiParam(mentorId)
   @ApiOperation({ summary: 'assign course to mentor' })
   @ApiOkResponse(responsedoc.updateMentor)
