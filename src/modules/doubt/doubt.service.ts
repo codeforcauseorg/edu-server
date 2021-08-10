@@ -1,7 +1,9 @@
 import {
+  Inject,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
+  Scope,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Schema } from 'mongoose';
@@ -12,14 +14,19 @@ import { UpdateDoubtDto } from './dto/update-doubt.dto';
 import { DoubtAnswer } from './schema/doubtAnswer.schema';
 import { UpdateDoubtAnswerDto } from './dto/update-doubtAnswer.dto';
 import { CreateDoubtAnswerDto } from './dto/create-doubtAnswer.dto';
+import { User } from '../user/schema/user.schema';
+import { REQUEST } from '@nestjs/core';
+import { Request } from 'express';
 
-@Injectable()
+@Injectable({ scope: Scope.REQUEST })
 export class DoubtService {
   constructor(
     @InjectModel('Doubt') private readonly DoubtModel: Model<Doubt>,
     @InjectModel('Course') private readonly CourseModel: Model<Course>,
+    @InjectModel('User') private readonly UserModel: Model<User>,
     @InjectModel('DoubtAnswer')
     private readonly DoubtAnswerModel: Model<DoubtAnswer>,
+    @Inject(REQUEST) private readonly request: Request,
   ) {}
 
   // fetch all Doubts
@@ -54,9 +61,17 @@ export class DoubtService {
     createDoubtDto: CreateDoubtDto,
   ) {
     try {
+      const user = await this.UserModel.findOne({
+        email: this.request['user']['email'],
+      });
       const course = await this.CourseModel.findById(courseId);
       if (course) {
-        const newDoubt = await new this.DoubtModel(createDoubtDto).save();
+        const doubtToBeCreated = {
+          ...createDoubtDto,
+          photoUrl: user.photoUrl,
+          askedBy_name: user.first_name,
+        };
+        const newDoubt = await new this.DoubtModel(doubtToBeCreated).save();
         course.doubts.push(newDoubt);
         await course.save();
         return newDoubt.populate('answers');
@@ -138,9 +153,17 @@ export class DoubtService {
   ) {
     try {
       const doubt = await this.DoubtModel.findById(doubtId);
+      const user = await this.UserModel.findOne({
+        email: this.request['user']['email'],
+      });
       if (doubt) {
+        const doubtAnswerToBeCreated = {
+          ...createDoubtAnswerDto,
+          photoUrl: user.photoUrl,
+          answeredBy_name: user.first_name,
+        };
         const newDoubtAnswer = await new this.DoubtAnswerModel(
-          createDoubtAnswerDto,
+          doubtAnswerToBeCreated,
         ).save();
         doubt.answers.push(newDoubtAnswer);
         await doubt.save();

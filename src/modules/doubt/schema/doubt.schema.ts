@@ -25,6 +25,15 @@ export class Doubt {
 
   @Prop()
   request_mentor: boolean;
+
+  @Prop()
+  photoUrl: string;
+
+  @Prop()
+  askedBy_name: string;
+
+  @Prop()
+  doubtBody: string;
 }
 
 export const DoubtSchema = SchemaFactory.createForClass(Doubt);

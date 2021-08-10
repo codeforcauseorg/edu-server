@@ -56,4 +56,11 @@ export class CreateDoubtDto {
   @IsOptional()
   @IsNotEmpty()
   is_resolved: boolean;
+
+  /**
+   * The doubt body
+   * @example "the doubt description is ...."
+   */
+  @IsString()
+  doubtBody?: string;
 }

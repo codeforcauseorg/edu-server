@@ -43,6 +43,24 @@ export default class DoubtResponseBody {
    * @example ["Web development"]
    */
   tags: TagType[];
+
+  /**
+   * The photo url of the person who asked the doubt
+   * @example "https://google.com/john"
+   */
+  photoUrl: string;
+
+  /**
+   * The person who asked the doubt
+   * @example "John Doe"
+   */
+  askedBy_name: string;
+
+  /**
+   * The doubt body
+   * @example "the doubt description is ...."
+   */
+  doubtBody: string;
 }
 
 export class DoubtAnswerResponseBody {
@@ -63,4 +81,16 @@ export class DoubtAnswerResponseBody {
    * @example "We use this to conserve time by applying alogorithm of lesser time complexity"
    */
   answer: string;
+
+  /**
+   * The photo url of the person who answered the doubt
+   * @example "https://google.com/john"
+   */
+  photoUrl: string;
+
+  /**
+   * The person who asked the doubt
+   * @example "John Doe"
+   */
+  answeredBy_name: string;
 }
