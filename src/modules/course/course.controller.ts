@@ -7,6 +7,7 @@ import {
   Put,
   Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { UpdateCourseDTO } from './dto/course-update.dto';
 import { CourseService } from './course.service';
@@ -28,9 +29,13 @@ import responsedoc from './docUtils/apidoc';
 import { GetCourseFilterDto } from './dto/course-filter.dto';
 import { CreateLectureDto } from './dto/create-lecture.dto';
 import { UpdateLectureDto } from './dto/update-lecture.dto';
+import { RolesGuard } from '../../middleware/roles.guard';
+import { Roles } from '../../middleware/role.decorator';
+import { Role } from '../../roles/role.enum';
 
 @ApiTags('Course')
 @Controller('course')
+@UseGuards(RolesGuard)
 export class CourseController {
   constructor(private courseService: CourseService) {}
 
@@ -66,6 +71,7 @@ export class CourseController {
   }
 
   @Post('/create')
+  @Roles(Role.ADMIN)
   @ApiOperation({ summary: 'add a Course' })
   @ApiCreatedResponse(responsedoc.addCourse)
   async addCourse(@Body() createCourseDto: CreateCourseDto) {
@@ -73,6 +79,7 @@ export class CourseController {
   }
 
   @Put('/edit/:courseId')
+  @Roles(Role.ADMIN)
   @ApiParam(courseId)
   @ApiOperation({ summary: 'update a course by Id' })
   @ApiOkResponse(responsedoc.updateCourse)
@@ -84,6 +91,7 @@ export class CourseController {
   }
 
   @Delete('delete/:courseId')
+  @Roles(Role.ADMIN)
   @ApiParam(courseId)
   @ApiOperation({ summary: 'delete a course by Id' })
   @ApiOkResponse(responsedoc.deleteCourse)
@@ -92,6 +100,7 @@ export class CourseController {
   }
 
   @Post('/schedule/:courseId')
+  @Roles(Role.ADMIN)
   @ApiOperation({ summary: 'Create a Schedule' })
   @ApiCreatedResponse(responsedoc.addScheduleCourse)
   @ApiParam(courseId)
@@ -106,6 +115,7 @@ export class CourseController {
   }
 
   @Put('/schedule/:courseId/:scheduleId')
+  @Roles(Role.ADMIN)
   @ApiParam(courseId)
   @ApiOperation({ summary: 'update a Schedule by Id' })
   @ApiOkResponse(responsedoc.updateScheduleCourse)
@@ -122,6 +132,7 @@ export class CourseController {
   }
 
   @Delete('/schedule/:courseId/:scheduleId')
+  @Roles(Role.ADMIN)
   @ApiParam(courseId)
   @ApiOperation({ summary: 'Delete a schedule by Id' })
   @ApiOkResponse(responsedoc.deleteScheduleCourse)
@@ -171,6 +182,7 @@ export class CourseController {
   }
 
   @Post('/newLecture/:scheduleId')
+  @Roles(Role.ADMIN)
   @ApiParam(scheduleId)
   @ApiOperation({ summary: 'Create a Lecture' })
   @ApiCreatedResponse(responsedoc.addLecture)
@@ -182,6 +194,7 @@ export class CourseController {
   }
 
   @Put('/updateLecture/:scheduleId/:lectureId')
+  @Roles(Role.ADMIN)
   @ApiParam(scheduleId)
   @ApiOperation({ summary: 'update a Lecture by Id' })
   @ApiOkResponse(responsedoc.updateLecture)
@@ -198,6 +211,7 @@ export class CourseController {
   }
 
   @Delete('/deleteLecture/:scheduleId/:lectureId')
+  @Roles(Role.ADMIN)
   @ApiParam(scheduleId)
   @ApiOperation({ summary: 'Delete a Lecture by Id' })
   @ApiOkResponse(responsedoc.deleteLecture)
@@ -209,6 +223,7 @@ export class CourseController {
   }
 
   @Post('/mentor/:courseId/:mentorId')
+  @Roles(Role.ADMIN)
   @ApiOperation({ summary: 'Add a mentor to course' })
   @ApiCreatedResponse(responsedoc.addMentorToCourse)
   @ApiParam(courseId)

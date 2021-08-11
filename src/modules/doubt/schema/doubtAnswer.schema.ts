@@ -11,6 +11,12 @@ export class DoubtAnswer {
 
   @Prop({ required: true })
   answer: string;
+
+  @Prop()
+  photoUrl: string;
+
+  @Prop()
+  answeredBy_name: string;
 }
 
 export const DoubtAnswerSchema = SchemaFactory.createForClass(DoubtAnswer);

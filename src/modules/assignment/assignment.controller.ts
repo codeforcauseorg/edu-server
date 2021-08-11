@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Put, Delete, Param } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Put,
+  Delete,
+  Param,
+  UseGuards,
+} from '@nestjs/common';
 import { AssignmentService } from './assignment.service'; //eslint-disable-line 
 import { CreateAssignmentDTO } from './dto/create-assignment.dto'; //eslint-disable-line 
 import {
@@ -12,13 +20,18 @@ import { UpdateAssignmentDTO } from './dto/update-assignment.dto';
 import { Schema } from 'mongoose';
 import { courseId } from './docUtils/assignment.paramdocs';
 import responsedoc from './docUtils/apidoc';
+import { RolesGuard } from '../../middleware/roles.guard';
+import { Roles } from '../../middleware/role.decorator';
+import { Role } from '../../roles/role.enum';
 
 @ApiTags('Assignment')
 @Controller('assignment')
+@UseGuards(RolesGuard)
 export class AssignmentController {
   constructor(private assignmentService: AssignmentService) {}
 
   @Post('/:courseId')
+  @Roles(Role.ADMIN)
   @ApiCreatedResponse(responsedoc.addAssignment)
   @ApiParam(courseId)
   @ApiOperation({ summary: 'add an Assignment' })
@@ -33,6 +46,7 @@ export class AssignmentController {
   }
 
   @Put('/:courseId/:assignmentId')
+  @Roles(Role.ADMIN)
   @ApiParam(courseId)
   @ApiOperation({ summary: 'update an Assignment' })
   @ApiOkResponse(responsedoc.updateAssignment)
@@ -49,6 +63,7 @@ export class AssignmentController {
   }
 
   @Delete('/:courseId/:assignmentId')
+  @Roles(Role.ADMIN)
   @ApiParam(courseId)
   @ApiOperation({ summary: 'delete an Assignment' })
   @ApiOkResponse(responsedoc.deleteAssignment)

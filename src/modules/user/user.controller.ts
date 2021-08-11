@@ -8,6 +8,7 @@ import {
   Post,
   Put,
   Req,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiCreatedResponse,
@@ -23,9 +24,13 @@ import { CreateEnrolledDTO } from './dto/create-enrolled.dto';
 import { UpdateEnrolledDTO } from './dto/update-enrolled.dto';
 import { Schema } from 'mongoose';
 import responsedoc from './docUtils/apidoc';
+import { RolesGuard } from '../../middleware/roles.guard';
+import { Roles } from '../../middleware/role.decorator';
+import { Role } from '../../roles/role.enum';
 
 @ApiTags('User')
 @Controller('user')
+@UseGuards(RolesGuard)
 export class UserController {
   constructor(private userService: UserService) {}
 
@@ -94,6 +99,13 @@ export class UserController {
     return await this.userService.addWishlist(cId);
   }
 
+  @Get('/cartList')
+  @ApiOperation({ summary: 'Get all cartList courses' })
+  @ApiOkResponse(responsedoc.getCartList)
+  async getCartList(): Promise<any[]> {
+    return await this.userService.getCartList();
+  }
+
   @Put('/cartList')
   @ApiOperation({ summary: 'Add courses to cartList' })
   @ApiCreatedResponse(responsedoc.addCartList)
@@ -123,6 +135,7 @@ export class UserController {
   }
 
   @Delete('/delete')
+  @Roles(Role.ADMIN)
   @ApiOperation({ summary: 'Delete a User' })
   @ApiOkResponse({ type: UserResponseBody })
   async deleteUser(@Query() query) {
