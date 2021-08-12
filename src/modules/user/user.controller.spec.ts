@@ -121,7 +121,6 @@ describe('UserController', () => {
         first_name: 'New Name',
         last_name: 'New',
         phone: '',
-        wishlist: [],
         address: '',
         description: '',
         score: 1,
