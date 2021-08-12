@@ -39,10 +39,6 @@ export class UpdateUserDTO {
    */
   readonly score: number;
 
-  @ApiProperty({ type: [Schema.Types.ObjectId] })
-  @IsArray()
-  readonly wishlist?: Schema.Types.ObjectId[];
-
   /**
    * The photo url
    * @example 'unsplash1231main.jpeg'
