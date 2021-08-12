@@ -6,28 +6,28 @@ export type UserDocument = User & Document;
 
 @Schema({ timestamps: true })
 export class User {
-  @Prop()
+  @Prop({ default: '' })
   first_name: string;
 
-  @Prop()
+  @Prop({ default: '' })
   last_name: string;
 
   @Prop({ required: true })
   email: string;
 
-  @Prop()
+  @Prop({ default: '' })
   phone: string;
 
-  @Prop()
+  @Prop({ default: '' })
   photoUrl: string;
 
-  @Prop()
+  @Prop({ default: '' })
   coverPhotoUrl: string;
 
-  @Prop()
+  @Prop({ default: '' })
   address: string;
 
-  @Prop()
+  @Prop({ default: '' })
   description: string;
 
   @Prop({ default: 0 })
