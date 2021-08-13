@@ -30,9 +30,16 @@ export class DoubtService {
   ) {}
 
   // fetch all Doubts
-  async getAllDoubts() {
+  async getAllDoubts(skipNum: string) {
     try {
-      const doubts = await this.DoubtModel.find().populate('answers').lean();
+      const skip = parseInt(skipNum, 10);
+      const doubts = await this.DoubtModel.find(
+        {},
+        {},
+        { skip: skip, limit: 10 },
+      )
+        .populate('answers')
+        .lean();
       return doubts;
     } catch (e) {
       throw new InternalServerErrorException(e);

@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import {
   ApiCreatedResponse,
@@ -33,8 +34,8 @@ export class DoubtController {
   @Get()
   @ApiOkResponse(responsedoc.getAllDoubts)
   @ApiOperation({ summary: 'Retrieve doubts list' })
-  async getAllDoubts() {
-    return await this.doubtService.getAllDoubts();
+  async getAllDoubts(@Query('skipNum') skipNum: string) {
+    return await this.doubtService.getAllDoubts(skipNum);
   }
 
   @Get('/get/:doubtId')
