@@ -1,7 +1,3 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsArray } from 'class-validator';
-import { Schema } from 'mongoose';
-
 export class UpdateUserDTO {
   /**
    * First name of the user
