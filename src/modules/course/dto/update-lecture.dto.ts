@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, IsUrl } from 'class-validator';
 
 export class UpdateLectureDto {
   /**
@@ -24,4 +24,13 @@ export class UpdateLectureDto {
   @IsNotEmpty()
   @IsString()
   time: string;
+
+  /**
+   * The url video
+   * @example "https://codeforcause.org/video/1"
+   */
+  @IsNotEmpty()
+  @IsString()
+  @IsUrl()
+  lectureVideoUrl: string;
 }
