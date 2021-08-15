@@ -31,12 +31,6 @@ export class CreateEnrolledDTO {
    */
   currentVideo: video[];
 
-  /**
-   * The doubts of the student
-   * @example ['problem in BFS', 'unable to understand Dynamic Programming']
-   */
-  doubts: string[];
-
   @IsNotEmpty()
   @IsMongoId()
   @ApiProperty({ type: Schema.Types.ObjectId })

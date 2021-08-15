@@ -22,7 +22,7 @@ export class CreateDoubtDto {
   tags?: TagType[];
 
   /**
-   * The name of the person who asked the doubt
+   * The id of the person who asked the doubt
    * @example '60ccf3037025096f45cb87bf'
    */
   @IsNotEmpty()
@@ -63,4 +63,12 @@ export class CreateDoubtDto {
    */
   @IsString()
   doubtBody?: string;
+
+  /**
+   * The person who aasked the doubt
+   * @example "John Doe"
+   */
+  @IsString()
+  @IsNotEmpty()
+  askedBy_name: string;
 }

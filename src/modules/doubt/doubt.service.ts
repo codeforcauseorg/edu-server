@@ -76,7 +76,6 @@ export class DoubtService {
         const doubtToBeCreated = {
           ...createDoubtDto,
           photoUrl: user.photoUrl,
-          askedBy_name: user.first_name,
         };
         const newDoubt = await new this.DoubtModel(doubtToBeCreated).save();
         course.doubts.push(newDoubt);
@@ -167,7 +166,6 @@ export class DoubtService {
         const doubtAnswerToBeCreated = {
           ...createDoubtAnswerDto,
           photoUrl: user.photoUrl,
-          answeredBy_name: user.first_name,
         };
         const newDoubtAnswer = await new this.DoubtAnswerModel(
           doubtAnswerToBeCreated,
