@@ -26,9 +26,6 @@ export class EnrolledCourse {
   @Prop()
   currentVideo: video[];
 
-  @Prop()
-  doubts: string[];
-
   @Prop({ required: true })
   courseId: SchemaType.Types.ObjectId;
 }

@@ -30,9 +30,16 @@ export class DoubtService {
   ) {}
 
   // fetch all Doubts
-  async getAllDoubts() {
+  async getAllDoubts(skipNum: string) {
     try {
-      const doubts = await this.DoubtModel.find().populate('answers').lean();
+      const skip = parseInt(skipNum, 10);
+      const doubts = await this.DoubtModel.find(
+        {},
+        {},
+        { skip: skip, limit: 10 },
+      )
+        .populate('answers')
+        .lean();
       return doubts;
     } catch (e) {
       throw new InternalServerErrorException(e);
@@ -69,7 +76,6 @@ export class DoubtService {
         const doubtToBeCreated = {
           ...createDoubtDto,
           photoUrl: user.photoUrl,
-          askedBy_name: user.first_name,
         };
         const newDoubt = await new this.DoubtModel(doubtToBeCreated).save();
         course.doubts.push(newDoubt);
@@ -160,7 +166,6 @@ export class DoubtService {
         const doubtAnswerToBeCreated = {
           ...createDoubtAnswerDto,
           photoUrl: user.photoUrl,
-          answeredBy_name: user.first_name,
         };
         const newDoubtAnswer = await new this.DoubtAnswerModel(
           doubtAnswerToBeCreated,

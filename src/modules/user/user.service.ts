@@ -146,7 +146,7 @@ export class UserService {
       });
       if (user) {
         const userId = user.id;
-        const enrolledCourses = await this.enrolledModel.findOne({
+        const enrolledCourses = await this.enrolledModel.find({
           studentId: userId,
         });
         return enrolledCourses;
@@ -161,23 +161,40 @@ export class UserService {
   // adds Enrolled Course
   async addCourse(createEnrolledDTO: CreateEnrolledDTO) {
     try {
-      const newEnrolled = await new this.enrolledModel(createEnrolledDTO);
+      const user = await this.userModel.findOne({
+        email: this.request['user']['email'],
+      });
+      if (user) {
+        const courseIdSearch = await this.enrolledModel
+          .find({ studentId: user.id })
+          .lean();
+        courseIdSearch.forEach((singleEnrolled) => {
+          if (singleEnrolled.courseId == createEnrolledDTO['courseId']) {
+            throw new ConflictException('Course Already Enrolled by user');
+          }
+        });
+        const newEnrolled = await new this.enrolledModel(createEnrolledDTO);
 
-      const course = await this.courseModel.findById(
-        createEnrolledDTO.courseId,
-      );
+        const course = await this.courseModel.findById(
+          createEnrolledDTO.courseId,
+        );
 
-      if (course) {
-        newEnrolled['videosWatched'] = new Array(course.video_num).fill(false);
-        await newEnrolled.save();
-        return newEnrolled;
-      } else {
-        throw new NotFoundException('course not found!');
-      }
+        if (course) {
+          newEnrolled['videosWatched'] = new Array(course.video_num).fill(
+            false,
+          );
+          await newEnrolled.save();
+          return newEnrolled;
+        } else {
+          throw new NotFoundException('course not found!');
+        }
 
-      // a test line to see the populated sets of data
-      /*const newF = await this.enrolledModel.find({}).populate('students');
+        // a test line to see the populated sets of data
+        /*const newF = await this.enrolledModel.find({}).populate('students');
       return newF;*/
+      } else {
+        throw new NotFoundException('user not found!');
+      }
     } catch (e) {
       throw new InternalServerErrorException(e);
     }

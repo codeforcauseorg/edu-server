@@ -50,9 +50,10 @@ export class CourseService {
   }
 
   // fetch all courses
-  async getAllCourses(): Promise<Course[]> {
+  async getAllCourses(skipNum: string): Promise<Course[]> {
     try {
-      return await this.CourseModel.find()
+      const skip = parseInt(skipNum, 10);
+      return await this.CourseModel.find({}, {}, { skip: skip, limit: 10 })
         .populate('schedule')
         .populate('reviews')
         .populate('assignments')
@@ -63,9 +64,10 @@ export class CourseService {
   }
 
   // fetch brief info for cards for all courses
-  async getBreifAllCourses(): Promise<Course[]> {
+  async getBreifAllCourses(skipNum: string): Promise<Course[]> {
     try {
-      return await this.CourseModel.find()
+      const skip = parseInt(skipNum, 10);
+      return await this.CourseModel.find({}, {}, { skip: skip, limit: 10 })
         .select(
           'name courseShortDescription tags rating no_of_enrollments mentor crossPrice courseLevel courseThumbnail duration reviews video_num isUpcoming',
         )

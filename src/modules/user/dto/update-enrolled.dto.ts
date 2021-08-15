@@ -21,10 +21,4 @@ export class UpdateEnrolledDTO {
    * @example { num: 1, timestamp: Date.now() }
    */
   currentVideo: video[];
-
-  /**
-   * The doubts of the student
-   * @example ['problem in BFS', 'unable to understand Dynamic Programming']
-   */
-  doubts: string[];
 }

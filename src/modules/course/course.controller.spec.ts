@@ -79,7 +79,9 @@ describe('CourseController', () => {
   describe('Course', () => {
     // course creation
     it('should be created', async () => {
-      await expect(controller.getAllCourses()).resolves.toEqual([mockCourse]);
+      await expect(controller.getAllCourses('0')).resolves.toEqual([
+        mockCourse,
+      ]);
     });
 
     // course found by id
