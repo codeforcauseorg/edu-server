@@ -21,7 +21,7 @@ export class MentorService {
   // fetch all Mentors
   async getAllMentor(): Promise<Mentor[]> {
     try {
-      const mentors = await this.mentorModel.find();
+      const mentors = await this.mentorModel.find().exec();
       return mentors;
     } catch (e) {
       throw new InternalServerErrorException(e);
@@ -58,11 +58,12 @@ export class MentorService {
     UpdateMentorDTO: UpdateMentorDTO,
   ): Promise<Mentor> {
     try {
-      return await this.mentorModel.findByIdAndUpdate(
-        mentorId,
-        UpdateMentorDTO,
-        { new: true, useFindAndModify: false },
-      );
+      return await this.mentorModel
+        .findByIdAndUpdate(mentorId, UpdateMentorDTO, {
+          new: true,
+          useFindAndModify: false,
+        })
+        .exec();
     } catch (e) {
       throw new InternalServerErrorException(e);
     }
