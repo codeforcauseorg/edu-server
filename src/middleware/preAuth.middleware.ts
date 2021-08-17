@@ -38,7 +38,7 @@ export class PreauthMiddleware implements NestMiddleware {
               fid: uid,
               role: Role.STUDENT,
               photoUrl: picture,
-              log_in_time: ' ',
+              log_in_time: '',
             });
             await newUser.save();
             role = Role.STUDENT;
