@@ -83,6 +83,12 @@ export default class UserResponseBody {
    * @example "60ccf3037025096f45cb87ba"
    */
   fId: string;
+
+  /**
+   * Login Time
+   * @example "Wed Aug 18 2021 00:13:13 GMT+0530 (India Standard Time)"
+   */
+  log_in_time: string;
 }
 
 interface video {

@@ -44,6 +44,9 @@ export class User {
 
   @Prop()
   fId: string;
+
+  @Prop()
+  log_in_time: string;
 }
 
 const UserSchema = SchemaFactory.createForClass(User);
