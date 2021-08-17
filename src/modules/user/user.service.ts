@@ -43,6 +43,7 @@ export class UserService {
       const users = await this.userModel
         .find({}, { _id: false })
         .select('first_name last_name score photoUrl')
+        .sort({ score: 1 })
         .exec();
       return users;
     } catch (e) {

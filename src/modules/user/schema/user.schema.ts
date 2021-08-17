@@ -46,7 +46,10 @@ export class User {
   fId: string;
 }
 
-export const UserSchema = SchemaFactory.createForClass(User);
+const UserSchema = SchemaFactory.createForClass(User);
+
+UserSchema.index({ score: 1 });
+export default UserSchema;
 
 UserSchema.methods.toJSON = function () {
   const userObject = this.toObject();
