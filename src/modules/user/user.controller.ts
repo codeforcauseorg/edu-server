@@ -121,10 +121,18 @@ export class UserController {
   }
 
   @Get('/users')
+  @Roles(Role.ADMIN)
   @ApiOperation({ summary: 'Retreive user list' })
   @ApiOkResponse(responsedoc.getAllUser)
   async getAllUser() {
     return await this.userService.getAllUser();
+  }
+
+  @Get('/Gamification')
+  @ApiOperation({ summary: 'Gamification data retreival endpoint' })
+  @ApiOkResponse(responsedoc.getAllGamified)
+  async getAllGamified() {
+    return await this.userService.getAllGamified();
   }
 
   @Put('/update')

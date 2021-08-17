@@ -41,6 +41,10 @@ export default class UserResponseBody {
    */
   description: string;
 
+  /**
+   * Score of the user
+   * @example 100
+   */
   score: number;
 
   /**
@@ -122,4 +126,30 @@ export class EnrolledCourseResponseBody {
    * @example "60ccf06ad682336931f0a61b"
    */
   courseId: string;
+}
+
+export class getAllGamifiedResponseBody {
+  /**
+   * First name of the user
+   * @example 'John'
+   */
+  first_name: string;
+
+  /**
+   * Last name of the user
+   * @example 'Doe'
+   */
+  last_name: string;
+
+  /**
+   * Score of the user
+   * @example 100
+   */
+  score: number;
+
+  /**
+   * The photo url
+   * @example 'https://g.gle/mypic.jpeg'
+   */
+  photoUrl: string;
 }

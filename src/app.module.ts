@@ -52,6 +52,10 @@ export class AppModule {
           method: RequestMethod.GET,
         },
         {
+          path: 'user/Gamification',
+          method: RequestMethod.GET,
+        },
+        {
           path: 'Doubt/(.*)',
           method: RequestMethod.GET,
         },

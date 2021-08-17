@@ -37,6 +37,19 @@ export class UserService {
     }
   }
 
+  // fetch all gamification data
+  async getAllGamified(): Promise<User[]> {
+    try {
+      const users = await this.userModel
+        .find({}, { _id: false })
+        .select('first_name last_name score photoUrl')
+        .exec();
+      return users;
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+  }
+
   // Get a single User
   async findUserByEmail(query): Promise<User> {
     try {
