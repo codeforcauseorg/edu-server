@@ -155,7 +155,7 @@ export class getAllGamifiedResponseBody {
 
   /**
    * The photo url
-   * @example 'https://g.gle/mypic.jpeg'
+   * @example 'https://cdn.pixabay.com/photo/2015/03/04/22/35/head-659652_1280.png'
    */
   photoUrl: string;
 }

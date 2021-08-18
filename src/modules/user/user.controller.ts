@@ -128,7 +128,7 @@ export class UserController {
     return await this.userService.getAllUser();
   }
 
-  @Get('/Gamification')
+  @Get('/gamification')
   @ApiOperation({ summary: 'Gamification data retreival endpoint' })
   @ApiOkResponse(responsedoc.getAllGamified)
   async getAllGamified() {
