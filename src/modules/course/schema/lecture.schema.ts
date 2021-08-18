@@ -12,6 +12,9 @@ export class Lecture {
   description: string;
 
   @Prop({ required: true })
+  lectureVideoUrl: string;
+
+  @Prop({ required: true })
   time: string;
 }
 

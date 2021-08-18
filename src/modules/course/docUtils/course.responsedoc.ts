@@ -273,4 +273,10 @@ export class LectureResponseBody {
    * @example "5 minutes"
    */
   time: string;
+
+  /**
+   * The url video
+   * @example "https://codeforcause.org/video/1"
+   */
+  lectureVideoUrl: string;
 }
