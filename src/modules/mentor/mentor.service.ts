@@ -31,7 +31,7 @@ export class MentorService {
   // Get a single Mentor
   async findMentorById(mentorId: Schema.Types.ObjectId): Promise<Mentor> {
     try {
-      const mentor = await this.mentorModel.findById(mentorId);
+      const mentor = await this.mentorModel.findById(mentorId).exec();
 
       if (mentor) {
         return mentor;

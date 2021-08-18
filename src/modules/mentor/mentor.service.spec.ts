@@ -100,14 +100,17 @@ describe('MentorService', () => {
     });
 
     // Test for testing the service for finding a Mentor by id
-    it.skip('should getOne Mentor by id', async () => {
+    it('should getOne Mentor by id', async () => {
       jest.spyOn(model, 'findById').mockReturnValueOnce(
         createMock<Query<MentorDoc, MentorDoc>>({
           exec: jest.fn().mockResolvedValueOnce(mockMentorDoc()),
         }),
       );
-      const findMockMentor = mockMentor();
       const id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
+      const findMockMentor = {
+        ...mockMentor(),
+        _id: '6079f573062890a5e2cad207',
+      };
       const foundMentor = await service.findMentorById(id);
       expect(foundMentor).toEqual(findMockMentor);
     });
