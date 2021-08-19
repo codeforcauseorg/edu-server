@@ -38,10 +38,11 @@ export class UserService {
   }
 
   // fetch all gamification data
-  async getAllGamified(): Promise<User[]> {
+  async getAllGamified(skipNum: string): Promise<User[]> {
     try {
+      const skip = parseInt(skipNum, 10);
       const users = await this.userModel
-        .find({}, { _id: false })
+        .find({}, { _id: false }, { skip: skip, limit: 10 })
         .select('first_name last_name score photoUrl')
         .sort({ score: 1 })
         .exec();

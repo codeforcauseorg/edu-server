@@ -131,8 +131,8 @@ export class UserController {
   @Get('/gamification')
   @ApiOperation({ summary: 'Gamification data retreival endpoint' })
   @ApiOkResponse(responsedoc.getAllGamified)
-  async getAllGamified() {
-    return await this.userService.getAllGamified();
+  async getAllGamified(@Query('skipNum') skipNum: string) {
+    return await this.userService.getAllGamified(skipNum);
   }
 
   @Put('/update')
