@@ -26,12 +26,19 @@ export class PreauthMiddleware implements NestMiddleware {
 
           if (userExists) {
             role = userExists.role || Role.STUDENT;
+            await this.userModel.updateOne(
+              { email: userExists.email },
+              {
+                log_in_time: new Date().toString(),
+              },
+            );
           } else {
             const newUser = new this.userModel({
               email,
               fid: uid,
               role: Role.STUDENT,
               photoUrl: picture,
+              log_in_time: ' ',
             });
             await newUser.save();
             role = Role.STUDENT;

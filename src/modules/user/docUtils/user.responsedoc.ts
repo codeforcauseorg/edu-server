@@ -41,6 +41,10 @@ export default class UserResponseBody {
    */
   description: string;
 
+  /**
+   * Score of the user
+   * @example 100
+   */
   score: number;
 
   /**
@@ -79,6 +83,12 @@ export default class UserResponseBody {
    * @example "60ccf3037025096f45cb87ba"
    */
   fId: string;
+
+  /**
+   * Login Time
+   * @example "Wed Aug 18 2021 00:13:13 GMT+0530 (India Standard Time)"
+   */
+  log_in_time: string;
 }
 
 interface video {
@@ -122,4 +132,30 @@ export class EnrolledCourseResponseBody {
    * @example "60ccf06ad682336931f0a61b"
    */
   courseId: string;
+}
+
+export class getAllGamifiedResponseBody {
+  /**
+   * First name of the user
+   * @example 'John'
+   */
+  first_name: string;
+
+  /**
+   * Last name of the user
+   * @example 'Doe'
+   */
+  last_name: string;
+
+  /**
+   * Score of the user
+   * @example 100
+   */
+  score: number;
+
+  /**
+   * The photo url
+   * @example 'https://cdn.pixabay.com/photo/2015/03/04/22/35/head-659652_1280.png'
+   */
+  photoUrl: string;
 }

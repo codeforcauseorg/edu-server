@@ -16,6 +16,7 @@ const mockuser = {
   phone: '9909999099',
   __v: 0,
   photoUrl: 'https://google.com/john',
+  log_in_time: 'Wed Aug 18 2021 00:13:13 GMT+0530 (India Standard Time)',
 };
 
 describe('UserController', () => {
@@ -70,6 +71,7 @@ describe('UserController', () => {
       await expect(controller.addUser('x', dto)).resolves.toEqual({
         '0': 'x',
         role: 'Student',
+        log_in_time: 'Wed Aug 18 2021 00:13:13 GMT+0530 (India Standard Time)',
         ...mockuser,
       });
     });
@@ -133,6 +135,7 @@ describe('UserController', () => {
         email,
         role: 'Student',
         ...dto,
+        log_in_time: 'Wed Aug 18 2021 00:13:13 GMT+0530 (India Standard Time)',
         cartList: [],
         wishlist: [],
         enrolled_courses: [],

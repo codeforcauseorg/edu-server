@@ -1,5 +1,6 @@
 import UserResponseBody, {
   EnrolledCourseResponseBody,
+  getAllGamifiedResponseBody,
 } from './user.responsedoc';
 import { ApiResponseOptions } from '@nestjs/swagger';
 
@@ -64,6 +65,11 @@ const deleteCartList: ApiResponseOptions = {
   type: UserResponseBody,
 };
 
+const getAllGamified: ApiResponseOptions = {
+  description: 'Delete course from cartList',
+  type: getAllGamifiedResponseBody,
+};
+
 const responses = {
   addUser,
   getAllUser,
@@ -77,6 +83,7 @@ const responses = {
   addCartList,
   deleteCartList,
   getCartList,
+  getAllGamified,
 };
 
 export default responses;

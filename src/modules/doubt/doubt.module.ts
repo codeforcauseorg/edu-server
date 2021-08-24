@@ -5,7 +5,7 @@ import { DoubtController } from './doubt.controller';
 import { DoubtService } from './doubt.service';
 import { CourseSchema } from '../course/schema/course.schema';
 import { DoubtAnswerSchema } from './schema/doubtAnswer.schema';
-import { UserSchema } from '../user/schema/user.schema';
+import UserSchema from '../user/schema/user.schema';
 
 @Module({
   imports: [
