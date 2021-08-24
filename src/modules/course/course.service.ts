@@ -139,6 +139,20 @@ export class CourseService {
     }
   }
 
+  // dummy Service for getting 1 course by Id for testing method
+  async findCourseDummy(courseId: Schema.Types.ObjectId): Promise<Course> {
+    try {
+      const Course = await this.CourseModel.findById(courseId).exec();
+      if (Course) {
+        return Course;
+      } else {
+        throw new NotFoundException('course not found');
+      }
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
+  }
+
   // add course
   async addCourse(createCourseDto: CreateCourseDto): Promise<Course> {
     try {

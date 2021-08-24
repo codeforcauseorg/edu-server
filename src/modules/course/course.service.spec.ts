@@ -176,10 +176,11 @@ describe('CourseService', () => {
   });
 
   beforeEach(() => {
-    jest.setTimeout(10000);
+    jest.setTimeout(25000);
   });
 
   afterEach(() => {
+    jest.setTimeout(5000);
     jest.clearAllMocks();
   });
 
@@ -198,15 +199,18 @@ describe('CourseService', () => {
     });
 
     // Test for testing the service for finding a Course  by id
-    it.skip('should getOne course by id', async () => {
+    it('should getOne Course by id', async () => {
       jest.spyOn(model, 'findById').mockReturnValueOnce(
         createMock<Query<CourseDoc, CourseDoc>>({
           exec: jest.fn().mockResolvedValueOnce(mockCourseDoc()),
         }),
       );
-      const findMockCourse = mockCourse();
       const id = new mongoose.Schema.Types.ObjectId('22', 0, 'rtex');
-      const foundCourse = await service.findCourseById(id);
+      const findMockCourse = {
+        ...mockCourse(),
+        _id: '6079f573062890a5e2cad207',
+      };
+      const foundCourse = await service.findCourseDummy(id);
       expect(foundCourse).toEqual(findMockCourse);
     });
 
