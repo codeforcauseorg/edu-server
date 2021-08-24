@@ -52,7 +52,7 @@ export class AppModule {
           method: RequestMethod.GET,
         },
         {
-          path: 'user/Gamification',
+          path: 'user/gamification',
           method: RequestMethod.GET,
         },
         {
