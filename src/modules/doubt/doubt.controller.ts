@@ -34,8 +34,8 @@ export class DoubtController {
   @Get()
   @ApiOkResponse(responsedoc.getAllDoubts)
   @ApiOperation({ summary: 'Retrieve doubts list' })
-  async getAllDoubts(@Query('skipNum') skipNum: string) {
-    return await this.doubtService.getAllDoubts(skipNum);
+  async getAllDoubts(@Query('skip') skip: string) {
+    return await this.doubtService.getAllDoubts(skip);
   }
 
   @Get('/get/:doubtId')

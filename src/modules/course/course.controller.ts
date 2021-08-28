@@ -44,8 +44,8 @@ export class CourseController {
     summary: 'get brief information on cards for all courses initially',
   })
   @ApiOkResponse(responsedoc.getAllCourses)
-  async getBreifAllCourses(@Query('skipNum') skipNum: string) {
-    return await this.courseService.getBreifAllCourses(skipNum);
+  async getBreifAllCourses(@Query('skip') skip: string) {
+    return await this.courseService.getBreifAllCourses(skip);
   }
 
   @Get('/all/query')
@@ -58,8 +58,8 @@ export class CourseController {
   @Get('/all')
   @ApiOperation({ summary: 'get all courses' })
   @ApiOkResponse(responsedoc.getAllCourses)
-  async getAllCourses(@Query('skipNum') skipNum: string) {
-    return await this.courseService.getAllCourses(skipNum);
+  async getAllCourses(@Query('skip') skip: string) {
+    return await this.courseService.getAllCourses(skip);
   }
 
   @Get('/:courseId')
