@@ -25,7 +25,7 @@ import { Roles } from '../../middleware/role.decorator';
 import { Role } from '../../roles/role.enum';
 
 @ApiTags('Announcement')
-@Controller('Announcement')
+@Controller('announcement')
 @UseGuards(RolesGuard)
 export class AnnouncementController {
   constructor(private announcementService: AnnouncementService) {}

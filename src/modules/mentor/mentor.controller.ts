@@ -26,7 +26,7 @@ import { Roles } from '../../middleware/role.decorator';
 import { Role } from '../../roles/role.enum';
 
 @ApiTags('Mentor')
-@Controller('Mentor')
+@Controller('mentor')
 @UseGuards(RolesGuard)
 export class MentorController {
   constructor(private mentorService: MentorService) {}

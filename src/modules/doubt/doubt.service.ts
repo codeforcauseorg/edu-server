@@ -30,13 +30,13 @@ export class DoubtService {
   ) {}
 
   // fetch all Doubts
-  async getAllDoubts(skipNum: string) {
+  async getAllDoubts(skip: string) {
     try {
-      const skip = parseInt(skipNum, 10);
+      const skipNum = parseInt(skip, 10);
       const doubts = await this.DoubtModel.find(
         {},
         {},
-        { skip: skip, limit: 10 },
+        { skip: skipNum, limit: 10 },
       )
         .populate('answers')
         .lean();
